@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>52519291-0bb2-40bd-bd28-5ebd72717794</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>2b0057af-51fb-4dd1-bca0-d21628163494</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Library">
+      <UniqueIdentifier>{1903a5e4-aa58-4147-9514-55f3598b7754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{317f6788-c2e6-42f2-97eb-84398ae74326}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SceneState">
+      <UniqueIdentifier>{15b73e56-7707-4d69-8f56-d4cd53ae48f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{f22d737b-1808-445c-ae88-079cedbfaf40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{50efaadc-d734-47d0-9189-fd3aaf536767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces">
+      <UniqueIdentifier>{8426b171-c48d-4cb5-962c-054131dc48ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\FBX">
+      <UniqueIdentifier>{4c8174a5-16c0-40af-931f-5bf5babd8a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene">
+      <UniqueIdentifier>{aa37d9a8-fedd-4ef5-9dc4-f95da7726f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player">
+      <UniqueIdentifier>{8e014896-e4d2-4e5c-8b5f-d97855abf94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\State">
+      <UniqueIdentifier>{8d54c130-e59c-40e4-ac42-2f4d39d60dfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager">
+      <UniqueIdentifier>{dd87b402-3809-4b27-9bf9-d9fefdb85def}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\FloorObject">
+      <UniqueIdentifier>{8a61e5da-7d44-4e19-899d-65454eaa7ab7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mesh">
+      <UniqueIdentifier>{00661865-1765-4070-b24a-a3fad4114c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\CollitionManager">
+      <UniqueIdentifier>{f3794c50-8b7e-4c46-a144-2b0fd5947247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Enemy">
+      <UniqueIdentifier>{a0b8719e-f655-431e-9b3c-40a96f6c903a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Enemy\Enemy">
+      <UniqueIdentifier>{5381038d-0fea-48fc-8458-48f626a8764d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Enemy\Enemy\CommonEnemy">
+      <UniqueIdentifier>{76b3ad83-0f89-41f2-9a72-d34a14bffb0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State">
+      <UniqueIdentifier>{cfb4077a-20ac-439f-a15f-e229c5fca092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Bones">
+      <UniqueIdentifier>{5d407fbb-53c6-4835-a3a6-6e0f55452b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera\PlayerCamera">
+      <UniqueIdentifier>{ce56b838-d436-4b62-b62d-3444458e42ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera\PlayerCamera\State">
+      <UniqueIdentifier>{e4580d1a-ba01-43d3-944a-d4b124e66e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\WireObject">
+      <UniqueIdentifier>{59719ea9-2e1d-4cca-ab5c-9d74636e44ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\WallObject">
+      <UniqueIdentifier>{0f38d5f3-2861-4feb-9033-16145fd21a32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager">
+      <UniqueIdentifier>{4afb6e23-a37d-4e02-807d-eaa6441dd6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader">
+      <UniqueIdentifier>{05f01641-4dd8-422f-99e2-2cbbd4243778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI">
+      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\Clock">
+      <UniqueIdentifier>{3175a090-b1e6-4f9c-8c9a-86954e50d45c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Number">
+      <UniqueIdentifier>{ced588ef-36f4-469d-833c-2dfe5148894d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\CoolTime">
+      <UniqueIdentifier>{bd721785-f296-41a3-a5cf-c7957e087000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\CoolTime">
+      <UniqueIdentifier>{6c3895e0-c78b-461b-bdae-5373834bc64d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="StepTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceResources.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\IScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneState\PlayScene.h">
+      <Filter>Scene\SceneState</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Library.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Player.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerStay.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerWalk.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerCrouching.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h">
+      <Filter>Game\PlayScene\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\LibrarySingleton.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerJump.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.h">
+      <Filter>Game\PlayScene\ObjectManager\FloorObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\LeadMesh.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionManager.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\CollitionManager\CollitionManager.h">
+      <Filter>Game\PlayScene\CollitionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\ObjectMesh.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\Triangle.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\DrawMesh.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerSliding.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DebugDraw.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionFloor.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionWall.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerDash.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\EnemyManager.h">
+      <Filter>Game\PlayScene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerSlowTime.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerAttack.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerWallWalk.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemy.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyStay.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\ICommonEnemy.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Bones\ModelBons.h">
+      <Filter>Library\Bones</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyAttack.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyCharge.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBulletManager.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBullet.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h">
+      <Filter>Game\PlayScene\CollitionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.h">
+      <Filter>Game\Camera\PlayerCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\IPlayerCamera.h">
+      <Filter>Game\Camera\PlayerCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\DebugCamera.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h">
+      <Filter>Game\PlayScene\ObjectManager\WireObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h">
+      <Filter>Game\PlayScene\ObjectManager\WallObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\CollitionManager\CollitionInformation.h">
+      <Filter>Game\PlayScene\CollitionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\PlayerInformationCollition.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\PlayerInformation.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerWallJump.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\PlayerInformationCamera.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\UIManager.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\UIRender.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h">
+      <Filter>Game\PlayScene\UIManager\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h">
+      <Filter>Game\PlayScene\UIManager\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\NumberShader.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h">
+      <Filter>Game\PlayScene\UIManager\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\CircleShader.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h">
+      <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\PlayerInformationUI.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerDeath.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\IPlayer.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\LibrarySingleton.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneState\PlayScene.cpp">
+      <Filter>Scene\SceneState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Player.cpp">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerStay.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerWalk.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerCrouching.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp">
+      <Filter>Game\PlayScene\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerJump.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\FloorObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\LeadMesh.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionManager.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\CollitionManager\CollitionManager.cpp">
+      <Filter>Game\PlayScene\CollitionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\ObjectMesh.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\DrawMesh.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerSliding.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\DebugDraw.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionFloor.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionWall.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerDash.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\EnemyManager.cpp">
+      <Filter>Game\PlayScene\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerSlowTime.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerAttack.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerWallWalk.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemy.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyStay.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Bones\ModelBons.cpp">
+      <Filter>Library\Bones</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyAttack.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyCharge.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBulletManager.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBullet.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp">
+      <Filter>Game\PlayScene\CollitionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.cpp">
+      <Filter>Game\Camera\PlayerCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\DebugCamera.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\WireObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\WallObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\CollitionManager\CollitionInformation.cpp">
+      <Filter>Game\PlayScene\CollitionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerWallJump.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp">
+      <Filter>Game\PlayScene\UIManager\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp">
+      <Filter>Game\PlayScene\UIManager\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\NumberShader.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp">
+      <Filter>Game\PlayScene\UIManager\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\CircleShader.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp">
+      <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerDeath.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="directx.ico">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="settings.manifest">
+      <Filter>Assets</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\Shader\UI\UIShader.hlsli">
+      <Filter>Resorces\Shader\UI</Filter>
+    </None>
+    <None Include="Resources\Shader\Number\Number.hlsli">
+      <Filter>Resorces\Shader\Number</Filter>
+    </None>
+    <None Include="Resources\Shader\CoolTime\CoolTime.hlsli">
+      <Filter>Resorces\Shader\CoolTime</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="FBX\Floor.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\CommonBullet.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Wire.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\WireRange.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\WallObject01.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\Shader\UI\UIShaderGS.hlsl">
+      <Filter>Resorces\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\UIShaderPS.hlsl">
+      <Filter>Resorces\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\UIShaderVS.hlsl">
+      <Filter>Resorces\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Number\NumberGS.hlsl">
+      <Filter>Resorces\Shader\Number</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Number\NumberPS.hlsl">
+      <Filter>Resorces\Shader\Number</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Number\NumberVS.hlsl">
+      <Filter>Resorces\Shader\Number</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\CoolTime\CoolTimeGS.hlsl">
+      <Filter>Resorces\Shader\CoolTime</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\CoolTime\CoolTimePS.hlsl">
+      <Filter>Resorces\Shader\CoolTime</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\CoolTime\CoolTimeVS.hlsl">
+      <Filter>Resorces\Shader\CoolTime</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
