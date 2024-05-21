@@ -15,7 +15,7 @@ public:
 	//		コンストラクタ
 	PlayerInformation() 
 		:
-		m_position{ 0.0f, 10.0f, 0.0f },
+		m_position{ 0.0f, 0.0f, 0.0f },
 		m_planPosition{ 0.0f, 0 ,0.0f },
 		m_heightTime(0.0f),
 		m_fallTime(0.0f),
@@ -25,7 +25,8 @@ public:
 		m_dashJudgement(true),
 		m_dashCoolTime(0.0f),
 		m_jumpJudgement(true),
-		m_respownJudgement(false)
+		m_respownJudgement(false),
+		m_headWallMove(0.0f)
 	{};
 
 	//		デストラクタ
@@ -167,7 +168,41 @@ private:
 	//		リスポーンするかどうか
 	bool m_respownJudgement;
 
+	//		頭の動き
+	float m_headWallMove;
+
+	//		壁移動時の法線
+	DirectX::SimpleMath::Vector3 m_wallWalkNormalize;
+
 public:
+
+	/*
+	*	壁移動時の法線を受け取る
+	*
+	*	@return 法線
+	*/
+	const DirectX::SimpleMath::Vector3& GetWallWalkNormalize() { return m_wallWalkNormalize; }
+
+	/*
+	*	壁移動時の法線を設定する
+	*
+	*	@param	(normalize)	法線
+	*/
+	void SetWallWalkNormalize(const DirectX::SimpleMath::Vector3& normalize) { m_wallWalkNormalize = normalize; }
+
+	/*
+	*	頭の動きを受け取る
+	*
+	*	@return 移動量
+	*/
+	float GetHeadMove() { return m_headWallMove; }
+
+	/*
+	*	頭の動きを設定する
+	*
+	*	@parma	移動量
+	*/
+	void SetHeadMove(float headWallMove) { m_headWallMove = headWallMove; }
 
 	/*
 	*	ワールド座標を受け取る

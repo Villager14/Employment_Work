@@ -43,9 +43,9 @@ void PlayerWallWalkCamera::Update()
 		RadianConversion(&angle, &radian);
 
 		//		カメラの角度を設定する
-		m_playerCameraManager->SetAngle({ 
+		m_playerCameraManager->GetInformation()->SetAngle({
 			Library::Lerp(angle, radian, m_time),
-			m_playerCameraManager->GetAngle().y });
+			m_playerCameraManager->GetInformation()->GetAngle().y });
 	}
 	else
 	{
@@ -55,9 +55,9 @@ void PlayerWallWalkCamera::Update()
 
 	//		デグリーからラジアンへ行列にする
 	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::
-		CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetAngle().x));
+		CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
 	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::
-		CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetAngle().y));
+		CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().y));
 
 	//		向いている角度にする
 	DirectX::SimpleMath::Matrix rotation = matrixY * matrixX;
@@ -113,7 +113,7 @@ void PlayerWallWalkCamera::RadianConversion(float* cameraangle, float* velocityR
 		m_playerCameraManager->GetPlayerInformationCamera()->GetAcceleration().x)));
 
 	//		カメラの角度を受け取る
-	int angle = static_cast<int>(m_playerCameraManager->GetAngle().x);
+	int angle = static_cast<int>(m_playerCameraManager->GetInformation()->GetAngle().x);
 
 	//		範囲を0~３６０にする
 	radian = (radian - 90) % 360;

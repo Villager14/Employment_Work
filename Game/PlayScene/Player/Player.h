@@ -11,7 +11,7 @@
 
 #include "Game/PlayScene/Player/PlayerInformationCollition.h"
 
-#include "Game/PlayScene/Player/PlayerInformationCamera.h"
+#include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
 #include "PlayerInformation.h"
 
@@ -26,6 +26,7 @@
 #include "State/PlayerWire.h"
 #include "State/PlayerWallJump.h"
 #include "State/PlayerDeath.h"
+#include "State/PlayerStart.h"
 
 #include "State/PlayerAttack.h"
 
@@ -41,6 +42,7 @@ class PlayerWallWalk;
 class PlayerWire;
 class PlayerWallJump;
 class PlayerDeath;
+class PlayerStart;
 
 class Player
 {
@@ -56,7 +58,7 @@ public:
 	void Initialize();
 
 	//		更新処理
-	void Update();
+	void Update(PlayerCameraInformation* cameraInformation);
 
 	//		メッシュの更新
 	void MeshUpdate();
@@ -163,6 +165,9 @@ private:
 
 	//		プレイヤーの死亡状態
 	std::unique_ptr<PlayerDeath> m_playerDeath;
+
+	//		プレイヤーのスタート状態
+	std::unique_ptr<PlayerStart> m_playerStart;
 public:
 
 	/*
@@ -242,27 +247,12 @@ public:
 	*/
 	PlayerDeath* GetDeathState() { return m_playerDeath.get(); }
 
-private:
-	//		立つ速度
-	const float STANDING_SPEED = 3.0f;
-
-	//		歩き速度
-	const float WALK_SPEED = 50.0f;
-
-	//		しゃがみ速度 
-	const float CROUCHING_SPEED = 30.0f;
-
-	//		プレイヤーの高さ
-	const float STANDING_HEIGHT = 7.0f;
-
-	//		減速速度
-	const float DECELERATION_SPEED = 80.0f;
-
-	//		壁移動時の最高移動量
-	const float HEAD_MOVE_MAX = 4.0f;
-
-	//		頭の移動速度
-	const float HEAD_MOVE_SPEED = 30.0f;
+	/*
+	*	プレイヤーのスタート状態
+	* 
+	*	@return スタート状態のインスタンスを受け取る
+	*/
+	PlayerStart* GetStartState() { return m_playerStart.get(); }
 
 private:
 
@@ -271,9 +261,6 @@ private:
 
 	//		当たり判定用プレイヤーの情報
 	std::unique_ptr<PlayerInformationCollition> m_playerInformationCollition;
-
-	//		カメラ用プレイヤー情報
-	std::unique_ptr<PlayerInformationCamera> m_playerInformationCamera;
 
 	//		プレイヤーの攻撃
 	std::unique_ptr<PlayerAttack> m_playerAttack;
@@ -284,51 +271,16 @@ private:
 	//		プレイヤーモデル
 	std::unique_ptr<DirectX::Model> m_playerObject;
 
+	//		カメラの情報
+	PlayerCameraInformation* m_cameraInformation;
 public:
 
 	/*
-	*	歩きの速さ
-	*
-	*	@return 速度
+	*	プレイヤーカメラの情報
+	* 
+	*	@return カメラの情報
 	*/
-	float GetWalkSpeed() { return WALK_SPEED; }
-
-	/*
-	*	減速の速さ
-	*
-	*	@return 速度
-	*/
-	float GetDecelerationSpeed() { return DECELERATION_SPEED; }
-
-	/*
-	*	しゃがみの速さ
-	*
-	*	@return 速度
-	*/
-	float GetCrouchingSpeed() { return CROUCHING_SPEED; }
-
-	/*
-	*	立っているときの高さ
-	*
-	*	@return 速度
-	*/
-	float GetStandingHeight() { return STANDING_HEIGHT; }
-
-	/*
-	*	頭の最高移動量を受け取る
-	*
-	*	@reutrn 移動量
-	*/
-	inline constexpr float GetHeadMoveMAX() const noexcept { return HEAD_MOVE_MAX; }
-
-	/*
-	*	頭の移動速度を受け取る
-	*
-	*	@return 移動速度
-	*/
-	inline constexpr float GetHeadMoveSpeed() const noexcept { return HEAD_MOVE_SPEED; }
-
-public:
+	PlayerCameraInformation* GetCameraInformation() { return m_cameraInformation; }
 
 	/*
 	*	当たり判定の情報を受け取る
@@ -357,7 +309,7 @@ public:
 	* 
 	*	@return インスタンスのポインタ
 	*/
-	PlayerInformationCamera* GetPlayerInformationCamera() { return m_playerInformationCamera.get(); }
+	//PlayerInformationCamera* GetPlayerInformationCamera() { return m_playerInformationCamera.get(); }
 
 	/*
 	*	プレイヤーの情報を受け取る

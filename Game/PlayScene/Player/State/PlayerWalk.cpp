@@ -54,7 +54,7 @@ void PlayerWalk::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 	
 	//		—§‚Âˆ—
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		ó‘Ô‘JˆÚ”»’f
 	ChangeStateJudgement();
@@ -102,9 +102,9 @@ void PlayerWalk::MoveProcessing()
 
 	m_speed -= 40.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
-	if (m_speed < m_player->GetWalkSpeed())
+	if (m_speed < m_player->GetInformation()->GetWalkSpeed())
 	{
-		m_speed = m_player->GetWalkSpeed();
+		m_speed = m_player->GetInformation()->GetWalkSpeed();
 	}
 
 	if (accelaration.Length() > m_speed)
@@ -175,7 +175,7 @@ void PlayerWalk::ChangeStateJudgement()
 	//		Control‚Å‚µ‚á‚ª‚Ý
 	if (keyState.IsKeyDown(DirectX::Keyboard::LeftControl))
 	{
-		if (m_player->GetInformation()->GetAcceleration().Length() < m_player->GetCrouchingSpeed())
+		if (m_player->GetInformation()->GetAcceleration().Length() < m_player->GetInformation()->GetCrouchingSpeed())
 		{
 			//		ó‘Ô‚ðØ‚è‘Ö‚¦‚é(•à‚«)
 			m_player->ChangeState(m_player->GetCrouchingState());

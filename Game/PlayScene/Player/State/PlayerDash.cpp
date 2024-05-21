@@ -62,7 +62,7 @@ void PlayerDash::Move()
 
 
 	//		—§‚Âˆ—
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		ó‘Ô‘JˆÚ”»’f
 	ChangeStateJudgement();
@@ -125,7 +125,7 @@ void PlayerDash::Deceleration()
 	}
 
 	//		‰Šú‘¬“x‚©‚çLerp‚ðŽg‚¢‰Á‘¬‚µ‚Ä‚¢‚­
-	float speed = Library::Lerp(DASH_MAX_SPEED, m_player->GetWalkSpeed(), move);
+	float speed = Library::Lerp(DASH_MAX_SPEED, m_player->GetInformation()->GetWalkSpeed(), move);
 
 	//		À•W‚ÉÝ’è‚·‚é
 	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +

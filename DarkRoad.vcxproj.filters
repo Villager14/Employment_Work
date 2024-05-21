@@ -255,9 +255,6 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallJump.h">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\PlayerInformationCamera.h">
-      <Filter>Game\PlayScene\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h">
       <Filter>Game\PlayScene\UIManager</Filter>
     </ClInclude>
@@ -293,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="Game\PlayScene\Player\IPlayer.h">
       <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerStart.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h">
+      <Filter>Game\Camera\PlayerCamera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,6 +462,12 @@
       <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDeath.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerStart.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
