@@ -12,13 +12,16 @@
 #include "State/DebugCamera.h"
 #include "State/PlayerCamera.h"
 #include "State/PlayerWallWalkCamera.h"
+#include "State/PlayerStartCamera.h"
 
-#include "Game/PlayScene/Player/PlayerInformationCamera.h"
+#include "Game/PlayScene/Player/PlayerInformation.h"
 
+#include "PlayerCameraInformation.h"
 
 class DebugCamera;
 class PlayerCamera;
 class PlayerWallWalkCamera;
+class PlayerStartCamera;
 
 class PlayerCameraManager
 {
@@ -37,7 +40,7 @@ public:
 	* 
 	*	@param	(playerPosition)	プレイヤーの座標
 	*/
-	void Update(PlayerInformationCamera* playerInformationCamera);
+	void Update(PlayerInformation* playerInformation);
 
 	//		終了処理
 	void Finalize();
@@ -69,6 +72,9 @@ private:
 	//		壁を走るカメラ
 	std::unique_ptr<PlayerWallWalkCamera> m_playerWallWalkCamera;
 
+	//		プレイヤースタートカメラ
+	std::unique_ptr<PlayerStartCamera> m_playerStartCamera;
+
 public:
 	/*
 	*	デバックカメラの状態を受け取る
@@ -91,62 +97,33 @@ public:
 	*/
 	PlayerWallWalkCamera* GetWallWalkCamera() { return m_playerWallWalkCamera.get(); }
 
-private:
-
-	//		最大角度Y
-	const float ANGLE_Y_MAX = 50.0f;
-
-	//		最小角度Y
-	const float ANGLE_Y_MIN = -50.0f;
-
-	//		カメラの速度
-	const float CAMERA_SPEED = 5.0f;
+	/*
+	*	スタートカメラ状態を受け取る	
+	* 
+	*	@return プレイヤースタートカメラのインスタンスのポインタ
+	*/
+	PlayerStartCamera* GetStartCamera() { return m_playerStartCamera.get(); }
 
 private:
+	//		カメラの情報
+	std::unique_ptr<PlayerCameraInformation> m_information;
 
 	//		カメラ用プレイヤーの情報
-	PlayerInformationCamera* m_playerInformationCamera;
-
-		//		カメラの角度
-	DirectX::SimpleMath::Vector2 m_angle;
-	
-	//		視線ベクトル
-	DirectX::SimpleMath::Vector3 m_viewVelocity;
+	PlayerInformation* m_playerInformation;
 	
 public:
 
 	/*
-	*	カメラの角度を受けとる
+	*	カメラの情報を受け取る
 	* 
-	*	@return 角度
+	*	@return インスタンスのポインタ
 	*/
-	const DirectX::SimpleMath::Vector2 GetAngle() { return m_angle; }
-
+	PlayerCameraInformation* GetInformation() { return m_information.get(); }
+	
 	/*
-	*	カメラの角度を設定する
+	*	プレイヤーの情報を受け取る
 	* 
-	*	@param	(angle)	角度
+	*	@return プレイヤーの情報
 	*/
-	void SetAngle(DirectX::SimpleMath::Vector2 angle) { m_angle = angle; }
-
-	/*
-	*	視線ベクトルを設定する
-	* 
-	*	@param	(velocity)	ベクトル
-	*/
-	void SetViewVelocity(const DirectX::SimpleMath::Vector3& velicity) { m_viewVelocity = velicity; }
-
-	/*
-	*	視線ベクトルを受け取る
-	* 
-	*	@return ベクトル
-	*/
-	const DirectX::SimpleMath::Vector3& GetViewVelocity() { return m_viewVelocity; }
-
-	/*
-	*	カメラ用のプレイヤーの情報を受け取る
-	* 
-	*	@return カメラ情報
-	*/
-	PlayerInformationCamera* GetPlayerInformationCamera() { return m_playerInformationCamera; }
+	PlayerInformation* GetPlayerInformationCamera() { return m_playerInformation; }
 };

@@ -1,37 +1,44 @@
 /*
-* @file		PlayerCamera.cpp
-* @brief	プレイヤーのカメラ
+* @file		PlayerStartCamera.h
+* @brief	プレイヤースタートカメラ
 * @author	Morita
-* @date		2024/03/30
+* @date		2024/05/21
 */
 
 #include "pch.h"
 
-#include "PlayerCamera.h"
+#include "PlayerStartCamera.h"
 
-PlayerCamera::PlayerCamera(PlayerCameraManager* playerCameraManager)
+PlayerStartCamera::PlayerStartCamera(PlayerCameraManager* playerCameraManager)
 	:
-	m_playerCameraManager(playerCameraManager)
+	m_playerCameraManager(playerCameraManager),
+	m_time(0.0f)
 {
 }
 
-PlayerCamera::~PlayerCamera()
+PlayerStartCamera::~PlayerStartCamera()
 {
 }
 
-void PlayerCamera::Initialize()
+void PlayerStartCamera::Initialize()
 {
 	//		マウスを相対参照にする
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
 }
 
-void PlayerCamera::Update()
+void PlayerStartCamera::Update()
 {
-	m_playerCameraManager->CameraMove();
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.5f;
+
+	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+	float move = 1.0f - pow(1.0f - m_time, 4.0f);
 
 	//		デグリーからラジアンへ行列にする
-	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
-	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().y));
+	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::
+		CreateRotationY(DirectX::XMConvertToRadians(0.0f));
+	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::
+		CreateRotationX(DirectX::XMConvertToRadians(Library::Lerp(-40.0f, 0.0f, move)));
 
 	//		向いている角度にする
 	DirectX::SimpleMath::Matrix rotation = matrixY * matrixX;
@@ -56,15 +63,15 @@ void PlayerCamera::Update()
 	//		視線ベクトルを設定する
 	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
 
-	//		もしカメラ移動量が０より大きかったら
-	if (m_playerCameraManager->GetPlayerInformationCamera()->GetHeadMove() > 0.0f)
+	if (m_time >= 1.0f)
 	{
-		//		壁走りカメラに切り替える
-		m_playerCameraManager->ChangeState(
-			m_playerCameraManager->GetWallWalkCamera());
+		m_playerCameraManager->ChangeState(m_playerCameraManager->GetPlayerCamera());
+
+		m_playerCameraManager->GetInformation()->GetStartJudgement(true);
 	}
 }
 
-void PlayerCamera::Finalize()
+void PlayerStartCamera::Finalize()
 {
+	m_time = 0.0f;
 }

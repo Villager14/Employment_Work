@@ -60,14 +60,17 @@ void Player::Initialize()
 	//		プレイヤーの死亡状態を生成する
 	m_playerDeath = std::make_unique<PlayerDeath>(this);
 
+	//		プレイヤーのスタート状態を生成する
+	m_playerStart = std::make_unique<PlayerStart>(this);
+
 	//		初期状態
-	m_state = m_playerStay.get();
+	m_state = m_playerStart.get();
 
 	//		状態を初期化する
 	m_state->Initialize();
 
 	//		立っている高さを入れておく
-	m_information->SetPlayerHeight(DirectX::SimpleMath::Vector3(0.0f, STANDING_HEIGHT, 0.0f));
+	m_information->SetPlayerHeight(DirectX::SimpleMath::Vector3(0.0f, m_information->GetStandingHeight(), 0.0f));
 
 	//		プレイヤーの攻撃の生成
 	m_playerAttack = std::make_unique<PlayerAttack>(this);
@@ -79,7 +82,7 @@ void Player::Initialize()
 	m_playerInformationCollition = std::make_unique<PlayerInformationCollition>();
 
 	//		当たり判定用プレイヤーの情報を生成する
-	m_playerInformationCamera = std::make_unique<PlayerInformationCamera>();
+	//m_playerInformationCamera = std::make_unique<PlayerInformationCamera>();
 
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -95,8 +98,10 @@ void Player::Initialize()
 		L"Resources/Models/Player.cmo", *m_effect);
 }
 
-void Player::Update()
+void Player::Update(PlayerCameraInformation* cameraInformation)
 {
+	m_cameraInformation = cameraInformation;
+
 	//		更新処理
 	m_state->Update();
 
@@ -125,17 +130,13 @@ void Player::Update()
 		m_information->SetDashCoolTime(coolTime);
 	}
 
-	m_playerInformationCamera->SetWallWalkNormalize(m_playerInformationCollition->GetWallWalkNormalize());
+	m_information->SetWallWalkNormalize(m_playerInformationCollition->GetWallWalkNormalize());
 }
 
 void Player::MeshUpdate()
 {
 	//		移動処理
 	m_state->Move();
-
-	//		カメラの情報
-	m_playerInformationCamera->SetAccelaration(m_information->GetAcceleration());
-	m_playerInformationCamera->SetPlayerHeight(m_information->GetPlayerHeight());
 }
 
 void Player::Render()
@@ -289,7 +290,6 @@ void Player::Gravity(bool weekJudgement)
 
 bool Player::FloorMeshHitJudgement()
 {
-	
 	//		床に当たっているか
 	if (m_collitionInformation->GetFloorMeshHitPoint().size() != 0)
 	{
@@ -355,21 +355,21 @@ void Player::PlayerHeightTransition(const float& firstHeight, const float& endHe
 		headPosition.y = endHeight;
 	}
 
-	if (m_playerInformationCamera->GetHeadMove() > 0.0f)
+	if (m_information->GetHeadMove() > 0.0f)
 	{
-		float headMove = m_playerInformationCamera->GetHeadMove();
+		float headMove = m_information->GetHeadMove();
 
 		//		移動速度
-		headMove -= HEAD_MOVE_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
+		headMove -= m_information->GetHeadMoveSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 		//		移動量の制限
-		headMove = Library::Clamp(headMove, 0.0f, HEAD_MOVE_MAX);
+		headMove = Library::Clamp(headMove, 0.0f, m_information->GetHeadMoveMAX());
 
 		//		頭の移動量を足す
 		headPosition.x += m_playerInformationCollition->GetWallWalkNormalize().x * headMove;
 		headPosition.z += m_playerInformationCollition->GetWallWalkNormalize().z * headMove;
 
-		m_playerInformationCamera->SetHeadMove(headMove);
+		m_information->SetHeadMove(headMove);
 	}
 
 	//		高さを設定する

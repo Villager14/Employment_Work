@@ -146,13 +146,13 @@ void PlayerCrouching::SpeedProcessing()
 		* 2000.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		‚à‚µ•à‚«‚Ì‘¬‚³‚æ‚è‘‚­‚È‚Á‚½ê‡
-	if (accelaration.Length() > m_player->GetCrouchingSpeed())
+	if (accelaration.Length() > m_player->GetInformation()->GetCrouchingSpeed())
 	{
 		//		³‹K‰»
 		accelaration.Normalize();
 
 		//		‰Á‘¬“x‚É•à‚«‚Ì‘¬‚³‚ğŠ|‚¯‚é
-		accelaration *= m_player->GetCrouchingSpeed();
+		accelaration *= m_player->GetInformation()->GetCrouchingSpeed();
 	}
 
 	//		‰Á‘¬“x‚ğİ’è‚·‚é

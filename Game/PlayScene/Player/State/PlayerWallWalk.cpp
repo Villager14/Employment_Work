@@ -97,13 +97,13 @@ void PlayerWallWalk::Finalize()
 	m_velocity = DirectX::SimpleMath::Vector3::Zero;
 
 	//		立っているときの高さ
-	m_heightMove = m_player->GetStandingHeight();
+	m_heightMove = m_player->GetInformation()->GetStandingHeight();
 }
 
 void PlayerWallWalk::MoveProcessing()
 {
 	//		速度
-	float speed = m_player->GetWalkSpeed();
+	float speed = m_player->GetInformation()->GetWalkSpeed();
 
 	//		座標に設定する
 	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() + (m_velocity * speed) *
@@ -138,7 +138,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 					m_player->GetPlayerInformationCollition()->GetWallWalkNormalize(), 0.3f);
 
 			//		ジャンプする方向
-			m_player->GetInformation()->SetAcceleration(velocity * m_player->GetWalkSpeed());
+			m_player->GetInformation()->SetAcceleration(velocity * m_player->GetInformation()->GetWalkSpeed());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetWallJumpState());
@@ -149,7 +149,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 			m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
 
 			//		ジャンプする方向
-			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetWalkSpeed());
+			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetInformation()->GetWalkSpeed());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetJumpState());
@@ -159,7 +159,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 	if (m_player->GetCollitionInformation()->GetWallWalkPlayerPosition().size() == 0)
 	{
 		//		ジャンプする方向
-		m_player->GetInformation()->SetAcceleration(m_velocity * (m_player->GetWalkSpeed() * 0.7f));
+		m_player->GetInformation()->SetAcceleration(m_velocity * (m_player->GetInformation()->GetWalkSpeed() * 0.7f));
 
 		//		壁ジャンプ状態にする
 		m_player->ChangeState(m_player->GetWallJumpState());
@@ -190,30 +190,30 @@ void PlayerWallWalk::HeadMove()
 	if (m_heightMove > HEAD_WALLWALK_HEIGHT)
 	{
 		//		
-		m_heightMove -= m_player->GetHeadMoveSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+		m_heightMove -= m_player->GetInformation()->GetHeadMoveSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 		//		高さの制限をする
-		m_heightMove = Library::Clamp(m_heightMove, HEAD_WALLWALK_HEIGHT, m_player->GetStandingHeight());
+		m_heightMove = Library::Clamp(m_heightMove, HEAD_WALLWALK_HEIGHT, m_player->GetInformation()->GetStandingHeight());
 	}
 
 	//		高さを足す
 	height.y += m_heightMove;
 
 	//		頭の移動量を受け取る
-	float move = m_player->GetPlayerInformationCamera()->GetHeadMove();
+	float move = m_player->GetInformation()->GetHeadMove();
 
 	//		移動速度
-	move += m_player->GetHeadMoveSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+	move += m_player->GetInformation()->GetHeadMoveSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		移動量の制限
-	move = Library::Clamp(move, 0.0f, m_player->GetHeadMoveMAX());
+	move = Library::Clamp(move, 0.0f, m_player->GetInformation()->GetHeadMoveMAX());
 
 	//		頭の移動量を設定する
-	m_player->GetPlayerInformationCamera()->SetHeadMove(move);
+	m_player->GetInformation()->SetHeadMove(move);
 
 	//		頭の移動量を足す
-	height.x += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x * m_player->GetPlayerInformationCamera()->GetHeadMove();;
-	height.z += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z * m_player->GetPlayerInformationCamera()->GetHeadMove();;
+	height.x += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x * m_player->GetInformation()->GetHeadMove();;
+	height.z += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z * m_player->GetInformation()->GetHeadMove();;
 
 	//		プレイヤーの高さを更新
 	m_player->GetInformation()->SetPlayerHeight(height);

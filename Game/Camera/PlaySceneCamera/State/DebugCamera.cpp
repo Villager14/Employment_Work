@@ -36,9 +36,9 @@ void DebugCamera::Update()
 
 	//		s—ñ‚É‚·‚é
 	DirectX::SimpleMath::Matrix rotY = DirectX::SimpleMath::Matrix::
-		CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetAngle().x));
+		CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
 	DirectX::SimpleMath::Matrix rotX = DirectX::SimpleMath::Matrix::
-		CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetAngle().y));
+		CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().y));
 
 	DirectX::SimpleMath::Matrix rt = rotY * rotX;
 

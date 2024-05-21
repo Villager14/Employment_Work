@@ -74,10 +74,10 @@ void PlayScene::Update()
 	m_player->GetInformation()->SetWirePosition(m_objectManager->GetWirePosition());
 
 	//		視線ベクトルを設定する
-	m_player->GetInformation()->SetViewVelocity(m_playerCameraManager->GetViewVelocity());
+	m_player->GetInformation()->SetViewVelocity(m_playerCameraManager->GetInformation()->GetViewVelocity());
 
 	//		プレイヤーの更新処理
-	m_player->Update();
+	m_player->Update(m_playerCameraManager->GetInformation());
 
 	//		エネミーの更新処理
 	m_enemyManager->Update(m_player->GetInformation()->GetTimeSpeed(), m_player->GetInformation()->GetPosition());
@@ -98,10 +98,10 @@ void PlayScene::Update()
 	m_player->MeshUpdate();
 
 	//		カメラマネージャーの更新処理
-	m_playerCameraManager->Update(m_player->GetPlayerInformationCamera());
+	m_playerCameraManager->Update(m_player->GetInformation());
 
 	//		プレイヤーにカメラの角度を送る
-	m_player->GetInformation()->SetCameraAngle(m_playerCameraManager->GetAngle());
+	m_player->GetInformation()->SetCameraAngle(m_playerCameraManager->GetInformation()->GetAngle());
 
 	//		UIマネージャーの更新
 	m_uiManager->Update();

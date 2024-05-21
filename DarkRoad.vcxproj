@@ -185,9 +185,11 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\IPlayerCamera.h" />
+    <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\DebugCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.h" />
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionInformation.h" />
@@ -208,7 +210,6 @@
     <ClInclude Include="Game\PlayScene\Player\IPlayer.h" />
     <ClInclude Include="Game\PlayScene\Player\Player.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformation.h" />
-    <ClInclude Include="Game\PlayScene\Player\PlayerInformationCamera.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformationCollition.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformationUI.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerAttack.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerJump.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerSliding.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerSlowTime.h" />
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerStart.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerStay.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWalk.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallJump.h" />
@@ -255,6 +257,7 @@
     <ClCompile Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\DebugCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.cpp" />
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionInformation.cpp" />
@@ -279,6 +282,7 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerJump.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerSliding.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerSlowTime.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerStart.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerStay.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWalk.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallJump.cpp" />

@@ -11,7 +11,8 @@
 
 PlayerCameraManager::PlayerCameraManager()
 	:
-	m_state{}
+	m_state{},
+	m_playerInformation{}
 {
 }
 
@@ -21,15 +22,21 @@ PlayerCameraManager::~PlayerCameraManager()
 
 void PlayerCameraManager::Initialize()
 {
+	//		カメラの情報を
+	m_information = std::make_unique<PlayerCameraInformation>();
+
 	//		デバックカメラの生成
 	m_debugCamera = std::make_unique<DebugCamera>(this);
 	//		プレイヤーカメラの生成
 	m_playerCamera = std::make_unique<PlayerCamera>(this);
 	//		プレイヤー壁走りカメラの生成
 	m_playerWallWalkCamera = std::make_unique<PlayerWallWalkCamera>(this);
+	//		プレイヤーのスタートカメラの生成
+	m_playerStartCamera = std::make_unique<PlayerStartCamera>(this);
 
 	//		初期カメラの選択
-	m_state = m_playerCamera.get();
+	//m_state = m_playerCamera.get();
+	m_state = m_playerStartCamera.get();
 
 	//		初期化処理
 	m_state->Initialize();
@@ -50,9 +57,9 @@ void PlayerCameraManager::Initialize()
 	LibrarySingleton::GetInstance()->SetProj(proj);
 }
 
-void PlayerCameraManager::Update(PlayerInformationCamera* playerInformationCamera)
+void PlayerCameraManager::Update(PlayerInformation* playerInformation)
 {
-	m_playerInformationCamera = playerInformationCamera;
+	m_playerInformation = playerInformation;
 
 	//		カメラの更新処理
 	m_state->Update();
@@ -70,13 +77,17 @@ void PlayerCameraManager::CameraMove()
 	float x = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().x);
 	float y = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().y);
 
+	DirectX::SimpleMath::Vector2 angle = m_information->GetAngle();
+
 	//		カメラの移動量を足す
-	m_angle.x += x * CAMERA_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
-	m_angle.y += -y * (CAMERA_SPEED / 2.0f) * LibrarySingleton::GetInstance()->GetElpsedTime();
+	angle.x += x * m_information->GetCameraSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+	angle.y += -y * (m_information->GetCameraSpeed() / 2.0f) * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		視点移動の制限
-	m_angle.y = Library::Clamp(m_angle.y, ANGLE_Y_MIN, ANGLE_Y_MAX);
+	angle.y = Library::Clamp(angle.y, m_information->GetMinAngleY(), m_information->GetMaxAngleY());
 	
+	m_information->SetAngle(angle);
+
 }
 
 void PlayerCameraManager::ChangeState(IPlayerCamera* state)
@@ -96,9 +107,9 @@ void PlayerCameraManager::ChangeState(IPlayerCamera* state)
 
 void PlayerCameraManager::ViewingAngle()
 {
-	if (m_playerInformationCamera->GetAcceleration().Length() > 50.0f)
+	if (m_playerInformation->GetAcceleration().Length() > 50.0f)
 	{
-		float time = Library::Clamp(((m_playerInformationCamera->GetAcceleration().Length() - 50.0f) / 60.0f), 0.0f, 1.0f);
+		float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 50.0f) / 60.0f), 0.0f, 1.0f);
 
 		float viewAnge = Library::Lerp(50.0f, 55.0f, time);
 
