@@ -33,13 +33,13 @@ PlayerWallJump::~PlayerWallJump()
 void PlayerWallJump::Initialize()
 {
 	//		プレイヤーの高さを受け取る
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
 	//		現在の速度を受け取る
-	m_nowSpeed = m_player->GetAcceleration().Length();
+	m_nowSpeed = m_player->GetInformation()->GetAcceleration().Length();
 
 	//		移動していないかどうか
-	if (m_player->GetDirection().Length() < FLT_EPSILON)
+	if (m_player->GetInformation()->GetDirection().Length() < FLT_EPSILON)
 	{
 		//		移動していない
 		m_stopJump = true;
@@ -47,11 +47,11 @@ void PlayerWallJump::Initialize()
 	//		移動している
 	else m_stopJump = false;
 
-	m_player->SetGravity(0.0f);
-	m_player->SetFallTime(0.0f);
+	m_player->GetInformation()->SetGravity(0.0f);
+	m_player->GetInformation()->SetFallTime(0.0f);
 
 	//		ジャンプできない状態にする
-	m_player->SetJumpJudgement(false);
+	m_player->GetInformation()->SetJumpJudgement(false);
 }
 
 void PlayerWallJump::Update()
@@ -78,25 +78,25 @@ void PlayerWallJump::Move()
 		if (m_player->GetCollitionInformation()->GetFloorMeshHitPoint().size() != 0)
 		{
 			if (abs(m_player->GetCollitionInformation()->GetFloorMeshHitPoint()[0].y -
-				m_player->GetPlanPosition().y) < 1.0f)
+				m_player->GetInformation()->GetPlanPosition().y) < 1.0f)
 			{
-				DirectX::SimpleMath::Vector3 position = m_player->GetPlanPosition();
+				DirectX::SimpleMath::Vector3 position = m_player->GetInformation()->GetPlanPosition();
 
 				position.y = m_player->GetCollitionInformation()->GetFloorMeshHitPoint()[0].y;
 
-				m_player->SetPlanPosition(position);
+				m_player->GetInformation()->SetPlanPosition(position);
 
-				m_player->SetFallTime(0.0f);
+				m_player->GetInformation()->SetFallTime(0.0f);
 
 				m_rayHitJudgement = true;
 			}
 		}
 	}
 
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
 
 	//		状態を遷移するかどうか
 	ChangeStateJudgement();
@@ -111,10 +111,10 @@ void PlayerWallJump::Finalize()
 	m_elapsedTime = 0.0f;
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	m_rayprocessJudgement = false;
 
@@ -136,13 +136,13 @@ void PlayerWallJump::MoveProcessing()
 	//		移動する方向を受け取る
 	direction = m_player->Direction(&m_keyInputJudgement);
 
-	DirectX::SimpleMath::Vector3 position = m_player->GetPosition();
+	DirectX::SimpleMath::Vector3 position = m_player->GetInformation()->GetPosition();
 
-	position.y = m_player->GetPlanPosition().y;
+	position.y = m_player->GetInformation()->GetPlanPosition().y;
 
 	//		座標に設定する
-	m_player->SetPlanPosition(position +
-		m_player->GetAcceleration() *
+	m_player->GetInformation()->SetPlanPosition(position +
+		m_player->GetInformation()->GetAcceleration() *
 		LibrarySingleton::GetInstance()->GetElpsedTime());
 }
 
@@ -161,7 +161,7 @@ void PlayerWallJump::Jump()
 	m_elapsedTime = Library::Clamp(m_elapsedTime, 0.0f, 1.0f);
 
 	//		プレイヤーの座標を受け取る
-	DirectX::SimpleMath::Vector3 m_jumpPosition = m_player->GetPosition();
+	DirectX::SimpleMath::Vector3 m_jumpPosition = m_player->GetInformation()->GetPosition();
 
 	//		easeInCirc
 	float move = 1.0f - std::sqrt(1.0f - pow(m_elapsedTime, 2.0f));
@@ -173,7 +173,7 @@ void PlayerWallJump::Jump()
 	m_jumpPosition.y += speed * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		座標にセットする
-	m_player->SetPlanPosition(m_jumpPosition);
+	m_player->GetInformation()->SetPlanPosition(m_jumpPosition);
 }
 
 void PlayerWallJump::ChangeStateJudgement()
@@ -197,7 +197,7 @@ void PlayerWallJump::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift))
 	{		
 		//		ダッシュできるかどうか
-		if (m_player->GetDashJudgement())
+		if (m_player->GetInformation()->GetDashJudgement())
 		{
 			//		状態を切り替える(ダッシュ)
 			m_player->ChangeState(m_player->GetDashState());

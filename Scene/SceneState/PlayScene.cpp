@@ -65,22 +65,22 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {
 	//		プレイヤーのワールド座標を受け取る
-	m_objectManager->SetPlayerWorld(m_player->GetWorld());
+	m_objectManager->SetPlayerWorld(m_player->GetInformation()->GetWorld());
 
 	//		オブジェクトマネージャーの更新処理
-	m_objectManager->Update(m_player->GetPosition());
+	m_objectManager->Update(m_player->GetInformation()->GetPosition());
 
 	//		範囲内にあるワイヤーの座標を受け取る
-	m_player->SetWirePosition(m_objectManager->GetWirePosition());
+	m_player->GetInformation()->SetWirePosition(m_objectManager->GetWirePosition());
 
 	//		視線ベクトルを設定する
-	m_player->SetViewVelocity(m_playerCameraManager->GetViewVelocity());
+	m_player->GetInformation()->SetViewVelocity(m_playerCameraManager->GetViewVelocity());
 
 	//		プレイヤーの更新処理
 	m_player->Update();
 
 	//		エネミーの更新処理
-	m_enemyManager->Update(m_player->GetTimeSpeed(), m_player->GetPosition());
+	m_enemyManager->Update(m_player->GetInformation()->GetTimeSpeed(), m_player->GetInformation()->GetPosition());
 
 	//		メッシュを受け取る
 	m_collitionManager->SetObjectMesh(m_objectManager->GetMesh());
@@ -101,7 +101,7 @@ void PlayScene::Update()
 	m_playerCameraManager->Update(m_player->GetPlayerInformationCamera());
 
 	//		プレイヤーにカメラの角度を送る
-	m_player->SetCameraAngle(m_playerCameraManager->GetAngle());
+	m_player->GetInformation()->SetCameraAngle(m_playerCameraManager->GetAngle());
 
 	//		UIマネージャーの更新
 	m_uiManager->Update();

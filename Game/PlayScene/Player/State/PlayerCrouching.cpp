@@ -26,7 +26,7 @@ PlayerCrouching::~PlayerCrouching()
 void PlayerCrouching::Initialize()
 {
 	//		プレイヤーの高さを受け取る
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 }
 
 void PlayerCrouching::Update()
@@ -48,10 +48,10 @@ void PlayerCrouching::Move()
 	m_player->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		しゃがみ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + COURCHING_HEIGHT, 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + COURCHING_HEIGHT, 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -64,7 +64,9 @@ void PlayerCrouching::Render()
 void PlayerCrouching::Finalize()
 {
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
+
+	m_firstHeight = 0.0f;
 }
 
 void PlayerCrouching::MoveProcessing()
@@ -85,19 +87,21 @@ void PlayerCrouching::MoveProcessing()
 	if (m_keyInputJudgement)
 	{
 		//		移動する方向を設定する
-		m_player->SetDirection(direction);
+		m_player->GetInformation()->SetDirection(direction);
 
 		//		速度処理
 		SpeedProcessing();
 	}
 	else
 	{
-		m_player->SetAcceleration(m_player->GetAcceleration() * 0.8f);
+		m_player->GetInformation()->SetAcceleration(
+			m_player->GetInformation()->GetAcceleration() * 0.8f);
 	}
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() +
-		m_player->GetAcceleration() *
+	m_player->GetInformation()->SetPlanPosition(
+		m_player->GetInformation()->GetPosition() +
+		m_player->GetInformation()->GetAcceleration() *
 		LibrarySingleton::GetInstance()->GetElpsedTime());
 }
 
@@ -135,10 +139,10 @@ void PlayerCrouching::ChangeStateJudgement()
 void PlayerCrouching::SpeedProcessing()
 {
 	//		加速度を受け取る
-	DirectX::SimpleMath::Vector3 accelaration = m_player->GetAcceleration();
+	DirectX::SimpleMath::Vector3 accelaration = m_player->GetInformation()->GetAcceleration();
 
 	//		加速度の処理
-	accelaration += m_player->MoveDirection(m_player->GetDirection())
+	accelaration += m_player->MoveDirection(m_player->GetInformation()->GetDirection())
 		* 2000.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		もし歩きの速さより早くなった場合
@@ -152,10 +156,12 @@ void PlayerCrouching::SpeedProcessing()
 	}
 
 	//		加速度を設定する
-	m_player->SetAcceleration(accelaration);
+	m_player->GetInformation()->SetAcceleration(accelaration);
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() +
-		m_player->GetAcceleration() * LibrarySingleton::GetInstance()->GetElpsedTime());
-
+	m_player->GetInformation()->SetPlanPosition(
+		m_player->GetInformation()->GetPosition() +
+		m_player->GetInformation()->GetAcceleration() *
+		LibrarySingleton::GetInstance()->GetElpsedTime()
+	);
 }

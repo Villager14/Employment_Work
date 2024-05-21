@@ -18,7 +18,8 @@ PlayerSliding::PlayerSliding(Player* player)
 	m_firstSpeed(0.0f),
 	m_speed(0.0f),
 	m_slopeJudgement(false),
-	m_decelerationSpeed(0.0f)
+	m_decelerationSpeed(0.0f),
+	m_firstHeight(0.0f)
 {
 }
 
@@ -29,13 +30,13 @@ PlayerSliding::~PlayerSliding()
 void PlayerSliding::Initialize()
 {
 	//		高さの取得
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
 	//		初期の速度
-	m_speed = m_player->GetAcceleration().Length() + INTIAL_VELOCITY;
+	m_speed = m_player->GetInformation()->GetAcceleration().Length() + INTIAL_VELOCITY;
 
 	//		減速速度
-	m_decelerationSpeed = m_player->GetAcceleration().Length() / 3.0f * 2.0f;
+	m_decelerationSpeed = m_player->GetInformation()->GetAcceleration().Length() / 3.0f * 2.0f;
 
 	//		
 	SlopeJudgement();
@@ -64,10 +65,10 @@ void PlayerSliding::Move()
 	m_player->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + COURCHING_HEIGHT, 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + COURCHING_HEIGHT, 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -82,7 +83,7 @@ void PlayerSliding::Render()
 void PlayerSliding::Finalize()
 {
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	m_firstSpeed = 0.0f;
 
@@ -105,22 +106,22 @@ void PlayerSliding::MoveProcessing()
 	if (m_slopeJudgement)
 	{
 		//		加速度を受け取る
-		DirectX::SimpleMath::Vector3 m_acceleration = m_player->GetAcceleration();
+		DirectX::SimpleMath::Vector3 m_acceleration = m_player->GetInformation()->GetAcceleration();
 
 		m_acceleration.x += m_slidingVelocity.x * SLIDING_ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
 		m_acceleration.z += m_slidingVelocity.y * SLIDING_ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
 
-		m_player->SetAcceleration(m_acceleration);
+		m_player->GetInformation()->SetAcceleration(m_acceleration);
 
 		//		速度を設定する
-		m_speed = m_player->GetAcceleration().Length();
+		m_speed = m_player->GetInformation()->GetAcceleration().Length();
 
 		//		減速速度
-		m_decelerationSpeed = m_player->GetAcceleration().Length() * 1.5f;
+		m_decelerationSpeed = m_player->GetInformation()->GetAcceleration().Length() * 1.5f;
 
 		//		座標に設定する
-		m_player->SetPlanPosition(m_player->GetPosition() +
-			m_player->GetAcceleration() *
+		m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
+			m_player->GetInformation()->GetAcceleration() *
 			LibrarySingleton::GetInstance()->GetElpsedTime());
 
 	}
@@ -131,7 +132,7 @@ void PlayerSliding::MoveProcessing()
 			LibrarySingleton::GetInstance()->GetElpsedTime();
 
 		//		加速度を受け取る
-		DirectX::SimpleMath::Vector3 m_acceleration = m_player->GetAcceleration();
+		DirectX::SimpleMath::Vector3 m_acceleration = m_player->GetInformation()->GetAcceleration();
 
 		//		加速方向を正規化
 		m_acceleration.Normalize();
@@ -140,11 +141,11 @@ void PlayerSliding::MoveProcessing()
 		m_acceleration *= m_speed;
 
 		//		加速度を設定する
-		m_player->SetAcceleration(m_acceleration);
+		m_player->GetInformation()->SetAcceleration(m_acceleration);
 
 		//		座標に設定する
-		m_player->SetPlanPosition(m_player->GetPosition() +
-			m_player->GetAcceleration() *
+		m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
+			m_player->GetInformation()->GetAcceleration() *
 			LibrarySingleton::GetInstance()->GetElpsedTime());
 	}
 }
@@ -155,7 +156,7 @@ void PlayerSliding::ChangeStateJudgement()
 		LibrarySingleton::GetInstance()->
 		GetKeyboardStateTracker()->GetLastState();
 
-	if (m_player->GetAcceleration().Length() <= 10.0f)
+	if (m_player->GetInformation()->GetAcceleration().Length() <= 10.0f)
 	{
 		//		状態を遷移する(しゃがみ状態)
 		m_player->ChangeState(m_player->GetCrouchingState());
@@ -202,7 +203,9 @@ void PlayerSliding::SlopeJudgement()
 	}
 
 	//		移動方向を受け取る
-	DirectX::SimpleMath::Vector2 acc2 = { m_player->GetAcceleration().x, m_player->GetAcceleration().z };
+	DirectX::SimpleMath::Vector2 acc2 = { 
+		m_player->GetInformation()->GetAcceleration().x,
+		m_player->GetInformation()->GetAcceleration().z };
 
 	//		坂の方向を計算する
 	DirectX::SimpleMath::Vector3 downhill = m_player->GetCollitionInformation()->GetFloorMeshHitNormalize()[0]

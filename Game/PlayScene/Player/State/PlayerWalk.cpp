@@ -27,10 +27,10 @@ PlayerWalk::~PlayerWalk()
 void PlayerWalk::Initialize()
 {
 	//		高さの取得
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
 	//		速度を受け取る
-	m_speed = m_player->GetAcceleration().Length();
+	m_speed = m_player->GetInformation()->GetAcceleration().Length();
 }
 
 void PlayerWalk::Update()
@@ -51,10 +51,10 @@ void PlayerWalk::Move()
 	m_player->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 	
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -67,7 +67,7 @@ void PlayerWalk::Render()
 void PlayerWalk::Finalize()
 {
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	m_speed = 0.0f;
 }
@@ -90,14 +90,14 @@ void PlayerWalk::MoveProcessing()
 	if (m_keyInputJudgement)
 	{
 		//		移動する方向を設定する
-		m_player->SetDirection(direction);
+		m_player->GetInformation()->SetDirection(direction);
 	}
 
 	//		加速度を受け取る
-	DirectX::SimpleMath::Vector3 accelaration = m_player->GetAcceleration();
+	DirectX::SimpleMath::Vector3 accelaration = m_player->GetInformation()->GetAcceleration();
 
 	//		加速度の処理
-	accelaration += m_player->MoveDirection(m_player->GetDirection())
+	accelaration += m_player->MoveDirection(m_player->GetInformation()->GetDirection())
 		* ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	m_speed -= 40.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
@@ -140,11 +140,11 @@ void PlayerWalk::MoveProcessing()
 	*/
 
 	//		加速度を設定する
-	m_player->SetAcceleration(accelaration);
+	m_player->GetInformation()->SetAcceleration(accelaration);
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() + 
-		m_player->GetAcceleration() * LibrarySingleton::GetInstance()->GetElpsedTime());
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
+		m_player->GetInformation()->GetAcceleration() * LibrarySingleton::GetInstance()->GetElpsedTime());
 	
 }
 
@@ -175,7 +175,7 @@ void PlayerWalk::ChangeStateJudgement()
 	//		Controlでしゃがみ
 	if (keyState.IsKeyDown(DirectX::Keyboard::LeftControl))
 	{
-		if (m_player->GetAcceleration().Length() < m_player->GetCrouchingSpeed())
+		if (m_player->GetInformation()->GetAcceleration().Length() < m_player->GetCrouchingSpeed())
 		{
 			//		状態を切り替える(歩き)
 			m_player->ChangeState(m_player->GetCrouchingState());
@@ -190,7 +190,7 @@ void PlayerWalk::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift))
 	{
 		//		ダッシュできるかどうか
-		if (m_player->GetDashJudgement())
+		if (m_player->GetInformation()->GetDashJudgement())
 		{
 			//		状態を切り替える(ダッシュ)
 			m_player->ChangeState(m_player->GetDashState());

@@ -28,15 +28,16 @@ PlayerDash::~PlayerDash()
 void PlayerDash::Initialize()
 {
 	//		移動方向
-	m_direction = m_player->MoveDirection(m_player->GetDirection());
+	m_direction = m_player->MoveDirection(m_player->GetInformation()->GetDirection());
 
 	//		高さの取得
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
-	m_player->SetFallTime(0.0f);
+	//		落下時間
+	m_player->GetInformation()->SetFallTime(0.0f);
 
 	//		ダッシュをできない状態にする
-	m_player->SetDashJudgement(false);
+	m_player->GetInformation()->SetDashJudgement(false);
 }
 
 void PlayerDash::Update()
@@ -57,10 +58,11 @@ void PlayerDash::Move()
 	m_player->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
+
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -77,7 +79,7 @@ void PlayerDash::Finalize()
 	m_deceleration = 0.0f;
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 }
 
 void PlayerDash::MoveProcessing()
@@ -94,15 +96,15 @@ void PlayerDash::Acceratation()
 	float move = m_acceraration;
 
 	//		初期速度からLerpを使い加速していく
-	float speed = Library::Lerp(m_player->GetAcceleration().Length(), DASH_MAX_SPEED, move);
+	float speed = Library::Lerp(m_player->GetInformation()->GetAcceleration().Length(), DASH_MAX_SPEED, move);
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() +
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
 		(m_direction * speed) *
 		LibrarySingleton::GetInstance()->GetElpsedTime());
 
 	//		加速度の設定
-	m_player->SetAcceleration(m_direction * speed);
+	m_player->GetInformation()->SetAcceleration(m_direction * speed);
 }
 
 void PlayerDash::Deceleration()
@@ -126,12 +128,12 @@ void PlayerDash::Deceleration()
 	float speed = Library::Lerp(DASH_MAX_SPEED, m_player->GetWalkSpeed(), move);
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() +
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
 		(m_direction * speed) *
 		LibrarySingleton::GetInstance()->GetElpsedTime());
 
 	//		加速度の設定
-	m_player->SetAcceleration(m_direction * speed);
+	m_player->GetInformation()->SetAcceleration(m_direction * speed);
 }
 
 void PlayerDash::ChangeStateJudgement()
