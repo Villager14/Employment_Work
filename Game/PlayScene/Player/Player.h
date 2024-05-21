@@ -13,6 +13,8 @@
 
 #include "Game/PlayScene/Player/PlayerInformationCamera.h"
 
+#include "PlayerInformation.h"
+
 #include "State/PlayerStay.h"
 #include "State/PlayerWalk.h"
 #include "State/PlayerCrouching.h"
@@ -98,13 +100,6 @@ public:
 	*	@param	(weekJudgement)	弱い重力にするかどうか
 	*/
 	void Gravity(bool weekJudgement = false);
-
-	/*
-	*	プレイヤーの高さ
-	*
-	*	@param	(height)	高さ
-	*/
-	void PlayerHeight(const float& height);
 
 	//		床メッシュに当たっているか判断する
 	bool FloorMeshHitJudgement();
@@ -283,71 +278,11 @@ private:
 	//		プレイヤーの攻撃
 	std::unique_ptr<PlayerAttack> m_playerAttack;
 
-	//		プレイヤーの攻撃をしているかどうか
-	bool m_playerAttackJudgement;
+	//		プレイヤーの情報
+	std::unique_ptr<PlayerInformation> m_information;
 
-	//		プレイヤーの座標
-	DirectX::SimpleMath::Vector3 m_position;
-
-	//		移動する予定の座標
-	DirectX::SimpleMath::Vector3 m_planPosition;
-
-	//		プレイヤーの高さ
-	DirectX::SimpleMath::Vector3 m_playerHeight;
-
-	//		カメラの向いている角度
-	DirectX::SimpleMath::Vector2 m_cameraAngle;
-
-	//		重力の加速度
-	float m_gravitationalAcceleration;
-
-	//		落下時間
-	float m_fallTime;
-
-	//		重力
-	float m_gravity;
-
-	//		時間の速度
-	float m_timeSpeed;
-
-	//		加速度
-	DirectX::SimpleMath::Vector3 m_acceleration;
-
-	//		メッシュに当たっているかどうか
-	bool m_meshHitJudgement;
-
-	//		高さ変動時間
-	float m_heightTime;
-
-	//		プレイヤーのワールド座標
-	DirectX::SimpleMath::Matrix m_world;
-
-	//		移動する方向
-	DirectX::SimpleMath::Vector3 m_direction;
-
-	//		床モデル
+	//		プレイヤーモデル
 	std::unique_ptr<DirectX::Model> m_playerObject;
-
-	//		ワイヤーの座標
-	std::vector<DirectX::SimpleMath::Vector3> m_wirePosition;
-
-	//		視線ベクトル
-	DirectX::SimpleMath::Vector3 m_viewVelocity;
-
-	//		移動するワイヤーの座標
-	DirectX::SimpleMath::Vector3 m_wireMovePosition;
-
-	//		ダッシュのクールタイム
-	float m_dashCoolTime;
-
-	//		ダッシュができるかどうか
-	bool m_dashJudgement;
-
-	//		ジャンプできるかどうか
-	bool m_jumpJudgement;
-
-	//		リスポーンするかどうか
-	bool m_respownJudgement;
 
 public:
 
@@ -411,221 +346,11 @@ public:
 	CollitionInformation* GetCollitionInformation() { return m_collitionInformation; }
 
 	/*
-	*	ワールド座標を受け取る
-	*
-	*	@return ワールド座標
-	*/
-	const DirectX::SimpleMath::Matrix& GetWorld() { return m_world; }
-
-	/*
-	*	ワールド座標を設定する
-	*
-	*	@param	(world)	ワールド座標
-	*/
-	void SetWorld(const DirectX::SimpleMath::Matrix& world) { m_world = world; }
-
-	/*
-	*	座標を受け取る
-	*
-	*	@return 座標
-	*/
-	const DirectX::SimpleMath::Vector3& GetPosition() { return m_position; }
-
-	/*
-	*	座標を設定する
-	*
-	*	@param	(position)	座標
-	*/
-	void SetPosition(const DirectX::SimpleMath::Vector3& position) { m_position = position; }
-
-	/*
-	*	移動予定座標を受け取る
-	*
-	*	@return 座標
-	*/
-	const DirectX::SimpleMath::Vector3& GetPlanPosition() { return m_planPosition; }
-
-	/*
-	*	移動予定座標を設定する
-	*
-	*	@param	(position)	座標
-	*/
-	void SetPlanPosition(const DirectX::SimpleMath::Vector3& position) { m_planPosition = position; }
-
-	/*
-	*	カメラの角度を設定する
-	*
-	*	@param	(angle)	角度
-	*/
-	void SetCameraAngle(DirectX::SimpleMath::Vector2 angle) { m_cameraAngle = angle; }
-
-	/*
-	*	カメラの角度を受け取る
-	*
-	*	@return 角度
-	*/
-	const DirectX::SimpleMath::Vector2& GetCameraAngle() { return m_cameraAngle; }
-
-	/*
-	*	プレイヤーの高さを設定する
-	*
-	*	@param	(position)	高さ
-	*/
-	void SetPlayerHeight(const DirectX::SimpleMath::Vector3& position) { m_playerHeight = position; }
-
-	/*
-	*	プレイヤーの高さを受け取る
-	*
-	*	@return 高さ
-	*/
-	const DirectX::SimpleMath::Vector3& GetPlayerHeight() { return m_playerHeight; }
-
-	/*
-	*	移動する方向を受け取る
-	*
-	*	@return 方向
-	*/
-	const DirectX::SimpleMath::Vector3& GetDirection() { return m_direction; }
-
-	/*
-	*	移動する方向を設定する
-	*
-	*	@param	(direction)	方向
-	*/
-	void SetDirection(const DirectX::SimpleMath::Vector3& direction) { m_direction = direction; }
-
-	/*
-	*	落下時間を設定する
-	*
-	*	@param	(time)	時間
-	*/
-	void SetFallTime(const float& time) { m_fallTime = time; }
-
-	/*
-	*	時間の速度を受け取る
-	*
-	*	@return 時間の速度
-	*/
-	const float& GetTimeSpeed() { return m_timeSpeed; }
-
-	/*
-	*	時間の速度を設定する
-	*
-	*	@param	(speed)	速度
-	*/
-	void SetTimeSpeed(const float& speed) { m_timeSpeed = speed; }
-
-	/*
-	*	プレイヤーが攻撃しているかを受け取る
-	*
-	*	@return	true : 攻撃している false : 攻撃していない
-	*/
-	const bool& GetAttackJudgement() { return m_playerAttackJudgement; }
-
-	/*
-	*	プレイヤーが攻撃しているか設定する
-	* 
-	*	@param	(judgement)	true : 攻撃する false : 攻撃しない
-	*/
-	void SetAttackJudgement(const bool& judgement) { m_playerAttackJudgement = judgement; }
-	
-	/*
-	*	高さ変動時間を設定する
-	* 
-	*	@param	(time)	時間
-	*/
-	void SetHeightTime(const float& time) { m_heightTime = time; }
-
-	/*
-	*	加速度を受け取る
-	* 
-	*	@return 加速度
-	*/
-	const DirectX::SimpleMath::Vector3& GetAcceleration() { return m_acceleration; }
-
-	/*
-	*	加速度を設定する
-	* 
-	*	@param	(acceleration)	加速度
-	*/
-	void SetAcceleration(const DirectX::SimpleMath::Vector3& acceleration) { m_acceleration = acceleration; }
-
-	/*
-	*	重力を設定する
-	* 
-	*	@param	(gravity)	重力
-	*/
-	void SetGravity(float gravity) { m_gravity = gravity; }
-
-	/*
-	*	重力を受け取る
-	* 
-	*	@return 重力
-	*/
-	float GetGravity() { return m_gravity; }
-
-	/*
-	*	ワイヤーの座標を受け取る
-	* 
-	*	@return 座標
-	*/
-	const std::vector<DirectX::SimpleMath::Vector3>& GetWirePosition() { return m_wirePosition; }
-
-	/*
-	*	ワイヤーの座標を設定する
-	* 
-	*	@param	(position)	座標
-	*/
-	void SetWirePosition(const std::vector<DirectX::SimpleMath::Vector3>& position) { m_wirePosition = position; }
-
-	/*
-	*	視線ベクトルを設定する
-	* 
-	*	@param	(velocity)
-	*/
-	void SetViewVelocity(const DirectX::SimpleMath::Vector3& veloicty) { m_viewVelocity = veloicty; }
-
-	/*
-	*	ワイヤーの移動座標を受け取る
-	*
-	*	@return 座標
-	*/
-	const DirectX::SimpleMath::Vector3& GetWireMovePosition() { return m_wireMovePosition; }
-
-	/*
 	*	当たり判定用情報を設定する
 	* 
 	*	@return インスタンスのポインタ
 	*/
 	PlayerInformationCollition* GetPlayerInformationCollition() { return m_playerInformationCollition.get(); }
-
-	/*
-	*	ダッシュをするかどうか判断する
-	* 
-	*	@return true : ダッシュをする できる : ダッシュをできない
-	*/
-	bool GetDashJudgement() { return m_dashJudgement; }
-
-	/*
-	*	ダッシュをしているか設定する
-	* 
-	*	@param	(judgemnet)	true : ダッシュできる false : ダッシュをできない
-	*/
-	void SetDashJudgement(bool judgement) { m_dashJudgement = judgement; }
-
-	/*
-	*	ジャンプをするかどうか判断する
-	*
-	*	@return true : ジャンプできる false : ジャンプできない
-	*/
-	bool GetJumpJudgement() { return m_jumpJudgement; }
-
-	/*
-	*	ジャンプをしているか設定する
-	*
-	*	@param	(judgemnet)	true : ジャンプできる false : ジャンプできない
-	*/
-	void SetJumpJudgement(bool judgement) { m_jumpJudgement = judgement; }
 
 	/*
 	*	カメラ用プレイヤー情報を受け取る
@@ -635,16 +360,9 @@ public:
 	PlayerInformationCamera* GetPlayerInformationCamera() { return m_playerInformationCamera.get(); }
 
 	/*
-	*	リスポーンするかどうかを設定する
+	*	プレイヤーの情報を受け取る
 	* 
-	*	@param	(judgement)	true : リスポーン状態　false : リスポーン状態ではない
+	*	@return インスタンスのポインタ
 	*/
-	void SetRespownJudgement(bool judgement) { m_respownJudgement = judgement; }
-
-	/*
-	*	リスポーンするかどうか受け取る
-	* 
-	*	@return true : リスポーン状態　false : リスポーン状態ではない
-	*/
-	bool GetRespownJugement() { return m_respownJudgement; }
+	PlayerInformation* GetInformation() { return m_information.get(); }
  }; 

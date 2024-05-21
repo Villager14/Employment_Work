@@ -14,20 +14,7 @@
 Player::Player()
 	:
 	m_state{},
-	m_position{ 0.0f, 10.0f, 0.0f },
-	m_planPosition{0.0f, 0 ,0.0f},
-	m_heightTime(0.0f),
-	m_gravitationalAcceleration(9.80665f),
-	m_fallTime(0.0f),
-	m_gravity(0.0f),
-	m_meshHitJudgement(false),
-	m_timeSpeed(1.0f),
-	m_playerAttackJudgement(false),
-	m_dashJudgement(true),
-	m_dashCoolTime(0.0f),
-	m_jumpJudgement(true),
-	m_collitionInformation(),
-	m_respownJudgement(false)
+	m_collitionInformation()
 {
 }
 
@@ -37,6 +24,9 @@ Player::~Player()
 
 void Player::Initialize()
 {
+	//		プレイヤーの情報を生成する
+	m_information = std::make_unique<PlayerInformation>();
+
 	//		プレイヤー待機状態の生成
 	m_playerStay = std::make_unique<PlayerStay>(this);
 
@@ -77,7 +67,7 @@ void Player::Initialize()
 	m_state->Initialize();
 
 	//		立っている高さを入れておく
-	m_playerHeight = DirectX::SimpleMath::Vector3(0.0f, STANDING_HEIGHT, 0.0f);
+	m_information->SetPlayerHeight(DirectX::SimpleMath::Vector3(0.0f, STANDING_HEIGHT, 0.0f));
 
 	//		プレイヤーの攻撃の生成
 	m_playerAttack = std::make_unique<PlayerAttack>(this);
@@ -103,10 +93,6 @@ void Player::Initialize()
 	(LibrarySingleton::GetInstance()->GetDeviceResources()
 		->GetD3DDevice(),
 		L"Resources/Models/Player.cmo", *m_effect);
-
-	//		カメラの情報
-	m_playerInformationCamera->SetAccelaration(&m_acceleration);
-	m_playerInformationCamera->SetPlayerHeight(&m_playerHeight);
 }
 
 void Player::Update()
@@ -114,30 +100,29 @@ void Player::Update()
 	//		更新処理
 	m_state->Update();
 
-	//		攻撃をするかどうか
-	if (m_playerAttackJudgement)
-	{
-		//		更新処理
-		m_playerAttack->Update();
-	}
-
 	WireActionJudgement();
 
-	m_playerInformationCollition->SetPlayerPosition(m_planPosition);
-	m_playerInformationCollition->SetPlayerHeight(m_playerHeight);
+	m_playerInformationCollition->SetPlayerPosition(m_information->GetPlanPosition());
+	m_playerInformationCollition->SetPlayerHeight(m_information->GetPlayerHeight());
 
 	//		
-	if (!m_dashJudgement)
+	if (!m_information->GetDashJudgement())
 	{
 		//		クールタイム
-		m_dashCoolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+		float coolTime = m_information->GetDashCoolTime();
+
+		//		経過時間
+		coolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 
 		//		一定時間たったら
-		if (m_dashCoolTime >= 2.0f)
+		if (coolTime >= 2.0f)
 		{
-			m_dashJudgement = true;
-			m_dashCoolTime = 0.0f;
+			m_information->SetDashJudgement(true);
+			coolTime = 0.0f;
 		}
+
+		//		クールタイムを設定する
+		m_information->SetDashCoolTime(coolTime);
 	}
 
 	m_playerInformationCamera->SetWallWalkNormalize(m_playerInformationCollition->GetWallWalkNormalize());
@@ -147,6 +132,10 @@ void Player::MeshUpdate()
 {
 	//		移動処理
 	m_state->Move();
+
+	//		カメラの情報
+	m_playerInformationCamera->SetAccelaration(m_information->GetAcceleration());
+	m_playerInformationCamera->SetPlayerHeight(m_information->GetPlayerHeight());
 }
 
 void Player::Render()
@@ -155,15 +144,15 @@ void Player::Render()
 	m_state->Render();
 
 	//		座標
-	LibrarySingleton::GetInstance()->DebugFont(L"PositionX", m_position.x, 0, 0);
-	LibrarySingleton::GetInstance()->DebugFont(L"PositionY", m_position.y, 0, 20);
-	LibrarySingleton::GetInstance()->DebugFont(L"PositionZ", m_position.z, 0, 40);
+	LibrarySingleton::GetInstance()->DebugFont(L"PositionX", m_information->GetPosition().x, 0, 0);
+	LibrarySingleton::GetInstance()->DebugFont(L"PositionY", m_information->GetPosition().y, 0, 20);
+	LibrarySingleton::GetInstance()->DebugFont(L"PositionZ", m_information->GetPosition().z, 0, 40);
 
 	//		速度
-	LibrarySingleton::GetInstance()->DebugFont(L"Speed", m_acceleration.Length(), 0, 80);
+	LibrarySingleton::GetInstance()->DebugFont(L"Speed", m_information->GetAcceleration().Length(), 0, 80);
 
 	//		重力
-	LibrarySingleton::GetInstance()->DebugFont(L"gravity", m_gravity, 0, 100);
+	LibrarySingleton::GetInstance()->DebugFont(L"gravity", m_information->GetGravity(), 0, 100);
 
 	if (m_collitionInformation->GetWallHitVelocity().size() != 0)
 	{
@@ -179,7 +168,8 @@ void Player::Finalize()
 
 void Player::DeathJudgement()
 {
-	if (m_position.y < -150.0f)
+	//		簡易死亡判定
+	if (m_information->GetPosition().y < -150.0f)
 	{
 		//		死亡状態に切り替える
 		ChangeState(m_playerDeath.get());
@@ -253,7 +243,7 @@ DirectX::SimpleMath::Vector3 Player::MoveDirection
 {
 	//		カメラの向き
 	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY
-	(DirectX::XMConvertToRadians(m_cameraAngle.x));
+	(DirectX::XMConvertToRadians(m_information->GetCameraAngle().x));
 
 	//		移動する方向
 	return DirectX::SimpleMath::Vector3::Transform(
@@ -264,53 +254,37 @@ void Player::Gravity(bool weekJudgement)
 {
 	float speed = 2.0f;
 
+	//		落下時間を受け取る
+	float fallTime = m_information->GetFallTime();
+
 	if (weekJudgement)
 	{
 		speed = 1.0f;
 
 		//		重力加速度
-		m_fallTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
+		fallTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
 
-		m_gravity = m_gravitationalAcceleration * (m_fallTime * m_fallTime);
+		m_information->SetGravity(m_information->GetGravitationalAcceleration() * (fallTime * fallTime));
+
 	}
 	else
 	{
 		//		重力加速度
-		m_fallTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed * (m_timeSpeed * m_timeSpeed);
+		fallTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed * (m_information->GetTimeSpeed()* m_information->GetTimeSpeed());
 
-		m_gravity = m_gravitationalAcceleration * (m_fallTime * m_fallTime);
+		m_information->SetGravity(m_information->GetGravitationalAcceleration() * (fallTime * fallTime));
 	}
 
-	m_planPosition.y -= m_gravity * LibrarySingleton::GetInstance()->GetElpsedTime() * m_timeSpeed;
-}
+	//		落下時間を設定する
+	m_information->SetFallTime(fallTime);
 
-void Player::PlayerHeight(const float& height)
-{
-	//		プレイヤーの頭の高さ
-	DirectX::SimpleMath::Vector3 playerheight = m_position;
+	m_information->SetPlanPosition({ m_information->GetPlanPosition().x,
+									 m_information->GetPlanPosition().y - m_information->GetGravity() * 
+									LibrarySingleton::GetInstance()->GetElpsedTime()
+									* m_information->GetTimeSpeed(),
+									 m_information->GetPlanPosition().z});
 
-	//		立っているときの高さを足す
-	playerheight.y += height;
 
-	if (m_playerInformationCamera->GetHeadMove() > 0.0f)
-	{
-		float headMove = m_playerInformationCamera->GetHeadMove();
-
-		//		移動速度
-		headMove -= 10.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
-
-		//		移動量の制限
-		headMove = Library::Clamp(headMove, 0.0f, 5.0f);
-
-		//		頭の移動量を足す
-		playerheight.x += m_playerInformationCollition->GetWallWalkNormalize().x * headMove;
-		playerheight.z += m_playerInformationCollition->GetWallWalkNormalize().z * headMove;
-
-		m_playerInformationCamera->SetHeadMove(headMove);
-	}
-
-		//		プレイヤーの頭の高さの更新
-	m_playerHeight = playerheight;
 }
 
 bool Player::FloorMeshHitJudgement()
@@ -320,13 +294,15 @@ bool Player::FloorMeshHitJudgement()
 	if (m_collitionInformation->GetFloorMeshHitPoint().size() != 0)
 	{
 		//		メッシュのY座標を受け取る
-		m_planPosition.y = m_collitionInformation->GetFloorMeshHitPoint()[0].y;
+		m_information->SetPlanPosition({ m_information->GetPlanPosition().x,
+			m_collitionInformation->GetFloorMeshHitPoint()[0].y,
+			m_information->GetPlanPosition().z });
 
 		//		落下時間を０にする
-		m_fallTime = 0.0f;
+		m_information->SetFallTime(0.0f);
 
 		//		ジャンプできる状態にする
-		m_jumpJudgement = true;
+		m_information->SetJumpJudgement(false);
 
 		return true;
 	}
@@ -338,8 +314,12 @@ bool Player::WallMeshHitJudgement()
 {
 	if (m_collitionInformation->GetWallHitVelocity().size() > 0)
 	{
-		m_planPosition.x = m_collitionInformation->GetWallHitVelocity()[0].x;
-		m_planPosition.z = m_collitionInformation->GetWallHitVelocity()[0].y;
+		DirectX::SimpleMath::Vector3 planePosition = m_information->GetPlanPosition();
+
+		planePosition.x = m_collitionInformation->GetWallHitVelocity()[0].x;
+		planePosition.z = m_collitionInformation->GetWallHitVelocity()[0].y;
+
+		m_information->SetPlanPosition(planePosition);
 
 		return true;
 	}
@@ -349,19 +329,23 @@ bool Player::WallMeshHitJudgement()
 
 void Player::PlayerHeightTransition(const float& firstHeight, const float& endHeight, const float& speed)
 {
-	DirectX::SimpleMath::Vector3 headPosition = m_position;
+	DirectX::SimpleMath::Vector3 headPosition = m_information->GetPosition();
+
+	float heightTime = m_information->GetHeightTime();
 
 	//		一以上なら処理をしない
-	if (m_heightTime < 1.0f)
+	if (heightTime < 1.0f)
 	{
 		//		遷移速度
-		m_heightTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
+		heightTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
 
 		//		一以上にならないようにする
-		m_heightTime = Library::Clamp(m_heightTime, 0.0f, 1.0f);
+		heightTime = Library::Clamp(heightTime, 0.0f, 1.0f);
 
 		//		easeOutQuart
-		float move = 1.0f - pow(1.0f - m_heightTime, 4.0f);
+		float move = 1.0f - pow(1.0f - heightTime, 4.0f);
+
+		m_information->SetHeightTime(heightTime);
 
 		//		ラープで初期の高さから立ちの高さへ
 		headPosition.y = Library::Lerp(firstHeight, endHeight, move);
@@ -389,19 +373,19 @@ void Player::PlayerHeightTransition(const float& firstHeight, const float& endHe
 	}
 
 	//		高さを設定する
-	m_playerHeight = headPosition;
+	m_information->SetPlayerHeight(headPosition);
 }
 
 bool Player::WireActionJudgement()
 {
 	//		ワイヤーの座標がない場合処理をしない
-	if (m_wirePosition.size() == 0) return false;
+	if (m_information->GetWirePosition().size() == 0) return false;
 
 	//		ワイヤーのある方向
-	DirectX::SimpleMath::Vector3 wireDirection = m_wirePosition[0] - m_playerHeight;
+	DirectX::SimpleMath::Vector3 wireDirection = m_information->GetWirePosition()[0] - m_information->GetPlayerHeight();
 
 	//		視線ベクトル
-	DirectX::SimpleMath::Vector3 viewDirection = m_viewVelocity;
+	DirectX::SimpleMath::Vector3 viewDirection = m_information->GetViewVelocity();
 
 	//		正規化
 	wireDirection.Normalize();
@@ -419,10 +403,13 @@ bool Player::WireActionJudgement()
 	//		マウスが押された場合
 	if (mouse->leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 	{
-		//		ワイヤーの座標を設定する
-		m_wireMovePosition = m_wirePosition[0];
+		//		移動ワイヤーの座標を設定する
+		DirectX::SimpleMath::Vector3 wireMovePosition = m_information->GetWirePosition()[0];
 
-		m_wireMovePosition.y -= 12.0f;
+		wireMovePosition.y -= 12.0f;
+
+		//		移動ワイヤー座標を設定する
+		m_information->SetWireMovePosition(wireMovePosition);
 
 		//		状態を遷移する（）
 		ChangeState(m_playerWire.get());
@@ -438,7 +425,7 @@ void Player::WallWalkJudgement()
 	//		壁に当たっている場合
 	if (m_collitionInformation->GetMeshWallNormalize().size() == 1)
 	{
-		DirectX::SimpleMath::Vector3 acceleation = m_acceleration;
+		DirectX::SimpleMath::Vector3 acceleation = m_information->GetAcceleration();
 
 		acceleation.Normalize();
 

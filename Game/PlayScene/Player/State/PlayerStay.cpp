@@ -26,7 +26,7 @@ PlayerStay::~PlayerStay()
 void PlayerStay::Initialize()
 {
 	//		‚‚³‚ÌŽæ“¾
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 }
 
 void PlayerStay::Update()
@@ -47,10 +47,10 @@ void PlayerStay::Move()
 	m_player->FloorMeshHitJudgement();
 	
 	//		ˆÚ“®—\’èÀ•W‚©‚çƒvƒŒƒCƒ„[À•W‚É‘ã“ü‚·‚é
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		—§‚Âˆ—
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
 
 	//		ó‘Ô‘JˆÚ”»’f
 	ChangeStateJudgement();
@@ -64,25 +64,25 @@ void PlayerStay::Finalize()
 {
 	m_time = 0.0f;
 
-	m_player->SetDirection(DirectX::SimpleMath::Vector3::Zero);
+	m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3::Zero);
 
 	//		‚‚³•Ï“®ŽžŠÔ‚Ì‰Šú‰»
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 }
 
 void PlayerStay::Deceleration()
 {
 	//		‰Á‘¬
-	DirectX::SimpleMath::Vector3 acceleration = m_player->GetAcceleration();
+	DirectX::SimpleMath::Vector3 acceleration = m_player->GetInformation()->GetAcceleration();
 
 	//		Œ¸‘¬
 	acceleration *= 0.8f;
 
-	m_player->SetAcceleration(acceleration);
+	m_player->GetInformation()->SetAcceleration(acceleration);
 
 	//		‘¬“x‚ÆˆÚ“®—Ê‚ðŒvŽZ‚·‚é
-	m_player->SetPlanPosition(m_player->GetPosition() +
-		m_player->GetAcceleration()
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
+		m_player->GetInformation()->GetAcceleration()
 		* LibrarySingleton::GetInstance()->GetElpsedTime());
 }
 

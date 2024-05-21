@@ -26,13 +26,13 @@ PlayerSlowTime::~PlayerSlowTime()
 void PlayerSlowTime::Initialize()
 {
 	//		移動方向
-	m_direction = m_player->MoveDirection(m_player->GetDirection());
+	m_direction = m_player->MoveDirection(m_player->GetInformation()->GetDirection());
 
 	//		時間の速度を設定する
-	m_player->SetTimeSpeed(0.1f);
+	m_player->GetInformation()->SetTimeSpeed(0.1f);
 
 	//		高さの取得
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 }
 
 void PlayerSlowTime::Update()
@@ -56,10 +56,10 @@ void PlayerSlowTime::Move()
 	m_player->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 	
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -74,16 +74,16 @@ void PlayerSlowTime::Finalize()
 	m_time = 0.0f;
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	//		時間の速度を設定する
-	m_player->SetTimeSpeed(1.0f);
+	m_player->GetInformation()->SetTimeSpeed(1.0f);
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	//		前方にダッシュ
-	m_player->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
+	m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
 }
 
 void PlayerSlowTime::MoveProcessing()
@@ -111,7 +111,7 @@ void PlayerSlowTime::MoveProcessing()
 		LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		移動予定場所
-	m_player->SetPlanPosition(velocity + m_player->GetPosition());
+	m_player->GetInformation()->SetPlanPosition(velocity + m_player->GetInformation()->GetPosition());
 
 }
 

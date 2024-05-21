@@ -27,7 +27,7 @@ void PlayerWallWalk::Initialize()
 	//		移動方向
 	float moveRadian = DirectX::XMConvertToRadians(90.0f);
 
-	DirectX::SimpleMath::Vector3 acceleation = m_player->GetAcceleration();
+	DirectX::SimpleMath::Vector3 acceleation = m_player->GetInformation()->GetAcceleration();
 
 	acceleation.Normalize();
 
@@ -55,7 +55,7 @@ void PlayerWallWalk::Initialize()
 	m_velocity.Normalize();
 
 	//		移動方向
-	m_player->SetAcceleration(m_velocity);
+	m_player->GetInformation()->SetAcceleration(m_velocity);
 
 }
 
@@ -68,7 +68,7 @@ void PlayerWallWalk::Move()
 {
 	if (m_player->GetCollitionInformation()->GetWallWalkPlayerPosition().size() != 0)
 	{
-		m_player->SetPlanPosition(m_player->GetCollitionInformation()
+		m_player->GetInformation()->SetPlanPosition(m_player->GetCollitionInformation()
 			->GetWallWalkPlayerPosition()[0]);
 	}
 
@@ -76,7 +76,7 @@ void PlayerWallWalk::Move()
 	m_player->WallMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		頭の動き
 	HeadMove();
@@ -92,7 +92,7 @@ void PlayerWallWalk::Render()
 void PlayerWallWalk::Finalize()
 {
 	//		落下時間を初期化する
-	m_player->SetFallTime(0.0f);
+	m_player->GetInformation()->SetFallTime(0.0f);
 
 	m_velocity = DirectX::SimpleMath::Vector3::Zero;
 
@@ -106,7 +106,7 @@ void PlayerWallWalk::MoveProcessing()
 	float speed = m_player->GetWalkSpeed();
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() + (m_velocity * speed) *
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() + (m_velocity * speed) *
 		LibrarySingleton::GetInstance()->GetElpsedTime());
 }
 
@@ -123,8 +123,8 @@ void PlayerWallWalk::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
 	{
 		DirectX::SimpleMath::Vector3 velo = DirectX::SimpleMath::Vector3
-		(cosf(DirectX::XMConvertToRadians(m_player->GetCameraAngle().x)),
-			0.0f, sinf(DirectX::XMConvertToRadians(m_player->GetCameraAngle().x)));
+		(cosf(DirectX::XMConvertToRadians(m_player->GetInformation()->GetCameraAngle().x)),
+			0.0f, sinf(DirectX::XMConvertToRadians(m_player->GetInformation()->GetCameraAngle().x)));
 
 		velo.Normalize();
 
@@ -138,7 +138,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 					m_player->GetPlayerInformationCollition()->GetWallWalkNormalize(), 0.3f);
 
 			//		ジャンプする方向
-			m_player->SetAcceleration(velocity * m_player->GetWalkSpeed());
+			m_player->GetInformation()->SetAcceleration(velocity * m_player->GetWalkSpeed());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetWallJumpState());
@@ -146,10 +146,10 @@ void PlayerWallWalk::ChangeStateJudgement()
 		else
 		{
 			//		ジャンプする方向
-			m_player->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
+			m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
 
 			//		ジャンプする方向
-			m_player->SetAcceleration(m_player->MoveDirection(m_player->GetDirection()) * m_player->GetWalkSpeed());
+			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetWalkSpeed());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetJumpState());
@@ -159,15 +159,15 @@ void PlayerWallWalk::ChangeStateJudgement()
 	if (m_player->GetCollitionInformation()->GetWallWalkPlayerPosition().size() == 0)
 	{
 		//		ジャンプする方向
-		m_player->SetAcceleration(m_velocity * (m_player->GetWalkSpeed() * 0.7f));
+		m_player->GetInformation()->SetAcceleration(m_velocity * (m_player->GetWalkSpeed() * 0.7f));
 
 		//		壁ジャンプ状態にする
 		m_player->ChangeState(m_player->GetWallJumpState());
 	}
 
 	DirectX::SimpleMath::Vector3 velo = DirectX::SimpleMath::Vector3
-	(cosf(DirectX::XMConvertToRadians(m_player->GetCameraAngle().x + 90.0f)),
-		0.0f, sinf(DirectX::XMConvertToRadians(m_player->GetCameraAngle().x + 90.0f)));
+	(cosf(DirectX::XMConvertToRadians(m_player->GetInformation()->GetCameraAngle().x + 90.0f)),
+		0.0f, sinf(DirectX::XMConvertToRadians(m_player->GetInformation()->GetCameraAngle().x + 90.0f)));
 
 	velo.Normalize();
 
@@ -184,7 +184,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 void PlayerWallWalk::HeadMove()
 {
 	//		現在の座標を受け取る
-	DirectX::SimpleMath::Vector3 height = m_player->GetPosition();
+	DirectX::SimpleMath::Vector3 height = m_player->GetInformation()->GetPosition();
 
 	//		頭の高さが5以上なら処理をする
 	if (m_heightMove > HEAD_WALLWALK_HEIGHT)
@@ -216,5 +216,5 @@ void PlayerWallWalk::HeadMove()
 	height.z += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z * m_player->GetPlayerInformationCamera()->GetHeadMove();;
 
 	//		プレイヤーの高さを更新
-	m_player->SetPlayerHeight(height);
+	m_player->GetInformation()->SetPlayerHeight(height);
 }

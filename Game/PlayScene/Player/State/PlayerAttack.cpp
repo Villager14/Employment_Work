@@ -34,11 +34,6 @@ void PlayerAttack::Update()
 void PlayerAttack::Move()
 {
 
-	if (m_time > 1.0f)
-	{
-		//		UŒ‚‚ðI—¹‚·‚é
-		m_player->SetAttackJudgement(false);
-	}
 }
 
 void PlayerAttack::Render()
@@ -47,7 +42,7 @@ void PlayerAttack::Render()
 
 void PlayerAttack::Finalize()
 {
-	m_player->SetDirection(DirectX::SimpleMath::Vector3::Zero);
+	m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3::Zero);
 }
 
 void PlayerAttack::Deceleration()

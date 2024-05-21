@@ -20,7 +20,8 @@ PlayerWire::PlayerWire(Player* player)
 	m_fallJudgement(false),
 	m_length(0.0f),
 	m_floorHitJudgement(false),
-	m_wallHitJudgement(false)
+	m_wallHitJudgement(false),
+	m_firstSpeed(0.0f)
 {
 }
 
@@ -31,18 +32,18 @@ PlayerWire::~PlayerWire()
 void PlayerWire::Initialize()
 {
 	//		高さの取得
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
 	//		移動方向
-	m_direction = m_player->GetWireMovePosition() - m_player->GetPosition();
+	m_direction = m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition();
 
 	m_direction.Normalize();
 
 	//		距離
-	m_length = (m_player->GetWireMovePosition() - m_player->GetPosition()).Length();
+	m_length = (m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition()).Length();
 
 	//		落下時間を０にする
-	m_player->SetFallTime(0.0f);
+	m_player->GetInformation()->SetFallTime(0.0f);
 }
 
 void PlayerWire::Update()
@@ -67,13 +68,13 @@ void PlayerWire::Move()
 	}
 	
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		落下状態にするかどうか
 	FallJudgement();
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -87,10 +88,10 @@ void PlayerWire::Finalize()
 {
 	m_time = 0.0f;
 
-	m_player->SetDirection(DirectX::SimpleMath::Vector3::Zero);
+	m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3::Zero);
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	m_wallHitJudgement = false;
 
@@ -107,10 +108,10 @@ void PlayerWire::MoveProcessing()
 
 	DirectX::SimpleMath::Vector3 velocity = m_direction * m_speed;
 
-	m_player->SetAcceleration(velocity);
+	m_player->GetInformation()->SetAcceleration(velocity);
 
 	//		座標に設定する
-	m_player->SetPlanPosition(m_player->GetPosition() + m_direction *
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() + m_direction *
 		m_speed * LibrarySingleton::GetInstance()->GetElpsedTime());
 }
 
@@ -125,7 +126,7 @@ void PlayerWire::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift))
 	{
 		//		ダッシュできるかどうか
-		if (m_player->GetDashJudgement())
+		if (m_player->GetInformation()->GetDashJudgement())
 		{
 			//		状態を切り替える(ダッシュ)
 			m_player->ChangeState(m_player->GetDashState());
@@ -152,7 +153,7 @@ void PlayerWire::ChangeStateJudgement()
 
 	if (m_wallHitJudgement)
 	{
-		DirectX::SimpleMath::Vector3 acceleation = m_player->GetAcceleration();
+		DirectX::SimpleMath::Vector3 acceleation = m_player->GetInformation()->GetAcceleration();
 
 		acceleation.Normalize();
 
@@ -174,7 +175,7 @@ void PlayerWire::ChangeStateJudgement()
 void PlayerWire::AttractProcess()
 {
 	//		現在の距離
-	float nowLenght = (m_player->GetWireMovePosition() - m_player->GetPosition()).Length();
+	float nowLenght = (m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition()).Length();
 
 	//		割合
 	float ratio = nowLenght / m_length;
@@ -206,7 +207,7 @@ void PlayerWire::FallProcess()
 void PlayerWire::FallJudgement()
 {
 	//		プレイヤーから見たワイヤーオブジェクトの方向を求める
-	DirectX::SimpleMath::Vector3 direction = m_player->GetWireMovePosition() - m_player->GetPosition();
+	DirectX::SimpleMath::Vector3 direction = m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition();
 
 	//		正規化
 	direction.Normalize();

@@ -28,13 +28,13 @@ PlayerDeath::~PlayerDeath()
 void PlayerDeath::Initialize()
 {
 	//		高さの取得
-	m_firstHeight = m_player->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
 	//		加速度を受け取る
-	m_firstAcceleration = m_player->GetAcceleration();
+	m_firstAcceleration = m_player->GetInformation()->GetAcceleration();
 
 	//		重力を受け取る
-	m_firstGravity = m_player->GetGravity();
+	m_firstGravity = m_player->GetInformation()->GetGravity();
 }
 
 void PlayerDeath::Update()
@@ -52,7 +52,7 @@ void PlayerDeath::Move()
 	m_player->FloorMeshHitJudgement();
 	
 	//		移動予定座標からプレイヤー座標に代入する
-	m_player->SetPosition(m_player->GetPlanPosition());
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -66,19 +66,21 @@ void PlayerDeath::Finalize()
 {
 	m_time = 0.0f;
 
-	m_player->SetDirection(DirectX::SimpleMath::Vector3::Zero);
+	m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3::Zero);
 
 	//		高さ変動時間の初期化
-	m_player->SetHeightTime(0.0f);
+	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	//		プレイヤーの座標をリセットする
-	m_player->SetPosition({ 0.0f, 0.0f, 0.0f });
-	m_player->SetPlanPosition({ 0.0f, 0.0f, 0.0f });
+	m_player->GetInformation()->SetPosition({ 0.0f, 0.0f, 0.0f });
+	m_player->GetInformation()->SetPlanPosition({ 0.0f, 0.0f, 0.0f });
 
 	//		立つ処理
-	m_player->SetPlayerHeight({m_player->GetPosition().x, m_player->GetPosition().y + 7.0f, m_player->GetPosition().z});
-	m_player->SetGravity(0.0f);
-	m_player->SetFallTime(0.0f);
+	m_player->GetInformation()->SetPlayerHeight({m_player->GetInformation()->GetPosition().x,
+												 m_player->GetInformation()->GetPosition().y + 7.0f,
+												 m_player->GetInformation()->GetPosition().z});
+	m_player->GetInformation()->SetGravity(0.0f);
+	m_player->GetInformation()->SetFallTime(0.0f);
 }
 
 void PlayerDeath::Deceleration()
@@ -92,20 +94,20 @@ void PlayerDeath::Deceleration()
 	DirectX::SimpleMath::Vector3 acceleration = DirectX::SimpleMath::Vector3::Lerp
 	(m_firstAcceleration, DirectX::SimpleMath::Vector3::Zero, m_slowTime);
 
-	m_player->SetAcceleration(acceleration);
+	m_player->GetInformation()->SetAcceleration(acceleration);
 
 	//		速度と移動量を計算する
-	m_player->SetPlanPosition(m_player->GetPosition() +
-		m_player->GetAcceleration()
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
+		m_player->GetInformation()->GetAcceleration()
 		* LibrarySingleton::GetInstance()->GetElpsedTime());
 
 	float gravity = Library::Lerp(m_firstGravity, 0.0f, m_slowTime);
 
-	DirectX::SimpleMath::Vector3 position = m_player->GetPlanPosition();
+	DirectX::SimpleMath::Vector3 position = m_player->GetInformation()->GetPlanPosition();
 
 	position.y -= gravity * LibrarySingleton::GetInstance()->GetElpsedTime();
 
-	m_player->SetPlanPosition(position);
+	m_player->GetInformation()->SetPlanPosition(position);
 }
 
 void PlayerDeath::ChangeStateJudgement()
