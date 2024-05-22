@@ -32,6 +32,12 @@ void UIManager::Initialize()
 
 	//		クールタイムの初期化
 	m_coolTime->Initialize();
+
+	//		フェードインの生成
+	m_fadeIn = std::make_unique<FadeIn>();
+
+	//		フェードインの初期化
+	m_fadeIn->Initialize();
 }
 
 void UIManager::Update()
@@ -39,6 +45,8 @@ void UIManager::Update()
 	m_clockManager->Update();
 
 	m_coolTime->Update();
+
+	m_fadeIn->Update();
 }
 
 void UIManager::Render()
@@ -46,4 +54,6 @@ void UIManager::Render()
 	m_clockManager->Render();
 
 	m_coolTime->Render();
+
+	m_fadeIn->Render();
 }

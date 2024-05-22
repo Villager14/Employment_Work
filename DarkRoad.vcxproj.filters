@@ -98,6 +98,15 @@
     <Filter Include="Game\PlayScene\UIManager\CoolTime">
       <UniqueIdentifier>{6c3895e0-c78b-461b-bdae-5373834bc64d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PlayScene\UIManager\FadeIn">
+      <UniqueIdentifier>{36705254-2527-435f-b523-9f5cd5501d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Fade">
+      <UniqueIdentifier>{852490bb-f066-438b-a6b7-cacfaa5a7836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ScreenEffect">
+      <UniqueIdentifier>{fad8f5ee-458e-4299-984b-951397be411c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -300,6 +309,15 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h">
       <Filter>Game\Camera\PlayerCamera</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h">
+      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeRender.h">
+      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h">
+      <Filter>Game\PlayScene\ScreenEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -470,6 +488,15 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerStart.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp">
+      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeRender.cpp">
+      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp">
+      <Filter>Game\PlayScene\ScreenEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -494,6 +521,9 @@
     </None>
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli">
       <Filter>Resorces\Shader\CoolTime</Filter>
+    </None>
+    <None Include="Resources\Shader\Fade\FadeShader.hlsli">
+      <Filter>Resorces\Shader\Fade</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -546,6 +576,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\CoolTime\CoolTimeVS.hlsl">
       <Filter>Resorces\Shader\CoolTime</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Fade\FadeShaderGS.hlsl">
+      <Filter>Resorces\Shader\Fade</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Fade\FadeShaderPS.hlsl">
+      <Filter>Resorces\Shader\Fade</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Fade\FadeShaderVS.hlsl">
+      <Filter>Resorces\Shader\Fade</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
