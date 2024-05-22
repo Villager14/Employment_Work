@@ -225,12 +225,15 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallJump.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallWalk.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h" />
+    <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
     <ClInclude Include="Game\PlayScene\UIManager\CircleShader.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h" />
     <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h" />
+    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h" />
+    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeRender.h" />
     <ClInclude Include="Game\PlayScene\UIManager\NumberShader.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIRender.h" />
@@ -288,12 +291,15 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallJump.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallWalk.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp" />
+    <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\CircleShader.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp" />
+    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp" />
+    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeRender.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\NumberShader.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
@@ -327,6 +333,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli" />
+    <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
     <None Include="Resources\Shader\UI\UIShader.hlsli" />
   </ItemGroup>
@@ -366,6 +373,19 @@
     <FxCompile Include="Resources\Shader\CoolTime\CoolTimeVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/CoolTime\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Fade\FadeShaderGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Fade\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Fade\FadeShaderPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Fade\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Fade\FadeShaderVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Fade\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Number\NumberGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

@@ -11,6 +11,8 @@
 
 #include "CoolTime/CoolTime.h"
 
+#include "Fade/FadeIn.h"
+
 #include "Game/PlayScene/Player/Player.h"
 
 class UIManager
@@ -35,6 +37,8 @@ private:
 
 	//		クールタイム
 	std::unique_ptr<CoolTime> m_coolTime;
+
+	std::unique_ptr<FadeIn> m_fadeIn;
 
 	//		プレイヤーの情報を受け取る
 	Player* m_player;
