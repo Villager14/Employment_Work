@@ -107,6 +107,24 @@
     <Filter Include="Game\PlayScene\ScreenEffect">
       <UniqueIdentifier>{fad8f5ee-458e-4299-984b-951397be411c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PlayScene\ScreenEffect\FailureScreen">
+      <UniqueIdentifier>{7ff02722-213d-4bc1-9195-9c8f876dddfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\RedScreen">
+      <UniqueIdentifier>{4bc15fab-610a-462d-abb0-a87c3a7be1bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\GameManager">
+      <UniqueIdentifier>{b34f999c-acda-436d-9eaa-8875cc43bf11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\GameOver">
+      <UniqueIdentifier>{3b0bf28e-2c29-4df8-a0a7-609013951545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\BackGround">
+      <UniqueIdentifier>{89346af3-c05f-4eb9-8bd3-a5f8e3df1b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\ScreenRay">
+      <UniqueIdentifier>{9541c0a5-3e31-4597-b4b7-eb480bcf4c9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -318,6 +336,27 @@
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h">
+      <Filter>Game\PlayScene\ScreenEffect\FailureScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\RenderTexture.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\GameManager\GameManager.h">
+      <Filter>Game\PlayScene\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerDeathCamera.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h">
+      <Filter>Game\PlayScene\UIManager\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h">
+      <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h">
+      <Filter>Game\PlayScene\UIManager\ScreenRay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -497,6 +536,27 @@
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp">
+      <Filter>Game\PlayScene\ScreenEffect\FailureScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\RenderTexture.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\GameManager\GameManager.cpp">
+      <Filter>Game\PlayScene\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerDeathCamera.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\GameOver\GameOverManager.cpp">
+      <Filter>Game\PlayScene\UIManager\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp">
+      <Filter>Game\PlayScene\UIManager\ScreenRay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -525,6 +585,9 @@
     <None Include="Resources\Shader\Fade\FadeShader.hlsli">
       <Filter>Resorces\Shader\Fade</Filter>
     </None>
+    <None Include="Resources\Shader\RedScreen\RedScreen.hlsli">
+      <Filter>Resorces\Shader\RedScreen</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\Floor.fbx">
@@ -546,6 +609,9 @@
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\WallObject01.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Background.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -585,6 +651,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\Fade\FadeShaderVS.hlsl">
       <Filter>Resorces\Shader\Fade</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
+      <Filter>Resorces\Shader\RedScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\RedScreen\RedScreenPS.hlsl">
+      <Filter>Resorces\Shader\RedScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
+      <Filter>Resorces\Shader\RedScreen</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

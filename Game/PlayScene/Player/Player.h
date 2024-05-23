@@ -13,6 +13,8 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 #include "PlayerInformation.h"
 
 #include "State/PlayerStay.h"
@@ -49,7 +51,7 @@ class Player
 public:
 
 	//		コンストラクタ
-	Player();
+	Player(GameManager* gameManager);
 
 	//		デストラクタ
 	~Player();
@@ -273,7 +275,18 @@ private:
 
 	//		カメラの情報
 	PlayerCameraInformation* m_cameraInformation;
+
+	//		ゲームマネージャー
+	GameManager* m_gameManager;
+
 public:
+
+	/*
+	*	ゲームマネージャーを受け取る
+	* 
+	*	@return ゲームマネージャーのインスタンスのポインタ
+	*/
+	GameManager* GetGameManager() { return m_gameManager; }
 
 	/*
 	*	プレイヤーカメラの情報

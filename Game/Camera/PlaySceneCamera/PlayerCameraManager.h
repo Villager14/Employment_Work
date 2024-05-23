@@ -13,21 +13,25 @@
 #include "State/PlayerCamera.h"
 #include "State/PlayerWallWalkCamera.h"
 #include "State/PlayerStartCamera.h"
+#include "State/PlayerDeathCamera.h"
 
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
 #include "PlayerCameraInformation.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class DebugCamera;
 class PlayerCamera;
 class PlayerWallWalkCamera;
 class PlayerStartCamera;
+class PlayerDeathCamera;
 
 class PlayerCameraManager
 {
 public:
 	//		コンストラクタ
-	PlayerCameraManager();
+	PlayerCameraManager(GameManager* gameManager);
 
 	//		デストラクタ
 	~PlayerCameraManager();
@@ -75,6 +79,9 @@ private:
 	//		プレイヤースタートカメラ
 	std::unique_ptr<PlayerStartCamera> m_playerStartCamera;
 
+	//		プレイヤーの死亡カメラ
+	std::unique_ptr<PlayerDeathCamera> m_playerDeathCamera;
+
 public:
 	/*
 	*	デバックカメラの状態を受け取る
@@ -104,6 +111,13 @@ public:
 	*/
 	PlayerStartCamera* GetStartCamera() { return m_playerStartCamera.get(); }
 
+	/*
+	*	死亡カメラ状態を受け取る
+	*	
+	*	@return 死亡カメラのインスタンスのポインタ
+	*/
+	PlayerDeathCamera* GetDeathCamera() { return m_playerDeathCamera.get(); }
+
 private:
 	//		カメラの情報
 	std::unique_ptr<PlayerCameraInformation> m_information;
@@ -111,7 +125,17 @@ private:
 	//		カメラ用プレイヤーの情報
 	PlayerInformation* m_playerInformation;
 	
+	//		ゲームマネージャー
+	GameManager* m_gameManager;
+
 public:
+
+	/*
+	*	ゲームマネージャーを受け取る
+	* 
+	*	@return ゲームマネージャーのインスタンスのポインタ
+	*/
+	GameManager* GetGameManager() { return m_gameManager; }
 
 	/*
 	*	カメラの情報を受け取る

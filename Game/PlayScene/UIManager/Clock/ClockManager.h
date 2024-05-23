@@ -11,6 +11,8 @@
 
 #include "ClockTime.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class ClockManager
 {
 public:
@@ -21,7 +23,7 @@ public:
 
 	void Initialize();
 
-	void Update();
+	void Update(GameManager* gameManager);
 
 	void Render();
 

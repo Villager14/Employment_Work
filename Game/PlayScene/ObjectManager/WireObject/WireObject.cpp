@@ -44,7 +44,7 @@ void WireObject::Initialize()
 	m_objectMesh = std::make_unique<ObjectMesh>();
 
 	//		À•W
-	m_position = { 0.0f, 30.0f, 700.0f };
+	m_position = { 0.0f, 60.0f, 700.0f };
 
 	//		À•W‚ğİ’è‚·‚é
 	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);

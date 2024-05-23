@@ -9,10 +9,11 @@
 
 #include "PlayerCameraManager.h"
 
-PlayerCameraManager::PlayerCameraManager()
+PlayerCameraManager::PlayerCameraManager(GameManager* gameManager)
 	:
 	m_state{},
-	m_playerInformation{}
+	m_playerInformation{},
+	m_gameManager(gameManager)
 {
 }
 
@@ -33,6 +34,8 @@ void PlayerCameraManager::Initialize()
 	m_playerWallWalkCamera = std::make_unique<PlayerWallWalkCamera>(this);
 	//		プレイヤーのスタートカメラの生成
 	m_playerStartCamera = std::make_unique<PlayerStartCamera>(this);
+	//		プレイヤーの死亡カメラの生成
+	m_playerDeathCamera = std::make_unique<PlayerDeathCamera>(this);
 
 	//		初期カメラの選択
 	//m_state = m_playerCamera.get();
@@ -49,9 +52,9 @@ void PlayerCameraManager::Initialize()
 	*/
 	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView
-		(DirectX::XMConvertToRadians(50.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
+		(DirectX::XMConvertToRadians(70.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 500.0f);
+			0.1f, 1000.0f);
 
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
@@ -111,7 +114,7 @@ void PlayerCameraManager::ViewingAngle()
 	{
 		float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 50.0f) / 60.0f), 0.0f, 1.0f);
 
-		float viewAnge = Library::Lerp(50.0f, 55.0f, time);
+		float viewAnge = Library::Lerp(70.0f, 75.0f, time);
 
 		/*
 		*	視野角70度
@@ -123,7 +126,7 @@ void PlayerCameraManager::ViewingAngle()
 			CreatePerspectiveFieldOfView
 			(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /
 				LibrarySingleton::GetInstance()->GetScreenSize().y,
-				0.1f, 500.0f);
+				0.1f, 1000.0f);
 
 		//		プロジェクション行列を設定する
 		LibrarySingleton::GetInstance()->SetProj(proj);

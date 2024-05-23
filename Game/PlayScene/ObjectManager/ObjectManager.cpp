@@ -37,6 +37,12 @@ void ObjectManager::Initialize()
 	//		壁オブジェクトの初期化
 	m_wallObject->Initialize();
 
+	//		背景オブジェクトの生成
+	m_backGroundObject = std::make_unique<BackGroundObject>();
+
+	//		背景オブジェクトの初期化
+	m_backGroundObject->Initialize();
+
 	//		オブジェクトメッシュを追加する
 	m_objectMesh.push_back(m_floorObject->GetObjectMesh());
 
@@ -56,10 +62,14 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 	{
 		m_wirePosition.push_back(m_wireObject->GetPosition());
 	}
+
+	m_backGroundObject->Update();
 }
 
 void ObjectManager::Render()
 {
+	m_backGroundObject->Render();
+
 	//		床の描画処理
 	m_floorObject->Render(m_drawMesh.get());
 

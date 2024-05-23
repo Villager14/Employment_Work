@@ -13,13 +13,19 @@
 
 #include "Fade/FadeIn.h"
 
-#include "Game/PlayScene/Player/Player.h"
+#include "Game/PlayScene/Player/PlayerInformation.h"
+
+#include "Game/PlayScene/GameManager/GameManager.h"
+
+#include "Game/PlayScene/UIManager/GameOver/GameOverManager.h"
+
+#include "Game/PlayScene/UIManager/ScreenRay/ScreenRay.h"
 
 class UIManager
 {
 public:
 	//		コンストラクタ
-	UIManager(Player* player);
+	UIManager(PlayerInformation* playerInformation, GameManager* gameManager);
 
 	//		デストラクタ
 	~UIManager();
@@ -29,7 +35,9 @@ public:
 
 	void Update();
 
-	void Render();
+	void FrontRender();
+
+	void BackRender();
 
 private:
 	//		時計の背景
@@ -38,8 +46,18 @@ private:
 	//		クールタイム
 	std::unique_ptr<CoolTime> m_coolTime;
 
+	//		フェード
 	std::unique_ptr<FadeIn> m_fadeIn;
+		
+	//		ゲームオーバー
+	std::unique_ptr<GameOverManager> m_gameOver;
+
+	//		スクリーンのレイ
+	std::unique_ptr<ScreenRay> m_screenRay;
 
 	//		プレイヤーの情報を受け取る
-	Player* m_player;
+	PlayerInformation* m_playerInformation;
+
+	//		ゲームマネージャー
+	GameManager* m_gameManager;
 };

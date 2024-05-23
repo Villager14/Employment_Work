@@ -35,6 +35,9 @@ void PlayerDeath::Initialize()
 
 	//		重力を受け取る
 	m_firstGravity = m_player->GetInformation()->GetGravity();
+
+	//		死亡状態にする
+	m_player->GetGameManager()->SetDeathJudgement(true);
 }
 
 void PlayerDeath::Update()
@@ -53,6 +56,11 @@ void PlayerDeath::Move()
 	
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
+
+	//		立つ処理
+	m_player->PlayerHeightTransition(m_firstHeight, 
+		m_player->GetInformation()->GetPosition().y + 
+		m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -85,7 +93,7 @@ void PlayerDeath::Finalize()
 
 void PlayerDeath::Deceleration()
 {
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 1.0f;
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.4f;
 
 	if (m_time >= 1.0f) return;
 
@@ -112,15 +120,8 @@ void PlayerDeath::Deceleration()
 
 void PlayerDeath::ChangeStateJudgement()
 {
-	//		キーボードの取得
-	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
-
-	//		マウスの取得
-	DirectX::Mouse::ButtonStateTracker mouse = *LibrarySingleton::GetInstance()->GetButtonStateTracker();
-
-	//		Spaceまたは左クリックを押した場合復活する
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
-		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
+	//		死亡状態が解除されば場合
+	if (!m_player->GetGameManager()->GetDeathJudgement())
 	{
 		//		復活状態にする
 		m_player->ChangeState(m_player->GetStayState());

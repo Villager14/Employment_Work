@@ -21,6 +21,10 @@
 
 #include "Game/PlayScene/UIManager/UIManager.h"
 
+#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
+
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class SceneManager;
 
 class PlayScene : public IScene
@@ -72,4 +76,10 @@ private:
 
 	//		UIマネージャー
 	std::unique_ptr<UIManager> m_uiManager;
+
+	//		スクリーンエフェクトマネージャー
+	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
+
+	//		ゲームマネージャー
+	std::unique_ptr<GameManager> m_gameManager;
 };

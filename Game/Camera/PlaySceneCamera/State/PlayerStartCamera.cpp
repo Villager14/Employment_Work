@@ -24,6 +24,8 @@ void PlayerStartCamera::Initialize()
 {
 	//		マウスを相対参照にする
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
+
+	m_playerCameraManager->GetGameManager()->SetGameStartJudgement(false);
 }
 
 void PlayerStartCamera::Update()
@@ -67,7 +69,7 @@ void PlayerStartCamera::Update()
 	{
 		m_playerCameraManager->ChangeState(m_playerCameraManager->GetPlayerCamera());
 
-		m_playerCameraManager->GetInformation()->GetStartJudgement(true);
+		m_playerCameraManager->GetGameManager()->SetGameStartJudgement(true);
 	}
 }
 

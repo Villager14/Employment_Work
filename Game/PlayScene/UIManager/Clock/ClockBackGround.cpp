@@ -29,14 +29,14 @@ void ClockBackGround::Initialize()
 
 	//		UIï`âÊÇÃçÏêª
 	m_uiRender->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		{480.0f, 200.0f}, {1.0f, 1.0f});
+		{480.0f, 200.0f}, {0.8f, 0.8f});
 
 	//		ÉRÉçÉìÇÃê∂ê¨
 	m_colonRender = std::make_unique<UIRender>();
 
 	//		ÉRÉçÉìÇÃçÏêª
 	m_colonRender->Create(L"Resources/Texture/UI/Clock/ClockColon.png",
-		{ 480.0f, 200.0f }, { 1.0f, 1.0f });
+		{ 480.0f, 200.0f }, { 0.8f, 0.8f });
 }
 
 void ClockBackGround::Update(float elapsedTime)
