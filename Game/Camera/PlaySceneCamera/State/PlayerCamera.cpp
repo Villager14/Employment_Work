@@ -63,6 +63,13 @@ void PlayerCamera::Update()
 		m_playerCameraManager->ChangeState(
 			m_playerCameraManager->GetWallWalkCamera());
 	}
+
+	//		Ž€–S‚µ‚Ä‚¢‚éê‡
+	if (m_playerCameraManager->GetGameManager()->GetDeathJudgement())
+	{
+		//		Ž€–SƒJƒƒ‰‚É‚·‚é
+		m_playerCameraManager->ChangeState(m_playerCameraManager->GetDeathCamera());
+	}
 }
 
 void PlayerCamera::Finalize()

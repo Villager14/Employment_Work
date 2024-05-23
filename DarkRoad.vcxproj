@@ -182,6 +182,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Common\DebugDraw.h" />
+    <ClInclude Include="Common\RenderTexture.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\IPlayerCamera.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\DebugCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.h" />
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerDeathCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h" />
@@ -203,6 +205,8 @@
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyCharge.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyStay.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.h" />
+    <ClInclude Include="Game\PlayScene\GameManager\GameManager.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h" />
@@ -225,6 +229,7 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallJump.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallWalk.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h" />
+    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
     <ClInclude Include="Game\PlayScene\UIManager\CircleShader.h" />
@@ -234,7 +239,9 @@
     <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeRender.h" />
+    <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\NumberShader.h" />
+    <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIRender.h" />
     <ClInclude Include="Library\Bones\ModelBons.h" />
@@ -255,11 +262,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DebugDraw.cpp" />
+    <ClCompile Include="Common\RenderTexture.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\DebugCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.cpp" />
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerDeathCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp" />
@@ -273,6 +282,8 @@
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyCharge.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyStay.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.cpp" />
+    <ClCompile Include="Game\PlayScene\GameManager\GameManager.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
@@ -291,6 +302,7 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallJump.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallWalk.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp" />
+    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\CircleShader.cpp" />
@@ -300,7 +312,9 @@
     <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeRender.cpp" />
+    <ClCompile Include="Game\PlayScene\UIManager\GameOver\GameOverManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\NumberShader.cpp" />
+    <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
@@ -335,9 +349,11 @@
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli" />
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
+    <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
     <None Include="Resources\Shader\UI\UIShader.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="FBX\Background.fbx" />
     <MeshContentTask Include="FBX\CommonBullet.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
@@ -399,6 +415,19 @@
     <FxCompile Include="Resources\Shader\Number\NumberVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Number\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\RedScreen\RedScreenPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\UIShaderGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

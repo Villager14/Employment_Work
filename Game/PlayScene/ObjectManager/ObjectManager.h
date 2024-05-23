@@ -13,6 +13,8 @@
 
 #include "WallObject/WallObject.h"
 
+#include "BackGroundObject/BackGroundObject.h"
+
 #include "Library/Mesh/ObjectMesh.h"
 
 #include "Library/Mesh/DrawMesh.h"
@@ -52,6 +54,9 @@ private:
 
 	//		ワイヤーオブジェクト
 	std::unique_ptr<WireObject> m_wireObject;
+
+	//		背景オブジェクト
+	std::unique_ptr<BackGroundObject> m_backGroundObject;
 
 	//		オブジェクトのメッシュ
 	std::vector<ObjectMesh*> m_objectMesh;

@@ -25,14 +25,17 @@ void PlayScene::Initialize()
 {
 	CreateProjaction();
 
+	//		ゲームマネージャーを生成する
+	m_gameManager = std::make_unique<GameManager>();
+
 	//		プレイヤーカメラマネージャーの生成
-	m_playerCameraManager = std::make_unique<PlayerCameraManager>();
+	m_playerCameraManager = std::make_unique<PlayerCameraManager>(m_gameManager.get());
 
 	//		プレイヤーカメラマネージャーの初期化処理
 	m_playerCameraManager->Initialize();
 
 	//		プレイヤーの生成
-	m_player = std::make_unique<Player>();
+	m_player = std::make_unique<Player>(m_gameManager.get());
 
 	//		プレイヤーの初期化処理
 	m_player->Initialize();
@@ -56,10 +59,16 @@ void PlayScene::Initialize()
 	m_enemyManager->Initialize();
 
 	//		UIマネージャーの生成
-	m_uiManager = std::make_unique<UIManager>(m_player.get());
+	m_uiManager = std::make_unique<UIManager>(m_player->GetInformation(), m_gameManager.get());
 
 	//		UIマネージャーの初期化
 	m_uiManager->Initialize();
+
+	//		スクリーンエフェクトマネージャーの生成
+	m_screenEffectManager = std::make_unique<ScreenEffectManager>(m_gameManager.get());
+
+	//		スクリーンエフェクトマネージャーの初期化
+	m_screenEffectManager->Initialize();
 }
 
 void PlayScene::Update()
@@ -100,26 +109,45 @@ void PlayScene::Update()
 	//		カメラマネージャーの更新処理
 	m_playerCameraManager->Update(m_player->GetInformation());
 
+
 	//		プレイヤーにカメラの角度を送る
 	m_player->GetInformation()->SetCameraAngle(m_playerCameraManager->GetInformation()->GetAngle());
 
 	//		UIマネージャーの更新
 	m_uiManager->Update();
+
+	//		スクリーンエフェクトの更新処理
+	m_screenEffectManager->Update();
+
+	//		ゲームマネージャーの更新処理
+	m_gameManager->Update();
 }
 
 void PlayScene::Render()
 {
+	//		レンダーターゲットの変更
+	m_screenEffectManager->ChangeRenderTarget();
+
 	//		オブジェクトマネージャーの描画処理
 	m_objectManager->Render();
-
-	//		プレイヤーの描画処理
-	m_player->Render();
 
 	//		エネミーの描画
 	m_enemyManager->Render();
 
+	//		プレイヤーの描画処理
+	m_player->Render();
+
 	//		UIマネージャーの描画
-	m_uiManager->Render();
+	m_uiManager->FrontRender();
+
+	//		レンダーターゲットを基に戻す
+	m_screenEffectManager->FirstRenderTarget();
+
+	//		画面エフェクトの描画
+	m_screenEffectManager->Render();
+
+	//		UIマネージャーの描画
+	m_uiManager->BackRender();
 }
 
 void PlayScene::Finalize()

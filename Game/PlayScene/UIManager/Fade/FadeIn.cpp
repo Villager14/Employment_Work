@@ -11,7 +11,9 @@
 
 FadeIn::FadeIn()
 	:
-	m_time(0.0f)
+	m_time(0.0f),
+	m_fadeinResetJudgement(true),
+	m_fadeoutResetJudgement(false)
 {
 }
 
@@ -29,17 +31,50 @@ void FadeIn::Initialize()
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 }
 
-void FadeIn::Update()
+void FadeIn::Update(GameManager* gameManager)
 {
+	//		復活状態＆フェードアウトをしない状態の場合
+	if (gameManager->GetRevivalJudgement() && !m_fadeoutResetJudgement)
+	{
+		m_fadeoutResetJudgement = true;
+
+		m_time = 1.0f;
+	}
+
+	//		フェードインの処理
+	if (m_fadeinResetJudgement)
+	{
+		m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.5f;
+
+		m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+		if (m_time > 1.0f)
+		{
+			m_fadeinResetJudgement = false;
+		}
+	}
+
+	//		フェード王都の処理
+	if (m_fadeoutResetJudgement)
+	{
+		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * 4.0f;
+
+		m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+		if (m_time <= 0.0f)
+		{
+			m_fadeoutResetJudgement = false;
+
+			//		復活状態を終了
+			gameManager->SetRevivalJudgement(false);
+			gameManager->SetDeathJudgement(false);
+			m_fadeinResetJudgement = true;
+		}
+	}
 }
 
 void FadeIn::Render()
 {
-	//		経過時間
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.5f;
-
-	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
-
 	//		背景の描画
 	m_fadeRender->Render(m_time);
 }

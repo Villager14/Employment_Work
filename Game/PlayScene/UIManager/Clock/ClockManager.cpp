@@ -34,10 +34,13 @@ void ClockManager::Initialize()
 	m_clockTime->Initialize();
 }
 
-void ClockManager::Update()
+void ClockManager::Update(GameManager* gameManager)
 {
-	//		Œo‰ßŽžŠÔ
-	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+	if (gameManager->GetGameStartJudgement() && !gameManager->GetDeathJudgement())
+	{
+		//		Œo‰ßŽžŠÔ
+		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+	}
 
 	//		”wŒi‚ÌXV
 	m_clockBackGround->Update(m_elapsedTime);

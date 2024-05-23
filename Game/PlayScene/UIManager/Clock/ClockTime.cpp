@@ -24,7 +24,7 @@ void ClockTime::Initialize()
 
 	//		数字シェーダーの作製
 	m_numberShader->Create(L"Resources/Texture/UI/Clock/ClockNumber.png",
-		{1050.0f, 560.0f}, {1.0f, 1.0f});
+		{1050.0f, 560.0f}, {0.8f, 0.8f});
 }
 
 void ClockTime::Update(float elapsedTime)
@@ -40,7 +40,7 @@ void ClockTime::Update(float elapsedTime)
 void ClockTime::Render()
 {
 	//		十分単位
-	m_numberShader->SetPosition({1050.0f, 560.0f});
+	m_numberShader->SetPosition({1060.0f, 560.0f});
 	m_numberShader->Render(m_time / 60 / 10);
 
 	//		分単位
@@ -52,7 +52,7 @@ void ClockTime::Render()
 	m_numberShader->Render(m_time % 60 / 10);
 
 	//		秒
-	m_numberShader->SetPosition({ 1190.0f, 560.0f });
+	m_numberShader->SetPosition({ 1180.0f, 560.0f });
 	m_numberShader->Render(m_time % 60 % 10);
 }
 

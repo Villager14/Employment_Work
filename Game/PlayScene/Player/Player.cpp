@@ -11,10 +11,11 @@
 
 #include <bitset>
 
-Player::Player()
+Player::Player(GameManager* gameManager)
 	:
 	m_state{},
-	m_collitionInformation()
+	m_collitionInformation(),
+	m_gameManager(gameManager)
 {
 }
 

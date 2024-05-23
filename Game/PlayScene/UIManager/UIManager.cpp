@@ -9,9 +9,11 @@
 
 #include "UIManager.h"
 
-UIManager::UIManager(Player* player)
+UIManager::UIManager(PlayerInformation* playerInformation,
+					 GameManager* gameManager)
 	:
-	m_player(player)
+	m_playerInformation(playerInformation),
+	m_gameManager(gameManager)
 {
 }
 
@@ -38,22 +40,45 @@ void UIManager::Initialize()
 
 	//		フェードインの初期化
 	m_fadeIn->Initialize();
+
+	//		ゲームーオーバーの生成
+	m_gameOver = std::make_unique<GameOverManager>(m_gameManager);
+
+	//		ゲームオーバーの初期化
+	m_gameOver->Initialize();
+
+	//		スクリーンの例の生成
+	m_screenRay = std::make_unique<ScreenRay>(m_gameManager);
+
+	//		スクリーンの初期化
+	m_screenRay->Initialize();
 }
 
 void UIManager::Update()
 {
-	m_clockManager->Update();
+	m_clockManager->Update(m_gameManager);
 
 	m_coolTime->Update();
 
-	m_fadeIn->Update();
+	m_fadeIn->Update(m_gameManager);
+
+	m_gameOver->Update();
+
+	m_screenRay->Update();
 }
 
-void UIManager::Render()
+void UIManager::FrontRender()
 {
 	m_clockManager->Render();
 
 	m_coolTime->Render();
+
+	m_screenRay->Render();
+}
+
+void UIManager::BackRender()
+{
+	m_gameOver->Render();
 
 	m_fadeIn->Render();
 }

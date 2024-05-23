@@ -9,6 +9,8 @@
 
 #include "FadeRender.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class FadeIn
 {
 public:
@@ -19,7 +21,7 @@ public:
 
 	void Initialize();
 
-	void Update();
+	void Update(GameManager* gameManager);
 
 	void Render();
 
@@ -33,4 +35,10 @@ private:
 
 	//		時間
 	float m_time;
+
+	//		フェードインをするかどうか判断する
+	bool m_fadeinResetJudgement;
+
+	//		フェードアウトをするかどうか判断する
+	bool m_fadeoutResetJudgement;
 };

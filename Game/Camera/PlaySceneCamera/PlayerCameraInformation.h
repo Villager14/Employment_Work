@@ -13,10 +13,7 @@ class PlayerCameraInformation
 {
 public:
 	//		コンストラクタ
-	PlayerCameraInformation()
-	:
-	m_startJudgement(false)
-	{};
+	PlayerCameraInformation(){};
 
 	//		デストラクタ
 	~PlayerCameraInformation() {};
@@ -63,9 +60,6 @@ private:
 
 	//		視線ベクトル
 	DirectX::SimpleMath::Vector3 m_viewVelocity;
-
-	//		開始するかどうか
-	bool m_startJudgement;
 public:
 
 	/*
@@ -95,19 +89,5 @@ public:
 	*	@return ベクトル
 	*/
 	const DirectX::SimpleMath::Vector3& GetViewVelocity() { return m_viewVelocity; }
-
-	/*
-	*	開始するかどうか受け取る
-	* 
-	*	@return true : 開始 false : 開始していない
-	*/
-	bool GetStartJudgement() { return m_startJudgement; }
-
-	/*
-	*	開始するかどうか設定する
-	*
-	*	@param (judgement) true : 開始 false : 開始していない
-	*/
-	void GetStartJudgement(bool judgement) { m_startJudgement = judgement; }
 
 };
