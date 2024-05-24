@@ -19,12 +19,14 @@
 
 #include "Library/Mesh/DrawMesh.h"
 
+#include "Game/PlayScene/Shadow/ShadowInformation.h"
+
 class ObjectManager
 {
 public:
 
 	//		コンストラクタ
-	ObjectManager();
+	ObjectManager(ShadowInformation* shadowInformation);
 
 	//		デストラクタ
 	~ObjectManager();
@@ -70,6 +72,8 @@ private:
 	//		ワイヤーの座標
 	std::vector<DirectX::SimpleMath::Vector3> m_wirePosition;
 
+	//		影情報
+	ShadowInformation* m_shadowInformation;
 public:
 
 	/*

@@ -9,7 +9,9 @@
 
 #include "ObjectManager.h"
 
-ObjectManager::ObjectManager()
+ObjectManager::ObjectManager(ShadowInformation* shadowInformation)
+	:
+	m_shadowInformation(shadowInformation)
 {
 }
 
@@ -20,7 +22,7 @@ ObjectManager::~ObjectManager()
 void ObjectManager::Initialize()
 {
 	//		床の生成
-	m_floorObject = std::make_unique<FloorObject>();
+	m_floorObject = std::make_unique<FloorObject>(m_shadowInformation);
 
 	//		床の初期化処理
 	m_floorObject->Initialize();
@@ -38,10 +40,10 @@ void ObjectManager::Initialize()
 	m_wallObject->Initialize();
 
 	//		背景オブジェクトの生成
-	m_backGroundObject = std::make_unique<BackGroundObject>();
+	//m_backGroundObject = std::make_unique<BackGroundObject>();
 
 	//		背景オブジェクトの初期化
-	m_backGroundObject->Initialize();
+	//m_backGroundObject->Initialize();
 
 	//		オブジェクトメッシュを追加する
 	m_objectMesh.push_back(m_floorObject->GetObjectMesh());
@@ -63,12 +65,12 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 		m_wirePosition.push_back(m_wireObject->GetPosition());
 	}
 
-	m_backGroundObject->Update();
+	//m_backGroundObject->Update();
 }
 
 void ObjectManager::Render()
 {
-	m_backGroundObject->Render();
+	//m_backGroundObject->Render();
 
 	//		床の描画処理
 	m_floorObject->Render(m_drawMesh.get());

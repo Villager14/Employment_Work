@@ -182,6 +182,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Common\DebugDraw.h" />
+    <ClInclude Include="Common\DepthStencil.h" />
+    <ClInclude Include="Common\ReaData.h" />
     <ClInclude Include="Common\RenderTexture.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
@@ -231,6 +233,8 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
+    <ClInclude Include="Game\PlayScene\Shadow\Shadow.h" />
+    <ClInclude Include="Game\PlayScene\Shadow\ShadowInformation.h" />
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
     <ClInclude Include="Game\PlayScene\UIManager\CircleShader.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h" />
@@ -262,6 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DebugDraw.cpp" />
+    <ClCompile Include="Common\DepthStencil.cpp" />
     <ClCompile Include="Common\RenderTexture.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -304,6 +309,8 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
+    <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp" />
+    <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\CircleShader.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp" />
@@ -350,10 +357,13 @@
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
+    <None Include="Resources\Shader\Shadow\Shawow.hlsli" />
     <None Include="Resources\Shader\UI\UIShader.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="FBX\Background.fbx" />
+    <MeshContentTask Include="FBX\Background.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\CommonBullet.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
@@ -361,7 +371,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Floor.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -428,6 +438,24 @@
     <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Shadow/Depth\%(Filename).cso</ObjectFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Shadow/Depth\%(Filename).cso</ObjectFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\ShadowPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Shadow\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\ShadowVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Shadow\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\UIShaderGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

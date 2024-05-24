@@ -140,11 +140,27 @@ void Player::MeshUpdate()
 	m_state->Move();
 }
 
-void Player::Render()
+void Player::Render(ShadowInformation* shadow, Shadow* hontai)
 {
 	//		•`‰æˆ—
-	m_state->Render();
+	//m_state->Render();
 
+	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_information->GetPosition());
+
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+
+	m_playerObject->Draw(context,
+		*LibrarySingleton::GetInstance()->GetCommonState(),
+		world, hontai->GetDepthView(),
+		hontai->GetDpethProj(), false, [&]
+		{
+			//context->VSSetShader(hontai->GetDepthVSShader().Get(), nullptr, 0);
+			//context->PSSetShader(hontai->GetDepthPSShader().Get(), nullptr, 0);
+		});
+}
+
+void Player::DebugRender()
+{
 	//		À•W
 	LibrarySingleton::GetInstance()->DebugFont(L"PositionX", m_information->GetPosition().x, 0, 0);
 	LibrarySingleton::GetInstance()->DebugFont(L"PositionY", m_information->GetPosition().y, 0, 20);

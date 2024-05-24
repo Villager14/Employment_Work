@@ -11,12 +11,14 @@
 
 #include "Library/Mesh/DrawMesh.h"
 
+#include "Game/PlayScene/Shadow/ShadowInformation.h"
+
 class FloorObject
 {
 public:
 
 	//		コンストラクタ
-	FloorObject();
+	FloorObject(ShadowInformation* shadowInformation);
 
 	//		デストラクタ
 	~FloorObject();
@@ -47,6 +49,9 @@ private:
 
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
+
+	//		影情報
+	ShadowInformation* m_shadowInformation;
 
 public:
 

@@ -40,8 +40,14 @@ void PlayScene::Initialize()
 	//		プレイヤーの初期化処理
 	m_player->Initialize();
 
+	//		影の生成
+	m_shadow = std::make_unique<Shadow>();
+
+	//		影の初期化
+	m_shadow->Initialize();
+
 	//		オブジェクトマネージャーの生成
-	m_objectManager = std::make_unique<ObjectManager>();
+	m_objectManager = std::make_unique<ObjectManager>(m_shadow->GetInformation());
 
 	//		オブジェクトマネージャーの初期化処理
 	m_objectManager->Initialize();
@@ -69,6 +75,7 @@ void PlayScene::Initialize()
 
 	//		スクリーンエフェクトマネージャーの初期化
 	m_screenEffectManager->Initialize();
+
 }
 
 void PlayScene::Update()
@@ -126,6 +133,12 @@ void PlayScene::Update()
 void PlayScene::Render()
 {
 	//		レンダーターゲットの変更
+	m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
+
+	//		プレイヤーの描画処理
+	m_player->Render(m_shadow->GetInformation(), m_shadow.get());
+
+	//		レンダーターゲットの変更
 	m_screenEffectManager->ChangeRenderTarget();
 
 	//		オブジェクトマネージャーの描画処理
@@ -134,8 +147,8 @@ void PlayScene::Render()
 	//		エネミーの描画
 	m_enemyManager->Render();
 
-	//		プレイヤーの描画処理
-	m_player->Render();
+	//		デバック描画
+	m_player->DebugRender();
 
 	//		UIマネージャーの描画
 	m_uiManager->FrontRender();
