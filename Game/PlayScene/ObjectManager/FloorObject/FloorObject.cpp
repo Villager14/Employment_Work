@@ -11,9 +11,10 @@
 
 #include <Effects.h>
 
-FloorObject::FloorObject()
+FloorObject::FloorObject(ShadowInformation* shadowInformation)
 	:
-	m_floorModel{}
+	m_floorModel{},
+	m_shadowInformation(shadowInformation)
 {
 }
 
@@ -60,13 +61,46 @@ void FloorObject::Update()
 void FloorObject::Render(DrawMesh* drawMesh)
 {
 	//		モデルの描画
+	//m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
+	//	*LibrarySingleton::GetInstance()->GetCommonState(),
+	//	m_world, LibrarySingleton::GetInstance()->GetView(),
+	//	LibrarySingleton::GetInstance()->GetProj());
+
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+
 	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 		*LibrarySingleton::GetInstance()->GetCommonState(),
 		m_world, LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj());
+		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
+
+			////		定数バッファの設定
+			//ID3D11Buffer* cbuff[] = { m_shadowInformation->GetConstBufferShadow().Get(),
+			//						m_shadowInformation->GetConstBufferDepth().Get()};
+
+			//
+			//context->VSSetConstantBuffers(1, 1, cbuff);
+			//context->PSSetConstantBuffers(1, 2, cbuff);
+			//
+			////		シェーダーリソースビューを受け取る
+			//auto srv = m_shadowInformation->GetRenderTexture()->GetShaderResourceView();
+
+			////		作成したシャドウマップをリソースとして設定する
+			//context->PSSetShaderResources(1, 1, &srv);
+
+			////		テクスチャサンプラーの設定
+			//ID3D11SamplerState* samplers[] = 
+			//{ LibrarySingleton::GetInstance()->GetCommonState()->PointWrap(),
+			//m_shadowInformation->GetShadowMapSampler().Get() };
+			//context->PSSetSamplers(0, 2, samplers);
+
+			////		シェーダーの設定
+			//context->VSSetShader(m_shadowInformation->GetShadowVS().Get(), nullptr, 0);
+			//context->PSSetShader(m_shadowInformation->GetShadowPS().Get(), nullptr, 0);
+
+		});
 
 	//		メッシュの描画
-	drawMesh->StaticRender(m_objectMesh.get());
+	//drawMesh->StaticRender(m_objectMesh.get());
 }
 
 void FloorObject::Finalize()

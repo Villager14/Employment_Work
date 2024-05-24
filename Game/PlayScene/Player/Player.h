@@ -13,6 +13,8 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
+#include "Game/PlayScene/Shadow/ShadowInformation.h"
+
 #include "Game/PlayScene/GameManager/GameManager.h"
 
 #include "PlayerInformation.h"
@@ -31,6 +33,8 @@
 #include "State/PlayerStart.h"
 
 #include "State/PlayerAttack.h"
+
+#include "Game/PlayScene/Shadow/Shadow.h"
 
 
 class PlayerStay;
@@ -66,7 +70,10 @@ public:
 	void MeshUpdate();
 
 	//		描画処理
-	void Render();
+	void Render(ShadowInformation* shadow,Shadow* hontai);
+
+	//		デバック描画
+	void DebugRender();
 
 	//		終了処理
 	void Finalize();

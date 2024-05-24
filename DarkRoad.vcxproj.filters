@@ -125,6 +125,15 @@
     <Filter Include="Game\PlayScene\UIManager\ScreenRay">
       <UniqueIdentifier>{9541c0a5-3e31-4597-b4b7-eb480bcf4c9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PlayScene\Shadow">
+      <UniqueIdentifier>{6dc21f19-5928-4d97-b181-2a3a8991bbc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Shadow">
+      <UniqueIdentifier>{ec3db26c-73d1-41f4-a3f2-96af401e3f93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Shadow\Depth">
+      <UniqueIdentifier>{b59211f9-3b07-4201-8b2c-d12c7f8659a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -357,6 +366,18 @@
     <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h">
       <Filter>Game\PlayScene\UIManager\ScreenRay</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\Shadow\Shadow.h">
+      <Filter>Game\PlayScene\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Shadow\ShadowInformation.h">
+      <Filter>Game\PlayScene\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DepthStencil.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\ReaData.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -557,6 +578,15 @@
     <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp">
       <Filter>Game\PlayScene\UIManager\ScreenRay</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp">
+      <Filter>Game\PlayScene\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\DepthStencil.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp">
+      <Filter>Game\PlayScene\Shadow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -587,6 +617,9 @@
     </None>
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli">
       <Filter>Resorces\Shader\RedScreen</Filter>
+    </None>
+    <None Include="Resources\Shader\Shadow\Shawow.hlsli">
+      <Filter>Resorces\Shader\Shadow</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -660,6 +693,18 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
       <Filter>Resorces\Shader\RedScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\ShadowPS.hlsl">
+      <Filter>Resorces\Shader\Shadow</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\ShadowVS.hlsl">
+      <Filter>Resorces\Shader\Shadow</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthPS.hlsl">
+      <Filter>Resorces\Shader\Shadow\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthVS.hlsl">
+      <Filter>Resorces\Shader\Shadow\Depth</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
