@@ -11,9 +11,8 @@
 
 ClockBackGround::ClockBackGround()
 	:
-	m_rotationMax(60.0f),
+	m_rotationMax(ROTATION_RADIAN),
 	m_rotationMin(0.0f),
-	m_rotationUpdateJudgement(false),
 	m_pastTime(0.0f)
 {
 }
@@ -50,8 +49,8 @@ void ClockBackGround::Update(float elapsedTime)
 
 	if (m_pastTime > time)
 	{
-		m_rotationMin += 60.0f;
-		m_rotationMax += 60.0f;
+		m_rotationMin += ROTATION_RADIAN;
+		m_rotationMax += ROTATION_RADIAN;
 	}
 
 	float move = 0.0f;
@@ -65,8 +64,6 @@ void ClockBackGround::Update(float elapsedTime)
 		move = pow(2.0f, 10.0f * time - 10.0f);
 	}
 	
-	//move = time * time * time * time;
-
 	float rotation = 0;
 
 	rotation = Library::Lerp(m_rotationMin, m_rotationMax, move);

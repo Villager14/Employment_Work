@@ -17,16 +17,26 @@ class ClockManager
 {
 public:
 
+	//		コンストラクタ
 	ClockManager();
 
+	//		デストラクタ
 	~ClockManager();
 
+	//		初期化処理
 	void Initialize();
 
+	/*
+	*	更新処理
+	* 
+	*	@param	(gameManager)	ゲームマネージャーのインスタンスのポインタ
+	*/
 	void Update(GameManager* gameManager);
 
+	//		描画処理
 	void Render();
 
+	//		終了処理
 	void Finalize();
 
 private:

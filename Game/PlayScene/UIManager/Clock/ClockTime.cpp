@@ -10,6 +10,8 @@
 #include "ClockTime.h"
 
 ClockTime::ClockTime()
+	:
+	m_time(0.0f)
 {
 }
 
@@ -31,6 +33,7 @@ void ClockTime::Update(float elapsedTime)
 {
 	m_time = static_cast<float>(elapsedTime);
 
+	//		Å‘åŽžŠÔ
 	if (m_time > 5999)
 	{
 		m_time = 5999;
