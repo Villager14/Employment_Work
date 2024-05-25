@@ -134,6 +134,21 @@
     <Filter Include="Resorces\Shader\Shadow\Depth">
       <UniqueIdentifier>{b59211f9-3b07-4201-8b2c-d12c7f8659a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\TitleScene">
+      <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\UI">
+      <UniqueIdentifier>{3d864d14-41ac-4c44-8a8f-bffabd28eb05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\BackGroundMove">
+      <UniqueIdentifier>{191501e3-b151-4f66-adc1-241aa89ff9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\UI\Select">
+      <UniqueIdentifier>{f9525742-2204-4409-8ffb-6b1ebd4128a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\UI\Select\State">
+      <UniqueIdentifier>{7dbe10e1-ba3e-4a45-9ce1-3d4a392839f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -378,6 +393,24 @@
     <ClInclude Include="Common\ReaData.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SceneState\TitleScene.h">
+      <Filter>Scene\SceneState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\BackGroundMoveRender.h">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\TitleSelectManager.h">
+      <Filter>Game\TitleScene\UI\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\ITitleSelect.h">
+      <Filter>Game\TitleScene\UI\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\State\SelectPlayState.h">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -587,6 +620,21 @@
     <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp">
       <Filter>Game\PlayScene\Shadow</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\SceneState\TitleScene.cpp">
+      <Filter>Scene\SceneState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\BackGroundMoveRender.cpp">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\Select\TitleSelectManager.cpp">
+      <Filter>Game\TitleScene\UI\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\Select\State\SelectPlayState.cpp">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -620,6 +668,9 @@
     </None>
     <None Include="Resources\Shader\Shadow\Shawow.hlsli">
       <Filter>Resorces\Shader\Shadow</Filter>
+    </None>
+    <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli">
+      <Filter>Resorces\Shader\BackGroundMove</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -705,6 +756,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthVS.hlsl">
       <Filter>Resorces\Shader\Shadow\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveGS.hlsl">
+      <Filter>Resorces\Shader\BackGroundMove</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMovePS.hlsl">
+      <Filter>Resorces\Shader\BackGroundMove</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveVS.hlsl">
+      <Filter>Resorces\Shader\BackGroundMove</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
