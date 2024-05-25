@@ -248,6 +248,11 @@
     <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIRender.h" />
+    <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
+    <ClInclude Include="Game\TitleScene\UI\BackGroundMoveRender.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\ITitleSelect.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\State\SelectPlayState.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\TitleSelectManager.h" />
     <ClInclude Include="Library\Bones\ModelBons.h" />
     <ClInclude Include="Library\Library.h" />
     <ClInclude Include="Library\LibrarySingleton.h" />
@@ -262,6 +267,7 @@
     <ClInclude Include="Scene\IScene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneState\PlayScene.h" />
+    <ClInclude Include="Scene\SceneState\TitleScene.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +330,10 @@
     <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\BackGroundMoveRender.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\Select\State\SelectPlayState.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\Select\TitleSelectManager.cpp" />
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
     <ClCompile Include="Library\Mesh\DrawMesh.cpp" />
@@ -341,6 +351,7 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneState\PlayScene.cpp" />
+    <ClCompile Include="Scene\SceneState\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -353,6 +364,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli" />
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli" />
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
@@ -371,7 +383,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Floor.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -387,6 +399,19 @@
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/BackGroundMove\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMovePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/BackGroundMove\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/BackGroundMove\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Resources\Shader\CoolTime\CoolTimeGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>

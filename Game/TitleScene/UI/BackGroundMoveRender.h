@@ -1,29 +1,15 @@
 /*
-* @file		UIRender.h
-* @brief	UIシェーダーの描画
+* @file		BackGroundMoveRender.h
+* @brief	背景移動の描画
 * @author	Morita
-* @date		2024/05/20
+* @date		2024/05/24
 */
 
 #pragma once
 
-enum class CENTER_POINT
-{
-	ABOVE_LEFT,
-	ABOVE_CENTER,
-	ABOVE_RIGHT,
+#include "Game/PlayScene/UIManager/UIRender.h"
 
-	MIDDLE_LEFT,
-	MIDDLE_CENTER,
-	MIDDLE_RIGHT,
-
-	UNDER_LEFT,
-	UNDER_CENTER,
-	UNDER_RIGHT,
-};
-
-
-class UIRender
+class BackGroundMoveRender
 {
 public:
 
@@ -32,13 +18,14 @@ public:
 	{
 		DirectX::SimpleMath::Vector4 windowSize;
 		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 time;
 	};
 
 	//		コンストラクタ
-	UIRender();
+	BackGroundMoveRender();
 	
 	//		デストラクタ
-	~UIRender();
+	~BackGroundMoveRender();
 
 	//		頂点
 	static const std::vector<D3D11_INPUT_ELEMENT_DESC> INPUT_LAYOUT;
@@ -67,7 +54,7 @@ public:
 	//		シェーダーの読み込み
 	void LoadShader();
 
-	void Render();
+	void Render(float time);
 
 private:
 
@@ -121,17 +108,4 @@ public:
 		m_rotationMatrix = rotatonMatrix;
 	}
 
-	/*
-	*	座標を設定する
-	* 
-	*	@param	(position)	座標
-	*/
-	void SetPosition(DirectX::SimpleMath::Vector2 position) { m_position = position; }
-
-	/*
-	*	サイズを設定する
-	* 
-	*	@param	(size)	サイズ
-	*/
-	void SetSize(DirectX::SimpleMath::Vector2 size) { m_scale = size; }
 };

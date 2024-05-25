@@ -23,9 +23,10 @@ void SceneManager::Initialize()
 {
 	//		プレイシーンを生成する
 	m_playScene = std::make_unique<PlayScene>(this);
-
+	//		タイトルシーンを生成する
+	m_titleScene = std::make_unique<TitleScene>(this);
 	//		初期シーンを設定する
-	m_scene = m_playScene.get();
+	m_scene = m_titleScene.get();
 	//		シーンを初期化する
 	m_scene->Initialize();
 }

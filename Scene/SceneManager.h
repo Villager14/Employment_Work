@@ -11,7 +11,11 @@
 
 #include "SceneState/PlayScene.h"
 
+#include "SceneState/TitleScene.h"
+
 class PlayScene;
+
+class TitleScene;
 
 class SceneManager
 {
@@ -40,5 +44,6 @@ private:
 	//		プレイシーン
 	std::unique_ptr<PlayScene> m_playScene;
 
-
+	//		タイトルシーン
+	std::unique_ptr<TitleScene> m_titleScene;
 };
