@@ -411,6 +411,12 @@
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectPlayState.h">
       <Filter>Game\TitleScene\UI\Select\State</Filter>
     </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\State\SelectEndState.h">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\State\SelectSettingState.h">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -633,6 +639,12 @@
       <Filter>Game\TitleScene\UI\Select</Filter>
     </ClCompile>
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectPlayState.cpp">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\Select\State\SelectEndState.cpp">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\Select\State\SelectSettingState.cpp">
       <Filter>Game\TitleScene\UI\Select\State</Filter>
     </ClCompile>
   </ItemGroup>

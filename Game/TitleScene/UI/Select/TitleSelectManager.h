@@ -11,9 +11,13 @@
 
 #include "State/SelectPlayState.h"
 
+#include "State/SelectEndState.h"
+
 #include "Game/PlayScene/UIManager/UIRender.h"
 
 class SelectPlayState;
+
+class SelectEndState;
 
 class TitleSelectManager
 {
@@ -95,6 +99,8 @@ private:
 	//		プレイ状態
 	std::unique_ptr<SelectPlayState> m_selectPlayState;
 
+	//		終了状態
+	std::unique_ptr<SelectEndState> m_selectEndState;
 public:
 
 	/*
@@ -103,6 +109,13 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	SelectPlayState* GetSelectPlayState() { return m_selectPlayState.get(); }
+
+	/*
+	*	終了選択状態を受け取る
+	*
+	*	@return インスタンスのポインタ
+	*/
+	SelectEndState* GetSelectEndState() { return m_selectEndState.get(); }
 
 private:
 

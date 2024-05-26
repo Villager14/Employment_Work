@@ -251,7 +251,9 @@
     <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMoveRender.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\ITitleSelect.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\State\SelectEndState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectPlayState.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\State\SelectSettingState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\TitleSelectManager.h" />
     <ClInclude Include="Library\Bones\ModelBons.h" />
     <ClInclude Include="Library\Library.h" />
@@ -332,7 +334,9 @@
     <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMoveRender.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\Select\State\SelectEndState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectPlayState.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\Select\State\SelectSettingState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\TitleSelectManager.cpp" />
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />

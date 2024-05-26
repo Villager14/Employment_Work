@@ -57,17 +57,37 @@ void SelectPlayState::Update()
 
 	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
 	
+	//		ã‚ÉˆÚ“®
+	if (m_direction)
+	{
+		m_titleSelectManager->CentreUP(m_direction, m_time, TitleSelectManager::UIType::Play);
 
-	m_titleSelectManager->CentreUP(m_direction, m_time, TitleSelectManager::UIType::Play);
+		m_titleSelectManager->CenterUnder(m_direction, m_time, TitleSelectManager::UIType::Setting);
 
-	m_titleSelectManager->CenterUnder(m_direction, m_time, TitleSelectManager::UIType::Setting);
+		m_titleSelectManager->UPUnder(m_direction, m_time, TitleSelectManager::UIType::End);
+	}
+	//		‰º‚ÉˆÚ“®
+	else
+	{
+		m_titleSelectManager->CentreUP(m_direction, m_time, TitleSelectManager::UIType::End);
 
-	m_titleSelectManager->UPUnder(m_direction, m_time, TitleSelectManager::UIType::End);
+		m_titleSelectManager->CenterUnder(m_direction, m_time, TitleSelectManager::UIType::Play);
+
+		m_titleSelectManager->UPUnder(m_direction, m_time, TitleSelectManager::UIType::Setting);
+	}
+
 
 	if (m_time >= 1.0f)
 	{
 		m_flag = false;
 		m_time = 0.0f;
+
+		if (!m_direction)
+		{
+			//		ƒGƒ“ƒh‘I‘ðó‘Ô‚É‚·‚é
+			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectEndState());
+		}
+
 	}
 }
 

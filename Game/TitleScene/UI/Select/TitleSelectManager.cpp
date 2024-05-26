@@ -21,19 +21,21 @@ void TitleSelectManager::Initialize()
 {
 	//		Playの描画
 	AddRenderUI(L"Resources/Texture/TitleScene/Select/TitlePlay.png",
-		{ 0.0f,120.0f }, { 1.0f, 1.0f });
+		CENTER_POINT, { 1.0f, 1.0f });
 
 	//		Playの描画
 	AddRenderUI(L"Resources/Texture/TitleScene/Select/TitleEnd.png",
-		{ 0.0f, 40.0f }, { 0.7f, 0.7f });
+		UP_POINT, { 0.7f, 0.7f });
 
 	//		Playの描画
 	AddRenderUI(L"Resources/Texture/TitleScene/Select/TitleSetting.png",
-		{ 0.0f,200.0f }, { 0.7f, 0.7f });
-
+		UNDER_POINT, { 0.7f, 0.7f });
 
 	//		選択プレイ状態を生成する
 	m_selectPlayState = std::make_unique<SelectPlayState>(this);
+
+	//		選択終了状態を生成する
+	m_selectEndState = std::make_unique<SelectEndState>(this);
 
 	//		初期状態をセットする
 	m_state = m_selectPlayState.get();
