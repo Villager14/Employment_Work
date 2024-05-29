@@ -13,6 +13,8 @@
 
 #include "WallObject/WallObject.h"
 
+#include "GoalObject/GoalObject.h"
+
 #include "BackGroundObject/BackGroundObject.h"
 
 #include "Library/Mesh/ObjectMesh.h"
@@ -56,6 +58,9 @@ private:
 
 	//		ワイヤーオブジェクト
 	std::unique_ptr<WireObject> m_wireObject;
+
+	//		ゴールオブジェクト
+	std::unique_ptr<GoalObject> m_goalObject;
 
 	//		背景オブジェクト
 	std::unique_ptr<BackGroundObject> m_backGroundObject;

@@ -52,6 +52,9 @@ private:
 	//		オブジェクトのメッシュ
 	std::unique_ptr<ObjectMesh> m_objectMesh;
 
+	//		羽オブジェクト
+	std::unique_ptr<DirectX::Model> m_wingModel;
+
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
 
@@ -66,6 +69,13 @@ private:
 
 	//		範囲
 	float m_range;
+
+	//		回転
+	float m_rotation;
+
+	//		羽の座標
+	std::vector<DirectX::SimpleMath::Vector3> m_wingPosition;
+
 public:
 
 	/*

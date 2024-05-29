@@ -19,7 +19,7 @@ public:
 
 	/*
 	*	コンストラクタ
-	* 
+	*
 	*	@param	(titleSelectManager)	タイトル選択マネージャーのインスタンスのポインタ
 	*/
 	SelectSettingState(TitleSelectManager* titleSelectManager);
@@ -39,16 +39,15 @@ public:
 	//		終了処理
 	void Finalize() override;
 
+	//		UIの移動
+	void UIMove();
+
+	//		シーンを切り替える処理
+	void ChangeSceneProcess();
 
 private:
 
 	TitleSelectManager* m_titleSelectManager;
 
 	float m_time;
-
-	bool m_flag;
-
-	bool m_direction;
-
-	DirectX::SimpleMath::Vector2 m_firstPosition;
 };

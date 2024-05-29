@@ -38,6 +38,9 @@ void PlayerDeath::Initialize()
 
 	//		Ž€–Só‘Ô‚É‚·‚é
 	m_player->GetGameManager()->SetDeathJudgement(true);
+
+	//		Ž€–S‰ñ”‚ð‘‚â‚·
+	m_player->GetGameManager()->SetDeathCount(m_player->GetGameManager()->GetDeathCount() + 1);
 }
 
 void PlayerDeath::Update()

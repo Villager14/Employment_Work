@@ -105,7 +105,7 @@ void PlayScene::Update()
 	m_collitionManager->SetBulletPoistion(m_enemyManager->GetBulletPosition());
 
 	//		当たり判定の更新処理
-	m_collitionManager->Update(m_player->GetPlayerInformationCollition());
+	m_collitionManager->Update(m_player->GetPlayerInformationCollition(), m_gameManager.get());
 
 	//		当たり判定の情報
 	m_player->SetCollitionInformation(m_collitionManager->GetCollitionInformation());
@@ -128,15 +128,28 @@ void PlayScene::Update()
 
 	//		ゲームマネージャーの更新処理
 	m_gameManager->Update();
+
+	//		次のシーンに切り替えるかどうか
+	if (m_gameManager->GetNextSceneJudgement())
+	{
+		//		クリアタイムを受け取る
+		m_sceneManager->SetClearTime(m_gameManager->GetTime());
+
+		//		死亡回数を受け取る
+		m_sceneManager->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));
+
+		//		次のシーンに切り替える（リザルトシーン）
+		m_sceneManager->ChangeState(m_sceneManager->GetResultScene());
+	}
 }
 
 void PlayScene::Render()
 {
 	//		レンダーターゲットの変更
-	m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
+	//m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
 
 	//		プレイヤーの描画処理
-	m_player->Render(m_shadow->GetInformation(), m_shadow.get());
+	//m_player->Render(m_shadow->GetInformation(), m_shadow.get());
 
 	//		レンダーターゲットの変更
 	m_screenEffectManager->ChangeRenderTarget();

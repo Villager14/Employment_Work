@@ -32,7 +32,8 @@ void CollitionManager::Initialize()
 	m_collitionInformation = std::make_unique<CollitionInformation>();
 }
 
-void CollitionManager::Update(PlayerInformationCollition* playerInformationCollition)
+void CollitionManager::Update(PlayerInformationCollition* playerInformationCollition,
+							  GameManager* gameManager)
 {
 	//		“–‚½‚è”»’è‚Ì‰Šú‰»
 	m_meshCollition->MeshHitPointClear();
@@ -57,7 +58,7 @@ void CollitionManager::Update(PlayerInformationCollition* playerInformationColli
 		{
 			//		ƒƒbƒVƒ…‚Ì“–‚½‚è”»’è
 			m_meshCollition->MeshCollition(m_objectMesh[i], m_playerPosition, height, 
-								playerInformationCollition->GetSlidingJudgement());
+								playerInformationCollition->GetSlidingJudgement(), gameManager);
 
 			//		°‚Ì“–‚½‚è”»’è‚Ìî•ñ‚ðÝ’è‚·‚é
 			m_collitionInformation->FloorMeshInformation(m_meshCollition->GetMeshHitPoint(),

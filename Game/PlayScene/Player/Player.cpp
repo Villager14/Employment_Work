@@ -64,6 +64,9 @@ void Player::Initialize()
 	//		プレイヤーのスタート状態を生成する
 	m_playerStart = std::make_unique<PlayerStart>(this);
 
+	//		プレイヤーのゴール状態を生成する
+	m_playerGoal = std::make_unique<PlayerGoal>(this);
+
 	//		初期状態
 	m_state = m_playerStart.get();
 
@@ -145,18 +148,18 @@ void Player::Render(ShadowInformation* shadow, Shadow* hontai)
 	//		描画処理
 	//m_state->Render();
 
-	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_information->GetPosition());
+	//DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_information->GetPosition());
 
-	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+	//auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
-	m_playerObject->Draw(context,
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		world, hontai->GetDepthView(),
-		hontai->GetDpethProj(), false, [&]
-		{
-			//context->VSSetShader(hontai->GetDepthVSShader().Get(), nullptr, 0);
-			//context->PSSetShader(hontai->GetDepthPSShader().Get(), nullptr, 0);
-		});
+	//m_playerObject->Draw(context,
+	//	*LibrarySingleton::GetInstance()->GetCommonState(),
+	//	world, hontai->GetDepthView(),
+	//	hontai->GetDpethProj(), false, [&]
+	//	{
+	//		//context->VSSetShader(hontai->GetDepthVSShader().Get(), nullptr, 0);
+	//		//context->PSSetShader(hontai->GetDepthPSShader().Get(), nullptr, 0);
+	//	});
 }
 
 void Player::DebugRender()
@@ -172,12 +175,12 @@ void Player::DebugRender()
 	//		重力
 	LibrarySingleton::GetInstance()->DebugFont(L"gravity", m_information->GetGravity(), 0, 100);
 
-	if (m_collitionInformation->GetWallHitVelocity().size() != 0)
-	{
-		//		めり込み
-		LibrarySingleton::GetInstance()->DebugFont(L"wallX", m_collitionInformation->GetWallHitVelocity()[0].x, 0, 140);
-		LibrarySingleton::GetInstance()->DebugFont(L"wallZ", m_collitionInformation->GetWallHitVelocity()[0].y, 0, 160);
-	}
+	//if (m_collitionInformation->GetWallHitVelocity().size() != 0)
+	//{
+	//	//		めり込み
+	//	LibrarySingleton::GetInstance()->DebugFont(L"wallX", m_collitionInformation->GetWallHitVelocity()[0].x, 0, 140);
+	//	LibrarySingleton::GetInstance()->DebugFont(L"wallZ", m_collitionInformation->GetWallHitVelocity()[0].y, 0, 160);
+	//}
 }
 
 void Player::Finalize()

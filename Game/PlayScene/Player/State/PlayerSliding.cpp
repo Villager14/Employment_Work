@@ -162,6 +162,13 @@ void PlayerSliding::ChangeStateJudgement()
 		m_player->ChangeState(m_player->GetCrouchingState());
 	}
 
+	//		ゴールをしているかどうか
+	if (m_player->GetGameManager()->GetGoalJudgement())
+	{
+		//		状態を切り替える（ゴール）
+		m_player->ChangeState(m_player->GetGoalState());
+	}
+
 	//		Lcontrolを離した場合
 	if (keyState.IsKeyUp(DirectX::Keyboard::LeftControl))
 	{

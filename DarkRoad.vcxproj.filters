@@ -149,6 +149,27 @@
     <Filter Include="Game\TitleScene\UI\Select\State">
       <UniqueIdentifier>{7dbe10e1-ba3e-4a45-9ce1-3d4a392839f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resorces\Shader\TVOFF">
+      <UniqueIdentifier>{391f7b10-9737-405e-a805-0a17fcda48c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Model">
+      <UniqueIdentifier>{202cb540-d483-4282-9f66-4599cfad2574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\GoalObject">
+      <UniqueIdentifier>{3fc37252-63e8-4008-86c5-3f13c00004ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ResultManager">
+      <UniqueIdentifier>{c287e9ff-2bed-406f-9854-e504401756b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ResultManager\State">
+      <UniqueIdentifier>{f1101602-971a-4a62-853c-3fbdac8923cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\AboveNumber">
+      <UniqueIdentifier>{fa5492a5-65d0-440b-befb-cdab0e35b5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ResultManager\UI">
+      <UniqueIdentifier>{df9aa0e4-acc9-481c-a2df-c22f8f87512c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -417,6 +438,36 @@
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectSettingState.h">
       <Filter>Game\TitleScene\UI\Select\State</Filter>
     </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\State\ChangeSceneState.h">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\TVOFEffec.h">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.h">
+      <Filter>Game\PlayScene\ObjectManager\GoalObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerGoal.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneState\ResultScene.h">
+      <Filter>Scene\SceneState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\ResultManager.h">
+      <Filter>Game\ResultManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\IResultManager.h">
+      <Filter>Game\ResultManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\State\ResultStart.h">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\UI\AboveNumber.h">
+      <Filter>Game\ResultManager\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -647,6 +698,33 @@
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectSettingState.cpp">
       <Filter>Game\TitleScene\UI\Select\State</Filter>
     </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\Select\State\ChangeSceneState.cpp">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\TVOFEffec.cpp">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\GoalObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerGoal.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneState\ResultScene.cpp">
+      <Filter>Scene\SceneState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\ResultManager.cpp">
+      <Filter>Game\ResultManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\State\ResultStart.cpp">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\UI\AboveNumber.cpp">
+      <Filter>Game\ResultManager\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -684,6 +762,12 @@
     <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli">
       <Filter>Resorces\Shader\BackGroundMove</Filter>
     </None>
+    <None Include="Resources\Shader\TVOFF\TVOFF.hlsli">
+      <Filter>Resorces\Shader\TVOFF</Filter>
+    </None>
+    <None Include="Resources\Shader\AboveNumber\AboveNumber.hlsli">
+      <Filter>Resorces\Shader\AboveNumber</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\Floor.fbx">
@@ -708,6 +792,15 @@
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Background.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Drone\Drone.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Drone\Wing.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Goal.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -777,6 +870,27 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveVS.hlsl">
       <Filter>Resorces\Shader\BackGroundMove</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\TVOFF\TVOFFGS.hlsl">
+      <Filter>Resorces\Shader\TVOFF</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\TVOFF\TVOFFPS.hlsl">
+      <Filter>Resorces\Shader\TVOFF</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\TVOFF\TVOFFVS.hlsl">
+      <Filter>Resorces\Shader\TVOFF</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\ModelPS.hlsl">
+      <Filter>Resorces\Shader\Model</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberGS.hlsl">
+      <Filter>Resorces\Shader\AboveNumber</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberPS.hlsl">
+      <Filter>Resorces\Shader\AboveNumber</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberVS.hlsl">
+      <Filter>Resorces\Shader\AboveNumber</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

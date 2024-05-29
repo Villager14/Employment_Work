@@ -53,6 +53,12 @@ private:
 	//		影情報
 	ShadowInformation* m_shadowInformation;
 
+	//		ピクセルシェーダー
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_floorPS;
+
+	// テクスチャハンドル 
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+
 public:
 
 	/*

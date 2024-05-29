@@ -12,8 +12,7 @@
 SelectSettingState::SelectSettingState(TitleSelectManager* titleSelectManager)
 	:
 	m_titleSelectManager(titleSelectManager),
-	m_time(0.0f),
-	m_flag(false)
+	m_time(0.0f)
 {
 }
 
@@ -23,65 +22,19 @@ SelectSettingState::~SelectSettingState()
 
 void SelectSettingState::Initialize()
 {
-	m_firstPosition = m_titleSelectManager->GetUIPosition()[0];
 }
 
 void SelectSettingState::Update()
 {
-	DirectX::SimpleMath::Vector2 position = m_titleSelectManager->GetUIPosition()[0];
-
-	//		キーボードの取得
-	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
-
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::W))
-	{
-		if (!m_flag)
-		{
-			m_flag = true;
-			m_direction = true;
-		}
-	}
+	//		キー入力処理
+	m_titleSelectManager->InputKey();
 	
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::S))
-	{
-		if (!m_flag)
-		{
-			m_flag = true;
-			m_direction = false;
-		}
-	}
+	//		UIの移動処理
+	UIMove();
 
-	if (!m_flag) return;
+	//		シーン切り替え処理
+	ChangeSceneProcess();
 
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 7.0f;
-
-	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
-	
-
-	//		上に移動
-	if (m_direction)
-	{
-		m_titleSelectManager->CentreUP(m_direction, m_time, TitleSelectManager::UIType::End);
-
-		m_titleSelectManager->CenterUnder(m_direction, m_time, TitleSelectManager::UIType::Play);
-
-		m_titleSelectManager->UPUnder(m_direction, m_time, TitleSelectManager::UIType::Setting);
-	}
-	//		下に移動
-	else
-	{
-		m_titleSelectManager->CentreUP(m_direction, m_time, TitleSelectManager::UIType::Setting);
-
-		m_titleSelectManager->CenterUnder(m_direction, m_time, TitleSelectManager::UIType::End);
-
-		m_titleSelectManager->UPUnder(m_direction, m_time, TitleSelectManager::UIType::Play);
-	}
-
-	if (m_time >= 1.0f)
-	{
-		m_flag = false;
-		m_time = 0.0f;
-	}
 }
 
 void SelectSettingState::Render()
@@ -90,4 +43,59 @@ void SelectSettingState::Render()
 
 void SelectSettingState::Finalize()
 {
+	m_titleSelectManager->SetKeyInput(false);
+	m_time = 0.0f;
+}
+
+void SelectSettingState::UIMove()
+{
+	//		キー処理がなかった場合処理をしない
+	if (!m_titleSelectManager->GetKeyInput()) return;
+
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * m_titleSelectManager->GetMoveSpeed();
+
+	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+	//		上に移動
+	if (m_titleSelectManager->GetDirection())
+	{
+		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Setting);
+
+		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::End);
+
+		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Play);
+	}
+	//		下に移動
+	else
+	{
+		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Play);
+
+		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Setting);
+
+		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::End);
+	}
+}
+
+void SelectSettingState::ChangeSceneProcess()
+{
+	//		時間が１以下の場合処理をしない
+	if (m_time < 1.0f)
+	{
+
+	}
+	else
+	{
+
+		if (m_titleSelectManager->GetDirection())
+		{
+			//		設定選択状態にする
+			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectEndState());
+		}
+		else
+		{
+			//		終了選択状態にする
+			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectPlayState());
+		}
+	}
+
 }

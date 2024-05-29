@@ -17,6 +17,8 @@
 
 #include "Game/PlayScene/Player/PlayerInformationCollition.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class CollitionManager
 {
 public:
@@ -35,7 +37,8 @@ public:
 	* 
 	*	@param	(playerInformationCollition)	インスタンスのポインタ
 	*/
-	void Update(PlayerInformationCollition* playerInformationCollition);
+	void Update(PlayerInformationCollition* playerInformationCollition,
+		GameManager* gameManager);
 
 private:
 

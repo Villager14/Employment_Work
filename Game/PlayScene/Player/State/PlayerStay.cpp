@@ -115,6 +115,13 @@ void PlayerStay::ChangeStateJudgement()
 		return;
 	}
 
+	//		ゴールをしているかどうか
+	if (m_player->GetGameManager()->GetGoalJudgement())
+	{
+		//		状態を切り替える（ゴール）
+		m_player->ChangeState(m_player->GetGoalState());
+	}
+
 	//		spaceでジャンプ
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
 	{

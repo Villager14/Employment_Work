@@ -15,7 +15,8 @@ WireObject::WireObject()
 	:
 	m_wireModel{},
 	m_wireAvailableJudgement(false),
-	m_range(120.0f)
+	m_range(120.0f),
+	m_rotation(0.0f)
 {
 }
 
@@ -35,13 +36,23 @@ void WireObject::Initialize()
 
 	//		モデルの読み込み
 	m_wireModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
-		L"Resources/Models/Wire.cmo", *m_effect);
+		L"Resources/Models/Drone.cmo", *m_effect);
 
 	m_wireRangeModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/WireRange.cmo", *m_effect);
 
+	m_wingModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
+		L"Resources/Models/Wing.cmo", *m_effect);
+
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
+
+	//		
+	m_wingPosition.push_back({ 4.0f, 5.0f, 3.6f });
+	m_wingPosition.push_back({ 4.2f, 5.0f, -3.0f });
+	m_wingPosition.push_back({ -4.0f, 5.0f, 3.6f });
+	m_wingPosition.push_back({ -4.2f, 5.0f, -3.0f });
+
 
 	//		座標
 	m_position = { 0.0f, 60.0f, 700.0f };
@@ -66,6 +77,8 @@ void WireObject::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 	}
 	//		使用不可能
 	else m_wireAvailableJudgement = false;
+
+	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
 }
 
 void WireObject::Render(DrawMesh* drawMesh)
@@ -92,6 +105,21 @@ void WireObject::Render(DrawMesh* drawMesh)
 		*LibrarySingleton::GetInstance()->GetCommonState(),
 		m_world, LibrarySingleton::GetInstance()->GetView(),
 		LibrarySingleton::GetInstance()->GetProj());
+
+	for (int i = 0; i < 4; ++i)
+	{
+
+		DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(m_rotation);
+		
+		world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_wingPosition[i]);
+		world *= DirectX::SimpleMath::Matrix::CreateTranslation({m_world._41, m_world._42, m_world._43});
+
+		//		羽モデルの描画
+		m_wingModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
+			*LibrarySingleton::GetInstance()->GetCommonState(),
+			world, LibrarySingleton::GetInstance()->GetView(),
+			LibrarySingleton::GetInstance()->GetProj());
+	}
 }
 
 void WireObject::Finalize()

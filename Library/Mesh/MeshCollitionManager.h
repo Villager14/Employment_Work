@@ -15,6 +15,8 @@
 
 #include "MeshCollitionWall.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class MeshCollitionManager
 {
 public:
@@ -35,10 +37,11 @@ public:
 	*	@param	(playerPosition)	プレイヤーの座標
 	*	@param	(height)			高さ
 	*	@param	(slidingJudgement)	スライディングをしているかどうか
+	*	@param	(gameObject)		ゲームマネージャー
 	*/
 	void MeshCollition(ObjectMesh* objectMesh,
 		const DirectX::SimpleMath::Vector3& playerPosition,
-		float height, bool slidingJudgement);
+		float height, bool slidingJudgement, GameManager* gameManager);
 
 	/*
 	*	円と円の当たり判定

@@ -13,7 +13,12 @@ GameManager::GameManager()
 	:
 	m_gameStartJudgement(false),
 	m_deathJudgement(false),
-	m_revivalJudgement(false)
+	m_revivalJudgement(false),
+	m_goalJudgement(false),
+	m_endJudgement(false),
+	m_nextSceneJudgement(false),
+	m_time(0.0f),
+	m_deathCount(0)
 {
 }
 
