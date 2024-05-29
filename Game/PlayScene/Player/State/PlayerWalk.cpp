@@ -172,6 +172,13 @@ void PlayerWalk::ChangeStateJudgement()
 		m_player->ChangeState(m_player->GetJumpState());
 	}
 
+	//		ƒS[ƒ‹‚ð‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	if (m_player->GetGameManager()->GetGoalJudgement())
+	{
+		//		ó‘Ô‚ðØ‚è‘Ö‚¦‚éiƒS[ƒ‹j
+		m_player->ChangeState(m_player->GetGoalState());
+	}
+
 	//		Control‚Å‚µ‚á‚ª‚Ý
 	if (keyState.IsKeyDown(DirectX::Keyboard::LeftControl))
 	{

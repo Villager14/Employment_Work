@@ -204,6 +204,13 @@ void PlayerWallJump::ChangeStateJudgement()
 		}
 	}
 
+	//		ゴールをしているかどうか
+	if (m_player->GetGameManager()->GetGoalJudgement())
+	{
+		//		状態を切り替える（ゴール）
+		m_player->ChangeState(m_player->GetGoalState());
+	}
+
 	//		床に当たったら別の状態にする
 	if (m_rayHitJudgement)
 	{

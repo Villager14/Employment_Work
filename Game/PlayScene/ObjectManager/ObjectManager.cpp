@@ -39,6 +39,12 @@ void ObjectManager::Initialize()
 	//		壁オブジェクトの初期化
 	m_wallObject->Initialize();
 
+	//		ゴールオブジェクトの生成
+	m_goalObject = std::make_unique<GoalObject>();
+
+	//		ゴールオブジェクトの初期化処理
+	m_goalObject->Initialize();
+
 	//		背景オブジェクトの生成
 	//m_backGroundObject = std::make_unique<BackGroundObject>();
 
@@ -47,8 +53,8 @@ void ObjectManager::Initialize()
 
 	//		オブジェクトメッシュを追加する
 	m_objectMesh.push_back(m_floorObject->GetObjectMesh());
-
 	m_objectMesh.push_back(m_wallObject->GetObjectMesh());
+	m_objectMesh.push_back(m_goalObject->GetObjectMesh());
 
 	//		メッシュの描画を生成する
 	m_drawMesh = std::make_unique<DrawMesh>();
@@ -80,6 +86,8 @@ void ObjectManager::Render()
 
 	//		ワイヤーオブジェクトの処理
 	m_wireObject->Render(m_drawMesh.get());
+
+	m_goalObject->Render(m_drawMesh.get());
 }
 
 void ObjectManager::Finalize()

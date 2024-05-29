@@ -28,7 +28,8 @@ void MeshCollitionManager::Initialize()
 
 void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 			const DirectX::SimpleMath::Vector3& playerPosition,
-			float height, bool slidingJudgement)
+			float height, bool slidingJudgement,
+			GameManager* gameManager)
 {
 	//		スライディング状態かどうか
 	if (slidingJudgement)
@@ -66,6 +67,16 @@ void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 
 	//		床の当たり判定を更新する
 	m_meshHitPoint = m_meshCollitionFloor->FloorCollition(objectMesh, m_playerPosition);
+
+	if (m_meshHitPoint.size() != 0)
+	{
+		//		ゴールに当たっている場合
+		if (objectMesh->GetObjectType() == ObjectMesh::ObjectType::Goal)
+		{
+			//		ゴールを設定する
+			gameManager->SetGoalJudgement(true);
+		}
+	}
 }
 
 bool MeshCollitionManager::CollitionCC(const std::vector<DirectX::SimpleMath::Vector3>& vertex,

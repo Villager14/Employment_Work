@@ -144,6 +144,13 @@ void PlayerDash::ChangeStateJudgement()
 	//		壁歩き状態かどうか
 	m_player->WallWalkJudgement();
 
+	//		ゴールをしているかどうか
+	if (m_player->GetGameManager()->GetGoalJudgement())
+	{
+		//		状態を切り替える（ゴール）
+		m_player->ChangeState(m_player->GetGoalState());
+	}
+
 	if (m_deceleration >= 1.0f)
 	{
 		//		状態を遷移する(歩き)

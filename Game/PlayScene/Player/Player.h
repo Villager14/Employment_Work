@@ -31,6 +31,7 @@
 #include "State/PlayerWallJump.h"
 #include "State/PlayerDeath.h"
 #include "State/PlayerStart.h"
+#include "State/PlayerGoal.h"
 
 #include "State/PlayerAttack.h"
 
@@ -49,6 +50,7 @@ class PlayerWire;
 class PlayerWallJump;
 class PlayerDeath;
 class PlayerStart;
+class PlayerGoal;
 
 class Player
 {
@@ -177,6 +179,9 @@ private:
 
 	//		プレイヤーのスタート状態
 	std::unique_ptr<PlayerStart> m_playerStart;
+
+	//		プレイヤーのゴール状態
+	std::unique_ptr<PlayerGoal> m_playerGoal;
 public:
 
 	/*
@@ -262,6 +267,13 @@ public:
 	*	@return スタート状態のインスタンスを受け取る
 	*/
 	PlayerStart* GetStartState() { return m_playerStart.get(); }
+
+	/*
+	*	プレイヤーゴール状態
+	* 
+	*	@reutnr ゴール状態のインスタンスを受け取る
+	*/
+	PlayerGoal* GetGoalState() { return m_playerGoal.get(); }
 
 private:
 

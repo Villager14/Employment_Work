@@ -42,7 +42,7 @@ public:
 	{
 		Floor,
 		Wall,
-		All,
+		Goal,
 	};
 
 private:

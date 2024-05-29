@@ -33,6 +33,22 @@ void FadeIn::Initialize()
 
 void FadeIn::Update(GameManager* gameManager)
 {
+	//		終了の場合
+	if (gameManager->GetEndJudgement())
+	{
+		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * 1.0f;
+
+		m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+		if (m_time <= 0.0f)
+		{
+			//		次のシーンに切り替える
+			gameManager->SetNextSceneJudgement(true);
+		}
+
+		return;
+	}
+
 	//		復活状態＆フェードアウトをしない状態の場合
 	if (gameManager->GetRevivalJudgement() && !m_fadeoutResetJudgement)
 	{
@@ -54,7 +70,7 @@ void FadeIn::Update(GameManager* gameManager)
 		}
 	}
 
-	//		フェード王都の処理
+	//		フェードアウトの処理
 	if (m_fadeoutResetJudgement)
 	{
 		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * 4.0f;

@@ -39,16 +39,15 @@ public:
 	//		I—¹ˆ—
 	void Finalize() override;
 
+	//		UI‚ÌˆÚ“®
+	void UIMove();
+
+	//		ƒV[ƒ“‚ğØ‚è‘Ö‚¦‚éˆ—
+	void ChangeSceneProcess();
 
 private:
 
 	TitleSelectManager* m_titleSelectManager;
 
 	float m_time;
-
-	bool m_flag;
-
-	bool m_direction;
-
-	DirectX::SimpleMath::Vector2 m_firstPosition;
 };

@@ -42,6 +42,8 @@ void ClockManager::Update(GameManager* gameManager)
 		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 	}
 
+	gameManager->SetTime(m_elapsedTime);
+
 	//		”wŒi‚ÌXV
 	m_clockBackGround->Update(m_elapsedTime);
 

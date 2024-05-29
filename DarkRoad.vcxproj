@@ -210,6 +210,7 @@
     <ClInclude Include="Game\PlayScene\GameManager\GameManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerCrouching.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerDash.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerDeath.h" />
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerGoal.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerJump.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerSliding.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerSlowTime.h" />
@@ -248,13 +250,20 @@
     <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIRender.h" />
+    <ClInclude Include="Game\ResultScene\IResultManager.h" />
+    <ClInclude Include="Game\ResultScene\ResultManager.h" />
+    <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h" />
+    <ClInclude Include="Game\ResultScene\State\ResultStart.h" />
+    <ClInclude Include="Game\ResultScene\UI\AboveNumber.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMoveRender.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\ITitleSelect.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\State\ChangeSceneState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectEndState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectPlayState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectSettingState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\TitleSelectManager.h" />
+    <ClInclude Include="Game\TitleScene\UI\TVOFEffec.h" />
     <ClInclude Include="Library\Bones\ModelBons.h" />
     <ClInclude Include="Library\Library.h" />
     <ClInclude Include="Library\LibrarySingleton.h" />
@@ -269,6 +278,7 @@
     <ClInclude Include="Scene\IScene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneState\PlayScene.h" />
+    <ClInclude Include="Scene\SceneState\ResultScene.h" />
     <ClInclude Include="Scene\SceneState\TitleScene.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
@@ -298,6 +308,7 @@
     <ClCompile Include="Game\PlayScene\GameManager\GameManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp" />
@@ -306,6 +317,7 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerCrouching.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDash.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDeath.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerGoal.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerJump.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerSliding.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerSlowTime.cpp" />
@@ -332,12 +344,18 @@
     <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
+    <ClCompile Include="Game\ResultScene\ResultManager.cpp" />
+    <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp" />
+    <ClCompile Include="Game\ResultScene\State\ResultStart.cpp" />
+    <ClCompile Include="Game\ResultScene\UI\AboveNumber.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMoveRender.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\Select\State\ChangeSceneState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectEndState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectPlayState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectSettingState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\TitleSelectManager.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\TVOFEffec.cpp" />
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
     <ClCompile Include="Library\Mesh\DrawMesh.cpp" />
@@ -355,6 +373,7 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneState\PlayScene.cpp" />
+    <ClCompile Include="Scene\SceneState\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneState\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -368,12 +387,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Shader\AboveNumber\AboveNumber.hlsli" />
     <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli" />
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli" />
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
     <None Include="Resources\Shader\Shadow\Shawow.hlsli" />
+    <None Include="Resources\Shader\TVOFF\TVOFF.hlsli" />
     <None Include="Resources\Shader\UI\UIShader.hlsli" />
   </ItemGroup>
   <ItemGroup>
@@ -383,10 +404,19 @@
     <MeshContentTask Include="FBX\CommonBullet.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Drone\Drone.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Drone\Wing.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\Enemy.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Floor.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player.fbx">
@@ -403,6 +433,19 @@
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveNumber\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveNumber\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveNumber\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
@@ -441,6 +484,11 @@
     <FxCompile Include="Resources\Shader\Fade\FadeShaderVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Fade\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\ModelPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Model\%(Filename).cso</ObjectFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Number\NumberGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
@@ -485,6 +533,19 @@
     <FxCompile Include="Resources\Shader\Shadow\ShadowVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Shadow\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\TVOFF\TVOFFGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/TVOFF\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\TVOFF\TVOFFPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/TVOFF\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\TVOFF\TVOFFVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/TVOFF\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\UIShaderGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

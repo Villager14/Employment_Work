@@ -11,10 +11,6 @@
 
 #include "../SceneManager.h"
 
-#include "Game/PlayScene/UIManager/UIRender.h"
-
-#include "Game/TitleScene/UI/BackGroundMove.h"
-
 #include "Game/TitleScene/UI/Select/TitleSelectManager.h"
 
 class SceneManager;
@@ -44,12 +40,6 @@ public:
 private:
 	//		シーンマネージャーのインスタンスのポインタ
 	SceneManager* m_sceneManager;
-
-	//		UI描画
-	std::unique_ptr<UIRender> m_uiRender;
-
-	//		背景移動処理
-	std::unique_ptr<BackGroundMove> m_backGroundMove;
 
 	//		タイトル選択状態
 	std::unique_ptr<TitleSelectManager> m_titleSelectManager;
