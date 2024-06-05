@@ -13,7 +13,8 @@ ResultManager::ResultManager()
 	:
 	m_score(0),
 	m_time(0),
-	m_deathCount(0)
+	m_deathCount(0),
+	m_state()
 {
 }
 
@@ -136,7 +137,7 @@ void ResultManager::NumberRender(float time)
 	AboveNumberView(2,  m_deathCount % 10,			Library::Clamp(time, 0.6f, 1.6f) - 0.6f);
 
 	//		ƒNƒŠƒAŽžŠÔ
-	AboveNumberView(3, m_time / 60 / 10, Library::Clamp(time, 0.9f, 1.9f) - 0.9);
+	AboveNumberView(3, m_time / 60 / 10, Library::Clamp(time, 0.9f, 1.9f) - 0.9f);
 	AboveNumberView(4, m_time / 60 % 10, Library::Clamp(time, 1.2f, 2.2f) - 1.2f);
 	AboveNumberView(5, m_time % 60 / 10, Library::Clamp(time, 1.5f, 2.5f) - 1.5f);
 	AboveNumberView(6, m_time % 60 % 10, Library::Clamp(time, 1.8f, 2.8f) - 1.8f);

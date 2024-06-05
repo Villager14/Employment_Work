@@ -30,6 +30,12 @@ private:
 	//		ƒJƒƒ‰‚Ì‘¬“x
 	const float CAMERA_SPEED = 5.0f;
 
+	//		‹–ìŠpÅ‘å
+	const float VIEWING_ANGLE_MAX = 100.0f;
+
+	//		‹–ìŠpÅ¬
+	const float VIEWING_ANGLE_MIN = 70.0f;
+
 public:
 
 	/*
@@ -90,4 +96,17 @@ public:
 	*/
 	const DirectX::SimpleMath::Vector3& GetViewVelocity() { return m_viewVelocity; }
 
+	/*
+	*	‹–ìŠpÅ¬Šp“x‚ğó‚¯æ‚é
+	* 
+	*	@return Šp“x
+	*/
+	const float GetViewingAngleMin() { return VIEWING_ANGLE_MIN; }
+
+	/*
+	*	‹–ìŠpÅ‘åŠp“x‚ğó‚¯æ‚é
+	* 
+	*	@return Šp“x
+	*/
+	const float GetViewingAngleMax() { return VIEWING_ANGLE_MAX; }
 };

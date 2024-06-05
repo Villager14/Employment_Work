@@ -12,7 +12,8 @@
 
 ScreenEffectManager::ScreenEffectManager(GameManager* gameManager)
 	:
-	m_gameManager(gameManager)
+	m_gameManager(gameManager),
+	m_shaderResouceView()
 {
 }
 
@@ -28,16 +29,25 @@ void ScreenEffectManager::Initialize()
 
 	m_redScreen->Create({ LibrarySingleton::GetInstance()
 		->GetScreenSize().x, 0.0f}, {1.0f, 1.0f});
+
+	m_speedScree = std::make_unique<SpeedScreen>();
+
+	m_speedScree->Create({ LibrarySingleton::GetInstance()
+		->GetScreenSize().x, 0.0f }, { 1.0f, 1.0f });
 }
 
 void ScreenEffectManager::Update()
 {
 	m_redScreen->Update(m_gameManager);
+
+	m_speedScree->Update(m_gameManager);
 }
 
 void ScreenEffectManager::Render()
 {
 	m_redScreen->Render(m_shaderResouceView);
+
+	//m_speedScree->Render(m_shaderResouceView);
 }
 
 void ScreenEffectManager::Finalize()
@@ -59,8 +69,8 @@ void ScreenEffectManager::CreateRenderTexture()
 		->GetDeviceResources()->GetD3DDevice());
 
 	//		ƒTƒCƒY‚ÌÝ’è
-	RECT rect = { 0,0, LibrarySingleton::GetInstance()->GetScreenSize().x,
-		LibrarySingleton::GetInstance()->GetScreenSize().y };
+	RECT rect = { 0,0, static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().y) };
 
 	m_renderTexture->SetWindow(rect);
 

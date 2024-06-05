@@ -19,7 +19,8 @@ PlayerSliding::PlayerSliding(Player* player)
 	m_speed(0.0f),
 	m_slopeJudgement(false),
 	m_decelerationSpeed(0.0f),
-	m_firstHeight(0.0f)
+	m_firstHeight(0.0f),
+	m_accelerationTime(0.0f)
 {
 }
 
@@ -111,6 +112,13 @@ void PlayerSliding::MoveProcessing()
 		m_acceleration.x += m_slidingVelocity.x * SLIDING_ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
 		m_acceleration.z += m_slidingVelocity.y * SLIDING_ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
 
+		if (m_acceleration.Length() > 80.0f)
+		{
+			m_acceleration.Normalize();
+
+			m_acceleration *= 80.0f;
+		}
+
 		m_player->GetInformation()->SetAcceleration(m_acceleration);
 
 		//		速度を設定する
@@ -127,9 +135,16 @@ void PlayerSliding::MoveProcessing()
 	}
 	else
 	{
-		//		速度を遅くする
-		m_speed -= m_decelerationSpeed *
-			LibrarySingleton::GetInstance()->GetElpsedTime();
+		if (m_accelerationTime <= 0.0f)
+		{
+			//		速度を遅くする
+			m_speed -= m_decelerationSpeed *
+				LibrarySingleton::GetInstance()->GetElpsedTime();
+		}
+		else
+		{
+			m_accelerationTime -= LibrarySingleton::GetInstance()->GetElpsedTime();
+		}
 
 		//		加速度を受け取る
 		DirectX::SimpleMath::Vector3 m_acceleration = m_player->GetInformation()->GetAcceleration();
@@ -229,6 +244,8 @@ void PlayerSliding::SlopeJudgement()
 	{
 		//		下り処理
 		m_slopeJudgement = true;
+
+		m_accelerationTime = 1.0f;
 
 		return;
 	}

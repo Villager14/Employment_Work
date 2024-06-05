@@ -234,6 +234,7 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallWalk.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h" />
+    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
     <ClInclude Include="Game\PlayScene\Shadow\Shadow.h" />
     <ClInclude Include="Game\PlayScene\Shadow\ShadowInformation.h" />
@@ -328,6 +329,7 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallWalk.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp" />
+    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
     <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp" />
     <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp" />
@@ -394,6 +396,7 @@
     <None Include="Resources\Shader\Number\Number.hlsli" />
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
     <None Include="Resources\Shader\Shadow\Shawow.hlsli" />
+    <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli" />
     <None Include="Resources\Shader\TVOFF\TVOFF.hlsli" />
     <None Include="Resources\Shader\UI\UIShader.hlsli" />
   </ItemGroup>
@@ -414,7 +417,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Floor.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -533,6 +536,19 @@
     <FxCompile Include="Resources\Shader\Shadow\ShadowVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Shadow\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\TVOFF\TVOFFGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

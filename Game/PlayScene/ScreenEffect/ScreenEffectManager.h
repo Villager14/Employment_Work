@@ -11,6 +11,8 @@
 
 #include "FailureScreen/RedScreen.h"
 
+#include "FailureScreen/SpeedScreen.h"
+
 #include "Game/PlayScene/GameManager/GameManager.h"
 
 class ScreenEffectManager
@@ -56,6 +58,9 @@ private:
 
 	//		赤いスクリーン
 	std::unique_ptr<RedScreen> m_redScreen;
+
+	//		速度スクリーン
+	std::unique_ptr<SpeedScreen> m_speedScree;
 
 	//		ゲームマネージャー
 	GameManager* m_gameManager;

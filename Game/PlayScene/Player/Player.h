@@ -83,6 +83,9 @@ public:
 	//		死亡したか判断する
 	void DeathJudgement();
 
+	//		ダッシュのクールタイム
+	void DashCoolTime();
+
 	/*
 	*	状態を変更する
 	*

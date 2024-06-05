@@ -49,16 +49,14 @@ void Shadow::CreateShadow()
 {
 	//		デバイスの取得
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
-	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->
-		GetD3DDeviceContext();
 
 	m_proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView(DirectX::XMConvertToRadians(m_lightRange),
 			1.0f, 0.1f, 100.0f);
 
 	//		サイズ
-	RECT rect = { 0,0,LibrarySingleton::GetInstance()->GetScreenSize().x,
-				  LibrarySingleton::GetInstance()->GetScreenSize().y };
+	RECT rect = { 0,0,static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+				  static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().y) };
 
 	//		レンダーテクスチャの作製（シャドウマップ）
 	m_renderTexture = std::make_unique<DX::RenderTexture>(DXGI_FORMAT_R32_FLOAT);
@@ -137,7 +135,6 @@ void Shadow::ChangeRenderTarget(const DirectX::SimpleMath::Vector3& playerpos)
 
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->
 		GetD3DDeviceContext();
-	auto states = LibrarySingleton::GetInstance()->GetCommonState();
 
 	//		シャドウマップの作製
 	auto rtv = m_renderTexture->GetRenderTargetView();

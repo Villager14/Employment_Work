@@ -10,7 +10,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 	float2 uv = input.tex;
 
-	uv.x += time;
+	uv.x += time.x;
 
 	return tex.Sample(samLinear, uv);
 }

@@ -29,13 +29,13 @@ void ResultScene::Initialize()
 	time *= 1.5f;
 
 	//		スコアの計算をする
-	m_score = static_cast<int>(ScoreCalculation(m_sceneManager->GetDeathCount(), time));
+	m_score = ScoreCalculation(m_sceneManager->GetDeathCount(), time);
 
 	//		リザルトマネージャーの生成
 	m_resultManager = std::make_unique<ResultManager>();
 
 	//		リザルトマネージャーの初期化
-	m_resultManager->Initialize(m_score, m_sceneManager->GetClearTime(),
+	m_resultManager->Initialize(static_cast<int>(m_score), m_sceneManager->GetClearTime(),
 								m_sceneManager->GetDeathCount());
 }
 

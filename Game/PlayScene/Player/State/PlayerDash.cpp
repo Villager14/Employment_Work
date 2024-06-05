@@ -109,7 +109,7 @@ void PlayerDash::Acceratation()
 
 void PlayerDash::Deceleration()
 {
-	//		経過時間　＊　1.5倍速
+	//		経過時間
 	m_deceleration += LibrarySingleton::GetInstance()->GetElpsedTime()
 		* 3.0f;
 

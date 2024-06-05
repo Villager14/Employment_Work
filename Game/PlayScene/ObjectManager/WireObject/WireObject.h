@@ -22,7 +22,7 @@ public:
 	~WireObject();
 
 	//		‰Šú‰»ˆ—
-	void Initialize();
+	void Initialize(DirectX::SimpleMath::Vector3 position);
 
 	/*
 	*	XVˆ—

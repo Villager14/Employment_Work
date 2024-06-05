@@ -14,7 +14,8 @@ TitleSelectManager::TitleSelectManager()
 	m_inputKey(false),
 	m_direction(false),
 	m_scrollWheeel(0),
-	m_changeSceneJudgement(false)
+	m_changeSceneJudgement(false),
+	m_state()
 {
 }
 
@@ -191,8 +192,8 @@ void TitleSelectManager::CentreUP(bool direction, float time, UIType type)
 		firstPosition = { 0.0f,120.0f };
 		endPosition = { 0.0f, 40.0f };
 
-		move = sqrt(1 - pow(time - 1, 2));
-		size = 1 - sqrt(1 - pow(time, 2));
+		move = sqrt(1.0f - pow(time - 1.0f, 2.0f));
+		size = 1.0f - sqrt(1 - pow(time, 2.0f));
 		firstSize = MAX_SCALE;
 		endSize = MIN_SCALE;
 	}
@@ -231,8 +232,8 @@ void TitleSelectManager::CenterUnder(bool direction, float time, UIType type)
 		firstPosition = UNDER_POINT;
 		endPosition = CENTER_POINT;
 
-		move = 1 - sqrt(1 - pow(time, 2));
-		size = sqrt(1 - pow(time - 1, 2));
+		move = 1.0f - sqrt(1.0f - pow(time, 2.0f));
+		size = sqrt(1.0f - pow(time - 1.0f, 2.0f));
 		firstSize = MIN_SCALE;
 		endSize = MAX_SCALE;
 	}
@@ -241,8 +242,8 @@ void TitleSelectManager::CenterUnder(bool direction, float time, UIType type)
 		firstPosition = CENTER_POINT;
 		endPosition = UNDER_POINT;
 
-		move = sqrt(1 - pow(time - 1, 2));
-		size = 1 - sqrt(1 - pow(time, 2));
+		move = sqrt(1.0f - pow(time - 1.0f, 2.0f));
+		size = 1.0f - sqrt(1.0f - pow(time, 2.0f));
 		firstSize = MAX_SCALE;
 		endSize = MIN_SCALE;
 	}

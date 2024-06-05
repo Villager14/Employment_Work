@@ -7,25 +7,19 @@
 
 #pragma once
 
-#include "../SceneManager.h"
-
-#include "Game/Camera/PlaySceneCamera/PlayerCameraManager.h"
-
-#include "Game/PlayScene/Player/Player.h"
-
-#include "Game/PlayScene/ObjectManager/ObjectManager.h"
-
-#include "Game/PlayScene/CollitionManager/CollitionManager.h"
-
-#include "Game/PlayScene/Enemy/EnemyManager.h"
-
+#include "Game/PlayScene/GameManager/GameManager.h"
 #include "Game/PlayScene/UIManager/UIManager.h"
-
+#include "Game/PlayScene/Shadow/Shadow.h"
+#include "Game/PlayScene/Enemy/EnemyManager.h"
+#include "Game/Camera/PlaySceneCamera/PlayerCameraManager.h"
+#include "Game/PlayScene/Player/Player.h"
+#include "Game/PlayScene/ObjectManager/ObjectManager.h"
+#include "Game/PlayScene/CollitionManager/CollitionManager.h"
 #include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
 
-#include "Game/PlayScene/GameManager/GameManager.h"
+#include "../SceneManager.h"
 
-#include "Game/PlayScene/Shadow/Shadow.h"
+#include "Scene/IScene.h"
 
 class SceneManager;
 

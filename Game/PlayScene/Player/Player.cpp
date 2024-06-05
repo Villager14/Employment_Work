@@ -15,7 +15,8 @@ Player::Player(GameManager* gameManager)
 	:
 	m_state{},
 	m_collitionInformation(),
-	m_gameManager(gameManager)
+	m_gameManager(gameManager),
+	m_cameraInformation()
 {
 }
 
@@ -114,25 +115,8 @@ void Player::Update(PlayerCameraInformation* cameraInformation)
 	m_playerInformationCollition->SetPlayerPosition(m_information->GetPlanPosition());
 	m_playerInformationCollition->SetPlayerHeight(m_information->GetPlayerHeight());
 
-	//		
-	if (!m_information->GetDashJudgement())
-	{
-		//		クールタイム
-		float coolTime = m_information->GetDashCoolTime();
-
-		//		経過時間
-		coolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
-
-		//		一定時間たったら
-		if (coolTime >= 2.0f)
-		{
-			m_information->SetDashJudgement(true);
-			coolTime = 0.0f;
-		}
-
-		//		クールタイムを設定する
-		m_information->SetDashCoolTime(coolTime);
-	}
+	//		ダッシュのクールタイムの処理
+	DashCoolTime();
 
 	m_information->SetWallWalkNormalize(m_playerInformationCollition->GetWallWalkNormalize());
 }
@@ -174,13 +158,6 @@ void Player::DebugRender()
 
 	//		重力
 	LibrarySingleton::GetInstance()->DebugFont(L"gravity", m_information->GetGravity(), 0, 100);
-
-	//if (m_collitionInformation->GetWallHitVelocity().size() != 0)
-	//{
-	//	//		めり込み
-	//	LibrarySingleton::GetInstance()->DebugFont(L"wallX", m_collitionInformation->GetWallHitVelocity()[0].x, 0, 140);
-	//	LibrarySingleton::GetInstance()->DebugFont(L"wallZ", m_collitionInformation->GetWallHitVelocity()[0].y, 0, 160);
-	//}
 }
 
 void Player::Finalize()
@@ -194,6 +171,28 @@ void Player::DeathJudgement()
 	{
 		//		死亡状態に切り替える
 		ChangeState(m_playerDeath.get());
+	}
+}
+
+void Player::DashCoolTime()
+{
+	if (!m_information->GetDashJudgement())
+	{
+		//		クールタイム
+		float coolTime = m_information->GetDashCoolTime();
+
+		//		経過時間
+		coolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+
+		//		一定時間たったら
+		if (coolTime >= 2.0f)
+		{
+			m_information->SetDashJudgement(true);
+			coolTime = 0.0f;
+		}
+
+		//		クールタイムを設定する
+		m_information->SetDashCoolTime(coolTime);
 	}
 }
 

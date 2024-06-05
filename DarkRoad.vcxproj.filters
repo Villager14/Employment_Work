@@ -170,6 +170,12 @@
     <Filter Include="Game\ResultManager\UI">
       <UniqueIdentifier>{df9aa0e4-acc9-481c-a2df-c22f8f87512c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PlayScene\ScreenEffect\SpeedScreen">
+      <UniqueIdentifier>{93d666c9-465d-4941-9004-30957cfa59e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\SpeedScreen">
+      <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -468,6 +474,9 @@
     <ClInclude Include="Game\ResultScene\UI\AboveNumber.h">
       <Filter>Game\ResultManager\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.h">
+      <Filter>Game\PlayScene\ScreenEffect\SpeedScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -725,6 +734,9 @@
     <ClCompile Include="Game\ResultScene\UI\AboveNumber.cpp">
       <Filter>Game\ResultManager\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.cpp">
+      <Filter>Game\PlayScene\ScreenEffect\SpeedScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -767,6 +779,9 @@
     </None>
     <None Include="Resources\Shader\AboveNumber\AboveNumber.hlsli">
       <Filter>Resorces\Shader\AboveNumber</Filter>
+    </None>
+    <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli">
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -891,6 +906,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberVS.hlsl">
       <Filter>Resorces\Shader\AboveNumber</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenGS.hlsl">
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenPS.hlsl">
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

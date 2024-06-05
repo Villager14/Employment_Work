@@ -9,11 +9,12 @@
 
 #include "SceneManager.h"
 
+
 SceneManager::SceneManager()
 	:
 	m_scene{},
-	m_clearTime(0),
-	m_deathCount(0)
+	m_deathCount(0),
+	m_clearTime(0)
 {
 }
 
@@ -30,7 +31,7 @@ void SceneManager::Initialize()
 	//		リザルトシーンを生成する
 	m_resultScene = std::make_unique<ResultScene>(this);
 	//		初期シーンを設定する
-	m_scene = m_titleScene.get();
+	m_scene = m_playScene.get();
 	//		シーンを初期化する
 	m_scene->Initialize();
 }

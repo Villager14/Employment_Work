@@ -100,8 +100,6 @@ void FloorObject::Render(DrawMesh* drawMesh)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
-	auto common = LibrarySingleton::GetInstance()->GetCommonState();
-
 	/*
 	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 		*LibrarySingleton::GetInstance()->GetCommonState(),
@@ -140,6 +138,10 @@ void FloorObject::Render(DrawMesh* drawMesh)
 		*LibrarySingleton::GetInstance()->GetCommonState(),
 		m_world, LibrarySingleton::GetInstance()->GetView(),
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
+
+			//ID3D11SamplerState* samplers[] = {LibrarySingleton::GetInstance()->GetCommonState()->PointWrap()};
+
+			//context->PSSetSamplers(0, 1, samplers);
 
 			//ID3D11SamplerState* samplesrs[1] = { common->PointWrap() };
 			//context->PSSetSamplers(0, 1, samplesrs);
