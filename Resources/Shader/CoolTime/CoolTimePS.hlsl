@@ -8,7 +8,7 @@ float pi = 3.14159265359;
 
 float AnglePoint(float minAngle, float maxAngle)
 {
-	float angle = rotation;
+	float angle = rotation.x;
 
 	//		0Å`360ìxÇÃä‘Ç∆Ç∑ÇÈ
 	float maxval = min(angle - 1.0f - maxAngle, 0.0f);
@@ -30,7 +30,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 	float2 uv = input.tex;
 
-	float angle = rotation;
+	float angle = rotation.x;
 
 	float3 vel = float3(0.0f,0.0f,0.0f);
 

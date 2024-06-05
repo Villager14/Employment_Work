@@ -7,18 +7,14 @@
 
 #pragma once
 
-#include "IScene.h"
+#include "Scene/IScene.h"
 
 #include "SceneState/PlayScene.h"
-
 #include "SceneState/TitleScene.h"
-
 #include "SceneState/ResultScene.h"
 
 class PlayScene;
-
 class TitleScene;
-
 class ResultScene;
 
 class SceneManager
@@ -83,39 +79,39 @@ public:
 
 private:
 
-	//		クリアタイム
+	//        クリアタイム
 	int m_clearTime;
 
-	//		死亡回数
+	//        死亡カウント
 	int m_deathCount;
 
 public:
 
 	/*
-	*	クリアタイムを設定する
-	* 
-	*	@param	(time)	時間
+	*    クリアタイムを設定する
+	*
+	*    @param    (time)    時間
 	*/
 	void SetClearTime(int time) { m_clearTime = time; }
 
 	/*
-	*	クリアタイムを受け取る
-	* 
-	*	@return 時間
+	*    クリアタイムを受け取る
+	*
+	*    @return 時間
 	*/
 	int GetClearTime() { return m_clearTime; }
 
 	/*
-	*	死亡回数を設定する
-	* 
-	*	@param	(count)	回数
+	*    死亡回数を設定する
+	*
+	*    @param    (count)    回数
 	*/
 	void SetDeathCount(int count) { m_deathCount = count; }
 
 	/*
-	*	死亡回数を受け取る
-	* 
-	*	@return 回数
+	*    死亡回数を受け取る
+	*
+	*    @return 回数
 	*/
 	int GetDeathCount() { return m_deathCount; }
 };

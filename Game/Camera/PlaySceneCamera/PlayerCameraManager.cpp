@@ -52,7 +52,7 @@ void PlayerCameraManager::Initialize()
 	*/
 	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView
-		(DirectX::XMConvertToRadians(70.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
+		(DirectX::XMConvertToRadians(m_information->GetViewingAngleMin()), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
 			0.1f, 1000.0f);
 
@@ -114,14 +114,11 @@ void PlayerCameraManager::ViewingAngle()
 	{
 		float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 50.0f) / 60.0f), 0.0f, 1.0f);
 
-		float viewAnge = Library::Lerp(70.0f, 75.0f, time);
+		float move = time * time * time;
 
-		/*
-		*	視野角70度
-		*
-		*	近い距離0.1f
-		* 　遠い距離500.0f
-		*/
+		float viewAnge = Library::Lerp(m_information->GetViewingAngleMin(), m_information->GetViewingAngleMax(), move);
+
+		//		ビュー行列を作成する
 		DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
 			CreatePerspectiveFieldOfView
 			(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /

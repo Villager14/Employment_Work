@@ -136,6 +136,9 @@ void PlayerWallJump::MoveProcessing()
 	//		ˆÚ“®‚·‚é•ûŒü‚ðŽó‚¯Žæ‚é
 	direction = m_player->Direction(&m_keyInputJudgement);
 
+	//		ˆÚ“®•ûŒü‚ðÝ’è‚·‚é
+	m_player->GetInformation()->SetDirection(direction);
+
 	DirectX::SimpleMath::Vector3 position = m_player->GetInformation()->GetPosition();
 
 	position.y = m_player->GetInformation()->GetPlanPosition().y;

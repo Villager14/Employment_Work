@@ -25,7 +25,7 @@ WireObject::~WireObject()
 
 }
 
-void WireObject::Initialize()
+void WireObject::Initialize(DirectX::SimpleMath::Vector3 position)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -55,7 +55,7 @@ void WireObject::Initialize()
 
 
 	//		座標
-	m_position = { 0.0f, 60.0f, 700.0f };
+	m_position = position;
 
 	//		座標を設定する
 	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
@@ -108,7 +108,6 @@ void WireObject::Render(DrawMesh* drawMesh)
 
 	for (int i = 0; i < 4; ++i)
 	{
-
 		DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(m_rotation);
 		
 		world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_wingPosition[i]);

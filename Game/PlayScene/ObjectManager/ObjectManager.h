@@ -57,7 +57,7 @@ private:
 	std::unique_ptr<FloorObject> m_floorObject;
 
 	//		ワイヤーオブジェクト
-	std::unique_ptr<WireObject> m_wireObject;
+	std::vector<std::unique_ptr<WireObject>> m_wireObject;
 
 	//		ゴールオブジェクト
 	std::unique_ptr<GoalObject> m_goalObject;

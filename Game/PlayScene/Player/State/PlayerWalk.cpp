@@ -16,7 +16,8 @@ PlayerWalk::PlayerWalk(Player* player)
 	m_player(player),
 	m_keyInputJudgement(false),
 	m_firstHeight(0.0f),
-	m_speed(0.0f)
+	m_speed(0.0f),
+	m_accelerationJudgement(false)
 {
 }
 
@@ -29,8 +30,15 @@ void PlayerWalk::Initialize()
 	//		高さの取得
 	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
 
-	//		速度を受け取る
+	//		現在の速度を受け取る
 	m_speed = m_player->GetInformation()->GetAcceleration().Length();
+
+	//		歩く速度より遅い場合は歩く速度を最大速度にする
+	if (m_speed < m_player->GetInformation()->GetWalkSpeed())
+	{
+		//		加速処理をする
+		m_accelerationJudgement = true;
+	}
 }
 
 void PlayerWalk::Update()
@@ -70,6 +78,8 @@ void PlayerWalk::Finalize()
 	m_player->GetInformation()->SetHeightTime(0.0f);
 
 	m_speed = 0.0f;
+
+	m_accelerationJudgement = false;
 }
 
 void PlayerWalk::MoveProcessing()
@@ -93,51 +103,15 @@ void PlayerWalk::MoveProcessing()
 		m_player->GetInformation()->SetDirection(direction);
 	}
 
-	//		加速度を受け取る
-	DirectX::SimpleMath::Vector3 accelaration = m_player->GetInformation()->GetAcceleration();
-
-	//		加速度の処理
-	accelaration += m_player->MoveDirection(m_player->GetInformation()->GetDirection())
-		* ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
-
-	m_speed -= 40.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
-
-	if (m_speed < m_player->GetInformation()->GetWalkSpeed())
+	//		加速処理にするかどうか
+	if (m_accelerationJudgement)
 	{
-		m_speed = m_player->GetInformation()->GetWalkSpeed();
+		AccelerationProcess();
 	}
 
-	if (accelaration.Length() > m_speed)
-	{
-		//		正規化
-		accelaration.Normalize();
-
-		//		加速度に歩きの速さを掛ける
-		accelaration *= m_speed;
-	}
-
-	/*
-	//		もし歩きの速さより早くなった場合
-	if (accelaration.Length() > m_player->GetWalkSpeed())
-	{
-		float speed = accelaration.Length();
-
-		speed -= ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
-
-		accelaration.Normalize();
-
-		accelaration *= speed;
-
-		if (accelaration.Length() < m_player->GetWalkSpeed())
-		{
-			//		正規化
-			accelaration.Normalize();
-
-			//		加速度に歩きの速さを掛ける
-			accelaration *= m_player->GetWalkSpeed();
-		}
-	}
-	*/
+	//		加速度を計算する
+	DirectX::SimpleMath::Vector3 accelaration = m_player->MoveDirection(
+		m_player->GetInformation()->GetDirection()) * m_speed;
 
 	//		加速度を設定する
 	m_player->GetInformation()->SetAcceleration(accelaration);
@@ -145,7 +119,6 @@ void PlayerWalk::MoveProcessing()
 	//		座標に設定する
 	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
 		m_player->GetInformation()->GetAcceleration() * LibrarySingleton::GetInstance()->GetElpsedTime());
-	
 }
 
 void PlayerWalk::ChangeStateJudgement()
@@ -202,5 +175,21 @@ void PlayerWalk::ChangeStateJudgement()
 			//		状態を切り替える(ダッシュ)
 			m_player->ChangeState(m_player->GetDashState());
 		}
+	}
+}
+
+void PlayerWalk::AccelerationProcess()
+{
+	//		速度に加速度を足す
+	m_speed += ACCELERATION_SPEED * LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	//		歩く速度を超えた場合処理加速処理を終了する
+	if (m_speed > m_player->GetInformation()->GetWalkSpeed())
+	{
+		//		速度を歩く速度にする
+		m_speed = m_player->GetInformation()->GetWalkSpeed();
+
+		//		加速処理の終了フラグ
+		m_accelerationJudgement = false;
 	}
 }

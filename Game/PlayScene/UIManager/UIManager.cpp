@@ -56,29 +56,39 @@ void UIManager::Initialize()
 
 void UIManager::Update()
 {
+	//		時間の更新
 	m_clockManager->Update(m_gameManager);
 
-	m_coolTime->Update();
+	//		ダッシュクールタイムの更新
+	m_coolTime->Update(m_playerInformation);
 
+	//		フェードの更新
 	m_fadeIn->Update(m_gameManager);
 
+	//		ゲームオーバーの更新
 	m_gameOver->Update();
 
+	//		スクリーンの線の更新
 	m_screenRay->Update();
 }
 
 void UIManager::FrontRender()
 {
+	//		時計の描画
 	m_clockManager->Render();
 
+	//		ダッシュクールタイムの描画
 	m_coolTime->Render();
 
+	//		スクリーンの線の描画
 	m_screenRay->Render();
 }
 
 void UIManager::BackRender()
 {
+	//		ゲームーバーの描画
 	m_gameOver->Render();
 
+	//		フェードインの描画
 	m_fadeIn->Render();
 }

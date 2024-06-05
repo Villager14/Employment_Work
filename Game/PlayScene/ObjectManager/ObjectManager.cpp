@@ -27,11 +27,15 @@ void ObjectManager::Initialize()
 	//		床の初期化処理
 	m_floorObject->Initialize();
 
-	//		ワイヤーオブジェクトの生成
-	m_wireObject = std::make_unique<WireObject>();
+	for (int i = 0; i < 2; ++i)
+	{
+		//		ワイヤーオブジェクトの生成
+		m_wireObject.push_back(std::make_unique<WireObject>());
+	}
 
 	//		ワイヤーオブジェクトの初期化
-	m_wireObject->Initialize();
+	m_wireObject[0]->Initialize({ -100.0f, 70.0f, 467.0f });
+	m_wireObject[1]->Initialize({ -200.0f, 100.0f, 850.0f });
 
 	//		壁オブジェクトの生成
 	m_wallObject = std::make_unique<WallObject>();
@@ -46,10 +50,10 @@ void ObjectManager::Initialize()
 	m_goalObject->Initialize();
 
 	//		背景オブジェクトの生成
-	//m_backGroundObject = std::make_unique<BackGroundObject>();
+	m_backGroundObject = std::make_unique<BackGroundObject>();
 
 	//		背景オブジェクトの初期化
-	//m_backGroundObject->Initialize();
+	m_backGroundObject->Initialize();
 
 	//		オブジェクトメッシュを追加する
 	m_objectMesh.push_back(m_floorObject->GetObjectMesh());
@@ -64,11 +68,14 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 {
 	m_wirePosition.clear();
 
-	m_wireObject->Update(playerPosition);
-
-	if (m_wireObject->GetWireAvailableJudgement())
+	for (int i = 0; i < m_wireObject.size(); ++i)
 	{
-		m_wirePosition.push_back(m_wireObject->GetPosition());
+		m_wireObject[i]->Update(playerPosition);
+
+		if (m_wireObject[i]->GetWireAvailableJudgement())
+		{
+			m_wirePosition.push_back(m_wireObject[i]->GetPosition());
+		}
 	}
 
 	//m_backGroundObject->Update();
@@ -76,7 +83,7 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 
 void ObjectManager::Render()
 {
-	//m_backGroundObject->Render();
+	m_backGroundObject->Render();
 
 	//		床の描画処理
 	m_floorObject->Render(m_drawMesh.get());
@@ -84,8 +91,11 @@ void ObjectManager::Render()
 	//		壁の描画
 	m_wallObject->Render(m_drawMesh.get());
 
-	//		ワイヤーオブジェクトの処理
-	m_wireObject->Render(m_drawMesh.get());
+	for (const auto& e : m_wireObject)
+	{
+		//		ワイヤーオブジェクトの処理
+		e->Render(m_drawMesh.get());
+	}
 
 	m_goalObject->Render(m_drawMesh.get());
 }

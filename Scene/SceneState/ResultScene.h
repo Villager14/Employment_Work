@@ -42,11 +42,12 @@ public:
 	void Finalize() override;
 
 	/*
-	*	スコア計算を行う
+	*	スコアの作成をする　
 	* 
-	*	@param	(count)	死亡回数
-	*	@score	(score)	現在のスコア
-	*	@return 計算後のスコア
+	*	@param	(count)	回数
+	*	@param	(score)	スコア
+	* 
+	*	@return 最終スコア
 	*/
 	float ScoreCalculation(int count, float score);
 
@@ -57,6 +58,5 @@ private:
 	//		リザルトマネージャー
 	std::unique_ptr<ResultManager> m_resultManager;
 
-	//		スコアを設定する
-	int m_score;
+	float m_score;
 };

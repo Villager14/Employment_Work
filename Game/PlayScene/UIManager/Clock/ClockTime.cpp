@@ -11,7 +11,7 @@
 
 ClockTime::ClockTime()
 	:
-	m_time(0.0f)
+	m_time(0)
 {
 }
 
@@ -31,7 +31,7 @@ void ClockTime::Initialize()
 
 void ClockTime::Update(float elapsedTime)
 {
-	m_time = static_cast<float>(elapsedTime);
+	m_time = static_cast<int>(elapsedTime);
 
 	//		Å‘åŽžŠÔ
 	if (m_time > 5999)

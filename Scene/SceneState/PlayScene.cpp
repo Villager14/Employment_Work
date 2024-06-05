@@ -133,7 +133,7 @@ void PlayScene::Update()
 	if (m_gameManager->GetNextSceneJudgement())
 	{
 		//		クリアタイムを受け取る
-		m_sceneManager->SetClearTime(m_gameManager->GetTime());
+		m_sceneManager->SetClearTime(static_cast<int>(m_gameManager->GetTime()));
 
 		//		死亡回数を受け取る
 		m_sceneManager->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));

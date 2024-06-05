@@ -54,7 +54,7 @@ private:
 	//		しゃがみの高さ
 	const float COURCHING_HEIGHT = 3.0f;
 
-	//		スライディングの減速
+	//		スライディングの加速
 	const float SLIDING_ACCELERATION_SPEED = 40.0f;
 
 	//		スライディングの追加初速
@@ -79,6 +79,9 @@ private:
 
 	//		速度
 	float m_speed;
+
+	//		加速時間
+	float m_accelerationTime;
 
 	//		坂かどうか
 	bool m_slopeJudgement;

@@ -39,6 +39,8 @@ void PlayerWire::Initialize()
 
 	m_direction.Normalize();
 
+	m_player->GetInformation()->SetDirection({0.0f, 0.0f, 1.0f});
+
 	//		‹——£
 	m_length = (m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition()).Length();
 
@@ -88,8 +90,6 @@ void PlayerWire::Finalize()
 {
 	m_time = 0.0f;
 
-	m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3::Zero);
-
 	//		‚‚³•Ï“®ŠÔ‚Ì‰Šú‰»
 	m_player->GetInformation()->SetHeightTime(0.0f);
 
@@ -130,6 +130,8 @@ void PlayerWire::ChangeStateJudgement()
 		{
 			//		ó‘Ô‚ğØ‚è‘Ö‚¦‚é(ƒ_ƒbƒVƒ…)
 			m_player->ChangeState(m_player->GetDashState());
+
+			return;
 		}
 	}
 

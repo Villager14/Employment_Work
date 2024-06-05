@@ -54,9 +54,13 @@ void PlayerWallWalk::Initialize()
 
 	m_velocity.Normalize();
 
-	//		移動方向
-	m_player->GetInformation()->SetAcceleration(m_velocity);
+	float speed = m_player->GetInformation()->GetAcceleration().Length();
 
+	//		移動速度
+	m_player->GetInformation()->SetAcceleration(m_velocity * speed);
+
+	//		移動方向
+	m_player->GetInformation()->SetDirection(m_velocity);
 }
 
 void PlayerWallWalk::Update()
@@ -102,11 +106,9 @@ void PlayerWallWalk::Finalize()
 
 void PlayerWallWalk::MoveProcessing()
 {
-	//		速度
-	float speed = m_player->GetInformation()->GetWalkSpeed();
-
 	//		座標に設定する
-	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() + (m_velocity * speed) *
+	m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition()
+		+ (m_velocity * m_player->GetInformation()->GetAcceleration().Length()) *
 		LibrarySingleton::GetInstance()->GetElpsedTime());
 }
 
@@ -120,7 +122,8 @@ void PlayerWallWalk::ChangeStateJudgement()
 		*LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
 
 	//		spaceでジャンプ
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) || 
+		m_player->GetCollitionInformation()->GetWallWalkPlayerPosition().size() == 0)
 	{
 		DirectX::SimpleMath::Vector3 velo = DirectX::SimpleMath::Vector3
 		(cosf(DirectX::XMConvertToRadians(m_player->GetInformation()->GetCameraAngle().x)),
@@ -138,7 +141,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 					m_player->GetPlayerInformationCollition()->GetWallWalkNormalize(), 0.3f);
 
 			//		ジャンプする方向
-			m_player->GetInformation()->SetAcceleration(velocity * m_player->GetInformation()->GetWalkSpeed());
+			m_player->GetInformation()->SetAcceleration(velocity * m_player->GetInformation()->GetAcceleration().Length());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetWallJumpState());
@@ -149,20 +152,11 @@ void PlayerWallWalk::ChangeStateJudgement()
 			m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
 
 			//		ジャンプする方向
-			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetInformation()->GetWalkSpeed());
+			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetInformation()->GetAcceleration().Length());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetJumpState());
 		}
-	}
-
-	if (m_player->GetCollitionInformation()->GetWallWalkPlayerPosition().size() == 0)
-	{
-		//		ジャンプする方向
-		m_player->GetInformation()->SetAcceleration(m_velocity * (m_player->GetInformation()->GetWalkSpeed() * 0.7f));
-
-		//		壁ジャンプ状態にする
-		m_player->ChangeState(m_player->GetWallJumpState());
 	}
 
 	DirectX::SimpleMath::Vector3 velo = DirectX::SimpleMath::Vector3

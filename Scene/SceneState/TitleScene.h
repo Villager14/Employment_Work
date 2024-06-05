@@ -41,6 +41,6 @@ private:
 	//		シーンマネージャーのインスタンスのポインタ
 	SceneManager* m_sceneManager;
 
-	//		タイトル選択状態
+	//		タイトル選択マネージャー
 	std::unique_ptr<TitleSelectManager> m_titleSelectManager;
 };

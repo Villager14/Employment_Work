@@ -46,10 +46,13 @@ public:
 	//		状態遷移判断
 	void ChangeStateJudgement();
 
+	//		加速処理
+	void AccelerationProcess();
+
 private:
 
 	//		加速の速度
-	const float ACCELERATION_SPEED = 1500.0f;
+	const float ACCELERATION_SPEED = 70.0f;
 
 private:
 	//		状態管理クラスのポインタ
@@ -63,4 +66,7 @@ private:
 
 	//		キーを押しているかどうか
 	bool m_keyInputJudgement;
+
+	//		加速するかどうか
+	bool m_accelerationJudgement;
 };
