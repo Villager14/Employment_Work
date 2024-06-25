@@ -40,6 +40,19 @@ void FloorObject::Initialize()
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Floor.cmo", *m_effect);
 
+	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
+		{
+			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+
+			if (fog)
+			{
+				fog->SetFogEnabled(true);
+				fog->SetFogStart(200.0f);
+				fog->SetFogEnd(350.0f);
+				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+			}
+		});
+
 	/*
 	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{

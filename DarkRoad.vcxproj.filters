@@ -23,12 +23,6 @@
     <Filter Include="Game\Camera">
       <UniqueIdentifier>{50efaadc-d734-47d0-9189-fd3aaf536767}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces">
-      <UniqueIdentifier>{8426b171-c48d-4cb5-962c-054131dc48ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\FBX">
-      <UniqueIdentifier>{4c8174a5-16c0-40af-931f-5bf5babd8a57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene">
       <UniqueIdentifier>{aa37d9a8-fedd-4ef5-9dc4-f95da7726f02}</UniqueIdentifier>
     </Filter>
@@ -80,20 +74,8 @@
     <Filter Include="Game\PlayScene\UIManager">
       <UniqueIdentifier>{4afb6e23-a37d-4e02-807d-eaa6441dd6a9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader">
-      <UniqueIdentifier>{05f01641-4dd8-422f-99e2-2cbbd4243778}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\UI">
-      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\UIManager\Clock">
       <UniqueIdentifier>{3175a090-b1e6-4f9c-8c9a-86954e50d45c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Number">
-      <UniqueIdentifier>{ced588ef-36f4-469d-833c-2dfe5148894d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\CoolTime">
-      <UniqueIdentifier>{bd721785-f296-41a3-a5cf-c7957e087000}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\UIManager\CoolTime">
       <UniqueIdentifier>{6c3895e0-c78b-461b-bdae-5373834bc64d}</UniqueIdentifier>
@@ -101,17 +83,11 @@
     <Filter Include="Game\PlayScene\UIManager\FadeIn">
       <UniqueIdentifier>{36705254-2527-435f-b523-9f5cd5501d43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\Fade">
-      <UniqueIdentifier>{852490bb-f066-438b-a6b7-cacfaa5a7836}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ScreenEffect">
       <UniqueIdentifier>{fad8f5ee-458e-4299-984b-951397be411c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ScreenEffect\FailureScreen">
       <UniqueIdentifier>{7ff02722-213d-4bc1-9195-9c8f876dddfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\RedScreen">
-      <UniqueIdentifier>{4bc15fab-610a-462d-abb0-a87c3a7be1bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\GameManager">
       <UniqueIdentifier>{b34f999c-acda-436d-9eaa-8875cc43bf11}</UniqueIdentifier>
@@ -128,32 +104,17 @@
     <Filter Include="Game\PlayScene\Shadow">
       <UniqueIdentifier>{6dc21f19-5928-4d97-b181-2a3a8991bbc5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\Shadow">
-      <UniqueIdentifier>{ec3db26c-73d1-41f4-a3f2-96af401e3f93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Shadow\Depth">
-      <UniqueIdentifier>{b59211f9-3b07-4201-8b2c-d12c7f8659a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\TitleScene">
       <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\TitleScene\UI">
       <UniqueIdentifier>{3d864d14-41ac-4c44-8a8f-bffabd28eb05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\BackGroundMove">
-      <UniqueIdentifier>{191501e3-b151-4f66-adc1-241aa89ff9ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\TitleScene\UI\Select">
       <UniqueIdentifier>{f9525742-2204-4409-8ffb-6b1ebd4128a2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\TitleScene\UI\Select\State">
       <UniqueIdentifier>{7dbe10e1-ba3e-4a45-9ce1-3d4a392839f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\TVOFF">
-      <UniqueIdentifier>{391f7b10-9737-405e-a805-0a17fcda48c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Model">
-      <UniqueIdentifier>{202cb540-d483-4282-9f66-4599cfad2574}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GoalObject">
       <UniqueIdentifier>{3fc37252-63e8-4008-86c5-3f13c00004ae}</UniqueIdentifier>
@@ -164,17 +125,83 @@
     <Filter Include="Game\ResultManager\State">
       <UniqueIdentifier>{f1101602-971a-4a62-853c-3fbdac8923cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\AboveNumber">
-      <UniqueIdentifier>{fa5492a5-65d0-440b-befb-cdab0e35b5cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\ResultManager\UI">
       <UniqueIdentifier>{df9aa0e4-acc9-481c-a2df-c22f8f87512c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ScreenEffect\SpeedScreen">
       <UniqueIdentifier>{93d666c9-465d-4941-9004-30957cfa59e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PlayScene\Effect">
+      <UniqueIdentifier>{9c01b93b-274c-41bd-9abf-9c94f9bf5a7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Effect\WireUseEffect">
+      <UniqueIdentifier>{ee6e70de-81aa-4de3-8926-11bfbd593747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Effect\Billboard">
+      <UniqueIdentifier>{f0ae1a87-ee88-4267-b33d-fb9af333affa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces">
+      <UniqueIdentifier>{8426b171-c48d-4cb5-962c-054131dc48ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\FBX">
+      <UniqueIdentifier>{4c8174a5-16c0-40af-931f-5bf5babd8a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader">
+      <UniqueIdentifier>{05f01641-4dd8-422f-99e2-2cbbd4243778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI">
+      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Number">
+      <UniqueIdentifier>{ced588ef-36f4-469d-833c-2dfe5148894d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\CoolTime">
+      <UniqueIdentifier>{bd721785-f296-41a3-a5cf-c7957e087000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Fade">
+      <UniqueIdentifier>{852490bb-f066-438b-a6b7-cacfaa5a7836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\RedScreen">
+      <UniqueIdentifier>{4bc15fab-610a-462d-abb0-a87c3a7be1bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Shadow">
+      <UniqueIdentifier>{ec3db26c-73d1-41f4-a3f2-96af401e3f93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Shadow\Depth">
+      <UniqueIdentifier>{b59211f9-3b07-4201-8b2c-d12c7f8659a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\BackGroundMove">
+      <UniqueIdentifier>{191501e3-b151-4f66-adc1-241aa89ff9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\TVOFF">
+      <UniqueIdentifier>{391f7b10-9737-405e-a805-0a17fcda48c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Model">
+      <UniqueIdentifier>{202cb540-d483-4282-9f66-4599cfad2574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\AboveNumber">
+      <UniqueIdentifier>{fa5492a5-65d0-440b-befb-cdab0e35b5cd}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resorces\Shader\SpeedScreen">
       <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Billboard">
+      <UniqueIdentifier>{0d83c077-e5df-4c1b-a2c1-4c762b2ce392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\ConcentrationLine">
+      <UniqueIdentifier>{e2f096a8-123d-4e52-b2fd-d22f9ae66e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\ConcentrationLine">
+      <UniqueIdentifier>{f741d2eb-ef06-43fc-9b1e-3c5daa9baf10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\FBX\Player">
+      <UniqueIdentifier>{24aadd23-d916-4d8e-a9cd-cb91e95d688f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\Bons">
+      <UniqueIdentifier>{fdb6f5b6-eef6-4fdf-8d18-11e480cf0944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\Bons\AnimationState">
+      <UniqueIdentifier>{01acb9d4-fb44-4125-9bf7-4d08ac88ef11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -477,6 +504,72 @@
     <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.h">
       <Filter>Game\PlayScene\ScreenEffect\SpeedScreen</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.h">
+      <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCameraStop.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Effect\EffectManager.h">
+      <Filter>Game\PlayScene\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Effect\WireUseEffect\WireUseEffect.h">
+      <Filter>Game\PlayScene\Effect\WireUseEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Effect\Billboard\BillboardEffect.h">
+      <Filter>Game\PlayScene\Effect\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\ConcentrationLine\ConcentrationLineManager.h">
+      <Filter>Game\PlayScene\UIManager\ConcentrationLine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\ConcentrationLineShader.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\PlayerBons.h">
+      <Filter>Game\PlayScene\Player\Bons</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\BonInformation.h">
+      <Filter>Game\PlayScene\Player\Bons</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\PlayerAnimation.h">
+      <Filter>Game\PlayScene\Player\Bons</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\IPlayerAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WalkAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StayAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WireJumpAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallJumpAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -737,6 +830,66 @@
     <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.cpp">
       <Filter>Game\PlayScene\ScreenEffect\SpeedScreen</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.cpp">
+      <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCameraStop.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Effect\EffectManager.cpp">
+      <Filter>Game\PlayScene\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Effect\WireUseEffect\WireUseEffect.cpp">
+      <Filter>Game\PlayScene\Effect\WireUseEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Effect\Billboard\BillboardEffect.cpp">
+      <Filter>Game\PlayScene\Effect\Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\ConcentrationLine\ConcentrationLineManager.cpp">
+      <Filter>Game\PlayScene\UIManager\ConcentrationLine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\ConcentrationLineShader.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp">
+      <Filter>Game\PlayScene\Player\Bons</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\PlayerAnimation.cpp">
+      <Filter>Game\PlayScene\Player\Bons</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WalkAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StayAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WireJumpAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallJumpAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -783,6 +936,12 @@
     <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli">
       <Filter>Resorces\Shader\SpeedScreen</Filter>
     </None>
+    <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli">
+      <Filter>Resorces\Shader\Billboard</Filter>
+    </None>
+    <None Include="Resources\Shader\ConcentrationLine\ConcentrationLine.hlsli">
+      <Filter>Resorces\Shader\ConcentrationLine</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\Floor.fbx">
@@ -817,6 +976,51 @@
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal.fbx">
       <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\Head.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\RLeagAbove.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\RLeagUnder.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\RShoes.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\Body.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\BodyUnder.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\LArmAbove.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\LArmUnder.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\LHand.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\LLeagAbove.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\LLeagUnder.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\RArmAbove.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\RArmUnder.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\RHand.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Player\LShoes.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
@@ -915,6 +1119,24 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
       <Filter>Resorces\Shader\SpeedScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardGS.hlsl">
+      <Filter>Resorces\Shader\Billboard</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardPS.hlsl">
+      <Filter>Resorces\Shader\Billboard</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardVS.hlsl">
+      <Filter>Resorces\Shader\Billboard</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLineGS.hlsl">
+      <Filter>Resorces\Shader\ConcentrationLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLinePS.hlsl">
+      <Filter>Resorces\Shader\ConcentrationLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLineVS.hlsl">
+      <Filter>Resorces\Shader\ConcentrationLine</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

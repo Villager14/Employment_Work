@@ -19,8 +19,7 @@ PlayerWallJump::PlayerWallJump(Player* player)
 	m_firstHeight(0.0f),
 	m_stopJump(false),
 	m_rayprocessJudgement(false),
-	m_rayHitJudgement(false),
-	m_nowSpeed(0.0f)
+	m_rayHitJudgement(false)
 {
 
 
@@ -33,10 +32,7 @@ PlayerWallJump::~PlayerWallJump()
 void PlayerWallJump::Initialize()
 {
 	//		プレイヤーの高さを受け取る
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
-
-	//		現在の速度を受け取る
-	m_nowSpeed = m_player->GetInformation()->GetAcceleration().Length();
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		移動していないかどうか
 	if (m_player->GetInformation()->GetDirection().Length() < FLT_EPSILON)
@@ -52,6 +48,9 @@ void PlayerWallJump::Initialize()
 
 	//		ジャンプできない状態にする
 	m_player->GetInformation()->SetJumpJudgement(false);
+
+	//		アニメーション壁ジャンプ状態
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWallJump());
 }
 
 void PlayerWallJump::Update()
@@ -96,10 +95,21 @@ void PlayerWallJump::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態を遷移するかどうか
 	ChangeStateJudgement();
+}
+
+void PlayerWallJump::Animation()
+{
+	//		ジャンプアニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
+
 }
 
 void PlayerWallJump::Render()
@@ -119,8 +129,6 @@ void PlayerWallJump::Finalize()
 	m_rayprocessJudgement = false;
 
 	m_rayHitJudgement = false;
-
-	m_nowSpeed = 0.0f;
 }
 
 void PlayerWallJump::MoveProcessing()
@@ -197,7 +205,8 @@ void PlayerWallJump::ChangeStateJudgement()
 	DirectX::Keyboard::State keyboardState = LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState();
 
 	//		Shiftを押した場合
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift))
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift)
+		&& keyboardState.IsKeyDown(DirectX::Keyboard::W))
 	{		
 		//		ダッシュできるかどうか
 		if (m_player->GetInformation()->GetDashJudgement())

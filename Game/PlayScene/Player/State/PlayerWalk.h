@@ -34,6 +34,9 @@ public:
 	//		移動処理
 	void Move() override;
 
+	//		アニメーションの処理
+	void Animation() override;
+
 	//		描画処理
 	void Render() override;
 
@@ -50,7 +53,6 @@ public:
 	void AccelerationProcess();
 
 private:
-
 	//		加速の速度
 	const float ACCELERATION_SPEED = 70.0f;
 

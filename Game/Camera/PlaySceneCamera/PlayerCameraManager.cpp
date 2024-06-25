@@ -36,6 +36,8 @@ void PlayerCameraManager::Initialize()
 	m_playerStartCamera = std::make_unique<PlayerStartCamera>(this);
 	//		プレイヤーの死亡カメラの生成
 	m_playerDeathCamera = std::make_unique<PlayerDeathCamera>(this);
+	//		プレイヤーの動かないカメラの生成
+	m_playerStopCamera = std::make_unique<PlayerCameraStop>(this);
 
 	//		初期カメラの選択
 	//m_state = m_playerCamera.get();
@@ -54,10 +56,11 @@ void PlayerCameraManager::Initialize()
 		CreatePerspectiveFieldOfView
 		(DirectX::XMConvertToRadians(m_information->GetViewingAngleMin()), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 1000.0f);
+			0.1f, 360.0f);
 
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
+
 }
 
 void PlayerCameraManager::Update(PlayerInformation* playerInformation)
@@ -82,14 +85,20 @@ void PlayerCameraManager::CameraMove()
 
 	DirectX::SimpleMath::Vector2 angle = m_information->GetAngle();
 
+	//		移動量
+	DirectX::SimpleMath::Vector2 move = DirectX::SimpleMath::Vector2::Zero;
+
 	//		カメラの移動量を足す
-	angle.x += x * m_information->GetCameraSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
-	angle.y += -y * (m_information->GetCameraSpeed() / 2.0f) * LibrarySingleton::GetInstance()->GetElpsedTime();
+	move.x += x * m_information->GetCameraSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+	move.y += -y * (m_information->GetCameraSpeed() / 2.0f) * LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	angle += move;
 
 	//		視点移動の制限
-	angle.y = Library::Clamp(angle.y, m_information->GetMinAngleY(), m_information->GetMaxAngleY());
+	angle.y = Library::Clamp(angle.y, m_information->GetCameraAngleMin(), m_information->GetMaxAngleY());
 	
 	m_information->SetAngle(angle);
+	m_information->SetCameraMove(move);
 
 }
 
@@ -110,11 +119,11 @@ void PlayerCameraManager::ChangeState(IPlayerCamera* state)
 
 void PlayerCameraManager::ViewingAngle()
 {
-	if (m_playerInformation->GetAcceleration().Length() > 50.0f)
+	if (m_playerInformation->GetAcceleration().Length() > 30.0f)
 	{
-		float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 50.0f) / 60.0f), 0.0f, 1.0f);
+		float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 30.0f) / 60.0f), 0.0f, 1.0f);
 
-		float move = time * time * time;
+		float move = time;
 
 		float viewAnge = Library::Lerp(m_information->GetViewingAngleMin(), m_information->GetViewingAngleMax(), move);
 
@@ -123,7 +132,7 @@ void PlayerCameraManager::ViewingAngle()
 			CreatePerspectiveFieldOfView
 			(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /
 				LibrarySingleton::GetInstance()->GetScreenSize().y,
-				0.1f, 1000.0f);
+				0.1f, 360.0f);
 
 		//		プロジェクション行列を設定する
 		LibrarySingleton::GetInstance()->SetProj(proj);

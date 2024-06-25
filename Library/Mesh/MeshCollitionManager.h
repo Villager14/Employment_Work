@@ -25,14 +25,14 @@ public:
 
 	//		デストラクタ
 	~MeshCollitionManager();
-	
+
 	//		初期化処理
 	void Initialize();
 
 	//		メッシュの当たり判定
 	/*
 	*	メッシュの当たり判定
-	* 
+	*
 	*	@param	(objctMesh)			オブジェクトメッシュ
 	*	@param	(playerPosition)	プレイヤーの座標
 	*	@param	(height)			高さ
@@ -45,19 +45,19 @@ public:
 
 	/*
 	*	円と円の当たり判定
-	* 
+	*
 	*	@param	(vertex)	メッシュの頂点
 	*	@param	(playerPos)	プレイヤーの座標
 	*	@param	(rayStart)	プレイヤーの長さ
 	*	@return 当たったかどうか true : 当たった false : 当たっていない
 	*/
 	bool CollitionCC(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-					 const DirectX::SimpleMath::Vector3& playerPos,
-					 const float& playerLength);
+		const DirectX::SimpleMath::Vector3& playerPos,
+		const float& playerLength);
 
 	/*
 	*	同一平面上にいるかどうか
-	* 
+	*
 	*	@param	(vertex)	メッシュの頂点
 	*	@param	(rayStart)	レイの始点
 	*	@param	(rayEnd)	レイの終点
@@ -66,22 +66,22 @@ public:
 	*	@return 含まれているかどうか	true : 含まれている false : 含まれていない
 	*/
 	bool OnTheSamePlane(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-						const DirectX::SimpleMath::Vector3& rayStart,
-						const DirectX::SimpleMath::Vector3& rayEnd,
-						const DirectX::SimpleMath::Vector3& normalize,
-						DirectX::SimpleMath::Vector3* hitPoint);
+		const DirectX::SimpleMath::Vector3& rayStart,
+		const DirectX::SimpleMath::Vector3& rayEnd,
+		const DirectX::SimpleMath::Vector3& normalize,
+		DirectX::SimpleMath::Vector3* hitPoint);
 
 	/*
 	*	三角形の内側にいるかどうか
-	* 
+	*
 	*	@param	(vertex)	メッシュの頂点
 	*	@param	(normalize)	メッシュの法線
 	*	@param	(hitPoint)	当たった場所
 	*	@return 内側にいるかどうか true : 内側 false : 外側
 	*/
 	bool InsideTriangle(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-						const DirectX::SimpleMath::Vector3& normalize,
-						const DirectX::SimpleMath::Vector3& hitPoint);
+		const DirectX::SimpleMath::Vector3& normalize,
+		const DirectX::SimpleMath::Vector3& hitPoint);
 
 	void MeshHitPointClear();
 private:
@@ -92,7 +92,7 @@ private:
 private:
 
 	float playerUnderRayLength = 0.5f;
-	
+
 	//		プレイヤーの座標
 	DirectX::SimpleMath::Vector3 m_playerPosition;
 
@@ -121,7 +121,7 @@ public:
 
 	/*
 	*	メッシュの当たったポイントを受け取る
-	* 
+	*
 	*	@return		座標
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetMeshHitPoint() { return m_meshHitPoint; }
@@ -135,7 +135,7 @@ public:
 
 	/*
 	*	メッシュ壁に当たった時の法線を受け取る
-	* 
+	*
 	*	@return 法線
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetWallHitNormalize() { return m_wallHitNormalize; }
@@ -156,15 +156,25 @@ public:
 
 	/*
 	*	壁歩き時のプレイヤーの座標を受け取る
-	* 
+	*
 	*	@return 壁歩き時のプレイヤーの座標
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetWallWalkPlayerPosition() { return m_wallWalkPlayerPosition; }
 
 	/*
 	*	床の法線を受け取る
-	* 
+	*
 	*	@return 法線
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetFloorNormalize() { return m_meshCollitionFloor->GetNormalize(); }
+
+	/*
+	*	過去のプレイヤーの座標を設定する
+	* 
+	*	@param	(playerPosition)	プレイヤー座標
+	*/
+	void SetPastPlayerPosition(DirectX::SimpleMath::Vector3 playerPosition) {
+		m_meshCollitionFloor->SetPastPlayerPosition(playerPosition);
+		m_meshCollitionWall->SetPastPosition(playerPosition);
+	}
 };

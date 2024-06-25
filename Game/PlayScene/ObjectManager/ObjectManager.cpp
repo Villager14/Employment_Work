@@ -27,15 +27,19 @@ void ObjectManager::Initialize()
 	//		床の初期化処理
 	m_floorObject->Initialize();
 
-	for (int i = 0; i < 2; ++i)
+	m_wireObjectPosition.push_back({ 0.0f, 70.0f, 297.0f });
+	m_wireObjectPosition.push_back({ -730.0f, 70.0f, 360.0f });
+	m_wireObjectPosition.push_back({ -900.0f, 100.0f, 300.0f });
+	m_wireObjectPosition.push_back({ -1050.0f, 130.0f, 330.0f });
+
+	for (int i = 0; i < m_wireObjectPosition.size(); ++i)
 	{
 		//		ワイヤーオブジェクトの生成
 		m_wireObject.push_back(std::make_unique<WireObject>());
-	}
 
-	//		ワイヤーオブジェクトの初期化
-	m_wireObject[0]->Initialize({ -100.0f, 70.0f, 467.0f });
-	m_wireObject[1]->Initialize({ -200.0f, 100.0f, 850.0f });
+		//		ワイヤーオブジェクトの初期化
+		m_wireObject[i]->Initialize(m_wireObjectPosition[i]);
+	}
 
 	//		壁オブジェクトの生成
 	m_wallObject = std::make_unique<WallObject>();
@@ -49,16 +53,16 @@ void ObjectManager::Initialize()
 	//		ゴールオブジェクトの初期化処理
 	m_goalObject->Initialize();
 
-	//		背景オブジェクトの生成
-	m_backGroundObject = std::make_unique<BackGroundObject>();
-
-	//		背景オブジェクトの初期化
-	m_backGroundObject->Initialize();
-
 	//		オブジェクトメッシュを追加する
 	m_objectMesh.push_back(m_floorObject->GetObjectMesh());
 	m_objectMesh.push_back(m_wallObject->GetObjectMesh());
 	m_objectMesh.push_back(m_goalObject->GetObjectMesh());
+
+	//		背景オブジェクトの生成
+	m_backGroundObject = std::make_unique<BackGroundObject>();
+
+	//		背景オブジェクトの初期化
+	m_backGroundObject->Initialize(m_objectMesh, m_wireObjectPosition);
 
 	//		メッシュの描画を生成する
 	m_drawMesh = std::make_unique<DrawMesh>();
@@ -70,20 +74,28 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 
 	for (int i = 0; i < m_wireObject.size(); ++i)
 	{
-		m_wireObject[i]->Update(playerPosition);
-
-		if (m_wireObject[i]->GetWireAvailableJudgement())
+		//		カリングするかどうか
+		if (!Culling(m_wireObject[i]->GetPosition()))
 		{
-			m_wirePosition.push_back(m_wireObject[i]->GetPosition());
+			m_wireObject[i]->Update(playerPosition);
+
+			if (m_wireObject[i]->GetWireAvailableJudgement())
+			{
+				m_wirePosition.push_back(m_wireObject[i]->GetPosition());
+			}
 		}
 	}
 
 	//m_backGroundObject->Update();
 }
 
-void ObjectManager::Render()
+void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
+	DirectX::SimpleMath::Vector3 cameraPosition)
 {
-	m_backGroundObject->Render();
+	m_cameraVelocity = cameraVelocity;
+	m_cameraPosition = cameraPosition;
+
+	m_backGroundObject->Render(cameraVelocity, cameraPosition);
 
 	//		床の描画処理
 	m_floorObject->Render(m_drawMesh.get());
@@ -93,8 +105,12 @@ void ObjectManager::Render()
 
 	for (const auto& e : m_wireObject)
 	{
-		//		ワイヤーオブジェクトの処理
-		e->Render(m_drawMesh.get());
+		//		カリングするかどうか
+		if (!Culling(e->GetPosition()))
+		{
+			//		ワイヤーオブジェクトの処理
+			e->Render();
+		}
 	}
 
 	m_goalObject->Render(m_drawMesh.get());
@@ -102,4 +118,26 @@ void ObjectManager::Render()
 
 void ObjectManager::Finalize()
 {
+}
+
+bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position)
+{
+	//		カリングの処理!!!!!
+	
+	//		距離が400以上の場合カリングする
+	if ((position - m_cameraPosition).Length() >= 400.0f)
+	{
+		return true;
+	}
+
+	//		プレイヤーの方向を作成する
+	DirectX::SimpleMath::Vector3 objectVelocity =  position - m_cameraPosition;
+
+	//		法線が０より小さい場合カリングする
+	if (m_cameraVelocity.Dot(objectVelocity) < 0.0f)
+	{
+		return true;
+	}
+
+	return false;
 }

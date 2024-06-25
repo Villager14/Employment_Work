@@ -19,6 +19,8 @@
 
 #include "PlayerInformation.h"
 
+#include "Bons/PlayerAnimation.h"
+
 #include "State/PlayerStay.h"
 #include "State/PlayerWalk.h"
 #include "State/PlayerCrouching.h"
@@ -71,11 +73,18 @@ public:
 	//		メッシュの更新
 	void MeshUpdate();
 
+	//		アニメーションの更新
+	void AnimationUpdate();
+
 	//		描画処理
 	void Render(ShadowInformation* shadow,Shadow* hontai);
 
+	//		モデルの描画
+	void ModelRender();
+
 	//		デバック描画
 	void DebugRender();
+
 
 	//		終了処理
 	void Finalize();
@@ -141,6 +150,9 @@ public:
 
 	//		壁ジャンプ状態になるかどうか
 	void WallWalkJudgement();
+
+	//		速度上限
+	void SpeedUpperLimit();
 
 private:
 
@@ -280,6 +292,9 @@ public:
 
 private:
 
+	//		プレイヤーのアニメーションの処理
+	std::unique_ptr<PlayerAnimation> m_playerAnimation;
+
 	//		当たり判定の情報
 	CollitionInformation* m_collitionInformation;
 
@@ -352,4 +367,11 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	PlayerInformation* GetInformation() { return m_information.get(); }
+
+	/*
+	*	プレイヤーアニメーションのインスタンスのポインタ
+	* 
+	*	@return ポインタのインスタンス
+	*/
+	PlayerAnimation* GetAnimation() { return m_playerAnimation.get(); }
  }; 

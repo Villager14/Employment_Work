@@ -1,4 +1,5 @@
 /*
+* 
 * @file		FloorObject.cpp
 * @brief	床オブジェクトの描画
 * @author	Morita
@@ -13,6 +14,7 @@
 
 WireObject::WireObject()
 	:
+	//m_objectManager(objectManager),
 	m_wireModel{},
 	m_wireAvailableJudgement(false),
 	m_range(120.0f),
@@ -38,14 +40,38 @@ void WireObject::Initialize(DirectX::SimpleMath::Vector3 position)
 	m_wireModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Drone.cmo", *m_effect);
 
+	m_wireModel->UpdateEffects([](DirectX::IEffect* effect)
+		{
+			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+
+			if (fog)
+			{
+				fog->SetFogEnabled(true);
+				fog->SetFogStart(200.0f);
+				fog->SetFogEnd(350.0f);
+				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+			}
+		});
+
 	m_wireRangeModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/WireRange.cmo", *m_effect);
 
 	m_wingModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Wing.cmo", *m_effect);
 
-	//		オブジェクトメッシュの生成
-	m_objectMesh = std::make_unique<ObjectMesh>();
+	m_wingModel->UpdateEffects([](DirectX::IEffect* effect)
+		{
+			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+
+			if (fog)
+			{
+				fog->SetFogEnabled(true);
+				fog->SetFogStart(100.0f);
+				fog->SetFogEnd(300.0f);
+				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+			}
+		});
+
 
 	//		
 	m_wingPosition.push_back({ 4.0f, 5.0f, 3.6f });
@@ -81,7 +107,7 @@ void WireObject::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
 }
 
-void WireObject::Render(DrawMesh* drawMesh)
+void WireObject::Render()
 {
 	//		デバック表示かどうか
 	if (LibrarySingleton::GetInstance()->GetDebugJudgement())

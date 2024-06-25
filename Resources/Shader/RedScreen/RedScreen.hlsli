@@ -3,6 +3,9 @@ cbuffer ConstBuffer : register(b0)
 	float4 windowSize;
 	float4x4 rotationMatrix;
 	float4 time;
+	float4 motionVector;
+	float4 blurStrength;
+	float4 concentrationLineTime;
 }
 
 struct VS_INPUT

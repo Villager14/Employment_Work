@@ -89,12 +89,6 @@ void Game::Update(DX::StepTimer const& timer)
     //      マウスの更新
     m_mouse.Update(mouseState);
 
-    //      ゲームを終了する
-    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
-    {
-        std::exit(0);
-    }
-
     //      デバック表示するかしないかを切り替える
     if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Tab))
     {
@@ -103,6 +97,12 @@ void Game::Update(DX::StepTimer const& timer)
 
     //      シーンの更新
     m_sceneManager->Update();
+
+    //      ゲームを終了する
+    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
+    {
+        std::exit(0);
+    }
 
     // TODO: Add your game logic here.
     elapsedTime;

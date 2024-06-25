@@ -36,9 +36,9 @@ void ScreenEffectManager::Initialize()
 		->GetScreenSize().x, 0.0f }, { 1.0f, 1.0f });
 }
 
-void ScreenEffectManager::Update()
+void ScreenEffectManager::Update(PlayerCameraInformation* playerCameraInformation)
 {
-	m_redScreen->Update(m_gameManager);
+	m_redScreen->Update(m_gameManager, playerCameraInformation);
 
 	m_speedScree->Update(m_gameManager);
 }
@@ -106,7 +106,7 @@ void ScreenEffectManager::ChangeRenderTarget()
 		->GetDeviceResources()->GetDepthStencilView();
 
 	//		レンダーターゲットを変更
-	context->ClearRenderTargetView(rtv, DirectX::Colors::SteelBlue);
+	context->ClearRenderTargetView(rtv, DirectX::Colors::MediumSeaGreen);
 	context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	context->OMSetRenderTargets(1, &rtv, depthStencil);
 }

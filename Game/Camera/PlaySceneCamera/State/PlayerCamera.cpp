@@ -11,7 +11,10 @@
 
 PlayerCamera::PlayerCamera(PlayerCameraManager* playerCameraManager)
 	:
-	m_playerCameraManager(playerCameraManager)
+	m_playerCameraManager(playerCameraManager),
+	m_shakingTime(0.0f),
+	m_shakingRatio(0.0f),
+	m_shakingSpeed(0.0f)
 {
 }
 
@@ -23,11 +26,35 @@ void PlayerCamera::Initialize()
 {
 	//		マウスを相対参照にする
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
+
+	m_playerCameraManager->GetInformation()->SetCameraAngleMin(m_playerCameraManager->GetInformation()->GetMinAngleY());
 }
 
 void PlayerCamera::Update()
 {
 	m_playerCameraManager->CameraMove();
+
+	/*
+	//		頭を揺らすかどうか
+	if (m_playerCameraManager->GetPlayerInformationCamera()
+		->GetHeadShakingJudgement())
+	{
+		ShakingView();
+	}
+	else
+	{
+		//		現在の座標
+		m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
+
+		m_shakingTime = 0.0f;
+	}
+	*/
+
+	//		現在の座標
+	m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
+
+	//m_shakingTime = 0.0f;
+
 
 	//		デグリーからラジアンへ行列にする
 	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
@@ -37,24 +64,34 @@ void PlayerCamera::Update()
 	DirectX::SimpleMath::Matrix rotation = matrixY * matrixX;
 
 	//		カメラ座標
-	DirectX::SimpleMath::Vector3 position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
+	//m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
 
 	//		視点方向
 	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3::Transform(
 		DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f), rotation.Invert());
 
 	//		ターゲットにプレイヤーの座標を足す
-	target += m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
+	target += m_position;
 
 	//		アップベクトル
 	DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3::UnitY;
 
 	//		ビュー行列を設定する
 	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
-	(position, target, up));
+	(m_position, target, up));
+
+	m_playerCameraManager->GetInformation()->SetEye(m_position);
+	m_playerCameraManager->GetInformation()->SetTarget(target);
+	m_playerCameraManager->GetInformation()->SetUp(up);
 
 	//		視線ベクトルを設定する
-	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
+	m_playerCameraManager->GetInformation()->SetViewVelocity(target - m_position);
+
+	//		カメラ停止フラグがtrueの時
+	if (m_playerCameraManager->GetPlayerInformationCamera()->GetCameraStop())
+	{
+		m_playerCameraManager->ChangeState(m_playerCameraManager->GetStopCamera());
+	}
 
 	//		もしカメラ移動量が０より大きかったら
 	if (m_playerCameraManager->GetPlayerInformationCamera()->GetHeadMove() > 0.0f)
@@ -74,4 +111,65 @@ void PlayerCamera::Update()
 
 void PlayerCamera::Finalize()
 {
+}
+
+void PlayerCamera::ShakingView()
+{
+	//		現在の座標
+	m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
+
+	//		プレイヤーの速度を受け取る
+	float playerSpeed = m_playerCameraManager->GetPlayerInformationCamera()->GetAcceleration().Length();
+
+	//playerSpeed = 70.0f;
+
+	//		頭を動かす割合を設定する
+	m_shakingRatio = playerSpeed / m_playerCameraManager->GetPlayerInformationCamera()->GetMaxSpeed();
+
+	//		頭を動かす速さ
+	m_shakingSpeed = Library::Lerp(2.0f, 10.0f, m_shakingRatio);
+
+	//		頭を動かす速さ
+	m_shakingTime += LibrarySingleton::GetInstance()->GetElpsedTime() * m_shakingSpeed;
+
+	//		縦揺れ
+	VerticalShaking();
+
+	//		横揺れ
+	HorizontalShaking();
+	
+}
+
+void PlayerCamera::HorizontalShaking()
+{
+	DirectX::SimpleMath::Vector2 velocity = { m_playerCameraManager->GetInformation()->GetViewVelocity().x,
+										m_playerCameraManager->GetInformation()->GetViewVelocity().z };
+
+	velocity.Normalize();
+
+	velocity = DirectX::SimpleMath::Vector2(velocity.y, -velocity.x);
+
+
+	float move = (sinf(m_shakingTime) + 1.0f) / 2.0f;
+
+	//		頭の動きの幅
+	float moveLength = Library::Lerp(0.0f, 0.2f, m_shakingRatio);
+
+
+	velocity = DirectX::SimpleMath::Vector2::Lerp( DirectX::SimpleMath::Vector2(velocity.x, velocity.y) * moveLength,
+										DirectX::SimpleMath::Vector2(velocity.x, velocity.y) * -moveLength,
+										move);
+
+	m_position.x += velocity.x;
+	m_position.z += velocity.y;
+}
+
+void PlayerCamera::VerticalShaking()
+{
+	float move = (sinf(m_shakingTime * 2.0f) + 1.0f) / 2.0f;
+
+	//		頭の動きの幅
+	float moveLength = Library::Lerp(0.0f, 0.4f, m_shakingRatio);
+
+	m_position.y += Library::Lerp(-moveLength, moveLength, move);
 }

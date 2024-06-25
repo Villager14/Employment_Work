@@ -16,6 +16,7 @@
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 #include "Game/PlayScene/CollitionManager/CollitionManager.h"
 #include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
+#include "Game/PlayScene/Effect/EffectManager.h"
 
 #include "../SceneManager.h"
 
@@ -81,4 +82,7 @@ private:
 
 	//		影の描画
 	std::unique_ptr<Shadow> m_shadow;
+
+	//		エフェクトマネージャー
+	std::unique_ptr<EffectManager> m_effectManager;
 };

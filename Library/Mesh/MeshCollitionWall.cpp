@@ -69,18 +69,48 @@ std::vector<DirectX::SimpleMath::Vector2> MeshCollitionWall::WallCollition(Objec
 
 		//		同一平面上にいるかどうか
 		if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
-			objectMesh->GetNormalizePosition(i), &m_hitPoint)) continue;
+			objectMesh->GetNormalizePosition(i), &m_hitPoint))
+		{
+			//		貫通時の処理
 
-		//		メッシュの三角形の内側かどうか
-		if (!m_meshCollitionManager->InsideTriangle(vertex,
-			objectMesh->GetNormalizePosition(i),
-			m_hitPoint)) continue;
-		
-		//		個々の中にいる場合当たっている
-		if (!Extrusion(objectMesh->GetNormalizePosition(i))) continue;
+			//		過去の座標をレイの開始位置にする
+			m_rayStart = m_pastPosition;
 
-		//		当たっている
-		m_wallHitJudgement = true;
+			//		同一平面上にいるかどうか
+			if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
+				objectMesh->GetNormalizePosition(i), &m_hitPoint))
+			{
+				continue;
+			}
+			else
+			{
+				//		メッシュの三角形の内側かどうか
+				if (!m_meshCollitionManager->InsideTriangle(vertex,
+					objectMesh->GetNormalizePosition(i),
+					m_hitPoint)) continue;
+
+				m_playerPosition.x = m_hitPoint.x + objectMesh->GetNormalizePosition(i).x * 2.0f;
+				m_playerPosition.z = m_hitPoint.z + objectMesh->GetNormalizePosition(i).z * 2.0f;
+
+				m_normalize.push_back(objectMesh->GetNormalizePosition(i));
+
+				m_wallHitJudgement = true;
+			}
+		}
+		else
+		{
+
+			//		メッシュの三角形の内側かどうか
+			if (!m_meshCollitionManager->InsideTriangle(vertex,
+				objectMesh->GetNormalizePosition(i),
+				m_hitPoint)) continue;
+
+			//		個々の中にいる場合当たっている
+			if (!Extrusion(objectMesh->GetNormalizePosition(i))) continue;
+
+			//		当たっている
+			m_wallHitJudgement = true;
+		}
 	}
 
 	m_moveVelocity.clear();

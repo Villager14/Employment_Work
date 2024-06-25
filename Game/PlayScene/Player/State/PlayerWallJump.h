@@ -34,6 +34,9 @@ public:
 	//		移動処理
 	void Move() override;
 
+	//		アニメーションの処理
+	void Animation() override;
+
 	//		描画処理
 	void Render() override;
 
@@ -55,7 +58,7 @@ private:
 	const float JUMP_SPEED = 2.0f;
 
 	//		ジャンプの最高速度
-	const float JUMP_MAX_SPEED = 40.0f;
+	const float JUMP_MAX_SPEED = 20.0f;
 
 	//		ジャンプの最低速度
 	const float JUMP_MIN_SPEED = 2.0f;
@@ -82,7 +85,4 @@ private:
 
 	//		レイに当たったかどうか判断する
 	bool m_rayHitJudgement;
-
-	//		現在の速度
-	float m_nowSpeed;
 };

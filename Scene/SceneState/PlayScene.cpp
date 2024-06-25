@@ -76,6 +76,11 @@ void PlayScene::Initialize()
 	//		スクリーンエフェクトマネージャーの初期化
 	m_screenEffectManager->Initialize();
 
+	//		エフェクトマネージャーの作製
+	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation());
+
+	//		エフェクトマネージャーの初期化
+	m_effectManager->Initialize();
 }
 
 void PlayScene::Update()
@@ -96,7 +101,7 @@ void PlayScene::Update()
 	m_player->Update(m_playerCameraManager->GetInformation());
 
 	//		エネミーの更新処理
-	m_enemyManager->Update(m_player->GetInformation()->GetTimeSpeed(), m_player->GetInformation()->GetPosition());
+	//m_enemyManager->Update(m_player->GetInformation()->GetTimeSpeed(), m_player->GetInformation()->GetPosition());
 
 	//		メッシュを受け取る
 	m_collitionManager->SetObjectMesh(m_objectManager->GetMesh());
@@ -110,24 +115,32 @@ void PlayScene::Update()
 	//		当たり判定の情報
 	m_player->SetCollitionInformation(m_collitionManager->GetCollitionInformation());
 
-	//		メッシュアップデート(仮)
+	//		メッシュアップデート
 	m_player->MeshUpdate();
 
 	//		カメラマネージャーの更新処理
 	m_playerCameraManager->Update(m_player->GetInformation());
 
-
 	//		プレイヤーにカメラの角度を送る
 	m_player->GetInformation()->SetCameraAngle(m_playerCameraManager->GetInformation()->GetAngle());
+
+	//		アニメーションのアップデート
+	m_player->AnimationUpdate();
 
 	//		UIマネージャーの更新
 	m_uiManager->Update();
 
 	//		スクリーンエフェクトの更新処理
-	m_screenEffectManager->Update();
+	m_screenEffectManager->Update(m_playerCameraManager->GetInformation());
 
 	//		ゲームマネージャーの更新処理
 	m_gameManager->Update();
+
+	//		ワイヤーオブジェクトの座標を受け取る
+	m_effectManager->SetWirePosition(m_objectManager->GetWirePosition());
+
+	//		エフェクトマネージャーの描画
+	m_effectManager->Update(m_playerCameraManager->GetInformation());
 
 	//		次のシーンに切り替えるかどうか
 	if (m_gameManager->GetNextSceneJudgement())
@@ -151,17 +164,25 @@ void PlayScene::Render()
 	//		プレイヤーの描画処理
 	//m_player->Render(m_shadow->GetInformation(), m_shadow.get());
 
+
 	//		レンダーターゲットの変更
 	m_screenEffectManager->ChangeRenderTarget();
 
 	//		オブジェクトマネージャーの描画処理
-	m_objectManager->Render();
+	m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
+							m_player->GetInformation()->GetPlayerHeight());
+
+	//		プレイヤーのモデル描画
+	m_player->ModelRender();
 
 	//		エネミーの描画
-	m_enemyManager->Render();
+	//m_enemyManager->Render();
 
 	//		デバック描画
 	m_player->DebugRender();
+
+	//		エフェクトマネージャーの描画
+	m_effectManager->Render();
 
 	//		UIマネージャーの描画
 	m_uiManager->FrontRender();

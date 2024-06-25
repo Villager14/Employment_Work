@@ -59,3 +59,15 @@ void LibrarySingleton::Initialize()
 		<DirectX::EffectFactory>
 		(m_device->GetD3DDevice());
 }
+
+float LibrarySingleton::Random(float min, float max)
+{
+	//		ランダムデバイスを作成
+	std::random_device seed;
+	std::default_random_engine  engine(seed());
+
+	//		数字の範囲を指定する
+	std::uniform_real_distribution<> dist(min, max);
+
+	return static_cast<float>(dist(engine));
+}

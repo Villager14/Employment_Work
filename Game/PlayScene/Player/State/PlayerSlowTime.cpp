@@ -65,6 +65,10 @@ void PlayerSlowTime::Move()
 	ChangeStateJudgement();
 }
 
+void PlayerSlowTime::Animation()
+{
+}
+
 void PlayerSlowTime::Render()
 {
 }

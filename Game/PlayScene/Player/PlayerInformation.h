@@ -26,7 +26,10 @@ public:
 		m_dashCoolTime(0.0f),
 		m_jumpJudgement(true),
 		m_respownJudgement(false),
-		m_headWallMove(0.0f)
+		m_headWallMove(0.0f),
+		m_stopCamera(false),
+		m_wireUseJudgement(false),
+		m_playerHeadShakingJudgement(false)
 	{};
 
 	//		デストラクタ
@@ -37,19 +40,29 @@ private:
 	const float STANDING_SPEED = 3.0f;
 
 	//		歩き速度
-	const float WALK_SPEED = 50.0f;
+	const float WALK_SPEED = 30.0f;
+
+	//		最高速度
+	const float MAX_SPEED = 70.0f;
 
 	//		しゃがみ速度 
 	const float CROUCHING_SPEED = 30.0f;
 
 	//		プレイヤーの高さ
-	const float STANDING_HEIGHT = 7.0f;
+	const float STANDING_HEIGHT = 4.0f;
+
+	//		しゃがみの高さ
+	const float CROUCHING_HEIGHT = 2.5f;
+
+	//		スライディングの高さ
+	const float SLIDING_HEIGHT = 2.5f;
 
 	//		減速速度
 	const float DECELERATION_SPEED = 80.0f;
 
 	//		壁移動時の最高移動量
-	const float HEAD_MOVE_MAX = 4.0f;
+	//const float HEAD_MOVE_MAX = 3.0f;
+	const float HEAD_MOVE_MAX = 1.0f;
 
 	//		頭の移動速度
 	const float HEAD_MOVE_SPEED = 30.0f;
@@ -74,6 +87,13 @@ public:
 	float GetDecelerationSpeed() { return DECELERATION_SPEED; }
 
 	/*
+	*	最高速度
+	* 
+	*	@return 速度
+	*/
+	float GetMaxSpeed() { return MAX_SPEED; }
+
+	/*
 	*	しゃがみの速さ
 	*
 	*	@return 速度
@@ -83,9 +103,23 @@ public:
 	/*
 	*	立っているときの高さ
 	*
-	*	@return 速度
+	*	@return 高さ
 	*/
 	float GetStandingHeight() { return STANDING_HEIGHT; }
+
+	/*
+	*	しゃがむときの高さ
+	* 
+	*	@return 高さ
+	*/
+	float GetCrouchingHeight() { return CROUCHING_HEIGHT; }
+
+	/*
+	*	スライディングの高さ
+	* 
+	*	@return 高さ
+	*/
+	float GetSlidngHeight() { return SLIDING_HEIGHT; }
 
 	/*
 	*	頭の最高移動量を受け取る
@@ -173,6 +207,15 @@ private:
 
 	//		壁移動時の法線
 	DirectX::SimpleMath::Vector3 m_wallWalkNormalize;
+
+	//		カメラを停止させるか透過
+	bool m_stopCamera;
+
+	//		ワイヤーを使うことができるか
+	bool m_wireUseJudgement;
+
+	//		プレイヤーの頭を揺らすかどうか
+	bool m_playerHeadShakingJudgement;
 
 public:
 
@@ -455,4 +498,46 @@ public:
 	*	@param	(time)	時間
 	*/
 	void SetDashCoolTime(float time) { m_dashCoolTime = time; }
+
+	/*
+	*	カメラを停止させるかどうか設定する
+	* 
+	*	@param	(judgement) true : 停止させる false : 停止を終了する
+	*/
+	void SetCameraStop(bool judgement) { m_stopCamera = judgement; }
+	
+	/*
+	*	カメラを停止させるかどうか受け取る
+	* 
+	*	@return true : 停止させる false : 停止を終了する
+	*/
+	bool GetCameraStop() { return m_stopCamera; }
+
+	/*
+	*	ワイヤーを使うことができるか設定する
+	* 
+	*	@param	(judgement)	true : true 使用できる false : 使用できない
+	*/
+	void SetWireJudgement(bool judgement) { m_wireUseJudgement = judgement; }
+
+	/*
+	*	ワイヤーを使うことができるか受け取る
+	* 
+	*	@return true : true 使用できる false : 使用できない
+	*/
+	bool GetWireJudgement() { return m_wireUseJudgement; }
+
+	/*
+	*	頭を揺らすかどうか設定する
+	* 
+	*	@param	(judgement) true : 揺らす false : 揺らさない
+	*/
+	void SetHeadShakingJudgement(bool judgement) { m_playerHeadShakingJudgement = judgement; }
+
+	/*
+	*	頭を揺らすかどうか受け取る
+	* 
+	*	@return true : 揺らす false : 揺らさない
+	*/
+	bool GetHeadShakingJudgement() { return m_playerHeadShakingJudgement; }
 };

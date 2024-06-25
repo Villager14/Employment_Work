@@ -34,6 +34,9 @@ public:
 	//		移動処理
 	void Move() override;
 
+	//		アニメーションの処理
+	void Animation() override;
+
 	//		描画処理
 	void Render() override;
 

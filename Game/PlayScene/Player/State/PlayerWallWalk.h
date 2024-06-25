@@ -33,6 +33,9 @@ public:
 	//		移動処理
 	void Move() override;
 
+	//		アニメーションの処理
+	void Animation() override;
+
 	//		描画処理
 	void Render() override;
 
@@ -54,7 +57,7 @@ private:
 	const float WORK_ACCERARATION_SPEED = 0.8f;
 
 	//		壁移動時の頭の高さ
-	const float HEAD_WALLWALK_HEIGHT = 5.0f;
+	const float HEAD_WALLWALK_HEIGHT = 2.5f;
 
 
 private:
@@ -63,6 +66,8 @@ private:
 
 	//		ベロシティ
 	DirectX::SimpleMath::Vector3 m_velocity;
+
+	DirectX::SimpleMath::Vector2 m_moveAngle;
 
 
 	float m_heightMove;

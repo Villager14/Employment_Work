@@ -41,6 +41,7 @@ public:
 	*/
 	void RadianConversion(float* cameraangle, float* velocityRadian);
 
+
 private:
 
 	//		カメラマネージャーのインスタンスのポインタ

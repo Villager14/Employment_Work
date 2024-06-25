@@ -21,6 +21,8 @@
 
 #include "Game/PlayScene/UIManager/ScreenRay/ScreenRay.h"
 
+#include "Game/PlayScene/UIManager/ConcentrationLine/ConcentrationLineManager.h"
+
 class UIManager
 {
 public:
@@ -55,9 +57,13 @@ private:
 	//		スクリーンのレイ
 	std::unique_ptr<ScreenRay> m_screenRay;
 
+	//		集中線
+	std::unique_ptr<ConcentrationLineManager> m_concentrationLine;
+
 	//		プレイヤーの情報を受け取る
 	PlayerInformation* m_playerInformation;
 
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
+
 };

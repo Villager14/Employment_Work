@@ -30,8 +30,8 @@ PlayerSliding::~PlayerSliding()
 
 void PlayerSliding::Initialize()
 {
-	//		高さの取得
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+	//		プレイヤーの高さを受け取る
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		初期の速度
 	m_speed = m_player->GetInformation()->GetAcceleration().Length() + INTIAL_VELOCITY;
@@ -44,6 +44,12 @@ void PlayerSliding::Initialize()
 
 	//		スライディングをしている状態にする
 	m_player->GetPlayerInformationCollition()->SetSlidingJudgement(true);
+
+	//		頭を揺らす状態にしない
+	m_player->GetInformation()->SetHeadShakingJudgement(false);
+
+	//		アニメーション待機状態
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetSliding());
 }
 
 void PlayerSliding::Update()
@@ -65,14 +71,27 @@ void PlayerSliding::Move()
 	//		床に当たっているか
 	m_player->FloorMeshHitJudgement();
 
+	//		頭を揺らす状態にしない
+	m_player->GetInformation()->SetHeadShakingJudgement(false);
+
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + COURCHING_HEIGHT, 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetSlidngHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerSliding::Animation()
+{
+	//		スライディングアニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerSliding::Render()
@@ -121,6 +140,9 @@ void PlayerSliding::MoveProcessing()
 
 		m_player->GetInformation()->SetAcceleration(m_acceleration);
 
+		//		速度上限に達しているか判断する
+		m_player->SpeedUpperLimit();
+
 		//		速度を設定する
 		m_speed = m_player->GetInformation()->GetAcceleration().Length();
 
@@ -157,6 +179,9 @@ void PlayerSliding::MoveProcessing()
 
 		//		加速度を設定する
 		m_player->GetInformation()->SetAcceleration(m_acceleration);
+
+		//		速度上限に達しているか判断する
+		m_player->SpeedUpperLimit();
 
 		//		座標に設定する
 		m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +

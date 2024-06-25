@@ -26,6 +26,12 @@ Player::~Player()
 
 void Player::Initialize()
 {
+	//		プレイヤーのアニメーションの生成
+	m_playerAnimation = std::make_unique<PlayerAnimation>();
+
+	//		プレイヤーのアニメーションの初期化
+	m_playerAnimation->Initialize();
+
 	//		プレイヤーの情報を生成する
 	m_information = std::make_unique<PlayerInformation>();
 
@@ -86,9 +92,6 @@ void Player::Initialize()
 	//		当たり判定用プレイヤーの情報を生成する
 	m_playerInformationCollition = std::make_unique<PlayerInformationCollition>();
 
-	//		当たり判定用プレイヤーの情報を生成する
-	//m_playerInformationCamera = std::make_unique<PlayerInformationCamera>();
-
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
 		::GetInstance()->GetEffectFactory();
@@ -101,6 +104,9 @@ void Player::Initialize()
 	(LibrarySingleton::GetInstance()->GetDeviceResources()
 		->GetD3DDevice(),
 		L"Resources/Models/Player.cmo", *m_effect);
+
+
+	//m_information->SetPosition({ 0.0f, 500.0f, 0.0f });
 }
 
 void Player::Update(PlayerCameraInformation* cameraInformation)
@@ -127,23 +133,20 @@ void Player::MeshUpdate()
 	m_state->Move();
 }
 
+void Player::AnimationUpdate()
+{
+	m_state->Animation();
+}
+
 void Player::Render(ShadowInformation* shadow, Shadow* hontai)
 {
-	//		描画処理
-	//m_state->Render();
 
-	//DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_information->GetPosition());
+}
 
-	//auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
-
-	//m_playerObject->Draw(context,
-	//	*LibrarySingleton::GetInstance()->GetCommonState(),
-	//	world, hontai->GetDepthView(),
-	//	hontai->GetDpethProj(), false, [&]
-	//	{
-	//		//context->VSSetShader(hontai->GetDepthVSShader().Get(), nullptr, 0);
-	//		//context->PSSetShader(hontai->GetDepthPSShader().Get(), nullptr, 0);
-	//	});
+void Player::ModelRender()
+{
+	//		ボーンの描画
+	m_playerAnimation->Render();
 }
 
 void Player::DebugRender()
@@ -323,8 +326,14 @@ bool Player::FloorMeshHitJudgement()
 		//		ジャンプできる状態にする
 		m_information->SetJumpJudgement(false);
 
+		//		頭を揺らす状態にする
+		m_information->SetHeadShakingJudgement(true);
+
 		return true;
 	}
+
+	//		頭を揺らさない状態にする
+	m_information->SetHeadShakingJudgement(false);
 
 	return false;
 }
@@ -367,11 +376,11 @@ void Player::PlayerHeightTransition(const float& firstHeight, const float& endHe
 		m_information->SetHeightTime(heightTime);
 
 		//		ラープで初期の高さから立ちの高さへ
-		headPosition.y = Library::Lerp(firstHeight, endHeight, move);
+		headPosition.y = m_information->GetPosition().y + Library::Lerp(firstHeight, endHeight, move);
 	}
 	else
 	{
-		headPosition.y = endHeight;
+		headPosition.y = m_information->GetPosition().y + endHeight;
 	}
 
 	if (m_information->GetHeadMove() > 0.0f)
@@ -397,6 +406,9 @@ void Player::PlayerHeightTransition(const float& firstHeight, const float& endHe
 
 bool Player::WireActionJudgement()
 {
+	//		ワイヤーを使用できない状態にする
+	m_information->SetWireJudgement(false);
+
 	//		ワイヤーの座標がない場合処理をしない
 	if (m_information->GetWirePosition().size() == 0) return false;
 
@@ -416,6 +428,9 @@ bool Player::WireActionJudgement()
 	//		ワイヤーの方向を向いていたら
 	if (dot < 0.9f) return false;
 
+	//		ワイヤーを使用できる状態にする
+	m_information->SetWireJudgement(true);
+
 	//		マウストラッカーの値を受け取る
 	DirectX::Mouse::ButtonStateTracker* mouse = LibrarySingleton::GetInstance()->GetButtonStateTracker();
 
@@ -430,9 +445,13 @@ bool Player::WireActionJudgement()
 		//		移動ワイヤー座標を設定する
 		m_information->SetWireMovePosition(wireMovePosition);
 
-		//		状態を遷移する（）
-		ChangeState(m_playerWire.get());
-		
+		//		状態を遷移する		
+		m_state->Finalize();
+
+		m_state = m_playerWire.get();
+
+		m_state->Initialize();
+
 		return true;
 	}
 
@@ -451,7 +470,7 @@ void Player::WallWalkJudgement()
 		float dot = m_collitionInformation->GetMeshWallNormalize()[0].Dot(acceleation);
 
 		//		プレイヤーが一定の角度を向いている場合処理をする
-		if (dot <= -0.1f && dot >= -0.9f)
+		if (dot <= -0.1f && dot >= -0.95f)
 		{
 			//		法線を代入する
 			m_playerInformationCollition->SetWallWalkNormalize(m_collitionInformation->GetMeshWallNormalize()[0]);
@@ -462,4 +481,17 @@ void Player::WallWalkJudgement()
 			return;
 		}
 	}
+}
+
+void Player::SpeedUpperLimit()
+{
+	float speed = m_information->GetAcceleration().Length();
+
+	if (speed <= 70.0f) return;
+
+	DirectX::SimpleMath::Vector3 velocity = m_information->GetAcceleration();
+
+	velocity.Normalize();
+
+	m_information->SetAcceleration(velocity * 70.0f);
 }

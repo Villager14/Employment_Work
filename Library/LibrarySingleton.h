@@ -11,6 +11,8 @@
 
 #include <SpriteFont.h>
 
+#include <random>
+
 class LibrarySingleton final
 {
 private:
@@ -149,6 +151,15 @@ public:
 	*	@return	true : デバック表示 false : デバックを表示しない
 	*/
 	bool GetDebugJudgement() { return m_debugViewJudgment; }
+
+	/*
+	*	範囲内のランダムな数字を受け取る
+	* 
+	*	@param	(min)	最小値
+	*	@param	(max)	最大値
+	*	@return ランダムな値
+	*/
+	float Random(float min, float max);
 
 	/*
 	*	スクリーンのサイズを受け取る

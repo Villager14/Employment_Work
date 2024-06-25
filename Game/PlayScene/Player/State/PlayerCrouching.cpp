@@ -26,7 +26,7 @@ PlayerCrouching::~PlayerCrouching()
 void PlayerCrouching::Initialize()
 {
 	//		プレイヤーの高さを受け取る
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 }
 
 void PlayerCrouching::Update()
@@ -50,11 +50,32 @@ void PlayerCrouching::Move()
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
-	//		しゃがみ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + COURCHING_HEIGHT, 3.0f);
+	//		しゃがみ高さにする処理
+	m_player->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetCrouchingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerCrouching::Animation()
+{
+	if (m_keyInputJudgement)
+	{
+		//		歩き状態
+		m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetCrouchingWalk());
+	}
+	else
+	{
+		//		しゃがみ停止アニメーション
+		m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetCrouchingStay());
+	}
+
+	//		しゃがみ歩きアニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerCrouching::Render()

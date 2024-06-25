@@ -14,6 +14,7 @@
 #include "State/PlayerWallWalkCamera.h"
 #include "State/PlayerStartCamera.h"
 #include "State/PlayerDeathCamera.h"
+#include "State/PlayerCameraStop.h"
 
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
@@ -26,6 +27,7 @@ class PlayerCamera;
 class PlayerWallWalkCamera;
 class PlayerStartCamera;
 class PlayerDeathCamera;
+class PlayerCameraStop;
 
 class PlayerCameraManager
 {
@@ -82,6 +84,9 @@ private:
 	//		プレイヤーの死亡カメラ
 	std::unique_ptr<PlayerDeathCamera> m_playerDeathCamera;
 
+	//		プレイヤーの動かないカメラ
+	std::unique_ptr<PlayerCameraStop> m_playerStopCamera;
+
 public:
 	/*
 	*	デバックカメラの状態を受け取る
@@ -117,6 +122,13 @@ public:
 	*	@return 死亡カメラのインスタンスのポインタ
 	*/
 	PlayerDeathCamera* GetDeathCamera() { return m_playerDeathCamera.get(); }
+
+	/*
+	*	プレイヤーの動かないカメラ状態を受け取る
+	* 
+	*	@return 動かないカメラのインスタンスのポインタ
+	*/
+	PlayerCameraStop* GetStopCamera() { return m_playerStopCamera.get(); }
 
 private:
 	//		カメラの情報

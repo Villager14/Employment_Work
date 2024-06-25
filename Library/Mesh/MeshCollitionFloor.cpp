@@ -46,7 +46,24 @@ const std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionFloor::FloorCollit
 
 		//		同一平面上にいるかどうか
 		if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
-			objectMesh->GetNormalizePosition(i), &m_hitPoint)) continue;
+			objectMesh->GetNormalizePosition(i), &m_hitPoint))
+		{
+			//		貫通時の処理
+
+			//		過去の座標をレイの開始位置にする
+			m_rayStart = m_pastPosition;
+
+			//		上にレイを上げる
+			m_rayStart.y += m_rayAboveLength;
+
+			//		同一平面上にいるかどうか
+			if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
+				objectMesh->GetNormalizePosition(i), &m_hitPoint))
+			{
+				continue;
+			}
+		}
+
 
 		//		メッシュの三角形の内側かどうか
 		if (m_meshCollitionManager->InsideTriangle(vertex,
@@ -125,8 +142,11 @@ bool MeshCollitionFloor::FloorJudgement(const DirectX::SimpleMath::Vector3& norm
 bool MeshCollitionFloor::DistancePlayer()
 {
 	//		当たった座標の数が０以下の時
-	if (m_hitMeshPoint.size() <= 0) return false;
+	if (m_hitMeshPoint.size() <= 0)
+	{
 
+		return false;
+	}
 	//		最もプレイヤーから近い座標
 	DirectX::SimpleMath::Vector3 position = m_hitMeshPoint[0];
 
