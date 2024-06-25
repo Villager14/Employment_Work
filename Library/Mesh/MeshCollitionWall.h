@@ -59,6 +59,8 @@ public:
 	std::vector<DirectX::SimpleMath::Vector3>& WallWalk(ObjectMesh* objectMesh,
 		const DirectX::SimpleMath::Vector3& playerPosition);
 
+	void Penetration();
+
 private:
 
 	MeshCollitionManager* m_meshCollitionManager;
@@ -75,9 +77,10 @@ private:
 	//		法線
 	std::vector<DirectX::SimpleMath::Vector3> m_normalize;
 
-	//		
+	//		壁歩きのポイント
 	DirectX::SimpleMath::Vector3 m_wallWalkHitPoint;
 
+	//		
 	std::vector<DirectX::SimpleMath::Vector3> m_hitpp;
 
 	//		レイの開始
@@ -85,4 +88,17 @@ private:
 
 	//		レイの終了
 	DirectX::SimpleMath::Vector3 m_rayEnd;
+
+	//		過去の座標
+	DirectX::SimpleMath::Vector3 m_pastPosition;
+
+public:
+
+	/*
+	*	過去の座標を設定する
+	* 
+	*	@param	(position)	座標
+	*/
+	void SetPastPosition(DirectX::SimpleMath::Vector3 position) { m_pastPosition = position; }
+
 };

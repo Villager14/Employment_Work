@@ -22,6 +22,9 @@ public:
 	//		移動処理
 	virtual void Move() = 0;
 
+	//		アニメーションの更新
+	virtual void Animation() = 0;
+
 	//		描画処理
 	virtual void Render() = 0;
 

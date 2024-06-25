@@ -21,7 +21,9 @@ PlayerWire::PlayerWire(Player* player)
 	m_length(0.0f),
 	m_floorHitJudgement(false),
 	m_wallHitJudgement(false),
-	m_firstSpeed(0.0f)
+	m_firstSpeed(0.0f),
+	m_decelerationJudgement(false),
+	m_accelerationSpeed(0.0f)
 {
 }
 
@@ -31,8 +33,8 @@ PlayerWire::~PlayerWire()
 
 void PlayerWire::Initialize()
 {
-	//		高さの取得
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+	//		速度の初期化処理
+	SpeedInitlaize();
 
 	//		移動方向
 	m_direction = m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition();
@@ -41,17 +43,25 @@ void PlayerWire::Initialize()
 
 	m_player->GetInformation()->SetDirection({0.0f, 0.0f, 1.0f});
 
+	//		落下時間を０にする
+	m_player->GetInformation()->SetFallTime(0.0f);
+
 	//		距離
 	m_length = (m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition()).Length();
 
-	//		落下時間を０にする
-	m_player->GetInformation()->SetFallTime(0.0f);
+	//		プレイヤーの高さを受け取る
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
+
+	//		アニメーションワイヤージャンプ状態
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWireJump());
 }
 
 void PlayerWire::Update()
 {
+	//		移動処理
 	MoveProcessing();
 
+	//		重力処理
 	m_player->Gravity(true);
 }
 
@@ -60,12 +70,14 @@ void PlayerWire::Move()
 	//		壁メッシュの当たり判定
 	if (m_player->WallMeshHitJudgement())
 	{
+		//		影に当たっている
 		if (m_fallJudgement)m_wallHitJudgement = true;
 	}
 
 	//		床に当たっているか
 	if (m_player->FloorMeshHitJudgement())
 	{
+		//		床に当たっている
 		if (m_fallJudgement)m_floorHitJudgement = true;
 	}
 	
@@ -76,10 +88,20 @@ void PlayerWire::Move()
 	FallJudgement();
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerWire::Animation()
+{
+	//		ワイヤーアニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerWire::Render()
@@ -98,6 +120,11 @@ void PlayerWire::Finalize()
 	m_floorHitJudgement = false;
 
 	m_fallJudgement = 0.0f;
+
+	m_decelerationJudgement = false;
+
+	//		アニメーション待機状態
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetStayState());
 }
 
 void PlayerWire::MoveProcessing()
@@ -117,6 +144,12 @@ void PlayerWire::MoveProcessing()
 
 void PlayerWire::ChangeStateJudgement()
 {
+	//		死亡しているか判断する
+	m_player->DeathJudgement();
+
+	//		ワイヤーアクションができるかどうか判断する
+	m_player->WireActionJudgement();
+
 	//		キーボードの取得
 	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
 
@@ -176,13 +209,42 @@ void PlayerWire::ChangeStateJudgement()
 
 void PlayerWire::AttractProcess()
 {
+	if (!m_decelerationJudgement)AccelerationProcess();
+	else DecelerationProcess();
+}
+
+void PlayerWire::AccelerationProcess()
+{
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * ACCELERATION_RATE_SPEED;
+
+	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+	//		速度の遷移
+	m_speed = Library::Lerp(m_firstSpeed, m_firstSpeed + MAX_SPEED, m_time);
+
+	//		現在の距離
+	float nowLength = (m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition()).Length();
+
+	//		開始時距離と現在距離の割合が7以下の場合減速処理にする
+	if (nowLength / m_length <= ACCELERATION_RATE)
+	{
+		//		減速処理にする
+		m_decelerationJudgement = true;
+
+		//		加速速度を現在の速度にする
+		m_accelerationSpeed = m_speed;
+	}
+}
+
+void PlayerWire::DecelerationProcess()
+{
 	//		現在の距離
 	float nowLenght = (m_player->GetInformation()->GetWireMovePosition() - m_player->GetInformation()->GetPosition()).Length();
 
 	//		割合
 	float ratio = nowLenght / m_length;
 
-	m_speed = Library::Lerp(50, 200, ratio);
+	m_speed = Library::Lerp(m_firstSpeed, m_accelerationSpeed, ratio);
 }
 
 void PlayerWire::FallProcess()
@@ -200,10 +262,17 @@ void PlayerWire::FallProcess()
 	direction.Normalize();
 
 	//		移動する方向を追加する
-	m_direction += m_player->MoveDirection(direction) * 0.2f * LibrarySingleton::GetInstance()->GetElpsedTime();
+	m_direction += m_player->MoveDirection(direction) * 0.7f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		正規化
 	m_direction.Normalize();
+
+	//		速度が最大速度以上の場合
+	if (m_speed >= m_player->GetInformation()->GetMaxSpeed())
+	{
+		//		最大速度にする　
+		m_speed = m_player->GetInformation()->GetMaxSpeed();
+	}
 }
 
 void PlayerWire::FallJudgement()
@@ -224,4 +293,21 @@ void PlayerWire::FallJudgement()
 
 		m_time = 0.0f;
 	}
+}
+
+void PlayerWire::SpeedInitlaize()
+{
+	//		高さの取得
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+
+	//		初期速度
+	m_firstSpeed = m_player->GetInformation()->GetAcceleration().Length();
+
+	//		初期速度が歩く速度以下の場合
+	if (m_firstSpeed <= m_player->GetInformation()->GetWalkSpeed())
+	{
+		m_firstSpeed = m_player->GetInformation()->GetWalkSpeed();
+	}
+
+	m_speed = m_firstSpeed;
 }

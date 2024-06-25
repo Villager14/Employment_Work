@@ -12,6 +12,8 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
+#include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
+
 class RedScreen
 {
 public:
@@ -21,6 +23,9 @@ public:
 		DirectX::SimpleMath::Vector4	windowSize;
 		DirectX::SimpleMath::Matrix		rotationMatrix;
 		DirectX::SimpleMath::Vector4	time;
+		DirectX::SimpleMath::Vector4	motionVector;
+		DirectX::SimpleMath::Vector4	blurStrength;
+		DirectX::SimpleMath::Vector4    concentrationLineTime;
 	};
 public:
 
@@ -47,7 +52,7 @@ public:
 	*
 	*	@param	(timer)	DX::StepTimer
 	*/
-	void Update(GameManager* gameManager);
+	void Update(GameManager* gameManager, PlayerCameraInformation* playerCameraInformation);
 
 	/*
 	*	描画処理
@@ -116,7 +121,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
 	//		テクスチャハンドル
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 	Microsoft::WRL::ComPtr<ID3D11Resource> m_res;
 
 	//		頂点シェーダー
@@ -143,10 +147,26 @@ private:
 	//		回転行列
 	DirectX::SimpleMath::Matrix m_rotationMatrix;
 
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pasttexture;
+
 	//		時間
 	float m_time;
 
 	//		グレイにするかどうか
 	bool m_grayJudgement;
 
+	//		移動方向
+	DirectX::SimpleMath::Vector2 m_cameraMove;
+
+	//		ブラの強さ
+	float m_blerString;
+
+	//		集中線の時間
+	float concentrationLineTime;
+
+	//		集中線のクールタイム
+	float concentrationCoolTime;
+
+	//		集中線の変化率
+	float concentrationChange;
 };

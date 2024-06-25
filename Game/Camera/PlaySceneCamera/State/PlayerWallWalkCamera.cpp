@@ -24,6 +24,8 @@ void PlayerWallWalkCamera::Initialize()
 {
 	//		マウスを相対参照にする
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
+
+	m_playerCameraManager->GetInformation()->SetCameraAngleMin(-20.0f);
 }
 
 void PlayerWallWalkCamera::Update()
@@ -87,6 +89,13 @@ void PlayerWallWalkCamera::Update()
 	//		ビュー行列を作成
 	DirectX::SimpleMath::Matrix view = DirectX::SimpleMath::Matrix::CreateLookAt
 	(position, target, up);
+
+	m_playerCameraManager->GetInformation()->SetEye(position);
+	m_playerCameraManager->GetInformation()->SetTarget(target);
+	m_playerCameraManager->GetInformation()->SetUp(up);
+
+	//		視線ベクトルを設定する
+	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
 
 	//		ビュー行列を設定する
 	LibrarySingleton::GetInstance()->SetView(view);

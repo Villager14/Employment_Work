@@ -35,6 +35,19 @@ void WallObject::Initialize()
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/WallObject01.cmo", *m_effect);
 
+	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
+		{
+			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+
+			if (fog)
+			{
+				fog->SetFogEnabled(true);
+				fog->SetFogStart(200.0f);
+				fog->SetFogEnd(350.0f);
+				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+			}
+	});
+
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
 
@@ -52,7 +65,6 @@ void WallObject::Initialize()
 
 	//		オブジェクトタイプの設定（壁）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Wall);
-
 }
 
 void WallObject::Update()
@@ -68,7 +80,7 @@ void WallObject::Render(DrawMesh* drawMesh)
 		LibrarySingleton::GetInstance()->GetProj());
 
 	//		メッシュの描画
-	drawMesh->StaticRender(m_objectMesh.get());
+	//drawMesh->StaticRender(m_objectMesh.get());
 }
 
 void WallObject::Finalize()

@@ -43,11 +43,23 @@ public:
 	*/
 	void Update(const DirectX::SimpleMath::Vector3& playerPosition);
 
-	//		描画処理
-	void Render();
+	/*
+	*	描画処理
+	* 
+	*	@param	(cameraVelocity)	視線ベクトル
+	*/
+	void Render(DirectX::SimpleMath::Vector3 cameraVelocity, DirectX::SimpleMath::Vector3 cameraPosition);
 
 	//		終了処理
 	void Finalize();
+
+	/*
+	*	オブジェクトの座標
+	* 
+	*	@param	(position)	オブジェクトの座標
+	*	@return true カリングする false : カリングしない
+	*/
+	bool Culling(DirectX::SimpleMath::Vector3 position);
 
 private:
 	//		プレイヤーの行列
@@ -79,6 +91,16 @@ private:
 
 	//		影情報
 	ShadowInformation* m_shadowInformation;
+
+	//		カメラ視線ベクトル
+	DirectX::SimpleMath::Vector3 m_cameraVelocity;
+
+	//		カメラの座標
+	DirectX::SimpleMath::Vector3 m_cameraPosition;
+
+	//		ワイヤーオブジェクトの座標
+	std::vector<DirectX::SimpleMath::Vector3> m_wireObjectPosition;
+
 public:
 
 	/*

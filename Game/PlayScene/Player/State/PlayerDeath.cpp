@@ -27,8 +27,8 @@ PlayerDeath::~PlayerDeath()
 
 void PlayerDeath::Initialize()
 {
-	//		高さの取得
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+	//		プレイヤーの高さを受け取る
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		加速度を受け取る
 	m_firstAcceleration = m_player->GetInformation()->GetAcceleration();
@@ -62,11 +62,14 @@ void PlayerDeath::Move()
 
 	//		立つ処理
 	m_player->PlayerHeightTransition(m_firstHeight, 
-		m_player->GetInformation()->GetPosition().y + 
 		m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerDeath::Animation()
+{
 }
 
 void PlayerDeath::Render()

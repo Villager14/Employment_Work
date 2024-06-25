@@ -21,8 +21,8 @@ public:
 	*	@param	(player) 状態管理クラスのポインタ
 	*/
 	PlayerSliding(Player* player);
-
 	//		デストラクタ
+
 	~PlayerSliding();
 
 	//		初期化処理
@@ -33,6 +33,9 @@ public:
 
 	//		移動処理
 	void Move() override;
+
+	//		アニメーションの処理
+	void Animation() override;
 
 	//		描画処理
 	void Render() override;
@@ -51,11 +54,8 @@ public:
 
 private:
 
-	//		しゃがみの高さ
-	const float COURCHING_HEIGHT = 3.0f;
-
 	//		スライディングの加速
-	const float SLIDING_ACCELERATION_SPEED = 40.0f;
+	const float SLIDING_ACCELERATION_SPEED = 20.0f;
 
 	//		スライディングの追加初速
 	const float INTIAL_VELOCITY = 5.0f;

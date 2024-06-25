@@ -34,6 +34,10 @@ void PlayerGoal::Move()
 {
 }
 
+void PlayerGoal::Animation()
+{
+}
+
 void PlayerGoal::Render()
 {
 }

@@ -51,6 +51,10 @@ void PlayerDeathCamera::Update()
 	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
 	(position, target, up));
 
+	m_playerCameraManager->GetInformation()->SetEye(position);
+	m_playerCameraManager->GetInformation()->SetTarget(target);
+	m_playerCameraManager->GetInformation()->SetUp(up);
+
 	//		Ž‹üƒxƒNƒgƒ‹‚ðÝ’è‚·‚é
 	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
 

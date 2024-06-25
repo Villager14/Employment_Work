@@ -27,8 +27,8 @@ PlayerWalk::~PlayerWalk()
 
 void PlayerWalk::Initialize()
 {
-	//		高さの取得
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+	//		プレイヤーの高さを受け取る
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		現在の速度を受け取る
 	m_speed = m_player->GetInformation()->GetAcceleration().Length();
@@ -39,6 +39,9 @@ void PlayerWalk::Initialize()
 		//		加速処理をする
 		m_accelerationJudgement = true;
 	}
+
+	//		アニメーション歩き状態
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWalkState());
 }
 
 void PlayerWalk::Update()
@@ -62,10 +65,20 @@ void PlayerWalk::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 	
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerWalk::Animation()
+{
+	//		歩きアニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerWalk::Render()
@@ -167,7 +180,8 @@ void PlayerWalk::ChangeStateJudgement()
 		}
 	}
 
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift))
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift)
+		&& keyState.IsKeyDown(DirectX::Keyboard::W))
 	{
 		//		ダッシュできるかどうか
 		if (m_player->GetInformation()->GetDashJudgement())

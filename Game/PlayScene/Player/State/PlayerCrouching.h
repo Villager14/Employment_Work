@@ -34,6 +34,9 @@ public:
 	//		移動処理
 	void Move() override;
 
+	//		アニメーションの処理
+	void Animation() override;
+
 	//		描画処理
 	void Render() override;
 
@@ -50,9 +53,6 @@ public:
 	void SpeedProcessing();
 	
 private:
-
-	//		しゃがみの高さ
-	const float COURCHING_HEIGHT = 4.0f;
 
 private:
 

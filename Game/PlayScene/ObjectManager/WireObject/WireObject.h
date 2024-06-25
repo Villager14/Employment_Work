@@ -7,10 +7,6 @@
 
 #pragma once
 
-#include "Library/Mesh/ObjectMesh.h"
-
-#include "Library/Mesh/DrawMesh.h"
-
 class WireObject
 {
 public:
@@ -36,7 +32,7 @@ public:
 	* 
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render(DrawMesh* drawMesh);
+	void Render();
 
 	//		終了処理
 	void Finalize();
@@ -48,9 +44,6 @@ private:
 
 	//		ワイヤーの範囲モデル
 	std::unique_ptr<DirectX::Model> m_wireRangeModel;
-
-	//		オブジェクトのメッシュ
-	std::unique_ptr<ObjectMesh> m_objectMesh;
 
 	//		羽オブジェクト
 	std::unique_ptr<DirectX::Model> m_wingModel;
@@ -77,13 +70,6 @@ private:
 	std::vector<DirectX::SimpleMath::Vector3> m_wingPosition;
 
 public:
-
-	/*
-	*	オブジェクトメッシュを受け取る
-	*
-	*	@return インスタンス
-	*/
-	ObjectMesh* GetObjectMesh() const { return m_objectMesh.get(); }
 
 	/*
 	*	ワイヤーオブジェクトが使用可能か？

@@ -21,7 +21,12 @@ RedScreen::RedScreen()
 	:
 	m_res(nullptr),
 	m_rotationMatrix(DirectX::SimpleMath::Matrix::Identity),
-	m_time(0.0f)
+	m_time(0.0f),
+	concentrationLineTime(0.0f),
+	concentrationCoolTime(0.0f),
+	m_blerString(0.0f),
+	m_baseScale(0.0f),
+	m_grayJudgement(false)
 {
 
 }
@@ -42,7 +47,7 @@ void RedScreen::Create(
 	CreateShader();
 }
 
-void RedScreen::Update(GameManager* gameManager)
+void RedScreen::Update(GameManager* gameManager, PlayerCameraInformation* playerCameraInformation)
 {
 	if (gameManager->GetDeathJudgement())
 	{
@@ -54,6 +59,28 @@ void RedScreen::Update(GameManager* gameManager)
 	{
 		m_time = 0.0f;
 	}
+
+	m_cameraMove = playerCameraInformation->GetCameraMove();
+
+	m_blerString = m_cameraMove.Length();
+
+	m_blerString *= 0.01f;
+
+	m_cameraMove.Normalize();
+
+	if (concentrationCoolTime < 0.5f)
+	{
+		concentrationCoolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+	}
+
+	concentrationCoolTime = 0.0f;
+
+	//		集中線の変化時間
+	concentrationLineTime = LibrarySingleton::GetInstance()->Random(0.0f, 1080.0f);
+
+	concentrationChange = LibrarySingleton::GetInstance()->Random(0.2f, 0.3);
+
+
 }
 
 void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
@@ -75,6 +102,9 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	cbuff.windowSize = DirectX::SimpleMath::Vector4(LibrarySingleton::GetInstance()->GetScreenSize().x,
 		LibrarySingleton::GetInstance()->GetScreenSize().y, 1, 1);
 	cbuff.time = { static_cast<float>(m_time),0,0,0 };
+	cbuff.motionVector = { m_cameraMove.x, m_cameraMove.y, 0.0f, 0.0f};
+	cbuff.blurStrength = { m_blerString, 0.0f ,0.0f, 0.0f };
+	cbuff.concentrationLineTime = { concentrationLineTime , concentrationChange, 0.0f ,0.0f};
 
 	//		受け渡し用バッファ
 	context->UpdateSubresource(m_CBuffer.Get(), 0, NULL, &cbuff, 0, 0);
@@ -109,6 +139,21 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	//		ピクセルシェーダにテクスチャを登録する
 	context->PSSetShaderResources(0, 1, &shaderResouceView);
 
+	//		テクスチャがない場合テクスチャを追加する
+	if (m_pasttexture == nullptr)
+	{
+		//		過去のテクスチャとして保存する
+		m_pasttexture = shaderResouceView;
+
+		//		ピクセルシェーダにテクスチャを登録する
+		context->PSSetShaderResources(1, 1, m_pasttexture.GetAddressOf());
+	}
+	else
+	{
+		//		ピクセルシェーダにテクスチャを登録する
+		context->PSSetShaderResources(1, 1, m_pasttexture.GetAddressOf());
+	}
+
 	//		インプットレイアウトの登録
 	context->IASetInputLayout(m_inputLayout.Get());
 
@@ -116,6 +161,9 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Begin();
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &vertex[0], 1);
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->End();
+
+	//		過去のテクスチャとして保存する
+	m_pasttexture = shaderResouceView;
 
 	//		シェーダの登録を解除しておく
 	context->VSSetShader(nullptr, nullptr, 0);

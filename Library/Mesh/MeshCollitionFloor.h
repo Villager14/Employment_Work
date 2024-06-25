@@ -101,6 +101,9 @@ private:
 	//		メッシュに当たった法線
 	std::vector<DirectX::SimpleMath::Vector3> m_normalize;
 
+	//		過去の座標
+	DirectX::SimpleMath::Vector3 m_pastPosition;
+
 	//		メッシュとプレイヤーの長さ
 	float m_minLengthMP;
 
@@ -124,4 +127,11 @@ public:
 	*	@return 法線
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetNormalize() { return m_normalize; }
+
+	/*
+	*	過去のプレイヤーの座標を受け取る
+	* 
+	*	@param	(position)	座標
+	*/
+	void SetPastPlayerPosition(DirectX::SimpleMath::Vector3 position) { m_pastPosition = position; }
 };

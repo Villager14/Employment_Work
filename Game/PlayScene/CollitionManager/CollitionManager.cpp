@@ -73,6 +73,17 @@ void CollitionManager::Update(PlayerInformationCollition* playerInformationColli
 		}
 	}
 
+	if (m_collitionInformation->GetFloorMeshHitPoint().size() > 0)
+	{
+		m_playerPosition = m_collitionInformation->GetFloorMeshHitPoint()[0];
+
+		m_meshCollition->SetPastPlayerPosition(m_playerPosition);
+	}
+	else
+	{
+		m_meshCollition->SetPastPlayerPosition(m_playerPosition);
+	}
+
 	//		’e‚Ì“–‚½‚è”»’è
 	m_bulletCollition->Collition(playerInformationCollition->GetPlayerPosition(), playerInformationCollition->GetPlayerHeight(), m_bulletPosition);
 }

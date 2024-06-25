@@ -52,6 +52,12 @@ void UIManager::Initialize()
 
 	//		スクリーンの初期化
 	m_screenRay->Initialize();
+
+	//		集中線の生成
+	m_concentrationLine = std::make_unique<ConcentrationLineManager>();
+
+	//		集中線の初期化
+	m_concentrationLine->Initialize();
 }
 
 void UIManager::Update()
@@ -70,10 +76,16 @@ void UIManager::Update()
 
 	//		スクリーンの線の更新
 	m_screenRay->Update();
+
+	//		集中線の更新
+	m_concentrationLine->Update();
 }
 
 void UIManager::FrontRender()
 {
+	//		集中線の描画
+	m_concentrationLine->Render();
+
 	//		時計の描画
 	m_clockManager->Render();
 

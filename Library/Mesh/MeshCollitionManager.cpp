@@ -38,7 +38,7 @@ void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 	}
 	else
 	{
-		playerUnderRayLength = 0.5f;
+		playerUnderRayLength = 0.3f;
 	}
 
 	//		ƒŒƒC‚Ì’·‚³‚ğİ’è‚·‚é

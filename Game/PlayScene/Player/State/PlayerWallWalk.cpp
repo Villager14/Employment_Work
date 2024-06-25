@@ -14,7 +14,8 @@
 PlayerWallWalk::PlayerWallWalk(Player* player)
 	:
 	m_player(player),
-	m_heightMove(7.0f)
+	m_heightMove(7.0f),
+	m_moveAngle(0.0f)
 {
 }
 
@@ -26,6 +27,7 @@ void PlayerWallWalk::Initialize()
 {
 	//		移動方向
 	float moveRadian = DirectX::XMConvertToRadians(90.0f);
+	m_moveAngle.y = 1.0f;
 
 	DirectX::SimpleMath::Vector3 acceleation = m_player->GetInformation()->GetAcceleration();
 
@@ -39,6 +41,7 @@ void PlayerWallWalk::Initialize()
 	if (corss.y > 0)
 	{
 		moveRadian *= -1.0f;
+		m_moveAngle.y *= -1.0f;
 	}
 
 	//		最初に当たった壁の法線を受け取る
@@ -46,7 +49,11 @@ void PlayerWallWalk::Initialize()
 	{ m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x,
 	 m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z };
 
+	normalize.Normalize();
+
 	float radian = atan2(normalize.y, normalize.x);
+
+	m_moveAngle.x = radian + moveRadian;
 
 	//		ベクトルを出す
 	m_velocity = DirectX::SimpleMath::Vector3(cosf(radian + moveRadian),
@@ -56,11 +63,21 @@ void PlayerWallWalk::Initialize()
 
 	float speed = m_player->GetInformation()->GetAcceleration().Length();
 
+	//		歩く速度より遅かった場合
+	if (speed < m_player->GetInformation()->GetWalkSpeed())
+	{
+		//		歩く速度にする
+		speed = m_player->GetInformation()->GetWalkSpeed();
+	}
+
 	//		移動速度
 	m_player->GetInformation()->SetAcceleration(m_velocity * speed);
 
 	//		移動方向
 	m_player->GetInformation()->SetDirection(m_velocity);
+
+	//		アニメーション壁歩き
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWallWalk());
 }
 
 void PlayerWallWalk::Update()
@@ -87,6 +104,16 @@ void PlayerWallWalk::Move()
 
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerWallWalk::Animation()
+{
+	//		壁歩き
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_moveAngle,
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerWallWalk::Render()
@@ -140,8 +167,12 @@ void PlayerWallWalk::ChangeStateJudgement()
 				DirectX::SimpleMath::Vector3::Lerp(m_velocity,
 					m_player->GetPlayerInformationCollition()->GetWallWalkNormalize(), 0.3f);
 
+			velocity.Normalize();
+
+			float speed = m_player->GetInformation()->GetAcceleration().Length();
+
 			//		ジャンプする方向
-			m_player->GetInformation()->SetAcceleration(velocity * m_player->GetInformation()->GetAcceleration().Length());
+			m_player->GetInformation()->SetAcceleration(velocity * speed);
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->GetWallJumpState());

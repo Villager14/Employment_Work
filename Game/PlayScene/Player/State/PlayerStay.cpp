@@ -25,8 +25,11 @@ PlayerStay::~PlayerStay()
 
 void PlayerStay::Initialize()
 {
-	//		高さの取得
-	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y;
+	//		プレイヤーの高さを受け取る
+	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
+
+	//		アニメーション待機状態
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetStayState());
 }
 
 void PlayerStay::Update()
@@ -36,6 +39,7 @@ void PlayerStay::Update()
 
 	//		メッシュと当たった時の処理
 	m_player->Gravity();
+
 }
 
 void PlayerStay::Move()
@@ -50,11 +54,22 @@ void PlayerStay::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
 }
+
+void PlayerStay::Animation()
+{
+	//		待機アニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(), 
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
+}
+
 
 void PlayerStay::Render()
 {

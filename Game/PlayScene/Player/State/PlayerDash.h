@@ -17,7 +17,7 @@ public:
 
 	/*
 	*	コンストラクタ
-	* 
+	*
 	*	@param	(player) 状態管理クラスのポインタ
 	*/
 	PlayerDash(Player* player);
@@ -33,6 +33,9 @@ public:
 
 	//		移動処理
 	void Move() override;
+
+	//		アニメーションの処理
+	void Animation() override;
 
 	//		描画処理
 	void Render() override;
@@ -72,6 +75,9 @@ private:
 
 	//		移動方向
 	DirectX::SimpleMath::Vector3 m_direction;
+
+	//		初期の速さ
+	float m_firstSpeed;
 
 	//		初期の高さ
 	float m_firstHeight;

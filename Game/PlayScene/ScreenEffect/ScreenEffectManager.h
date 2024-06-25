@@ -15,6 +15,8 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
+#include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
+
 class ScreenEffectManager
 {
 public:
@@ -29,7 +31,7 @@ public:
 	void Initialize();
 
 	//		アップデート
-	void Update();
+	void Update(PlayerCameraInformation* playerCameraInformation);
 
 	//		描画処理
 	void Render();

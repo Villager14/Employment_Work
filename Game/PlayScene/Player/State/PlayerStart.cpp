@@ -23,6 +23,10 @@ PlayerStart::~PlayerStart()
 
 void PlayerStart::Initialize()
 {
+	m_player->GetInformation()->SetPlayerHeight({ 0.0f, m_player->GetInformation()->GetStandingHeight(), 0.0f});
+
+	//		アニメーションスタート
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetStart());
 }
 
 void PlayerStart::Update()
@@ -33,6 +37,16 @@ void PlayerStart::Move()
 {
 	//		状態遷移判断
 	ChangeStateJudgement();
+}
+
+void PlayerStart::Animation()
+{
+	//		待機アニメーション
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerStart::Render()
