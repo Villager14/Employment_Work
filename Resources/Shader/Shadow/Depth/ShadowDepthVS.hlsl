@@ -20,6 +20,8 @@ Output main(Input vin)
     // ’¸“_‚ÌˆÊ’u‚ð“Š‰e‹óŠÔ‚Ö
     output.PositionPS = mul(vin.Position, WorldViewProj);
 
+    //output.PositionPS = vin.Position;
+
     return output;
 }
 

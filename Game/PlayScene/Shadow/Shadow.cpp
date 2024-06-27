@@ -24,7 +24,7 @@ Shadow::~Shadow()
 
 void Shadow::Initialize()
 {
-	m_information = std::make_unique<ShadowInformation>();
+	//m_information = std::make_unique<ShadowInformation>();
 
 	CreateShadow();
 
@@ -49,6 +49,7 @@ void Shadow::CreateShadow()
 {
 	//		デバイスの取得
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
+	//auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	m_proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView(DirectX::XMConvertToRadians(m_lightRange),
@@ -64,6 +65,7 @@ void Shadow::CreateShadow()
 	m_renderTexture->SetWindow(rect);
 
 	//		深度ステンシルの作製（シャドウマップ）
+	//m_depthStencil = std::make_unique<DepthStencil>(DXGI_FORMAT_D32_FLOAT);
 	m_depthStencil = std::make_unique<DepthStencil>(DXGI_FORMAT_D32_FLOAT);
 	m_depthStencil->SetDevice(device);
 	m_depthStencil->SetWindow(rect);
@@ -80,18 +82,6 @@ void Shadow::CreateShadow()
 		device->CreatePixelShader(ps_depth.data(), ps_depth.size(),
 			nullptr, m_shadowDepthShaderPS.ReleaseAndGetAddressOf()));
 
-	//		頂点シェーダーの作製（シャドウマップ）
-	std::vector<uint8_t> vs = DX::ReadData(L"Resources/Shader/Shadow/ShadowVS.cso");
-	DX::ThrowIfFailed(
-		device->CreateVertexShader(vs.data(), vs.size(),
-			nullptr, m_shadowShaderVS.ReleaseAndGetAddressOf()));
-
-	//		ピクセルシェーダーの作製（シャドウマップ）
-	std::vector<uint8_t> ps = DX::ReadData(L"Resources/Shader/Shadow/ShadowPS.cso");
-	DX::ThrowIfFailed(
-		device->CreatePixelShader(ps.data(), ps.size(),
-			nullptr, m_shadowShaderPS.ReleaseAndGetAddressOf()));
-
 	//		定数バッファの作製
 	D3D11_BUFFER_DESC bufferDesc = {};
 	bufferDesc.ByteWidth = static_cast<UINT>(sizeof(ConstantBuffer));	// 確保するサイズ（16の倍数で設定する）
@@ -107,6 +97,18 @@ void Shadow::CreateShadow()
 	bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;	// 定数バッファとして扱う
 	bufferDesc.CPUAccessFlags = 0;						// CPUはアクセスしないので0
 	DX::ThrowIfFailed(device->CreateBuffer(&bufferDesc, nullptr, m_constantBuffer2.ReleaseAndGetAddressOf()));
+
+	//		頂点シェーダーの作製
+	std::vector<uint8_t> vs = DX::ReadData(L"Resources/Shader/Shadow/ShadowVS.cso");
+	DX::ThrowIfFailed(
+		device->CreateVertexShader(vs.data(), vs.size(),
+			nullptr, m_shadowShaderVS.ReleaseAndGetAddressOf()));
+
+	//		ピクセルシェーダーの作製
+	std::vector<uint8_t> ps = DX::ReadData(L"Resources/Shader/Shadow/ShadowPS.cso");
+	DX::ThrowIfFailed(
+		device->CreatePixelShader(ps.data(), ps.size(),
+			nullptr, m_shadowShaderPS.ReleaseAndGetAddressOf()));
 
 	//		サンプラーの作製
 	D3D11_SAMPLER_DESC sampler_desc = CD3D11_SAMPLER_DESC(D3D11_DEFAULT);
@@ -138,7 +140,7 @@ void Shadow::ChangeRenderTarget(const DirectX::SimpleMath::Vector3& playerpos)
 
 	//		シャドウマップの作製
 	auto rtv = m_renderTexture->GetRenderTargetView();
-	//auto srv = m_renderTexture->GetShaderResourceView();
+	auto srv = m_renderTexture->GetShaderResourceView();
 	auto dsv = m_depthStencil->GetDepthStencilView();
 
 	//		レンダーターゲットを変更する

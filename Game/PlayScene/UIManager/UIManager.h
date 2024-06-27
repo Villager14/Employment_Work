@@ -23,6 +23,8 @@
 
 #include "Game/PlayScene/UIManager/ConcentrationLine/ConcentrationLineManager.h"
 
+#include "Game/PlayScene/UIManager/GameClear/GameClearManager.h"
+
 class UIManager
 {
 public:
@@ -66,4 +68,6 @@ private:
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
 
+	//		ゲームクリアマネージャー
+	std::unique_ptr<GameClearManager> m_clearManager;
 };

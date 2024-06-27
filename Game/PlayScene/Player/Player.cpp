@@ -138,8 +138,25 @@ void Player::AnimationUpdate()
 	m_state->Animation();
 }
 
-void Player::Render(ShadowInformation* shadow, Shadow* hontai)
+void Player::Render(Shadow* hontai)
 {
+	DirectX::SimpleMath::Matrix world;
+
+	//		コンテキスト
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->
+		GetD3DDeviceContext();
+
+	m_playerObject->Draw(
+		context,
+		*LibrarySingleton::GetInstance()->GetCommonState(),
+		world, hontai->GetDepthView(),
+		hontai->GetDpethProj(), 
+		false,
+		[&]
+		{
+			//context->VSSetShader(hontai->GetShadowVSShader().Get(), nullptr, 0);
+			//context->PSSetShader(hontai->GetShadowPSShader().Get(), nullptr, 0);
+		});
 
 }
 

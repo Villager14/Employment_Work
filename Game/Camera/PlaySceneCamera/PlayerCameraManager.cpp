@@ -38,6 +38,8 @@ void PlayerCameraManager::Initialize()
 	m_playerDeathCamera = std::make_unique<PlayerDeathCamera>(this);
 	//		プレイヤーの動かないカメラの生成
 	m_playerStopCamera = std::make_unique<PlayerCameraStop>(this);
+	//		プレイヤーのゴールカメラの生成
+	m_playerGoalCamera = std::make_unique<PlayerGoalCamera>(this);
 
 	//		初期カメラの選択
 	//m_state = m_playerCamera.get();
@@ -61,6 +63,11 @@ void PlayerCameraManager::Initialize()
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
 
+	//m_stateInformation.insert({ CameraType::PlayerStandard, std::make_unique<PlayerCamera>(this) });
+
+
+
+	//m_state = m_stateInformation[CameraType::PlayerStandard].get();
 }
 
 void PlayerCameraManager::Update(PlayerInformation* playerInformation)

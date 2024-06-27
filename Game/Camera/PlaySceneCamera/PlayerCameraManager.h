@@ -15,6 +15,7 @@
 #include "State/PlayerStartCamera.h"
 #include "State/PlayerDeathCamera.h"
 #include "State/PlayerCameraStop.h"
+#include "State/PlayerGoalCamera.h"
 
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
@@ -28,6 +29,9 @@ class PlayerWallWalkCamera;
 class PlayerStartCamera;
 class PlayerDeathCamera;
 class PlayerCameraStop;
+class PlayerGoalCamera;
+
+#include <unordered_map>
 
 class PlayerCameraManager
 {
@@ -87,6 +91,8 @@ private:
 	//		プレイヤーの動かないカメラ
 	std::unique_ptr<PlayerCameraStop> m_playerStopCamera;
 
+	//		プレイヤーゴールカメラ
+	std::unique_ptr<PlayerGoalCamera> m_playerGoalCamera;
 public:
 	/*
 	*	デバックカメラの状態を受け取る
@@ -130,6 +136,13 @@ public:
 	*/
 	PlayerCameraStop* GetStopCamera() { return m_playerStopCamera.get(); }
 
+	/*
+	*	プレイヤーのゴールカメラを受け取る
+	*	
+	*	@return ゴールカメラのインスタンスのポインタ
+	*/
+	PlayerGoalCamera* GetGoalCamera() { return m_playerGoalCamera.get(); }
+
 private:
 	//		カメラの情報
 	std::unique_ptr<PlayerCameraInformation> m_information;
@@ -139,6 +152,15 @@ private:
 	
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
+
+	enum CameraType
+	{
+		PlayerStandard,
+
+	};
+
+	//		派生クラスの格納
+	std::unordered_map<CameraType, std::unique_ptr<IPlayerCamera>> m_stateInformation;
 
 public:
 

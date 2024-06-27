@@ -43,8 +43,15 @@ public:
 	//		終了処理
 	void Finalize() override;
 	
+	//		シーンを切り替えるかどうか
+	void ChangeSceneJudgement();
+
+
 private:
 
 	//		状態管理クラスのポインタ
 	Player* m_player;
+
+	//		初期の高さ
+	float m_firstHeight;
 };

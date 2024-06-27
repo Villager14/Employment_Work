@@ -159,11 +159,10 @@ void PlayScene::Update()
 void PlayScene::Render()
 {
 	//		レンダーターゲットの変更
-	//m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
+	m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
 
 	//		プレイヤーの描画処理
-	//m_player->Render(m_shadow->GetInformation(), m_shadow.get());
-
+	m_player->Render(m_shadow.get());
 
 	//		レンダーターゲットの変更
 	m_screenEffectManager->ChangeRenderTarget();

@@ -15,6 +15,7 @@ float4 Sepia(float4 color)
 	float g = 0;
 	float b = 0;
 
+
 	float all = (r + g + b);
 
 	float gray = Gray(color);
