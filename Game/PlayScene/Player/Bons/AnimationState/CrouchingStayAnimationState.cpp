@@ -43,22 +43,27 @@ void CrouchingStayAnimationState::Update(float speed, DirectX::SimpleMath::Vecto
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
 			{ 0.0f, DirectX::XMConvertToRadians(-angle.x + 180.0f), 0.0f });
 
+	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 4.0f;
+
 	DirectX::SimpleMath::Quaternion LArmUp =
-		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll({ DirectX::XMConvertToRadians(55.0f),
-				DirectX::XMConvertToRadians(20.0f), 0.0f });
+		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
+			{ Library::Lerp(DirectX::XMConvertToRadians(55.0f), DirectX::XMConvertToRadians(60.0f),
+				cosf(m_elapsedTime) + 1.0f / 2.0f), DirectX::XMConvertToRadians(20.0f) , 0.0f });
 
 	DirectX::SimpleMath::Quaternion LArmDown =
-		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll({ DirectX::XMConvertToRadians(45.0f),
-			DirectX::XMConvertToRadians(45.0f), DirectX::XMConvertToRadians(90.0f) });
+		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
+			{ Library::Lerp(DirectX::XMConvertToRadians(45.0f), DirectX::XMConvertToRadians(45.0f),
+				cosf(m_elapsedTime) + 1.0f / 2.0f), DirectX::XMConvertToRadians(45.0f), DirectX::XMConvertToRadians(90.0f) });
 
 	DirectX::SimpleMath::Quaternion RArmUp =
-		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll({ DirectX::XMConvertToRadians(55.0f)
-			, DirectX::XMConvertToRadians(-20.0f) , 0.0f });
+		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
+			{ Library::Lerp(DirectX::XMConvertToRadians(55.0f), DirectX::XMConvertToRadians(60.0f),
+				cosf(m_elapsedTime) + 1.0f / 2.0f), DirectX::XMConvertToRadians(-20.0f) , 0.0f });
 
 	DirectX::SimpleMath::Quaternion RArmDown =
-		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll({ DirectX::XMConvertToRadians(45.0f)
-				, DirectX::XMConvertToRadians(-45.0f), DirectX::XMConvertToRadians(-90.0f) });
-
+		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
+			{ Library::Lerp(DirectX::XMConvertToRadians(45.0f), DirectX::XMConvertToRadians(45.0f),
+				cosf(m_elapsedTime) + 1.0f / 2.0f), DirectX::XMConvertToRadians(-45.0f), DirectX::XMConvertToRadians(-90.0f) });
 
 	m_animationTransration -= LibrarySingleton::GetInstance()->GetElpsedTime() * 0.5f;
 

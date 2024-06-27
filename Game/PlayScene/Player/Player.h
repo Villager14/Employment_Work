@@ -77,7 +77,7 @@ public:
 	void AnimationUpdate();
 
 	//		•`‰æˆ—
-	void Render(ShadowInformation* shadow,Shadow* hontai);
+	void Render(Shadow* hontai);
 
 	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
 	void ModelRender();

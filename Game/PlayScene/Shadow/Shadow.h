@@ -9,7 +9,10 @@
 
 #include "ShadowInformation.h"
 
-#include "Game/PlayScene/Player/PlayerInformation.h"
+#include "Common/DepthStencil.h"
+#include "Common/RenderTexture.h"
+
+//#include "Game/PlayScene/Player/PlayerInformation.h"
 
 
 class Shadow
@@ -65,10 +68,10 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantBuffer2;
 
 	//		テクスチャ
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_texture2D;
+	//Microsoft::WRL::ComPtr<ID3D11Texture2D> m_texture2D;
 
 
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_depthStencilView;
+	//Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_depthStencilView;
 
 private:
 
@@ -227,110 +230,3 @@ public:
 		return m_renderTexture->GetShaderResourceView();
 	}
 };
-
-
-
-//class Shadow
-//{
-//private:
-//
-//	//		定数バッファ１
-//	struct ConstantBufferShadow
-//	{
-//		DirectX::XMMATRIX lightViewProj;	// ライトの投影空間へ座標変換する行列
-//		DirectX::XMVECTOR lightPosition;	// ライトの位置
-//		DirectX::XMVECTOR lightDirection;	// ライトの方向
-//		DirectX::XMVECTOR lightAmbient;		// ライトの環境光
-//	};
-//
-//	//		定数バッファ２
-//	struct ConstantBufferDepth
-//	{
-//		float fCosTheta;		// スポットライトのfov/2
-//		float pad[3];
-//	};
-//
-//public:
-//
-//	//		コンストラクタ
-//	Shadow(PlayerInformation* playerInformation);
-//
-//	//		デストラクタ
-//	~Shadow();
-//
-//	//		初期化処理
-//	void Initialize();
-//
-//	//		ターゲットを変更する
-//	void ChangeTarget();
-//
-//	//		影の作製
-//	void CreateShadow();
-//
-//	//		シェーダーの作製
-//	void CreateShader();
-//
-//	//		定数バッファの作製
-//	void CreateConstBuffer();
-//private:
-//	//		影の情報
-//	std::unique_ptr<ShadowInformation> m_information;
-//
-//	//		プレイヤーの情報
-//	PlayerInformation* m_playerInformation;
-//
-//	//		定数バッファへのポインタ
-//	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantShadowBuffer;
-//
-//	//		定数バッファへのポインタ
-//	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantDepthBuffer;
-//
-//	//		サンプラーの作製
-//	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_shadowMapSampler;
-//
-//	//		影のピクセルシェーダー
-//	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_shadowPS;
-//
-//	//		影の頂点シェーダー
-//	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_shadowVS;
-//
-//	//		影の深度バッファピクセルシェーダー
-//	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_shadowDepthPS;
-//
-//	//		影の深度バッファ頂点シェーダー
-//	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_shadowDepthVS;
-//
-//
-//
-//	//		深度ステンシル
-//	std::unique_ptr<DepthStencil> m_depthStencil;
-//
-//	//		レンダーテクスチャ
-//	std::unique_ptr<DX::RenderTexture> m_renderTexture;
-//
-//public:
-//
-//	/*
-//	*	影の情報を受け取る
-//	* 
-//	*	@return インスタンスのポインタ
-//	*/
-//	ShadowInformation* GetInformation() { return m_information.get(); }
-//
-//	/*
-//*	影用ピクセルシェーダーを受け取る
-//*
-//*	@return ピクセルシェーダー
-//*/
-//	Microsoft::WRL::ComPtr<ID3D11PixelShader> GetShadowDepthPS() { return m_shadowDepthPS; }
-//
-//	/*
-//*
-//*	影用シェーダーを受け取る
-//*
-//*	@return 頂点シェーダー
-//*/
-//	Microsoft::WRL::ComPtr<ID3D11VertexShader> GetShadowDepthVS() { return m_shadowDepthVS; }
-//
-//};
-//

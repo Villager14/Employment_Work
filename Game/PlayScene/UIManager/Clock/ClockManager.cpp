@@ -36,7 +36,7 @@ void ClockManager::Initialize()
 
 void ClockManager::Update(GameManager* gameManager)
 {
-	if (gameManager->GetGameStartJudgement() && !gameManager->GetDeathJudgement())
+	if (gameManager->GetGameStartJudgement() && !gameManager->GetDeathJudgement() && !gameManager->GetGoalJudgement())
 	{
 		//		Œo‰ßŽžŠÔ
 		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();

@@ -22,6 +22,7 @@
 #include "AnimationState/WireJumpAnimationState.h"
 #include "AnimationState/WallJumpAnimationState.h"
 #include "AnimationState/WallWalkAnimationState.h"
+#include "AnimationState/UprightAnimationState.h"
 
 class WalkAnimationState;
 class StayAnimationState;
@@ -34,6 +35,7 @@ class StartAnimationState;
 class WireJumpAnimationState;
 class WallJumpAnimationState;
 class WallWalkAnimationState;
+class UprightAnimationState;
 
 class PlayerAnimation
 {
@@ -72,56 +74,6 @@ public:
 	*/
 	void LoadModel(const wchar_t* path,
 		DirectX::EffectFactory* effect);
-
-
-	/*
-	//		アニメーションの値のリセット
-	void AnimationValuReset();
-
-	//		ゲームスタート時のアニメーション
-	void Start(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		歩き処理
-	void Walk(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		停止
-	void Stop(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		ジャンプ
-	void Jump(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		ダッシュ
-	void Dash(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		しゃがみ停止
-	void CrouchingStop(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		しゃがみ歩き
-	void CrouchingWalk(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		しゃがみ歩き
-	void Sliding(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		壁歩き
-	void WallWalk(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		壁ジャンプ
-	void WallJump(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-
-	//		ワイヤージャンプ
-	void WireJump(float speed, DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector2 angle, float height);
-	*/
 
 	void AnimationMovement(BonsType type,
 		std::vector<PlayerBonsInformation>* m_bonesInformation,
@@ -173,6 +125,9 @@ private:
 
 	//		壁歩きアニメーション
 	std::unique_ptr<WallWalkAnimationState> m_wallWalk;
+
+	//		直立アニメーション
+	std::unique_ptr<UprightAnimationState> m_upright;
 public:
 
 	/*
@@ -251,6 +206,14 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	WallWalkAnimationState* GetWallWalk() { return m_wallWalk.get(); }
+
+	/*
+	*	直立アニメーションを受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	UprightAnimationState* GetUpright() { return m_upright.get(); }
+
 private:
 
 	//		モデル
@@ -262,6 +225,7 @@ private:
 	//		アニメーションの状態
 	IPlayerAnimationState* m_IState;
 
-
+	//		ワールド座標
+	std::vector<DirectX::SimpleMath::Matrix> m_world;
 };
 

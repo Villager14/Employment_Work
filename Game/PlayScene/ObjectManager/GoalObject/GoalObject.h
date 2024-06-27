@@ -53,6 +53,12 @@ private:
 	// テクスチャハンドル 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
+	//		座標
+	DirectX::SimpleMath::Vector3 m_position;
+
+	//		回転量
+	float m_rotation;
+
 public:
 
 	/*

@@ -203,6 +203,15 @@
     <Filter Include="Game\PlayScene\Player\Bons\AnimationState">
       <UniqueIdentifier>{01acb9d4-fb44-4125-9bf7-4d08ac88ef11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PlayScene\UIManager\GameClear">
+      <UniqueIdentifier>{15776f83-2d7f-4841-aa96-48b0174c6d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\GlitchShader">
+      <UniqueIdentifier>{c309ca0e-5a4c-48c3-aef8-b31ef995771c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\CenterShader">
+      <UniqueIdentifier>{8c856f08-86e9-4fc1-ab8a-2465ca12c697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -570,6 +579,21 @@
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.h">
       <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h">
+      <Filter>Game\PlayScene\UIManager\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\GlitchShader.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\CenterShader.h">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.h">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -890,6 +914,21 @@
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.cpp">
       <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp">
+      <Filter>Game\PlayScene\UIManager\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\GlitchShader.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\CenterShader.cpp">
+      <Filter>Game\PlayScene\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp">
+      <Filter>Game\Camera\PlayerCamera\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -921,9 +960,6 @@
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli">
       <Filter>Resorces\Shader\RedScreen</Filter>
     </None>
-    <None Include="Resources\Shader\Shadow\Shawow.hlsli">
-      <Filter>Resorces\Shader\Shadow</Filter>
-    </None>
     <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli">
       <Filter>Resorces\Shader\BackGroundMove</Filter>
     </None>
@@ -941,6 +977,15 @@
     </None>
     <None Include="Resources\Shader\ConcentrationLine\ConcentrationLine.hlsli">
       <Filter>Resorces\Shader\ConcentrationLine</Filter>
+    </None>
+    <None Include="Resources\Shader\Shadow\Shawow.hlsli">
+      <Filter>Resorces\Shader\Shadow</Filter>
+    </None>
+    <None Include="Resources\Shader\GlitchShader\GlitchShader.hlsli">
+      <Filter>Resorces\Shader\GlitchShader</Filter>
+    </None>
+    <None Include="Resources\Shader\CenterShader\CenterShader.hlsli">
+      <Filter>Resorces\Shader\CenterShader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1137,6 +1182,24 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLineVS.hlsl">
       <Filter>Resorces\Shader\ConcentrationLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderGS.hlsl">
+      <Filter>Resorces\Shader\GlitchShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderPS.hlsl">
+      <Filter>Resorces\Shader\GlitchShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderVS.hlsl">
+      <Filter>Resorces\Shader\GlitchShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\CenterShader\CenterShaderGS.hlsl">
+      <Filter>Resorces\Shader\CenterShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\CenterShader\CenterShaderPS.hlsl">
+      <Filter>Resorces\Shader\CenterShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\CenterShader\CenterShaderVS.hlsl">
+      <Filter>Resorces\Shader\CenterShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -53,6 +53,12 @@ void UIManager::Initialize()
 	//		スクリーンの初期化
 	m_screenRay->Initialize();
 
+	//		ゲームクリアマネージャーの生成
+	m_clearManager = std::make_unique<GameClearManager>(m_gameManager);
+
+	//		ゲームクリアマネージャーの初期化
+	m_clearManager->Initialize();
+
 	//		集中線の生成
 	m_concentrationLine = std::make_unique<ConcentrationLineManager>();
 
@@ -94,12 +100,18 @@ void UIManager::FrontRender()
 
 	//		スクリーンの線の描画
 	m_screenRay->Render();
+
+	//		ゲームクリアマネージャーの描画
+	m_clearManager->Render();
 }
 
 void UIManager::BackRender()
 {
 	//		ゲームーバーの描画
 	m_gameOver->Render();
+
+	//		ゲームクリアマネージャーの更新
+	m_clearManager->Update();
 
 	//		フェードインの描画
 	m_fadeIn->Render();

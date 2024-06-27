@@ -17,7 +17,8 @@
 
 GoalObject::GoalObject()
 	:
-	m_floorModel{}
+	m_floorModel{},
+	m_rotation(0.0f)
 {
 }
 
@@ -42,17 +43,17 @@ void GoalObject::Initialize()
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
 
-	DirectX::SimpleMath::Vector3 position = { 0.0f, 39.0f, 810.0f };
+	m_position = { 0.0f, 5.0f, 20.0f };
 
 	//		初期化処理
 	m_objectMesh->Initialize(L"Resources/ModelMesh/Goal.obj");
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0));
+	m_world = DirectX::SimpleMath::Matrix::CreateScale(1.0f);
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0)), position);
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0)), m_position);
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(position);
+	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Goal);
@@ -61,16 +62,36 @@ void GoalObject::Initialize()
 
 void GoalObject::Update()
 {
+	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
 }
 
 void GoalObject::Render(DrawMesh* drawMesh)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
-	m_floorModel->Draw(context,
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		m_world, LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj());
+	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation));
+
+	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+
+	//m_floorModel->Draw(context,
+	//	*LibrarySingleton::GetInstance()->GetCommonState(),
+	//	m_world, LibrarySingleton::GetInstance()->GetView(),
+	//	LibrarySingleton::GetInstance()->GetProj());
+
+	for (const auto& it : m_floorModel->meshes)
+	{
+		auto mesh = it.get();
+
+		mesh->PrepareForRendering(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
+			*LibrarySingleton::GetInstance()->GetCommonState(), true);
+
+		mesh->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()
+			->GetD3DDeviceContext(),
+			m_world, LibrarySingleton::GetInstance()->GetView(),
+			LibrarySingleton::GetInstance()->GetProj());
+	}
+
+	//drawMesh->StaticRender(m_objectMesh.get());
 }
 
 void GoalObject::Finalize()

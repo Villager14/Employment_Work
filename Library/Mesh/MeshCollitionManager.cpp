@@ -54,6 +54,14 @@ void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 		m_wallHitNormalize = m_meshCollitionWall->GetNormalize();
 	}
 
+	//		オブジェクトタイプがゴールの時
+	if (objectMesh->GetObjectType() == ObjectMesh::ObjectType::Goal &&
+		m_wallHit.size() > 0)
+	{
+		//		ゴールを設定する
+		gameManager->SetGoalJudgement(true);
+	}
+
 	m_wallWalkPlayerPosition = m_meshCollitionWall->WallWalk(objectMesh, playerPosition);
 
 	if (m_wallHit.size() == 0)

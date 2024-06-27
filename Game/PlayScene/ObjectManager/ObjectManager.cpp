@@ -86,6 +86,9 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 		}
 	}
 
+	//		ƒS[ƒ‹‚ÌXVˆ—
+	m_goalObject->Update();
+
 	//m_backGroundObject->Update();
 }
 
