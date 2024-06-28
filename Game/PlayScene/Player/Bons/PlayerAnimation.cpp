@@ -11,7 +11,8 @@
 
 PlayerAnimation::PlayerAnimation()
 	:
-	m_IState{}
+	m_IState{},
+	m_animationState()
 {
 }
 
@@ -19,43 +20,34 @@ PlayerAnimation::~PlayerAnimation()
 {
 }
 
-void PlayerAnimation::Initialize()
+void PlayerAnimation::Initialize(bool createHead)
 {
 	//		モデルの作製
-	CreateModel();
+	CreateModel(createHead);
 
 	//		プレイヤーのボーンの作製
 	m_playerBons = std::make_unique<PlayerBons>();
 
 	//		プレイヤーボーンの初期化
-	m_playerBons->Initialize();
+	m_playerBons->Initialize(createHead);
 
-	//		歩くアニメーションの生成
-	m_walk = std::make_unique<WalkAnimationState>(this);
-	//		待機アニメーションの生成
-	m_stay = std::make_unique<StayAnimationState>(this);
-	//		しゃがみ待機アニメーションの生成
-	m_crouchingStay = std::make_unique<CrouchingStayAnimationState>(this);
-	//		しゃがみ歩きアニメーションの生成
-	m_crouchingWalk = std::make_unique<CrouchingWalkAnimationState>(this);
-	//		ダッシュアニメーションの生成
-	m_dash = std::make_unique<DashAnimationState>(this);
-	//		ジャンプアニメーションの生成
-	m_jump = std::make_unique<JumpAnimationState>(this);
-	//		スライディングアニメーションの生成
-	m_sliding = std::make_unique<SlidingAnimationState>(this);
-	//		スタートアニメーションの生成
-	m_start = std::make_unique<StartAnimationState>(this);
-	//		ワイヤージャンプアニメーションの生成
-	m_wireJump = std::make_unique<WireJumpAnimationState>(this);
-	//		壁歩きアニメーション
-	m_wallWalk = std::make_unique<WallWalkAnimationState>(this);
-	//		壁ジャンプアニメーション
-	m_wallJump = std::make_unique<WallJumpAnimationState>(this);
-	//		直立アニメーション
-	m_upright = std::make_unique<UprightAnimationState>(this);
+	m_animationStateInformation.insert({ AnimationState::Stay, std::make_unique<StayAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Walk, std::make_unique<WalkAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::CrouchingStay, std::make_unique<CrouchingStayAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::CrouchingWalk, std::make_unique<CrouchingWalkAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Dash, std::make_unique<DashAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Jump, std::make_unique<JumpAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Sliding, std::make_unique<SlidingAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Start, std::make_unique<StartAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Wire, std::make_unique<WireJumpAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::WallWalk, std::make_unique<WallWalkAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::WallJump, std::make_unique<WallJumpAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Upright, std::make_unique<UprightAnimationState>(this) });
+
+	m_animationState = AnimationState::Start;
+
 	//		初期アニメーションの設定
-	m_IState = m_stay.get();
+	m_IState = m_animationStateInformation[m_animationState].get();
 
 	//		初期化処理
 	m_IState->Initialize();
@@ -74,7 +66,7 @@ void PlayerAnimation::Execute(float speed, DirectX::SimpleMath::Vector3 position
 	}
 }
 
-void PlayerAnimation::Render()
+void PlayerAnimation::Render(bool wireJudgement)
 {
 	for (int i = 0; i < m_playerModel.size(); ++i)
 	{
@@ -85,7 +77,7 @@ void PlayerAnimation::Render()
 		m_playerModel[i]->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			m_world[i], LibrarySingleton::GetInstance()->GetView(),
-			LibrarySingleton::GetInstance()->GetProj());
+			LibrarySingleton::GetInstance()->GetProj(), wireJudgement);
 	}
 }
 
@@ -93,7 +85,7 @@ void PlayerAnimation::Finalize()
 {
 }
 
-void PlayerAnimation::CreateModel()
+void PlayerAnimation::CreateModel(bool createHead)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -117,7 +109,7 @@ void PlayerAnimation::CreateModel()
 	LoadModel(L"Resources/Models/RLeagAbove.cmo", m_effect);
 	LoadModel(L"Resources/Models/RLeagUnder.cmo", m_effect);
 	LoadModel(L"Resources/Models/RShoes.cmo", m_effect);
-	//LoadModel(L"Resources/Models/Head.cmo", m_effect);
+	if (createHead) LoadModel(L"Resources/Models/Head.cmo", m_effect);
 }
 
 void PlayerAnimation::LoadModel(const wchar_t* path, DirectX::EffectFactory* effect)
@@ -149,9 +141,9 @@ void PlayerAnimation::AnimationLegInitialValue(std::vector<PlayerBonsInformation
 	AnimationMovement(BonsType::BodyDown, m_bonesInformation, DirectX::SimpleMath::Quaternion::Identity, (*m_bonesInformation)[BonsType::BodyDown].rotation, transrationSpeed);
 }
 
-void PlayerAnimation::ChangeState(IPlayerAnimationState* IState)
+void PlayerAnimation::ChangeState(AnimationState State)
 {
-	if (m_IState == IState)
+	if (m_animationState == State)
 	{
 		return;
 	}
@@ -159,9 +151,12 @@ void PlayerAnimation::ChangeState(IPlayerAnimationState* IState)
 	//		現在の状態の終了処理
 	m_IState->Finalize();
 
+	m_animationState = State;
+
 	//		状態の更新
-	m_IState = IState;
+	m_IState = m_animationStateInformation[m_animationState].get();
 
 	//		新しい状態の初期化処理
 	m_IState->Initialize();
+
 }

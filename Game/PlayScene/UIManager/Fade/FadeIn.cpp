@@ -13,7 +13,8 @@ FadeIn::FadeIn()
 	:
 	m_time(0.0f),
 	m_fadeinResetJudgement(true),
-	m_fadeoutResetJudgement(false)
+	m_fadeoutResetJudgement(false),
+	m_stayTime(0.0f)
 {
 }
 
@@ -36,6 +37,10 @@ void FadeIn::Update(GameManager* gameManager)
 	//		I—¹‚Ìê‡
 	if (gameManager->GetEndJudgement())
 	{
+		m_stayTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+
+		if (m_stayTime <= 1.0f) return;
+
 		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * 1.0f;
 
 		m_time = Library::Clamp(m_time, 0.0f, 1.0f);

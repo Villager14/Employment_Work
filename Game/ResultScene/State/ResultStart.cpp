@@ -39,7 +39,7 @@ void ResultStart::Update()
 void ResultStart::Render()
 {
 	//		UI”wŒi‚Ì•`‰æ
-	m_resultManager->UIViewProcess(0);
+	//m_resultManager->UIViewProcess(0);
 
 	//		ƒtƒF[ƒh
 	m_resultManager->FadeViewProcess(m_time);

@@ -21,7 +21,7 @@ PlayerBons::~PlayerBons()
 {
 }
 
-void PlayerBons::Initialize()
+void PlayerBons::Initialize(bool createHead)
 {
 	float scale = 2.6f;
 
@@ -39,7 +39,7 @@ void PlayerBons::Initialize()
 	CrateBons(DirectX::SimpleMath::Vector3(0.3f, -0.2f, 0.0f) / 3.0f * scale, 1.0f, BonsType::RLegUp, BodyDown);
 	CrateBons(DirectX::SimpleMath::Vector3(0.0f, -1.15f, -0.1f) / 3.0f * scale, 1.0f, BonsType::RLegDown, RLegUp);
 	CrateBons(DirectX::SimpleMath::Vector3(0.0f, -1.3f, 0.0f) / 3.0f * scale, 1.0f, BonsType::RShoes, RLegDown);
-	//CrateBons(DirectX::SimpleMath::Vector3(0.0f, 1.2f, 0.0f) / 3.0f * scale, 1.0f, BonsType::Head, Body);
+	if(createHead)CrateBons(DirectX::SimpleMath::Vector3(0.0f, 1.2f, 0.0f) / 3.0f * scale, 1.0f, BonsType::Head, Body);
 
 	//		初期のアニメーションの種類
 	m_animationType = AnimationType::Stay;

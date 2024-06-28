@@ -77,7 +77,7 @@ void PlayerWallWalk::Initialize()
 	m_player->GetInformation()->SetDirection(m_velocity);
 
 	//		アニメーション壁歩き
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWallWalk());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->WallWalk);
 }
 
 void PlayerWallWalk::Update()
@@ -175,7 +175,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 			m_player->GetInformation()->SetAcceleration(velocity * speed);
 
 			//		状態を切り替える(ジャンプ)
-			m_player->ChangeState(m_player->GetWallJumpState());
+			m_player->ChangeState(m_player->PlayerState::Jump);
 		}
 		else
 		{
@@ -186,7 +186,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetInformation()->GetAcceleration().Length());
 
 			//		状態を切り替える(ジャンプ)
-			m_player->ChangeState(m_player->GetJumpState());
+			m_player->ChangeState(m_player->PlayerState::Jump);
 		}
 	}
 
@@ -202,7 +202,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 	if (dot < 0.0f)
 	{
 		//		歩き状態にする
-		m_player->ChangeState(m_player->GetWalkState());
+		m_player->ChangeState(m_player->PlayerState::Walk);
 	}
 }
 

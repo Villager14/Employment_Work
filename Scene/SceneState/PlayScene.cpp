@@ -37,6 +37,9 @@ void PlayScene::Initialize()
 	//		プレイヤーの生成
 	m_player = std::make_unique<Player>(m_gameManager.get());
 
+	//		カメラの情報を受け取る
+	m_player->SetCameraInformation(m_playerCameraManager->GetInformation());
+
 	//		プレイヤーの初期化処理
 	m_player->Initialize();
 
@@ -74,7 +77,7 @@ void PlayScene::Initialize()
 	m_screenEffectManager = std::make_unique<ScreenEffectManager>(m_gameManager.get());
 
 	//		スクリーンエフェクトマネージャーの初期化
-	m_screenEffectManager->Initialize();
+	m_screenEffectManager->Initialize(ScreenEffectManager::Scene::PlayScene);
 
 	//		エフェクトマネージャーの作製
 	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation());
@@ -141,6 +144,10 @@ void PlayScene::Update()
 
 	//		エフェクトマネージャーの描画
 	m_effectManager->Update(m_playerCameraManager->GetInformation());
+
+
+	//		戻すようにする
+	//return;
 
 	//		次のシーンに切り替えるかどうか
 	if (m_gameManager->GetNextSceneJudgement())

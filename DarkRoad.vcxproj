@@ -280,8 +280,12 @@
     <ClInclude Include="Game\PlayScene\UIManager\UIRender.h" />
     <ClInclude Include="Game\ResultScene\IResultManager.h" />
     <ClInclude Include="Game\ResultScene\ResultManager.h" />
+    <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h" />
+    <ClInclude Include="Game\ResultScene\State\ResultEnd.h" />
+    <ClInclude Include="Game\ResultScene\State\ResultEvaluation.h" />
     <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h" />
     <ClInclude Include="Game\ResultScene\State\ResultStart.h" />
+    <ClInclude Include="Game\ResultScene\State\ResultStay.h" />
     <ClInclude Include="Game\ResultScene\UI\AboveNumber.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMoveRender.h" />
@@ -290,6 +294,7 @@
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectEndState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectPlayState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\State\SelectSettingState.h" />
+    <ClInclude Include="Game\TitleScene\UI\Select\State\StartSceneState.h" />
     <ClInclude Include="Game\TitleScene\UI\Select\TitleSelectManager.h" />
     <ClInclude Include="Game\TitleScene\UI\TVOFEffec.h" />
     <ClInclude Include="Library\Bones\ModelBons.h" />
@@ -399,8 +404,12 @@
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
     <ClCompile Include="Game\ResultScene\ResultManager.cpp" />
+    <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp" />
+    <ClCompile Include="Game\ResultScene\State\ResultEnd.cpp" />
+    <ClCompile Include="Game\ResultScene\State\ResultEvaluation.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultStart.cpp" />
+    <ClCompile Include="Game\ResultScene\State\ResultStay.cpp" />
     <ClCompile Include="Game\ResultScene\UI\AboveNumber.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMoveRender.cpp" />
@@ -408,6 +417,7 @@
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectEndState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectPlayState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\State\SelectSettingState.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\Select\State\StartSceneState.cpp" />
     <ClCompile Include="Game\TitleScene\UI\Select\TitleSelectManager.cpp" />
     <ClCompile Include="Game\TitleScene\UI\TVOFEffec.cpp" />
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
@@ -450,6 +460,7 @@
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\GlitchShader\GlitchShader.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
+    <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli" />
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
     <None Include="Resources\Shader\Shadow\Shawow.hlsli" />
     <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli" />
@@ -659,6 +670,19 @@
     <FxCompile Include="Resources\Shader\Number\NumberVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Number\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTexturePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

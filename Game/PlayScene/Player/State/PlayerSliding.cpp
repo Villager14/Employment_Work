@@ -49,7 +49,7 @@ void PlayerSliding::Initialize()
 	m_player->GetInformation()->SetHeadShakingJudgement(false);
 
 	//		アニメーション待機状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetSliding());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Sliding);
 }
 
 void PlayerSliding::Update()
@@ -199,21 +199,21 @@ void PlayerSliding::ChangeStateJudgement()
 	if (m_player->GetInformation()->GetAcceleration().Length() <= 10.0f)
 	{
 		//		状態を遷移する(しゃがみ状態)
-		m_player->ChangeState(m_player->GetCrouchingState());
+		m_player->ChangeState(m_player->PlayerState::Crouching);
 	}
 
 	//		ゴールをしているかどうか
 	if (m_player->GetGameManager()->GetGoalJudgement())
 	{
 		//		状態を切り替える（ゴール）
-		m_player->ChangeState(m_player->GetGoalState());
+		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
 	//		Lcontrolを離した場合
 	if (keyState.IsKeyUp(DirectX::Keyboard::LeftControl))
 	{
 		//		状態を遷移する(移動状態)
-		m_player->ChangeState(m_player->GetWalkState());
+		m_player->ChangeState(m_player->PlayerState::Walk);
 	}
 
 	//		キーボードの取得
@@ -223,7 +223,7 @@ void PlayerSliding::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
 	{
 		//		状態を切り替える(しゃがみ)
-		m_player->ChangeState(m_player->GetJumpState());
+		m_player->ChangeState(m_player->PlayerState::Jump);
 	}
 }
 

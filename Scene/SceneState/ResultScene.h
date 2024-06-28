@@ -51,6 +51,12 @@ public:
 	*/
 	float ScoreCalculation(int count, float score);
 
+	//		プロジェクション行列を作成
+	void CreateProj();
+
+	//		ビュー行列の作製
+	void CreateView();
+
 private:
 	//		シーンマネージャーのインスタンスのポインタ
 	SceneManager* m_sceneManager;
@@ -59,4 +65,5 @@ private:
 	std::unique_ptr<ResultManager> m_resultManager;
 
 	float m_score;
+
 };

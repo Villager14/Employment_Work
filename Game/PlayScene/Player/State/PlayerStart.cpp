@@ -26,7 +26,7 @@ void PlayerStart::Initialize()
 	m_player->GetInformation()->SetPlayerHeight({ 0.0f, m_player->GetInformation()->GetStandingHeight(), 0.0f});
 
 	//		アニメーションスタート
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetStart());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Start);
 }
 
 void PlayerStart::Update()
@@ -63,6 +63,6 @@ void PlayerStart::ChangeStateJudgement()
 	if (m_player->GetGameManager()->GetGameStartJudgement())
 	{
 		//		状態を遷移する（待機状態）
-		m_player->ChangeState(m_player->GetStayState());
+		m_player->ChangeState(m_player->PlayerState::Stay);
 	}
 }

@@ -58,7 +58,7 @@ void PlayerJump::Initialize()
 	m_player->GetInformation()->SetJumpJudgement(false);
 
 	//		アニメーションジャンプ状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetJump());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Jump);
 }
 
 void PlayerJump::Update()
@@ -257,7 +257,7 @@ void PlayerJump::ChangeStateJudgement()
 		if (m_player->GetInformation()->GetDashJudgement())
 		{
 			//		状態を切り替える(ダッシュ)
-			m_player->ChangeState(m_player->GetDashState());
+			m_player->ChangeState(m_player->PlayerState::Dash);
 		}
 	}
 
@@ -265,7 +265,7 @@ void PlayerJump::ChangeStateJudgement()
 	if (m_player->GetGameManager()->GetGoalJudgement())
 	{
 		//		状態を切り替える（ゴール）
-		m_player->ChangeState(m_player->GetGoalState());
+		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
 	//		床に当たったら別の状態にする
@@ -275,17 +275,17 @@ void PlayerJump::ChangeStateJudgement()
 		if (!m_keyInputJudgement)
 		{
 			//		状態を遷移する(待機状態)
-			m_player->ChangeState(m_player->GetStayState());
+			m_player->ChangeState(m_player->PlayerState::Stay);
 		}
 		else if (keyboardState.IsKeyDown(DirectX::Keyboard::LeftControl))
 		{
 			//		状態を遷移する(スライディング)
-			m_player->ChangeState(m_player->GetSlidingState());
+			m_player->ChangeState(m_player->PlayerState::Sliding);
 		}
 		else
 		{
 			//		状態を切り替える(歩き状態)
-			m_player->ChangeState(m_player->GetWalkState());
+			m_player->ChangeState(m_player->PlayerState::Walk);
 		}
 
 		return;

@@ -49,4 +49,5 @@ void TitleScene::Render()
 
 void TitleScene::Finalize()
 {
+	m_titleSelectManager.reset();
 }

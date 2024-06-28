@@ -42,4 +42,7 @@ private:
 
 	//		Œo‰ßŠÔ
 	float m_elapsedTime;
+
+	//		‰º‚ğŒü‚­ŠÔ
+	float m_downElapsedTime;
 };

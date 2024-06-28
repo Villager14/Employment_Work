@@ -43,7 +43,7 @@ void GoalObject::Initialize()
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
 
-	m_position = { 0.0f, 5.0f, 20.0f };
+	m_position = { -1356.0f, 49.0f, 669.0f };
 
 	//		初期化処理
 	m_objectMesh->Initialize(L"Resources/ModelMesh/Goal.obj");
@@ -51,7 +51,7 @@ void GoalObject::Initialize()
 	m_world = DirectX::SimpleMath::Matrix::CreateScale(1.0f);
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0)), m_position);
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(-42.0f)), m_position);
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
@@ -67,16 +67,13 @@ void GoalObject::Update()
 
 void GoalObject::Render(DrawMesh* drawMesh)
 {
-	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+	UNREFERENCED_PARAMETER(drawMesh);
 
 	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation));
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(-42.0f));
 
-	//m_floorModel->Draw(context,
-	//	*LibrarySingleton::GetInstance()->GetCommonState(),
-	//	m_world, LibrarySingleton::GetInstance()->GetView(),
-	//	LibrarySingleton::GetInstance()->GetProj());
+	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
 	for (const auto& it : m_floorModel->meshes)
 	{

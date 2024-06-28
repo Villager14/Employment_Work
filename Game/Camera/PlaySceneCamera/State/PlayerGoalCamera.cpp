@@ -12,7 +12,8 @@
 PlayerGoalCamera::PlayerGoalCamera(PlayerCameraManager* playerCameraManager)
 	:
 	m_playerCameraManager(playerCameraManager),
-	m_elapsedTime(0.0f)
+	m_elapsedTime(0.0f),
+	m_downElapsedTime(0.0f)
 {
 }
 
@@ -30,6 +31,8 @@ void PlayerGoalCamera::Initialize()
 
 void PlayerGoalCamera::Update()
 {
+	CameraMove();
+
 	//		デグリーからラジアンへ行列にする
 	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
 	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().y));
@@ -60,14 +63,6 @@ void PlayerGoalCamera::Update()
 
 	//		視線ベクトルを設定する
 	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
-
-	//		もし死亡状態が解除されたら
-	//if (!m_playerCameraManager->GetGameManager()->GetDeathJudgement())
-	//{
-	//	//		スタートカメラ
-	//	m_playerCameraManager->ChangeState(
-	//		m_playerCameraManager->GetStartCamera());
-	//}
 }
 
 void PlayerGoalCamera::Finalize()
@@ -79,12 +74,26 @@ void PlayerGoalCamera::Finalize()
 
 void PlayerGoalCamera::CameraMove()
 {
-	//		経過時間
-	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.5f;
+	if (m_elapsedTime < 2.0f)
+	{
 
-	//		カメラを平行にする
-	m_playerCameraManager->GetInformation()->SetAngle({ m_angle.x ,Library::Lerp(m_angle.y, 0.0f, m_elapsedTime) });
+		//		経過時間
+		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
 
 
+		if (m_elapsedTime <= 1.0f)
+		{
+			//		カメラを平行にする
+			m_playerCameraManager->GetInformation()->SetAngle({ m_angle.x ,Library::Lerp(m_angle.y, 0.0f, m_elapsedTime) });
+		}
+	}
+	else
+	{
+		m_downElapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 
+		m_downElapsedTime = Library::Clamp(m_downElapsedTime, 0.0f, 1.0f);
+
+		//		下を向く
+		m_playerCameraManager->GetInformation()->SetAngle({ m_angle.x ,Library::Lerp(0.0f, -50.0f, m_downElapsedTime) });
+	}
 }

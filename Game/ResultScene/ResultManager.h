@@ -20,10 +20,18 @@
 
 #include "State/ResultStart.h"
 #include "State/ResultNumberMove.h"
+#include "State/ResultEvaluation.h"
+#include "State/ResultStay.h"
+#include "State/ResultEnd.h"
 
+#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
+#include "Game/PlayScene/Player/Bons/PlayerAnimation.h"
 
 class ResultStart;
 class ResultNumberMove;
+class ResultEvaluation;
+class ResultStay;
+class ResultEnd;
 
 class ResultManager
 {
@@ -82,6 +90,9 @@ public:
 		DirectX::SimpleMath::Vector2 position,
 		DirectX::SimpleMath::Vector2 size);
 
+	//		アニメーションスキップ
+	void AnimationSkip();
+
 private:
 
 	//		状態
@@ -90,8 +101,17 @@ private:
 	//		リザルトスタート状態
 	std::unique_ptr<ResultStart> m_resultStart;
 
-	//		リザルトシーンの番号移動処理
+	//		リザルトシーンの番号移動状態
 	std::unique_ptr<ResultNumberMove> m_resultNumberMove;
+
+	//		リザルト評価状態
+	std::unique_ptr<ResultEvaluation> m_resultEvaluation;
+
+	//		リザルト待機状態
+	std::unique_ptr<ResultStay> m_resultStay;
+
+	//		リザルト終了処理
+	std::unique_ptr<ResultEnd> m_resultEnd;
 public:
 
 	/*
@@ -102,11 +122,32 @@ public:
 	ResultStart* GetResultStart() { return m_resultStart.get(); }
 
 	/*
-	*	番号移動状態
+	*	番号移動状態を受け取る
 	* 
 	*	@return インスタンスのポインタ
 	*/
 	ResultNumberMove* GetNumberMove() { return m_resultNumberMove.get(); }
+
+	/*
+	*	評価状態を受け取る
+	*
+	*	@return インスタンスのポインタ
+	*/
+	ResultEvaluation* GetEvaluation() { return m_resultEvaluation.get(); }
+
+	/*
+	*	待機状態を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	ResultStay* GetResultStay() { return m_resultStay.get(); }
+
+	/*
+	*	終了状態を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	ResultEnd* GetResultEnd() { return m_resultEnd.get(); }
 
 private:
 	
@@ -134,6 +175,19 @@ private:
 
 	//		サイズ
 	std::vector<DirectX::SimpleMath::Vector2> m_uiSize;
+
+	//		スクリーンエフェクトマネージャー
+	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
+
+	//		プレイヤーアニメーション
+	std::unique_ptr<PlayerAnimation> m_playerAnimation;
+
+	//		回転量
+	float m_rotation;
+
+	//		シーンを切り替える
+	bool m_changeScene;
+
 public:
 
 	/*
@@ -151,6 +205,14 @@ public:
 	void UIViewProcess(int index) { m_uiRender[index]->Render(); }
 
 	/*
+	*	UI描画のスケール
+	*
+	*	@param	(index)	要素数
+	*	@param	(size)	サイズ
+	*/
+	void UIScare(int index, float size) { m_uiRender[index]->SetSize({size, size}); }
+
+	/*
 	*	上がる数字の処理
 	* 
 	*	@param	(index)	 要素数
@@ -158,4 +220,18 @@ public:
 	*	@param	(time)	 時間
 	*/
 	void AboveNumberView(int index, int number, float time) { m_aboveNumber[index]->Render(number, time); }
+
+	/*
+	*	シーンを切り替えるか設定する
+	* 
+	*	@param	(judgement)	true : 切り替える false : 切り替えない
+	*/
+	void SetChangeSceneJudgement(bool judgement) { m_changeScene = judgement; }
+
+	/*
+	*	シーンを切り替えるか受け取る
+	*	
+	*	@return true : 切り替える false : 切り替えない
+	*/
+	bool GetChangeSceneJudgement() { return m_changeScene; }
 };

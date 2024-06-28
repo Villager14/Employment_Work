@@ -29,7 +29,7 @@ void PlayerStay::Initialize()
 	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		アニメーション待機状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetStayState());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Stay);
 }
 
 void PlayerStay::Update()
@@ -125,7 +125,7 @@ void PlayerStay::ChangeStateJudgement()
 		keyboard.IsKeyPressed(DirectX::Keyboard::D))
 	{
 		//		状態を切り替える（歩き)
-		m_player->ChangeState(m_player->GetWalkState());
+		m_player->ChangeState(m_player->PlayerState::Walk);
 
 		return;
 	}
@@ -134,14 +134,14 @@ void PlayerStay::ChangeStateJudgement()
 	if (m_player->GetGameManager()->GetGoalJudgement())
 	{
 		//		状態を切り替える（ゴール）
-		m_player->ChangeState(m_player->GetGoalState());
+		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
 	//		spaceでジャンプ
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
 	{
 		//		状態を切り替える(しゃがみ)
-		m_player->ChangeState(m_player->GetJumpState());
+		m_player->ChangeState(m_player->PlayerState::Jump);
 
 		return;
 	}
@@ -150,7 +150,7 @@ void PlayerStay::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftControl))
 	{
 		//		状態を切り替える(しゃがみ)
-		m_player->ChangeState(m_player->GetCrouchingState());
+		m_player->ChangeState(m_player->PlayerState::Crouching);
 
 		return;
 	}

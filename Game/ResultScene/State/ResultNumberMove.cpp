@@ -30,12 +30,21 @@ void ResultNumberMove::Update()
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
 
 	m_time = Library::Clamp(m_time, 0.0f, 4.0f);
+
+	if (m_time >= 4.0f)
+	{
+		//		ó‘Ô‚ğØ‚è‘Ö‚¦‚é(•]‰¿ó‘Ô)
+		m_resultManager->ChangeState(m_resultManager->GetEvaluation());
+	}
+
+	//	ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒXƒLƒbƒv
+	m_resultManager->AnimationSkip();
 }
 
 void ResultNumberMove::Render()
 {
 	//		UI”wŒi‚Ì•`‰æ
-	m_resultManager->UIViewProcess(0);
+	//m_resultManager->UIViewProcess(0);
 
 	m_resultManager->NumberRender(m_time);
 }
