@@ -12,7 +12,7 @@
 ChangeSceneState::ChangeSceneState(TitleSelectManager* titleSelectManager)
 	:
 	m_titleSelectManager(titleSelectManager),
-	m_time(0.0f)
+	m_time(1.0f)
 {
 }
 
@@ -22,14 +22,23 @@ ChangeSceneState::~ChangeSceneState()
 
 void ChangeSceneState::Initialize()
 {
+	m_time = 1.0f;
 }
 
 void ChangeSceneState::Update()
 {
+	m_time -= LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	if (m_time <= 0.0f)
+	{
+		//		プレイシーンに切り替える
+		m_titleSelectManager->SetChangeSceneJudgement(true);
+	}
 }
 
 void ChangeSceneState::Render()
 {
+	m_titleSelectManager->FadeViewProcess(m_time);
 }
 
 void ChangeSceneState::Finalize()

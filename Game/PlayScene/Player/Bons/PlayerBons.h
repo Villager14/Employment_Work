@@ -22,7 +22,7 @@ public:
 	~PlayerBons();
 
 	//		‰Šú‰»
-	void Initialize();
+	void Initialize(bool createHead);
 
 	/*
 	*	ƒ{[ƒ“‚Ìì¬

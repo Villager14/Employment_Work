@@ -31,7 +31,7 @@ void SelectEndState::Update()
 	UIMove();
 
 	//		UI‚ÌˆÚ“®ˆ—
-	UIMove();
+	//UIMove();
 
 	//		ƒV[ƒ“Ø‚è‘Ö‚¦ˆ—
 	ChangeSceneProcess();

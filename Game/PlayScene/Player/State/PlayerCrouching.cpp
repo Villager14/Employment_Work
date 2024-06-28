@@ -62,12 +62,13 @@ void PlayerCrouching::Animation()
 	if (m_keyInputJudgement)
 	{
 		//		歩き状態
-		m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetCrouchingWalk());
+		m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->CrouchingWalk);
+
 	}
 	else
 	{
 		//		しゃがみ停止アニメーション
-		m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetCrouchingStay());
+		m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->CrouchingStay);
 	}
 
 	//		しゃがみ歩きアニメーション
@@ -141,7 +142,7 @@ void PlayerCrouching::ChangeStateJudgement()
 	if (m_player->GetGameManager()->GetGoalJudgement())
 	{
 		//		状態を切り替える（ゴール）
-		m_player->ChangeState(m_player->GetGoalState());
+		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
 	//		キーを離した場合
@@ -154,12 +155,12 @@ void PlayerCrouching::ChangeStateJudgement()
 			keyboardState.IsKeyDown(DirectX::Keyboard::D))
 		{
 			//		状態を遷移する(歩き状態)
-			m_player->ChangeState(m_player->GetWalkState());
+			m_player->ChangeState(m_player->PlayerState::Walk);
 		}
 		else
 		{
 			//		状態を遷移する(待機状態)
-			m_player->ChangeState(m_player->GetStayState());
+			m_player->ChangeState(m_player->PlayerState::Stay);
 		}
 	}
 }

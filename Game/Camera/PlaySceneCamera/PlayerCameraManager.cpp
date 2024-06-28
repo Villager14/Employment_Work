@@ -25,29 +25,6 @@ void PlayerCameraManager::Initialize()
 {
 	//		カメラの情報を
 	m_information = std::make_unique<PlayerCameraInformation>();
-
-	//		デバックカメラの生成
-	m_debugCamera = std::make_unique<DebugCamera>(this);
-	//		プレイヤーカメラの生成
-	m_playerCamera = std::make_unique<PlayerCamera>(this);
-	//		プレイヤー壁走りカメラの生成
-	m_playerWallWalkCamera = std::make_unique<PlayerWallWalkCamera>(this);
-	//		プレイヤーのスタートカメラの生成
-	m_playerStartCamera = std::make_unique<PlayerStartCamera>(this);
-	//		プレイヤーの死亡カメラの生成
-	m_playerDeathCamera = std::make_unique<PlayerDeathCamera>(this);
-	//		プレイヤーの動かないカメラの生成
-	m_playerStopCamera = std::make_unique<PlayerCameraStop>(this);
-	//		プレイヤーのゴールカメラの生成
-	m_playerGoalCamera = std::make_unique<PlayerGoalCamera>(this);
-
-	//		初期カメラの選択
-	//m_state = m_playerCamera.get();
-	m_state = m_playerStartCamera.get();
-
-	//		初期化処理
-	m_state->Initialize();
-
 	/*
 	*	視野角70度
 	*
@@ -63,11 +40,23 @@ void PlayerCameraManager::Initialize()
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
 
-	//m_stateInformation.insert({ CameraType::PlayerStandard, std::make_unique<PlayerCamera>(this) });
+	//		カメラの派生クラスの生成
+	m_stateInformation.insert({ CameraType::Standard, std::make_unique<PlayerCamera>(this) });
+	m_stateInformation.insert({ CameraType::Debug, std::make_unique<DebugCamera>(this) });
+	m_stateInformation.insert({ CameraType::WallWalk, std::make_unique<PlayerWallWalkCamera>(this) });
+	m_stateInformation.insert({ CameraType::Start, std::make_unique<PlayerStartCamera>(this) });
+	m_stateInformation.insert({ CameraType::Stop, std::make_unique<PlayerCameraStop>(this) });
+	m_stateInformation.insert({ CameraType::Death, std::make_unique<PlayerDeathCamera>(this) });
+	m_stateInformation.insert({ CameraType::Goal, std::make_unique<PlayerGoalCamera>(this) });
 
+	//		初期状態
+	m_cameraType = CameraType::Start;
 
+	//		初期状態を設定する
+	m_state = m_stateInformation[m_cameraType].get();
 
-	//m_state = m_stateInformation[CameraType::PlayerStandard].get();
+	//		初期化処理
+	m_state->Initialize();
 }
 
 void PlayerCameraManager::Update(PlayerInformation* playerInformation)
@@ -109,19 +98,23 @@ void PlayerCameraManager::CameraMove()
 
 }
 
-void PlayerCameraManager::ChangeState(IPlayerCamera* state)
+void PlayerCameraManager::ChangeState(CameraType type)
 {
-	//		同じ状態なら処理をしない
-	if (m_state == state) return;
+	//		現在の同じ状態なら行わない
+	if (type == m_cameraType) return;
 
 	//		現在の状態の終了処理を行う
 	m_state->Finalize();
 
+	//		新しい状態に上書きする
+	m_cameraType = type;
+
 	//		新しい状態にする
-	m_state = state;
+	m_state = m_stateInformation[m_cameraType].get();
 
 	//		新しい状態の初期化をする
 	m_state->Initialize();
+
 }
 
 void PlayerCameraManager::ViewingAngle()

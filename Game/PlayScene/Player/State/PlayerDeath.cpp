@@ -130,6 +130,6 @@ void PlayerDeath::ChangeStateJudgement()
 	if (!m_player->GetGameManager()->GetDeathJudgement())
 	{
 		//		•œŠˆó‘Ô‚É‚·‚é
-		m_player->ChangeState(m_player->GetStayState());
+		m_player->ChangeState(m_player->PlayerState::Start);
 	}
 }

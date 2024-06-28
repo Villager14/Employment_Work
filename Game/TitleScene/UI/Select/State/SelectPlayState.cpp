@@ -89,8 +89,8 @@ void SelectPlayState::ChangeSceneProcess()
 		if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
 			button.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 		{
-			//		プレイシーンに切り替える
-			m_titleSelectManager->SetChangeSceneJudgement(true);
+			//		終了選択状態にする
+			m_titleSelectManager->ChangeState(m_titleSelectManager->GetChangeSceneState());
 		}
 	}
 	else

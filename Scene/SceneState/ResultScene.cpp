@@ -37,12 +37,22 @@ void ResultScene::Initialize()
 	//		リザルトマネージャーの初期化
 	m_resultManager->Initialize(static_cast<int>(m_score), m_sceneManager->GetClearTime(),
 								m_sceneManager->GetDeathCount());
+
+	//		プロジェクション行列の作製
+	CreateProj();
+	//		ビュー行列の作製
+	CreateView();
 }
 
 void ResultScene::Update()
 {
 	//		リザルトマネージャーの更新処理
 	m_resultManager->Update();
+
+	if (m_resultManager->GetChangeSceneJudgement())
+	{
+		m_sceneManager->ChangeState(m_sceneManager->GetTitleScene());
+	}
 }
 
 void ResultScene::Render()
@@ -53,6 +63,9 @@ void ResultScene::Render()
 
 void ResultScene::Finalize()
 {
+	m_resultManager.reset();
+
+	m_score = 0.0f;
 }
 
 float ResultScene::ScoreCalculation(int count, float score)
@@ -66,4 +79,32 @@ float ResultScene::ScoreCalculation(int count, float score)
 	score *= 0.97f;
 
 	return score;
+}
+
+void ResultScene::CreateProj()
+{
+	//		ビュー行列を作成する
+	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
+		CreatePerspectiveFieldOfView
+		(DirectX::XMConvertToRadians(60.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
+			LibrarySingleton::GetInstance()->GetScreenSize().y,
+			0.1f, 360.0f);
+
+	//		プロジェクション行列を設定する
+	LibrarySingleton::GetInstance()->SetProj(proj);
+}
+
+void ResultScene::CreateView()
+{
+	DirectX::SimpleMath::Matrix rotation;
+
+	//		視点方向
+	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f);
+
+	//		アップベクトル
+	DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3::UnitY;
+
+	//		ビュー行列を設定する
+	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
+	({0.0f, 0.0f, 0.0f}, target, up));
 }

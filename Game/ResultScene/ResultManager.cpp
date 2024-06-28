@@ -14,7 +14,9 @@ ResultManager::ResultManager()
 	m_score(0),
 	m_time(0),
 	m_deathCount(0),
-	m_state()
+	m_state(),
+	m_rotation(0.0f),
+	m_changeScene(false)
 {
 }
 
@@ -74,8 +76,43 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	//		背景UIの作製
 	AddRenderUI(L"Resources/Texture/ResultScene/ResultBack.png", { 0.0f, 0.0f }, { 1.0f, 1.0f });
 
+	if (m_score >= 2000.0f)
+	{
+		//		背景UIの作製
+		AddRenderUI(L"Resources/Texture/ResultScene/ScoreA.png", { 350.0f, 150.0f }, { 0.0f, 0.0f });
+	}
+	else if (m_score >= 1000.0f)
+	{
+		//		背景UIの作製
+		AddRenderUI(L"Resources/Texture/ResultScene/ScoreB.png", { 350.0f, 150.0f }, { 0.0f, 0.0f });
+	}
+	else
+	{
+		//		背景UIの作製
+		AddRenderUI(L"Resources/Texture/ResultScene/ScoreC.png", { 350.0f, 150.0f }, { 0.0f, 0.0f });
+	}
+
+	//		UI描画の作製(Continue)
+	AddRenderUI(L"Resources/Texture/UI/GameOver/button.png",
+		{ 0.0f, 280.0f }, { 1.0f, 1.0f });
+
 	//		状態を作成する
 	CreateState();
+
+	//		スクリーンエフェクトマネージャーの作製
+	m_screenEffectManager = std::make_unique<ScreenEffectManager>(nullptr);
+
+	//		スクリーンエフェクトの初期化
+	m_screenEffectManager->Initialize(ScreenEffectManager::ResultScene);
+
+	//		プレイヤーのアニメーションの作製
+	m_playerAnimation = std::make_unique<PlayerAnimation>();
+
+	//		プレイヤーのアニメーション初期化
+	m_playerAnimation->Initialize(true);
+
+	//		直立状態
+	m_playerAnimation->ChangeState(m_playerAnimation->Upright);
 }
 
 void ResultManager::Update()
@@ -85,12 +122,31 @@ void ResultManager::Update()
 
 	//		背景の更新
 	m_backGroundMove->Update();
+
+	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 30.0f;
+
+	m_playerAnimation->Execute(0.0f, { 0.0f, 0.0f, 8.0f }, { m_rotation, 0.0f }, 2.5f);
 }
 
 void ResultManager::Render()
 {
+	//		レンダーターゲットの変更
+	m_screenEffectManager->ChangeRenderTarget();
+
+	m_playerAnimation->Render(true);
+
+	//		レンダーターゲットを戻す
+	m_screenEffectManager->FirstRenderTarget();
+
+
 	//		背景の描画
 	m_backGroundMove->Render();
+
+	//		UI背景の描画
+	m_uiRender[0]->Render();
+
+	//		レンダーターゲットの描画
+	m_screenEffectManager->Render();
 
 	//		状態の描画
 	m_state->Render();
@@ -117,11 +173,16 @@ void ResultManager::ChangeState(IResultManager* state)
 
 void ResultManager::CreateState()
 {
-	//		リザルトスタートを生成する
+	//		スタート状態を生成する
 	m_resultStart = std::make_unique<ResultStart>(this);
-	//		番号移動を生成する
+	//		番号移動状態を生成する
 	m_resultNumberMove = std::make_unique<ResultNumberMove>(this);
-
+	//		評価状態を生成する
+	m_resultEvaluation = std::make_unique<ResultEvaluation>(this);
+	//		待機状態を生成する
+	m_resultStay = std::make_unique<ResultStay>(this);
+	//		終了状態を生成する
+	m_resultEnd = std::make_unique<ResultEnd>(this);
 	//		初期状態を設定する
 	m_state = m_resultStart.get();
 
@@ -163,4 +224,21 @@ void ResultManager::AddRenderUI(const wchar_t* path, DirectX::SimpleMath::Vector
 
 	//		UIの追加
 	m_uiRender.push_back(std::move(uiRender));
+}
+
+void ResultManager::AnimationSkip()
+{
+	//		キーボードの取得
+	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
+
+	//		マウスの取得
+	DirectX::Mouse::ButtonStateTracker mouse = *LibrarySingleton::GetInstance()->GetButtonStateTracker();
+
+	//		Spaceまたは左クリックを押した場合復活する
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
+		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
+	{
+		//		状態を切り替える(待機状態)
+		m_state = m_resultStay.get();
+	}
 }

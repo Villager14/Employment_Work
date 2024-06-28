@@ -212,6 +212,12 @@
     <Filter Include="Resorces\Shader\CenterShader">
       <UniqueIdentifier>{8c856f08-86e9-4fc1-ab8a-2465ca12c697}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ResultManager\ScreenEffect">
+      <UniqueIdentifier>{df773b49-5e02-46ca-98fd-3342b0f6292e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PlayerModelTexture">
+      <UniqueIdentifier>{f930e44a-dfe8-4f84-9e19-d60abc3e3a4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -594,6 +600,21 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.h">
       <Filter>Game\Camera\PlayerCamera\State</Filter>
     </ClInclude>
+    <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h">
+      <Filter>Game\ResultManager\ScreenEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\State\ResultEvaluation.h">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\State\ResultStay.h">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\State\ResultEnd.h">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\Select\State\StartSceneState.h">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -929,6 +950,21 @@
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp">
       <Filter>Game\Camera\PlayerCamera\State</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp">
+      <Filter>Game\ResultManager\ScreenEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\State\ResultEvaluation.cpp">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\State\ResultStay.cpp">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene\State\ResultEnd.cpp">
+      <Filter>Game\ResultManager\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\Select\State\StartSceneState.cpp">
+      <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -986,6 +1022,9 @@
     </None>
     <None Include="Resources\Shader\CenterShader\CenterShader.hlsli">
       <Filter>Resorces\Shader\CenterShader</Filter>
+    </None>
+    <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli">
+      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1200,6 +1239,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\CenterShader\CenterShaderVS.hlsl">
       <Filter>Resorces\Shader\CenterShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureGS.hlsl">
+      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTexturePS.hlsl">
+      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureVS.hlsl">
+      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

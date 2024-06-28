@@ -90,7 +90,7 @@ void PlayerCamera::Update()
 	//		カメラ停止フラグがtrueの時
 	if (m_playerCameraManager->GetPlayerInformationCamera()->GetCameraStop())
 	{
-		m_playerCameraManager->ChangeState(m_playerCameraManager->GetStopCamera());
+		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Stop);
 	}
 
 	//		もしカメラ移動量が０より大きかったら
@@ -98,14 +98,21 @@ void PlayerCamera::Update()
 	{
 		//		壁走りカメラに切り替える
 		m_playerCameraManager->ChangeState(
-			m_playerCameraManager->GetWallWalkCamera());
+			m_playerCameraManager->CameraType::WallWalk);
 	}
 
 	//		死亡している場合
 	if (m_playerCameraManager->GetGameManager()->GetDeathJudgement())
 	{
 		//		死亡カメラにする
-		m_playerCameraManager->ChangeState(m_playerCameraManager->GetDeathCamera());
+		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Death);
+	}
+
+	//		次のシーンを選んだ際
+	if (m_playerCameraManager->GetGameManager()->GetEndJudgement())
+	{
+		//		ゴールカメラにする
+		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Goal);
 	}
 }
 

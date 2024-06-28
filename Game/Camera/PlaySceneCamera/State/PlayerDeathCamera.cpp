@@ -63,7 +63,7 @@ void PlayerDeathCamera::Update()
 	{
 		//		スタートカメラ
 		m_playerCameraManager->ChangeState(
-			m_playerCameraManager->GetStartCamera());
+			m_playerCameraManager->CameraType::Start);
 	}
 }
 

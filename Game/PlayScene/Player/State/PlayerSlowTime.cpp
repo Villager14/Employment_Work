@@ -128,12 +128,12 @@ void PlayerSlowTime::ChangeStateJudgement()
 	if (keyboard.IsKeyReleased(DirectX::Keyboard::LeftShift))
 	{
 		//		状態を切り替える(ダッシュ状態)
-		m_player->ChangeState(m_player->GetDashState());
+		m_player->ChangeState(m_player->PlayerState::Dash);
 	}
 
 	if (m_time > 3.0f)
 	{
 		//		状態を切り替える(ダッシュ状態)
-		m_player->ChangeState(m_player->GetDashState());
+		m_player->ChangeState(m_player->PlayerState::Dash);
 	}
 }

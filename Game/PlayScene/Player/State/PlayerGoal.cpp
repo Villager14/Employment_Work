@@ -28,7 +28,7 @@ void PlayerGoal::Initialize()
 	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		アニメーション立ち状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetUpright());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Upright);
 }
 
 void PlayerGoal::Update()

@@ -53,7 +53,7 @@ void PlayerWire::Initialize()
 	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
 	//		アニメーションワイヤージャンプ状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWireJump());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Wire);
 }
 
 void PlayerWire::Update()
@@ -124,7 +124,7 @@ void PlayerWire::Finalize()
 	m_decelerationJudgement = false;
 
 	//		アニメーション待機状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetStayState());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Stay);
 }
 
 void PlayerWire::MoveProcessing()
@@ -162,7 +162,7 @@ void PlayerWire::ChangeStateJudgement()
 		if (m_player->GetInformation()->GetDashJudgement())
 		{
 			//		状態を切り替える(ダッシュ)
-			m_player->ChangeState(m_player->GetDashState());
+			m_player->ChangeState(m_player->PlayerState::Dash);
 
 			return;
 		}
@@ -177,12 +177,12 @@ void PlayerWire::ChangeStateJudgement()
 			keyboardState.IsKeyDown(DirectX::Keyboard::D))
 		{
 			//		状態を切り替える（歩き)
-			m_player->ChangeState(m_player->GetWalkState());
+			m_player->ChangeState(m_player->PlayerState::Walk);
 		}
 		else
 		{
 			//		状態を切り替える（待機)
-			m_player->ChangeState(m_player->GetWalkState());
+			m_player->ChangeState(m_player->PlayerState::Stay);
 		}
 	}
 
@@ -202,7 +202,7 @@ void PlayerWire::ChangeStateJudgement()
 				(m_player->GetCollitionInformation()->GetMeshWallNormalize()[0]));
 
 			//		状態を切り替える(壁歩き状態)
-			m_player->ChangeState(m_player->GetWallWalkState());
+			m_player->ChangeState(m_player->PlayerState::WallWalk);
 		}	
 	}
 }

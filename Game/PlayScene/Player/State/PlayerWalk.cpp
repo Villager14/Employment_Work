@@ -41,7 +41,7 @@ void PlayerWalk::Initialize()
 	}
 
 	//		アニメーション歩き状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetWalkState());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Walk);
 }
 
 void PlayerWalk::Update()
@@ -143,7 +143,7 @@ void PlayerWalk::ChangeStateJudgement()
 	if (!m_keyInputJudgement)
 	{
 		//		状態を遷移する(待機状態)
-		m_player->ChangeState(m_player->GetStayState());
+		m_player->ChangeState(m_player->PlayerState::Stay);
 	}
 
 	//		キーボードの取得
@@ -155,14 +155,14 @@ void PlayerWalk::ChangeStateJudgement()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
 	{
 		//		状態を切り替える(ジャンプ)
-		m_player->ChangeState(m_player->GetJumpState());
+		m_player->ChangeState(m_player->PlayerState::Jump);
 	}
 
 	//		ゴールをしているかどうか
 	if (m_player->GetGameManager()->GetGoalJudgement())
 	{
 		//		状態を切り替える（ゴール）
-		m_player->ChangeState(m_player->GetGoalState());
+		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
 	//		Controlでしゃがみ
@@ -171,12 +171,12 @@ void PlayerWalk::ChangeStateJudgement()
 		if (m_player->GetInformation()->GetAcceleration().Length() < m_player->GetInformation()->GetCrouchingSpeed())
 		{
 			//		状態を切り替える(歩き)
-			m_player->ChangeState(m_player->GetCrouchingState());
+			m_player->ChangeState(m_player->PlayerState::Walk);
 		}
 		else
 		{
 			//		状態を切り替える(スライディング)
-			m_player->ChangeState(m_player->GetSlidingState());
+			m_player->ChangeState(m_player->PlayerState::Sliding);
 		}
 	}
 
@@ -187,7 +187,7 @@ void PlayerWalk::ChangeStateJudgement()
 		if (m_player->GetInformation()->GetDashJudgement())
 		{
 			//		状態を切り替える(ダッシュ)
-			m_player->ChangeState(m_player->GetDashState());
+			m_player->ChangeState(m_player->PlayerState::Dash);
 		}
 	}
 }

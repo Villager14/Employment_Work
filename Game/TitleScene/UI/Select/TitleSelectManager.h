@@ -13,10 +13,13 @@
 #include "State/SelectEndState.h"
 #include "State/SelectSettingState.h"
 #include "State/ChangeSceneState.h"
+#include "State/StartSceneState.h"
 
 #include "Game/PlayScene/UIManager/UIRender.h"
 
 #include "Game/TitleScene/UI/BackGroundMove.h"
+
+#include "Game/PlayScene/UIManager/Fade/FadeRender.h"
 
 #include "../TVOFEffec.h"
 
@@ -24,6 +27,7 @@ class SelectPlayState;
 class SelectEndState;
 class SelectSettingState;
 class ChangeSceneState;
+class StartSceneState;
 
 class TitleSelectManager
 {
@@ -118,6 +122,8 @@ private:
 	//		シーンを切り替える状態
 	std::unique_ptr<ChangeSceneState> m_changeSceneState;
 
+	//		スタート状態
+	std::unique_ptr<StartSceneState> m_startSeceneState;
 public:
 
 	/*
@@ -199,6 +205,9 @@ private:
 
 	//		シーンを変更するかどうか
 	bool m_changeSceneJudgement;
+
+	//		フェード
+	std::unique_ptr<FadeRender> m_fade;
 
 public:
 
@@ -302,4 +311,12 @@ public:
 	*	@return true : 切り替える false : 切り替えない
 	*/
 	bool GetChangeScnenJudgemnet() { return m_changeSceneJudgement; }
+
+
+	/*
+	*	フェードの描画
+	*
+	*	@param	(time)	時間
+	*/
+	void FadeViewProcess(float time) { m_fade->Render(time); }
 };

@@ -11,7 +11,7 @@
 
 #include "FailureScreen/RedScreen.h"
 
-#include "FailureScreen/SpeedScreen.h"
+#include "Game/ResultScene/ScreenEffect/PlayerModelTexture.h"
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
@@ -21,6 +21,14 @@ class ScreenEffectManager
 {
 public:
 
+	enum Scene
+	{
+		PlayScene,
+		ResultScene,
+	};
+
+public:
+
 	//		コンストラクタ
 	ScreenEffectManager(GameManager* gameManager);
 
@@ -28,7 +36,7 @@ public:
 	~ScreenEffectManager();
 
 	//		初期化処理
-	void Initialize();
+	void Initialize(Scene scene);
 
 	//		アップデート
 	void Update(PlayerCameraInformation* playerCameraInformation);
@@ -48,7 +56,16 @@ public:
 	//		初期のレンダーターゲットにする
 	void FirstRenderTarget();
 
+	void ChangeScreenEffect();
+
 private:
+
+	//		現在のシーン
+	Scene m_scene;
+
+	//		背景の色
+	DirectX::XMVECTORF32 m_backColor;
+
 	//		レンダーテクスチャ
 	std::unique_ptr<DX::RenderTexture> m_renderTexture;
 
@@ -61,8 +78,8 @@ private:
 	//		赤いスクリーン
 	std::unique_ptr<RedScreen> m_redScreen;
 
-	//		速度スクリーン
-	std::unique_ptr<SpeedScreen> m_speedScree;
+	//		プレイヤーモデルテクスチャ
+	std::unique_ptr<PlayerModelTexture> m_playerModelTexture;
 
 	//		ゲームマネージャー
 	GameManager* m_gameManager;

@@ -23,6 +23,8 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
+#include <unordered_map>
+
 class DebugCamera;
 class PlayerCamera;
 class PlayerWallWalkCamera;
@@ -31,7 +33,6 @@ class PlayerDeathCamera;
 class PlayerCameraStop;
 class PlayerGoalCamera;
 
-#include <unordered_map>
 
 class PlayerCameraManager
 {
@@ -58,92 +59,28 @@ public:
 	//		カメラの移動処理
 	void CameraMove();
 
-	/*
-	*	状態を切り替える
-	* 
-	*	@param	(state)	新しい状態
-	*/
-	void ChangeState(IPlayerCamera* state);
-
 	//		視野角
 	void ViewingAngle();
+
+public:
+
+	//		カメラのタイプ
+	enum CameraType
+	{
+		Debug,
+		Standard,
+		WallWalk,
+		Start,
+		Stop,
+		Goal,
+		Death,
+	};
 
 private:
 
 	//		状態
 	IPlayerCamera* m_state;
 
-	//		デバックカメラ
-	std::unique_ptr<DebugCamera> m_debugCamera;
-
-	//		プレイヤーカメラ
-	std::unique_ptr<PlayerCamera> m_playerCamera;
-
-	//		壁を走るカメラ
-	std::unique_ptr<PlayerWallWalkCamera> m_playerWallWalkCamera;
-
-	//		プレイヤースタートカメラ
-	std::unique_ptr<PlayerStartCamera> m_playerStartCamera;
-
-	//		プレイヤーの死亡カメラ
-	std::unique_ptr<PlayerDeathCamera> m_playerDeathCamera;
-
-	//		プレイヤーの動かないカメラ
-	std::unique_ptr<PlayerCameraStop> m_playerStopCamera;
-
-	//		プレイヤーゴールカメラ
-	std::unique_ptr<PlayerGoalCamera> m_playerGoalCamera;
-public:
-	/*
-	*	デバックカメラの状態を受け取る
-	* 
-	*	@return デバックカメラのインスタンスのポインタ
-	*/
-	DebugCamera* GetDebugCamera() { return m_debugCamera.get(); }
-
-	/*
-	*	プレイヤーカメラの状態を受け取る
-	* 
-	*	@return プレイヤーカメラのインスタンスのポインタ
-	*/
-	PlayerCamera* GetPlayerCamera() { return m_playerCamera.get(); }
-
-	/*
-	*	壁走りカメラの状態を受け取る
-	* 
-	*	@return プレイヤー壁走りのインスタンスのポインタ
-	*/
-	PlayerWallWalkCamera* GetWallWalkCamera() { return m_playerWallWalkCamera.get(); }
-
-	/*
-	*	スタートカメラ状態を受け取る	
-	* 
-	*	@return プレイヤースタートカメラのインスタンスのポインタ
-	*/
-	PlayerStartCamera* GetStartCamera() { return m_playerStartCamera.get(); }
-
-	/*
-	*	死亡カメラ状態を受け取る
-	*	
-	*	@return 死亡カメラのインスタンスのポインタ
-	*/
-	PlayerDeathCamera* GetDeathCamera() { return m_playerDeathCamera.get(); }
-
-	/*
-	*	プレイヤーの動かないカメラ状態を受け取る
-	* 
-	*	@return 動かないカメラのインスタンスのポインタ
-	*/
-	PlayerCameraStop* GetStopCamera() { return m_playerStopCamera.get(); }
-
-	/*
-	*	プレイヤーのゴールカメラを受け取る
-	*	
-	*	@return ゴールカメラのインスタンスのポインタ
-	*/
-	PlayerGoalCamera* GetGoalCamera() { return m_playerGoalCamera.get(); }
-
-private:
 	//		カメラの情報
 	std::unique_ptr<PlayerCameraInformation> m_information;
 
@@ -153,16 +90,20 @@ private:
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
 
-	enum CameraType
-	{
-		PlayerStandard,
-
-	};
-
 	//		派生クラスの格納
 	std::unordered_map<CameraType, std::unique_ptr<IPlayerCamera>> m_stateInformation;
 
+	//		現在のカメラタイプ
+	CameraType m_cameraType;
+
 public:
+	/*
+	*	カメラの状態の切り替え
+	* 
+	*	@param	(type)	カメラの種類
+	*/
+	void ChangeState(CameraType type);
+
 
 	/*
 	*	ゲームマネージャーを受け取る

@@ -13,7 +13,8 @@
 ScreenEffectManager::ScreenEffectManager(GameManager* gameManager)
 	:
 	m_gameManager(gameManager),
-	m_shaderResouceView()
+	m_shaderResouceView(),
+	m_scene()
 {
 }
 
@@ -21,33 +22,48 @@ ScreenEffectManager::~ScreenEffectManager()
 {
 }
 
-void ScreenEffectManager::Initialize()
+void ScreenEffectManager::Initialize(Scene scene)
 {
 	CreateRenderTexture();
+	
+	m_scene = scene;
 
-	m_redScreen = std::make_unique<RedScreen>();
+	if (m_scene == Scene::PlayScene)
+	{
+		m_redScreen = std::make_unique<RedScreen>();
 
-	m_redScreen->Create({ LibrarySingleton::GetInstance()
-		->GetScreenSize().x, 0.0f}, {1.0f, 1.0f});
+		m_redScreen->Create({ LibrarySingleton::GetInstance()
+			->GetScreenSize().x, 0.0f }, { 1.0f, 1.0f });
 
-	m_speedScree = std::make_unique<SpeedScreen>();
+		//		îwåiÇÃêF
+		m_backColor = DirectX::Colors::MediumSeaGreen;
+	}
+	else if (m_scene == Scene::ResultScene)
+	{
+		m_playerModelTexture = std::make_unique<PlayerModelTexture>();
 
-	m_speedScree->Create({ LibrarySingleton::GetInstance()
-		->GetScreenSize().x, 0.0f }, { 1.0f, 1.0f });
+		m_playerModelTexture->Create({ 980.0f, -90.0f }, { 1.0f, 1.0f });
+
+		//		îwåiÇÃêF
+		m_backColor = DirectX::Colors::Black;
+	}
 }
 
 void ScreenEffectManager::Update(PlayerCameraInformation* playerCameraInformation)
 {
-	m_redScreen->Update(m_gameManager, playerCameraInformation);
-
-	m_speedScree->Update(m_gameManager);
+	if (m_scene == Scene::PlayScene)
+		m_redScreen->Update(m_gameManager, playerCameraInformation);
+	else if (m_scene == Scene::ResultScene)
+		m_playerModelTexture->Update();
 }
 
 void ScreenEffectManager::Render()
 {
-	m_redScreen->Render(m_shaderResouceView);
+	if (m_scene == Scene::PlayScene)
+		m_redScreen->Render(m_shaderResouceView);
+	else if (m_scene == Scene::ResultScene)
+		m_playerModelTexture->Render(m_shaderResouceView);
 
-	//m_speedScree->Render(m_shaderResouceView);
 }
 
 void ScreenEffectManager::Finalize()
@@ -106,7 +122,7 @@ void ScreenEffectManager::ChangeRenderTarget()
 		->GetDeviceResources()->GetDepthStencilView();
 
 	//		ÉåÉìÉ_Å[É^Å[ÉQÉbÉgÇïœçX
-	context->ClearRenderTargetView(rtv, DirectX::Colors::MediumSeaGreen);
+	context->ClearRenderTargetView(rtv, m_backColor);
 	context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	context->OMSetRenderTargets(1, &rtv, depthStencil);
 }

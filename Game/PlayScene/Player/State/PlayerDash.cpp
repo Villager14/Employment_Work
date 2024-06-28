@@ -50,7 +50,7 @@ void PlayerDash::Initialize()
 	m_player->GetInformation()->SetHeadShakingJudgement(false);
 
 	//		アニメーション歩き状態
-	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->GetDash());
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Dash);
 }
 
 void PlayerDash::Update()
@@ -186,12 +186,12 @@ void PlayerDash::ChangeStateJudgement()
 	if (m_player->GetGameManager()->GetGoalJudgement())
 	{
 		//		状態を切り替える（ゴール）
-		m_player->ChangeState(m_player->GetGoalState());
+		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
 	if (m_deceleration >= 1.0f)
 	{
 		//		状態を遷移する(歩き)
-		m_player->ChangeState(m_player->GetWalkState());
+		m_player->ChangeState(m_player->PlayerState::Walk);
 	}
 }

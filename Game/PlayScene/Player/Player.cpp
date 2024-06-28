@@ -16,7 +16,8 @@ Player::Player(GameManager* gameManager)
 	m_state{},
 	m_collitionInformation(),
 	m_gameManager(gameManager),
-	m_cameraInformation()
+	m_cameraInformation(),
+	m_playerState{}
 {
 }
 
@@ -35,47 +36,25 @@ void Player::Initialize()
 	//		プレイヤーの情報を生成する
 	m_information = std::make_unique<PlayerInformation>();
 
-	//		プレイヤー待機状態の生成
-	m_playerStay = std::make_unique<PlayerStay>(this);
-
-	//		プレイヤー歩き状態の生成
-	m_playerWalk = std::make_unique<PlayerWalk>(this);
-
-	//		プレイヤーのしゃがみ状態の生成
-	m_playerCrouching = std::make_unique<PlayerCrouching>(this);
-
-	//		プレイヤーのジャンプ状態を生成
-	m_playerJump = std::make_unique<PlayerJump>(this);
-
-	//		プレイヤーのスライディング状態の生成
-	m_playerSliding = std::make_unique<PlayerSliding>(this);
-
-	//		プレイヤーのダッシュ状態を生成
-	m_playerDash = std::make_unique<PlayerDash>(this);
-
-	//		プレイヤーの低速状態を生成
-	m_playerSlowTime = std::make_unique<PlayerSlowTime>(this);
-
-	//		プレイヤーの壁歩き状態の生成
-	m_playerWallWalk = std::make_unique<PlayerWallWalk>(this);
-
-	//		プレイヤーのワイヤー状態の生成
-	m_playerWire = std::make_unique<PlayerWire>(this);
-
-	//		プレイヤーの壁ジャンプ状態を生成
-	m_playerWallJump = std::make_unique<PlayerWallJump>(this);
-
-	//		プレイヤーの死亡状態を生成する
-	m_playerDeath = std::make_unique<PlayerDeath>(this);
-
-	//		プレイヤーのスタート状態を生成する
-	m_playerStart = std::make_unique<PlayerStart>(this);
-
-	//		プレイヤーのゴール状態を生成する
-	m_playerGoal = std::make_unique<PlayerGoal>(this);
+	//		派生クラスの生成
+	m_stateInformation.insert({PlayerState::Stay, std::make_unique<PlayerStay>(this)});
+	m_stateInformation.insert({ PlayerState::Walk, std::make_unique<PlayerWalk>(this) });
+	m_stateInformation.insert({ PlayerState::Jump, std::make_unique<PlayerJump>(this) });
+	m_stateInformation.insert({ PlayerState::Crouching, std::make_unique<PlayerCrouching>(this) });
+	m_stateInformation.insert({ PlayerState::Dash, std::make_unique<PlayerDash>(this) });
+	m_stateInformation.insert({ PlayerState::WallWalk, std::make_unique<PlayerWallWalk>(this) });
+	m_stateInformation.insert({ PlayerState::WallJump, std::make_unique<PlayerWallJump>(this) });
+	m_stateInformation.insert({ PlayerState::Sliding, std::make_unique<PlayerSliding>(this) });
+	m_stateInformation.insert({ PlayerState::Wire, std::make_unique<PlayerWire>(this) });
+	m_stateInformation.insert({ PlayerState::Start, std::make_unique<PlayerStart>(this) });
+	m_stateInformation.insert({ PlayerState::Death, std::make_unique<PlayerDeath>(this) });
+	m_stateInformation.insert({ PlayerState::Goal, std::make_unique<PlayerGoal>(this) });
 
 	//		初期状態
-	m_state = m_playerStart.get();
+	m_playerState = PlayerState::Start;
+
+	//		初期状態
+	m_state = m_stateInformation[PlayerState::Start].get();
 
 	//		状態を初期化する
 	m_state->Initialize();
@@ -190,7 +169,7 @@ void Player::DeathJudgement()
 	if (m_information->GetPosition().y < -150.0f)
 	{
 		//		死亡状態に切り替える
-		ChangeState(m_playerDeath.get());
+		ChangeState(PlayerState::Death);
 	}
 }
 
@@ -214,21 +193,6 @@ void Player::DashCoolTime()
 		//		クールタイムを設定する
 		m_information->SetDashCoolTime(coolTime);
 	}
-}
-
-void Player::ChangeState(IPlayer* state)
-{
-	//		同じ状態なら処理をしない
-	if (m_state == state) return;
-
-	//		現在の状態の終了処理をする
-	m_state->Finalize();
-
-	//		状態を切り替える
-	m_state = state;
-
-	//		新しい状態の初期化処理をする
-	m_state->Initialize();
 }
 
 DirectX::SimpleMath::Vector3 Player::Direction(bool* keyPressjudgement)
@@ -465,7 +429,10 @@ bool Player::WireActionJudgement()
 		//		状態を遷移する		
 		m_state->Finalize();
 
-		m_state = m_playerWire.get();
+		//		ワイヤー状態にする
+		m_playerState = PlayerState::Wire;
+
+		m_state = m_stateInformation[m_playerState].get();
 
 		m_state->Initialize();
 
@@ -493,7 +460,7 @@ void Player::WallWalkJudgement()
 			m_playerInformationCollition->SetWallWalkNormalize(m_collitionInformation->GetMeshWallNormalize()[0]);
 
 			//		状態を切り替える(壁歩き状態)
-			ChangeState(m_playerWallWalk.get());
+			ChangeState(PlayerState::WallWalk);
 
 			return;
 		}
@@ -511,4 +478,22 @@ void Player::SpeedUpperLimit()
 	velocity.Normalize();
 
 	m_information->SetAcceleration(velocity * 70.0f);
+}
+
+void Player::ChangeState(PlayerState state)
+{
+	//		同じ状態なら処理をしない
+	if (m_playerState == state) return;
+
+	//		現在の状態の終了処理をする
+	m_state->Finalize();
+
+	//		状態を切り替える
+	m_playerState = state;
+
+	//		状態の変更
+	m_state = m_stateInformation[m_playerState].get();
+
+	//		新しい状態の初期化処理をする
+	m_state->Initialize();
 }

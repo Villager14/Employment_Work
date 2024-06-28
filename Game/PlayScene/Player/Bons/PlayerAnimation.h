@@ -24,6 +24,8 @@
 #include "AnimationState/WallWalkAnimationState.h"
 #include "AnimationState/UprightAnimationState.h"
 
+#include <unordered_map>
+
 class WalkAnimationState;
 class StayAnimationState;
 class CrouchingStayAnimationState;
@@ -48,7 +50,7 @@ public:
 	~PlayerAnimation();
 
 	//		初期化処理
-	void Initialize();
+	void Initialize(bool createHead = false);
 
 	//		実行処理
 	void Execute(
@@ -57,13 +59,13 @@ public:
 		float height);
 
 	//		描画処理
-	void Render();
+	void Render(bool wireJudgement = false);
 
 	//		終了処理
 	void Finalize();
 
 	//		モデルの作製
-	void CreateModel();
+	void CreateModel(bool createHead);
 
 	/*
 	*	モデルの読み込み
@@ -83,136 +85,39 @@ public:
 
 	//		下半身の値を初期の値にする
 	void AnimationLegInitialValue(std::vector<PlayerBonsInformation>* m_bonesInformation, float transrationSpeed);
+public:
+
+	enum AnimationState
+	{
+		Stay,
+		Walk,
+		CrouchingStay,
+		CrouchingWalk,
+		Jump,
+		Sliding,
+		Dash,
+		WallWalk,
+		WallJump,
+		Wire,
+		Start,
+		Upright
+	};
+
+public:
 
 	/*
 	*	アニメーションの切り替え
 	*
 	*	@param	(IState)
 	*/
-	void ChangeState(IPlayerAnimationState* IState);
+	void ChangeState(AnimationState State);
 
 private:
 
-	//		歩きアニメーション
-	std::unique_ptr<WalkAnimationState> m_walk;
+	//		アニメーションの情報
+	std::unordered_map<AnimationState, std::unique_ptr<IPlayerAnimationState>> m_animationStateInformation;
 
-	//		待機アニメーション
-	std::unique_ptr<StayAnimationState> m_stay;
-
-	//		しゃがみ待機アニメーション
-	std::unique_ptr<CrouchingStayAnimationState> m_crouchingStay;
-
-	//		しゃがみ歩きアニメーション
-	std::unique_ptr<CrouchingWalkAnimationState> m_crouchingWalk;
-
-	//		ダッシュアニメーション
-	std::unique_ptr<DashAnimationState> m_dash;
-
-	//		ジャンプアニメーション
-	std::unique_ptr<JumpAnimationState> m_jump;
-
-	//		スライディングアニメーション
-	std::unique_ptr<SlidingAnimationState> m_sliding;
-
-	//		スタートアニメーション
-	std::unique_ptr<StartAnimationState> m_start;
-
-	//		ワイヤージャンプアニメーション
-	std::unique_ptr<WireJumpAnimationState> m_wireJump;
-
-	//		壁ジャンプアニメーション
-	std::unique_ptr<WallJumpAnimationState> m_wallJump;
-
-	//		壁歩きアニメーション
-	std::unique_ptr<WallWalkAnimationState> m_wallWalk;
-
-	//		直立アニメーション
-	std::unique_ptr<UprightAnimationState> m_upright;
-public:
-
-	/*
-	*	歩きアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	WalkAnimationState* GetWalkState() { return m_walk.get(); }
-
-	/*
-	*	歩きアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	StayAnimationState* GetStayState() { return m_stay.get(); }
-
-	/*
-	*	しゃがみ待機アニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	CrouchingStayAnimationState* GetCrouchingStay() { return m_crouchingStay.get(); }
-
-	/*
-	*	しゃがみ歩きアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	CrouchingWalkAnimationState* GetCrouchingWalk() { return m_crouchingWalk.get(); }
-
-	/*
-	*	ダッシュアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	DashAnimationState* GetDash() { return m_dash.get(); }
-
-	/*
-	*	ジャンプアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	JumpAnimationState* GetJump() { return m_jump.get(); }
-
-	/*
-	*	スライディングアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	SlidingAnimationState* GetSliding() { return m_sliding.get(); }
-
-	/*
-	*	スタートアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	StartAnimationState* GetStart() { return m_start.get(); }
-
-	/*
-	*	ワイヤージャンプアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	WireJumpAnimationState* GetWireJump() { return m_wireJump.get(); }
-
-	/*
-	*	壁ジャンプアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	WallJumpAnimationState* GetWallJump() { return m_wallJump.get(); }
-
-	/*
-	*	壁歩きアニメーションを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	WallWalkAnimationState* GetWallWalk() { return m_wallWalk.get(); }
-
-	/*
-	*	直立アニメーションを受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	UprightAnimationState* GetUpright() { return m_upright.get(); }
+	AnimationState m_animationState;
 
 private:
 

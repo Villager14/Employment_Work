@@ -71,7 +71,7 @@ void PlayerStartCamera::Update()
 
 	if (m_time >= 1.0f)
 	{
-		m_playerCameraManager->ChangeState(m_playerCameraManager->GetPlayerCamera());
+		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);
 
 		m_playerCameraManager->GetGameManager()->SetGameStartJudgement(true);
 	}

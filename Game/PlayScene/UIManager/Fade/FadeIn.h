@@ -36,6 +36,9 @@ private:
 	//		時間
 	float m_time;
 
+	//		待機時間
+	float m_stayTime;
+
 	//		フェードインをするかどうか判断する
 	bool m_fadeinResetJudgement;
 

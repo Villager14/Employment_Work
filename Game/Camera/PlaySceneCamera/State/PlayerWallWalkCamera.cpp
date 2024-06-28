@@ -105,14 +105,21 @@ void PlayerWallWalkCamera::Update()
 	{
 		//		プレイヤーカメラに切り替える
 		m_playerCameraManager->ChangeState(
-			m_playerCameraManager->GetPlayerCamera());
+			m_playerCameraManager->CameraType::Standard);
 	}
 
 	//		死亡している場合
 	if (m_playerCameraManager->GetGameManager()->GetDeathJudgement())
 	{
 		//		死亡カメラにする
-		m_playerCameraManager->ChangeState(m_playerCameraManager->GetDeathCamera());
+		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Death);
+	}
+
+	//		次のシーンを選んだ際
+	if (m_playerCameraManager->GetGameManager()->GetEndJudgement())
+	{
+		//		ゴールカメラにする
+		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Goal);
 	}
 }
 

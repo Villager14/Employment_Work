@@ -68,11 +68,21 @@ void TitleSelectManager::Initialize()
 	//		シーン切り替え状態を生成する
 	m_changeSceneState = std::make_unique<ChangeSceneState>(this);
 	
+	//		スタート状態
+	m_startSeceneState = std::make_unique<StartSceneState>(this);
+
 	//		初期状態をセットする
-	m_state = m_selectPlayState.get();
+	m_state = m_startSeceneState.get();
 
 	//		初期化する
 	m_state->Initialize();
+
+	//		フェードの生成
+	m_fade = std::make_unique<FadeRender>();
+
+	//		UI描画の作製
+	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
+		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
 	//		描画順を設定する
 	for (int i = 0; i < 3; ++i)
@@ -95,8 +105,8 @@ void TitleSelectManager::Render()
 	//		背景の描画
 	m_backGroundMove->Render();
 	
-	//		描画処理
-	m_state->Render();
+	////		描画処理
+	//m_state->Render();
 
 	for (int i = 0; i < m_uiRender.size(); ++i)
 	{
@@ -112,6 +122,10 @@ void TitleSelectManager::Render()
 	{
 		m_uiRender[m_drawOder[i]]->Render();
 	}
+
+	//		描画処理
+	m_state->Render();
+
 
 	//		タイトルロゴの描画
 	m_uiRender[UIType::TitleRogo]->Render();

@@ -39,6 +39,7 @@
 
 #include "Game/PlayScene/Shadow/Shadow.h"
 
+#include <unordered_map>
 
 class PlayerStay;
 class PlayerWork;
@@ -96,13 +97,6 @@ public:
 	void DashCoolTime();
 
 	/*
-	*	状態を変更する
-	*
-	*	@param	(state)	状態
-	*/
-	void ChangeState(IPlayer* state);
-
-	/*
 	*	移動処理
 	*
 	*	@param	(keyPressJudgement)	キーを押したかどうか
@@ -154,143 +148,45 @@ public:
 	//		速度上限
 	void SpeedUpperLimit();
 
-private:
+public:
 
-	//		現在の状態
-	IPlayer* m_state;
+	//		プレイヤーの状態
+	enum PlayerState
+	{
+		Stay,
+		Walk,
+		Crouching,
+		Jump,
+		Sliding,
+		Dash,
+		WallWalk,
+		WallJump,
+		Wire,
+		Death,
+		Start,
+		Goal,
+	};
 
-	//		プレイヤー待機状態
-	std::unique_ptr<PlayerStay> m_playerStay;
-
-	//		プレイヤー歩き状態
-	std::unique_ptr<PlayerWalk> m_playerWalk;
-
-	//		プレイヤーしゃがみ状態
-	std::unique_ptr<PlayerCrouching> m_playerCrouching;
-
-	//		プレイヤーのジャンプ状態
-	std::unique_ptr<PlayerJump> m_playerJump;
-
-	//		プレイヤーのスライディング状態
-	std::unique_ptr<PlayerSliding> m_playerSliding;
-
-	//		プレイヤーのダッシュ状態
-	std::unique_ptr<PlayerDash> m_playerDash;
-
-	//		プレイヤー低速状態
-	std::unique_ptr<PlayerSlowTime> m_playerSlowTime;
-
-	//		プレイヤーの壁走り状態
-	std::unique_ptr<PlayerWallWalk> m_playerWallWalk;
-
-	//		プレイヤーのワイヤー状態
-	std::unique_ptr<PlayerWire> m_playerWire;
-
-	//		プレイヤーの壁ジャンプ状態
-	std::unique_ptr<PlayerWallJump> m_playerWallJump;
-
-	//		プレイヤーの死亡状態
-	std::unique_ptr<PlayerDeath> m_playerDeath;
-
-	//		プレイヤーのスタート状態
-	std::unique_ptr<PlayerStart> m_playerStart;
-
-	//		プレイヤーのゴール状態
-	std::unique_ptr<PlayerGoal> m_playerGoal;
 public:
 
 	/*
-	*	待機状態を受け取る
+	*	状態を変更する
 	*
-	*	@return 待機状態のインスタンスのポインタ
+	*	@param	(state)	状態
 	*/
-	PlayerStay* GetStayState() { return m_playerStay.get(); }
+	void ChangeState(PlayerState state);
 
-	/*
-	*	歩き状態を受け取る
-	*
-	*	@return 歩き状態のインスタンスのポインタ
-	*/
-	PlayerWalk* GetWalkState() { return m_playerWalk.get(); }
-
-	/*
-	*	しゃがみ状態を受け取る
-	*
-	*	@return しゃがみ状態のインスタンスのポインタ
-	*/
-	PlayerCrouching* GetCrouchingState() { return m_playerCrouching.get(); }
-
-	/*
-	*	ジャンプ状態を受け取る
-	*
-	*	@return ジャンプ状態のインスタンスのポインタ
-	*/
-	PlayerJump* GetJumpState() { return m_playerJump.get(); }
-
-	/*
-	*	プレイヤーのスライディング状態を受け取る
-	*
-	*	@return スライディング状態のインスタンスのポインタ
-	*/
-	PlayerSliding* GetSlidingState() { return m_playerSliding.get(); }
-
-	/*
-	*	プレイヤーのダッシュ状態を受け取る
-	*
-	*	@return ダッシュ状態のインスタンスのポインタ
-	*/
-	PlayerDash* GetDashState() { return m_playerDash.get(); }
-
-	/*
-	*	プレイヤーの低速状態を受け取る
-	*
-	*	@return 低速状態のインスタンスのポインタ
-	*/
-	PlayerSlowTime* GetSlowTimeState() { return m_playerSlowTime.get(); }
-
-	/*
-	*	プレイヤーの壁を歩く状態を受け取る
-	* 
-	*	@return 壁を歩く状態のインスタンスのポインタ
-	*/
-	PlayerWallWalk* GetWallWalkState() { return m_playerWallWalk.get(); }
-
-	/*
-	*	プレイヤーのワイヤー状態を受け取る
-	* 
-	*	@return ワイヤー状態のインスタンスを受け取る
-	*/
-	PlayerWire* GetWireState() { return m_playerWire.get(); }
-
-	/*
-	*	プレイヤーの壁ジャンプ状態を受け取る
-	* 
-	*	@return 壁ジャンプのインスタンスを受け取る
-	*/
-	PlayerWallJump* GetWallJumpState() { return m_playerWallJump.get(); }
-
-	/*
-	*	プレイヤーの死亡状態を受け取る
-	* 
-	*	@return 死亡状態のインスタンスを受け取る
-	*/
-	PlayerDeath* GetDeathState() { return m_playerDeath.get(); }
-
-	/*
-	*	プレイヤーのスタート状態
-	* 
-	*	@return スタート状態のインスタンスを受け取る
-	*/
-	PlayerStart* GetStartState() { return m_playerStart.get(); }
-
-	/*
-	*	プレイヤーゴール状態
-	* 
-	*	@reutnr ゴール状態のインスタンスを受け取る
-	*/
-	PlayerGoal* GetGoalState() { return m_playerGoal.get(); }
 
 private:
+
+	//		プレイヤーの状態の情報
+	std::unordered_map<PlayerState, std::unique_ptr<IPlayer>> m_stateInformation;
+
+	//		現在の状態
+	PlayerState m_playerState;
+
+	//		現在の状態
+	IPlayer* m_state;
 
 	//		プレイヤーのアニメーションの処理
 	std::unique_ptr<PlayerAnimation> m_playerAnimation;
@@ -333,6 +229,14 @@ public:
 	PlayerCameraInformation* GetCameraInformation() { return m_cameraInformation; }
 
 	/*
+	*	プレイヤーカメラの情報
+	*
+	*	@return カメラの情報
+	*/
+	void SetCameraInformation(PlayerCameraInformation* information) { m_cameraInformation = information; }
+
+
+	/*
 	*	当たり判定の情報を受け取る
 	* 
 	*	@param	(collitionInformation)	インスタンスのポインタ
@@ -353,13 +257,6 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	PlayerInformationCollition* GetPlayerInformationCollition() { return m_playerInformationCollition.get(); }
-
-	/*
-	*	カメラ用プレイヤー情報を受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	//PlayerInformationCamera* GetPlayerInformationCamera() { return m_playerInformationCamera.get(); }
 
 	/*
 	*	プレイヤーの情報を受け取る
