@@ -30,6 +30,9 @@ void ResultEnd::Update()
 
 	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
 
+	//		音量を少しずつ上げる
+	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
+
 	if (m_time <= 0.0f)
 	{
 		//		タイトルシーンへ

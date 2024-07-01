@@ -73,6 +73,8 @@ void WallObject::Update()
 
 void WallObject::Render(DrawMesh* drawMesh)
 {
+	UNREFERENCED_PARAMETER(drawMesh);
+
 	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
 	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 		*LibrarySingleton::GetInstance()->GetCommonState(),

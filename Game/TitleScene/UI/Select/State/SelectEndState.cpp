@@ -81,7 +81,17 @@ void SelectEndState::ChangeSceneProcess()
 	//		時間が１以下の場合処理をしない
 	if (m_time < 1.0f)
 	{
+		//		キーボードの取得
+		DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
 
+		//		ボタンの取得
+		DirectX::Mouse::ButtonStateTracker button = *LibrarySingleton::GetInstance()->GetButtonStateTracker();
+
+		if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
+			button.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
+		{
+			PostQuitMessage(0);
+		}
 	}
 	else
 	{

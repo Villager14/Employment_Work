@@ -84,6 +84,9 @@ void PlayScene::Initialize()
 
 	//		エフェクトマネージャーの初期化
 	m_effectManager->Initialize();
+
+	//		プレイシーン時のBGMを再生
+	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
 }
 
 void PlayScene::Update()

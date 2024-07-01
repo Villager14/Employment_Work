@@ -152,6 +152,9 @@ void TitleSelectManager::InputKey()
 		{
 			m_inputKey = true;
 			m_direction = true;
+
+			//		‘I‘ðŒø‰Ê‰¹
+			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Select);
 		}
 
 		m_scrollWheeel = DirectX::Mouse::Get().GetState().scrollWheelValue;
@@ -166,6 +169,9 @@ void TitleSelectManager::InputKey()
 		{
 			m_inputKey = true;
 			m_direction = false;
+
+			//		‘I‘ðŒø‰Ê‰¹
+			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Select);
 		}
 
 		m_scrollWheeel = DirectX::Mouse::Get().GetState().scrollWheelValue;

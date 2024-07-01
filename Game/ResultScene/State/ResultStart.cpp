@@ -22,12 +22,18 @@ ResultStart::~ResultStart()
 
 void ResultStart::Initialize()
 {
+	//		タイトルのBGMの再生
+	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::TitleScene);
+
 }
 
 void ResultStart::Update()
 {
 	//		経過時間
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	//		音量を少しずつ上げる
+	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
 
 	if (m_time >= 1.0f)
 	{

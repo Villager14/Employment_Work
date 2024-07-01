@@ -111,6 +111,8 @@ void FloorObject::Update()
 
 void FloorObject::Render(DrawMesh* drawMesh)
 {
+	UNREFERENCED_PARAMETER(drawMesh);
+
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	/*

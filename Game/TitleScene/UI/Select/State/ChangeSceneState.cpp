@@ -23,11 +23,17 @@ ChangeSceneState::~ChangeSceneState()
 void ChangeSceneState::Initialize()
 {
 	m_time = 1.0f;
+
+	//		効果音
+	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
 }
 
 void ChangeSceneState::Update()
 {
 	m_time -= LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	//		ゲーム終了時の音量のボリューム調整
+	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
 
 	if (m_time <= 0.0f)
 	{

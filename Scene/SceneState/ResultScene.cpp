@@ -42,6 +42,9 @@ void ResultScene::Initialize()
 	CreateProj();
 	//		ƒrƒ…[s—ñ‚Ìì»
 	CreateView();
+
+	//		BGM‚ðÄ¶‚·‚é
+	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::ResultScene);
 }
 
 void ResultScene::Update()

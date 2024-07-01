@@ -26,6 +26,9 @@ void TitleScene::Initialize()
 
 	//		タイトル選択マネージャーの初期化
 	m_titleSelectManager->Initialize();
+
+	//		タイトルのBGMの再生
+	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::TitleScene);
 }
 
 void TitleScene::Update()

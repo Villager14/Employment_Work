@@ -16,7 +16,7 @@ float4 Noise(float2 noiseTex, float power, float2 inputTex)
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-	float2 scaledTex = input.tex * noiseScale;
+	float2 scaledTex = input.tex * noiseScale.x;
 
 	float2 noise = tex2.Sample(samLinear, scaledTex + time.x).rg;
 

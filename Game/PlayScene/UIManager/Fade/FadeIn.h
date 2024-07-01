@@ -44,4 +44,7 @@ private:
 
 	//		フェードアウトをするかどうか判断する
 	bool m_fadeoutResetJudgement;
+
+	//		初めのフェードインかどうか
+	bool m_firstJudgement;
 };
