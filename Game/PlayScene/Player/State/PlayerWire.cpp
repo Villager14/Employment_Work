@@ -54,6 +54,9 @@ void PlayerWire::Initialize()
 
 	//		アニメーションワイヤージャンプ状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Wire);
+
+	//		ダッシュ効果音効果音の再生
+	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::Wire);
 }
 
 void PlayerWire::Update()

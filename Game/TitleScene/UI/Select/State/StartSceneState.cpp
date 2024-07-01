@@ -29,6 +29,9 @@ void StartSceneState::Update()
 {
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
 
+	//		ゲーム開始時の音量のボリューム調整
+	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
+
 	if (m_time >= 1.0f)
 	{
 		//		開始状態にする

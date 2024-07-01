@@ -14,7 +14,8 @@ FadeIn::FadeIn()
 	m_time(0.0f),
 	m_fadeinResetJudgement(true),
 	m_fadeoutResetJudgement(false),
-	m_stayTime(0.0f)
+	m_stayTime(0.0f),
+	m_firstJudgement(true)
 {
 }
 
@@ -45,6 +46,9 @@ void FadeIn::Update(GameManager* gameManager)
 
 		m_time = Library::Clamp(m_time, 0.0f, 1.0f);
 
+		//		プレイシーン終了時の音量調整
+		MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
+
 		if (m_time <= 0.0f)
 		{
 			//		次のシーンに切り替える
@@ -68,6 +72,12 @@ void FadeIn::Update(GameManager* gameManager)
 		m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.5f;
 
 		m_time = Library::Clamp(m_time, 0.0f, 1.0f);
+
+		if (m_firstJudgement)
+		{
+			//		プレイシーン開始時の音量調整
+			MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
+		}
 
 		if (m_time > 1.0f)
 		{

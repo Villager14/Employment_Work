@@ -59,6 +59,9 @@ void PlayerJump::Initialize()
 
 	//		アニメーションジャンプ状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Jump);
+
+	//		ジャンプ効果音の再生
+	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::Jump);
 }
 
 void PlayerJump::Update()

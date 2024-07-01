@@ -140,7 +140,7 @@ void Shadow::ChangeRenderTarget(const DirectX::SimpleMath::Vector3& playerpos)
 
 	//		シャドウマップの作製
 	auto rtv = m_renderTexture->GetRenderTargetView();
-	auto srv = m_renderTexture->GetShaderResourceView();
+	//auto srv = m_renderTexture->GetShaderResourceView();
 	auto dsv = m_depthStencil->GetDepthStencilView();
 
 	//		レンダーターゲットを変更する

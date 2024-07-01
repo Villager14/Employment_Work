@@ -51,6 +51,9 @@ void PlayerDash::Initialize()
 
 	//		アニメーション歩き状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Dash);
+
+	//		ダッシュ効果音効果音の再生
+	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::Dash);
 }
 
 void PlayerDash::Update()

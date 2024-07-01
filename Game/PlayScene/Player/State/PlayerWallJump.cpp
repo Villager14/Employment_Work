@@ -51,6 +51,9 @@ void PlayerWallJump::Initialize()
 
 	//		アニメーション壁ジャンプ状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Jump);
+
+	//		ジャンプ効果音の再生
+	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::Jump);
 }
 
 void PlayerWallJump::Update()

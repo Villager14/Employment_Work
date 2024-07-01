@@ -46,7 +46,7 @@ void SpeedScreen::Create(
 
 void SpeedScreen::Update(GameManager* gameManager)
 {
-
+	UNREFERENCED_PARAMETER(gameManager);
 }
 
 void SpeedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)

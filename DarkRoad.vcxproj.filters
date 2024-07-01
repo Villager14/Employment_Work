@@ -218,6 +218,9 @@
     <Filter Include="Resorces\Shader\PlayerModelTexture">
       <UniqueIdentifier>{f930e44a-dfe8-4f84-9e19-d60abc3e3a4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library\Music">
+      <UniqueIdentifier>{acfcdda3-68f6-4620-9856-64fd98e54614}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -615,6 +618,9 @@
     <ClInclude Include="Game\TitleScene\UI\Select\State\StartSceneState.h">
       <Filter>Game\TitleScene\UI\Select\State</Filter>
     </ClInclude>
+    <ClInclude Include="Library\Music\MusicLibrary.h">
+      <Filter>Library\Music</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -964,6 +970,9 @@
     </ClCompile>
     <ClCompile Include="Game\TitleScene\UI\Select\State\StartSceneState.cpp">
       <Filter>Game\TitleScene\UI\Select\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Music\MusicLibrary.cpp">
+      <Filter>Library\Music</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
