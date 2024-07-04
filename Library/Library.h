@@ -17,7 +17,8 @@ namespace Library
 	*	@param	(max)	Å‘å’l
 	*	@return ’l
 	*/
-	inline float Clamp(const float& val, const float& min, const float& max)
+	template<typename T>
+	inline T Clamp(T val, T min, T max)
 	{
 		if (val >= max) return max;
 		else if (val <= min) return min;

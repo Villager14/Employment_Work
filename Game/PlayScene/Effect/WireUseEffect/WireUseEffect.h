@@ -38,7 +38,7 @@ public:
 	*
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render(const std::vector<DirectX::SimpleMath::Vector3>& position);
+	void Render(DirectX::SimpleMath::Vector3 position);
 
 	//		終了処理
 	void Finalize();

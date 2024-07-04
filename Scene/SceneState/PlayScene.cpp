@@ -100,6 +100,10 @@ void PlayScene::Update()
 	//		範囲内にあるワイヤーの座標を受け取る
 	m_player->GetInformation()->SetWirePosition(m_objectManager->GetWirePosition());
 
+	//		ワイヤーの情報を受け取る
+	m_player->SetWireInformation(m_objectManager->GetUseWireInformation());
+
+
 	//		視線ベクトルを設定する
 	m_player->GetInformation()->SetViewVelocity(m_playerCameraManager->GetInformation()->GetViewVelocity());
 
@@ -142,8 +146,8 @@ void PlayScene::Update()
 	//		ゲームマネージャーの更新処理
 	m_gameManager->Update();
 
-	//		ワイヤーオブジェクトの座標を受け取る
-	m_effectManager->SetWirePosition(m_objectManager->GetWirePosition());
+	//		ワイヤーの情報を受け取る
+	m_effectManager->SetWireInformation(m_objectManager->GetUseWireInformation());
 
 	//		エフェクトマネージャーの描画
 	m_effectManager->Update(m_playerCameraManager->GetInformation());

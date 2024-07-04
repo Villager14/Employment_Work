@@ -390,6 +390,64 @@ bool Player::WireActionJudgement()
 	//		ワイヤーを使用できない状態にする
 	m_information->SetWireJudgement(false);
 
+	for (int i = 0, max = static_cast<int>(m_wireInformation.size()); i < max; ++i)
+	{
+
+		if (!(*m_wireInformation[i]).m_usedJudgement || (*m_wireInformation[i]).m_actionJudgement) continue;
+
+		//		ワイヤーのある方向
+		DirectX::SimpleMath::Vector3 wireDirection = (*m_wireInformation[i]).position - m_information->GetPlayerHeight();
+
+		//		視線ベクトル
+		DirectX::SimpleMath::Vector3 viewDirection = m_information->GetViewVelocity();
+
+		//		正規化
+		wireDirection.Normalize();
+		viewDirection.Normalize();
+
+		//		内積を取る
+		float dot = wireDirection.Dot(viewDirection);
+
+		//		ワイヤーの方向を向いていなかったら
+		if (dot < 0.9f) continue;
+
+		//		ワイヤーを使用できる状態にする
+		m_information->SetWireJudgement(true);
+
+		//		マウストラッカーの値を受け取る
+		DirectX::Mouse::ButtonStateTracker* mouse = LibrarySingleton::GetInstance()->GetButtonStateTracker();
+
+		//		マウスが押された場合
+		if (mouse->leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
+		{
+			//		移動ワイヤーの座標を設定する
+			DirectX::SimpleMath::Vector3 wireMovePosition = (*m_wireInformation[i]).position;
+
+			wireMovePosition.y -= 12.0f;
+
+			//		移動ワイヤー座標を設定する
+			m_information->SetWireMovePosition(wireMovePosition);
+
+			//		状態を遷移する		
+			m_state->Finalize();
+
+			//		ワイヤー状態にする
+			m_playerState = PlayerState::Wire;
+
+			m_state = m_stateInformation[m_playerState].get();
+
+			(*m_wireInformation[i]).m_actionJudgement = true;
+
+			m_state->Initialize();
+
+			return true;
+		}
+	}
+
+	/*
+	//		ワイヤーを使用できない状態にする
+	m_information->SetWireJudgement(false);
+
 	//		ワイヤーの座標がない場合処理をしない
 	if (m_information->GetWirePosition().size() == 0) return false;
 
@@ -438,6 +496,7 @@ bool Player::WireActionJudgement()
 
 		return true;
 	}
+	*/
 
 	return false;
 }

@@ -17,6 +17,8 @@ class PlayScene;
 class TitleScene;
 class ResultScene;
 
+#include "Game/Menu/MenuManager.h"
+
 class SceneManager
 {
 public:
@@ -79,11 +81,17 @@ public:
 
 private:
 
+	//		メニューマネージャー
+	std::unique_ptr<MenuManager> m_menuManager;
+
 	//        クリアタイム
 	int m_clearTime;
 
 	//        死亡カウント
 	int m_deathCount;
+
+	//		メニューを開いているかどうか
+	bool m_menuJudgement;
 
 public:
 
@@ -114,4 +122,11 @@ public:
 	*    @return 回数
 	*/
 	int GetDeathCount() { return m_deathCount; }
+
+	/*
+	*	メニューを開いているかどうか
+	* 
+	*	@return true : 開いている false : 開いていない
+	*/
+	bool GetMenuJudgement() { return m_menuJudgement; }
 };

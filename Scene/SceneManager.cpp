@@ -14,7 +14,8 @@ SceneManager::SceneManager()
 	:
 	m_scene{},
 	m_deathCount(0),
-	m_clearTime(0)
+	m_clearTime(0),
+	m_menuJudgement(false)
 {
 }
 
@@ -34,18 +35,30 @@ void SceneManager::Initialize()
 	m_scene = m_titleScene.get();
 	//		シーンを初期化する
 	m_scene->Initialize();
+
+	//		メニューマネージャーの生成
+	m_menuManager = std::make_unique<MenuManager>();
+
+	//		メニューマネージャーの初期化
+	m_menuManager->Initialize();
 }
 
 void SceneManager::Update()
 {
 	//		シーンの更新処理
 	m_scene->Update();
+
+	//		メニューマネージャーの更新
+	//m_menuManager->Update();
 }
 
 void SceneManager::Render()
 {
 	//		シーンの描画処理
 	m_scene->Render();
+
+	//		メニューマネージャーの描画
+	//m_menuManager->Render();
 }
 
 void SceneManager::Finalize()

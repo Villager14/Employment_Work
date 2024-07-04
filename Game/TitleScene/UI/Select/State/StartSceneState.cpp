@@ -35,7 +35,7 @@ void StartSceneState::Update()
 	if (m_time >= 1.0f)
 	{
 		//		ŠJŽnó‘Ô‚É‚·‚é
-		m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectPlayState());
+		m_titleSelectManager->ChangeState(TitleSelectManager::State::PlayState);
 	}
 }
 

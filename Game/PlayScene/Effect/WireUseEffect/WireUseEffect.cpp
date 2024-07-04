@@ -43,7 +43,7 @@ void WireUseEffect::Update(PlayerCameraInformation* cameraInformation)
 	}
 }
 
-void WireUseEffect::Render(const std::vector<DirectX::SimpleMath::Vector3>& position)
+void WireUseEffect::Render(DirectX::SimpleMath::Vector3 position)
 {
 	if (m_playerInformation->GetWireJudgement())
 	{

@@ -89,12 +89,12 @@ void SelectSettingState::ChangeSceneProcess()
 		if (m_titleSelectManager->GetDirection())
 		{
 			//		Ý’è‘I‘ðó‘Ô‚É‚·‚é
-			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectEndState());
+			m_titleSelectManager->ChangeState(TitleSelectManager::State::EndState);
 		}
 		else
 		{
 			//		I—¹‘I‘ðó‘Ô‚É‚·‚é
-			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectPlayState());
+			m_titleSelectManager->ChangeState(TitleSelectManager::State::PlayState);
 		}
 	}
 

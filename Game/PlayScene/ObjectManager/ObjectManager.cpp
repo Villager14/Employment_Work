@@ -38,7 +38,10 @@ void ObjectManager::Initialize()
 		m_wireObject.push_back(std::make_unique<WireObject>());
 
 		//		ワイヤーオブジェクトの初期化
-		m_wireObject[i]->Initialize(m_wireObjectPosition[i]);
+		m_wireObject[i]->Initialize(m_wireObjectPosition[i], i);
+
+		//		ワイヤーの情報を設定する
+		m_wireInformation.push_back(m_wireObject[i]->GetWireInformation());
 	}
 
 	//		壁オブジェクトの生成
@@ -70,19 +73,15 @@ void ObjectManager::Initialize()
 
 void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 {
-	m_wirePosition.clear();
+	//m_wirePosition.clear();
 
 	for (int i = 0; i < m_wireObject.size(); ++i)
 	{
 		//		カリングするかどうか
 		if (!Culling(m_wireObject[i]->GetPosition()))
 		{
+			//		ワイヤーオブジェクトの更新処理
 			m_wireObject[i]->Update(playerPosition);
-
-			if (m_wireObject[i]->GetWireAvailableJudgement())
-			{
-				m_wirePosition.push_back(m_wireObject[i]->GetPosition());
-			}
 		}
 	}
 

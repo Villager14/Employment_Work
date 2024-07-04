@@ -40,7 +40,7 @@ void WallWalkAnimationState::Update(float speed, DirectX::SimpleMath::Vector3 po
 
 	DirectX::SimpleMath::Quaternion Body =
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
-			{ 0.0f, -angle.x - DirectX::XMConvertToRadians(90.0f), DirectX::XMConvertToRadians(45.0f * angle.y) });
+			{ 0.0f, angle.x + DirectX::XMConvertToRadians(180.0f), DirectX::XMConvertToRadians(45.0f * angle.y)});
 
 
 	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * Library::Lerp(0.0f, 20.0f, speed / 70.0f);

@@ -15,7 +15,9 @@ TitleSelectManager::TitleSelectManager()
 	m_direction(false),
 	m_scrollWheeel(0),
 	m_changeSceneJudgement(false),
-	m_state()
+	m_iState(),
+	m_menuJudgement(false),
+	m_state{}
 {
 }
 
@@ -41,8 +43,8 @@ void TitleSelectManager::Initialize()
 		UNDER_POINT, { MIN_SCALE, MIN_SCALE });
 
 	//		TitleRogoの描画
-	AddRenderUI(L"Resources/Texture/TitleScene/TitleRogo.png",
-		{ 0.0f,-170.0f }, { MAX_SCALE, MAX_SCALE });
+	//AddRenderUI(L"Resources/Texture/TitleScene/TitleRogo.png",
+	//	{ 0.0f,-170.0f }, { MAX_SCALE, MAX_SCALE });
 
 	//		背景の生成
 	m_backGroundMove = std::make_unique<BackGroundMove>();
@@ -56,26 +58,20 @@ void TitleSelectManager::Initialize()
 	//		エフェクトの作詞絵
 	m_tvOffEffect->Create(L"Resources/Texture/TitleScene/Black.png",{0.0f, 0.0f}, {1.0f, 1.0f});
 
-	//		選択プレイ状態を生成する
-	m_selectPlayState = std::make_unique<SelectPlayState>(this);
 
-	//		選択終了状態を生成する
-	m_selectEndState = std::make_unique<SelectEndState>(this);
+	m_stateInformation.insert({ State::PlayState, std::make_unique<SelectPlayState>(this) });
+	m_stateInformation.insert({ State::EndState, std::make_unique<SelectEndState>(this) });
+	m_stateInformation.insert({ State::SettingState, std::make_unique<SelectSettingState>(this) });
+	m_stateInformation.insert({ State::StartState, std::make_unique<StartSceneState>(this) });
+	m_stateInformation.insert({ State::ChangState, std::make_unique<ChangeSceneState>(this) });
 
-	//		設定状態を生成する
-	m_selectSettingState = std::make_unique<SelectSettingState>(this);
+	m_state = State::StartState;
 
-	//		シーン切り替え状態を生成する
-	m_changeSceneState = std::make_unique<ChangeSceneState>(this);
-	
-	//		スタート状態
-	m_startSeceneState = std::make_unique<StartSceneState>(this);
-
-	//		初期状態をセットする
-	m_state = m_startSeceneState.get();
+	//		初期の状態
+	m_iState = m_stateInformation[m_state].get();
 
 	//		初期化する
-	m_state->Initialize();
+	m_iState->Initialize();
 
 	//		フェードの生成
 	m_fade = std::make_unique<FadeRender>();
@@ -89,6 +85,32 @@ void TitleSelectManager::Initialize()
 	{
 		m_drawOder.push_back(i);
 	}
+
+	//		UIシェーダーマネージャーの生成
+	m_shader = std::make_unique<UIRenderManager>();
+
+	//		シェーダーの作製
+	m_shader->Create(L"Resources/Texture/TitleScene/TitleRogo.png",
+		L"Resources/Shader/UI/UIShaderVS.cso",
+		L"Resources/Shader/UI/UIShaderGS.cso",
+		L"Resources/Shader/UI/UIShaderPS.cso",
+		m_constBuffer,
+		{ 0.0f, -170.0f , }, { MAX_SCALE, MAX_SCALE },
+		CENTER_POINT::MIDDLE_CENTER);
+
+	UIInformation uiInformation;
+
+	uiInformation.position = { 0.0f, -170.0f };
+
+	m_shaderInformation.insert({UIType::TitleRogo, uiInformation});
+
+	//		ウィンドウサイズを送る
+	m_constBuffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	//		回転行列を送る
+	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
 }
 
 void TitleSelectManager::Update()
@@ -96,15 +118,21 @@ void TitleSelectManager::Update()
 	//		背景の更新処理
 	m_backGroundMove->Update();
 
+	//		メニューを開いている場合は処理をしない
+	if (m_menuJudgement) return;
+
 	//		更新処理
-	m_state->Update();
+	m_iState->Update();
 }
 
 void TitleSelectManager::Render()
 {
 	//		背景の描画
 	m_backGroundMove->Render();
-	
+
+	//		メニューを開いている場合は処理をしない
+	if (m_menuJudgement) return;
+
 	////		描画処理
 	//m_state->Render();
 
@@ -124,11 +152,12 @@ void TitleSelectManager::Render()
 	}
 
 	//		描画処理
-	m_state->Render();
+	m_iState->Render();
 
+	m_shader->Render(m_constBuffer);
 
 	//		タイトルロゴの描画
-	m_uiRender[UIType::TitleRogo]->Render();
+	//m_uiRender[UIType::TitleRogo]->Render();
 
 	//m_tvOffEffect->Render(0.5f);
 
@@ -178,19 +207,22 @@ void TitleSelectManager::InputKey()
 	}
 }
 
-void TitleSelectManager::ChangeState(ITitleSelect* state)
+void TitleSelectManager::ChangeState(State state)
 {
 	//		同じ状態なら処理をしない
 	if (m_state == state) return;
 
 	//		現在の状態の終了処理をする
-	m_state->Finalize();
+	m_iState->Finalize();
 
 	//		状態を切り替える
 	m_state = state;
 
+	//		状態を切り替える
+	m_iState = m_stateInformation[m_state].get();
+
 	//		新しい状態の初期化処理をする
-	m_state->Initialize();
+	m_iState->Initialize();
 }
 
 void TitleSelectManager::CentreUP(bool direction, float time, UIType type)

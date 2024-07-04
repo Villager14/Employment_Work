@@ -25,42 +25,6 @@ PlayerWallWalk::~PlayerWallWalk()
 
 void PlayerWallWalk::Initialize()
 {
-	//		移動方向
-	float moveRadian = DirectX::XMConvertToRadians(90.0f);
-	m_moveAngle.y = 1.0f;
-
-	DirectX::SimpleMath::Vector3 acceleation = m_player->GetInformation()->GetAcceleration();
-
-	acceleation.Normalize();
-
-	//		壁に入った方向から移動方向を出す
-	DirectX::SimpleMath::Vector3 corss =
-		m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().Cross(acceleation);
-
-	//		外積が０以上の場合反対の方に進む
-	if (corss.y > 0)
-	{
-		moveRadian *= -1.0f;
-		m_moveAngle.y *= -1.0f;
-	}
-
-	//		最初に当たった壁の法線を受け取る
-	DirectX::SimpleMath::Vector2 normalize =
-	{ m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x,
-	 m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z };
-
-	normalize.Normalize();
-
-	float radian = atan2(normalize.y, normalize.x);
-
-	m_moveAngle.x = radian + moveRadian;
-
-	//		ベクトルを出す
-	m_velocity = DirectX::SimpleMath::Vector3(cosf(radian + moveRadian),
-		0.0f, sinf(radian + moveRadian));
-
-	m_velocity.Normalize();
-
 	float speed = m_player->GetInformation()->GetAcceleration().Length();
 
 	//		歩く速度より遅かった場合
@@ -70,14 +34,35 @@ void PlayerWallWalk::Initialize()
 		speed = m_player->GetInformation()->GetWalkSpeed();
 	}
 
+	//		壁の法線を受け取る
+	DirectX::SimpleMath::Vector3 wallNormalize = m_player->GetPlayerInformationCollition()->GetWallWalkNormalize();
+
+	//		壁とプレイヤーの移動方向の外積を求める
+	DirectX::SimpleMath::Vector3 wallAcccelerationCross = wallNormalize.Cross(m_player->GetInformation()->GetAcceleration());
+
+	//		プレイヤーの壁移動方向を求める
+	DirectX::SimpleMath::Vector3 moveVelocity = wallAcccelerationCross.Cross(wallNormalize);
+
+	//		正規化する
+	moveVelocity.Normalize();
+
+	m_velocity = moveVelocity;
+
 	//		移動速度
-	m_player->GetInformation()->SetAcceleration(m_velocity * speed);
+	m_player->GetInformation()->SetAcceleration(moveVelocity * speed);
 
 	//		移動方向
-	m_player->GetInformation()->SetDirection(m_velocity);
+	m_player->GetInformation()->SetDirection(moveVelocity);
 
 	//		アニメーション壁歩き
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->WallWalk);
+
+
+	//		外積の値からアニメーションの角度を求める
+	m_moveAngle.x = atan2(moveVelocity.x, moveVelocity.z);
+
+	if (wallAcccelerationCross.y < 0.0f)m_moveAngle.y = 1.0f;
+	else m_moveAngle.y = -1.0f;
 }
 
 void PlayerWallWalk::Update()

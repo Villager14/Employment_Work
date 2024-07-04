@@ -39,7 +39,7 @@ public:
 	void Create();
 
 	//		描画処理
-	void Render(const std::vector<DirectX::SimpleMath::Vector3>& position);
+	void Render(DirectX::SimpleMath::Vector3 position);
 
 	/*
 	*	ビルボードの作製

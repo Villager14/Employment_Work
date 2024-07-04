@@ -128,6 +128,12 @@ void PlayerWire::Finalize()
 
 	//		アニメーション待機状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Stay);
+
+	std::vector<WireObjectInformation*> m_wireInformation = m_player->GetWireObjectInformation();
+
+
+	
+
 }
 
 void PlayerWire::MoveProcessing()

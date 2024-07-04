@@ -24,11 +24,19 @@ BackGroundMove::~BackGroundMove()
 void BackGroundMove::Initialize()
 {
 	//		UI描画の生成
-	m_backGroundMoveRender = std::make_unique<BackGroundMoveRender>();
+	m_uiRenderManager = std::make_unique<UIRenderManager>();
 
-	//		UI描画の作製
-	m_backGroundMoveRender->Create(L"Resources/Texture/TitleScene/TitleBack.png",
+	//		シェーダーの生成
+	m_uiRenderManager->Create(L"Resources/Texture/TitleScene/TitleBack.png",
+		L"Resources/Shader/BackGroundMove/BackGroundMoveVS.cso",
+		L"Resources/Shader/BackGroundMove/BackGroundMoveGS.cso",
+		L"Resources/Shader/BackGroundMove/BackGroundMovePS.cso",
+		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+
+	buffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
 }
 
 void BackGroundMove::Update()
@@ -38,8 +46,12 @@ void BackGroundMove::Update()
 
 void BackGroundMove::Render()
 {
+	//		コンストバッファの値を設定する
+	buffer.rotationMatrix = m_uiRenderManager->GetRotationMatrix();
+	buffer.time = { m_time, 0.0f, 0.0f, 0.0f };
+
 	//		背景の描画
-	m_backGroundMoveRender->Render(m_time);
+	m_uiRenderManager->Render(buffer);
 }
 
 void BackGroundMove::Finalize()

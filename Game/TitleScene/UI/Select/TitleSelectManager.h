@@ -23,11 +23,10 @@
 
 #include "../TVOFEffec.h"
 
-class SelectPlayState;
-class SelectEndState;
-class SelectSettingState;
-class ChangeSceneState;
-class StartSceneState;
+
+#include "Library/Shader/UIRenderManager.h"
+
+#include <unordered_map>
 
 class TitleSelectManager
 {
@@ -41,6 +40,26 @@ public:
 		TitleRogo
 	};
 
+	struct UIInformation
+	{
+		DirectX::SimpleMath::Vector2 position;
+		DirectX::SimpleMath::Vector2 scale;
+	};
+
+	enum State
+	{
+		PlayState,
+		EndState,
+		SettingState,
+		ChangState,
+		StartState
+	};
+
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+	};
 
 public:
 
@@ -70,7 +89,7 @@ public:
 	*
 	*	@param	(state)	状態
 	*/
-	void ChangeState(ITitleSelect* state);
+	void ChangeState(State state);
 
 	/*
 	*	中心から上への処理
@@ -107,55 +126,6 @@ public:
 
 private:
 
-	//		選択
-	ITitleSelect* m_state;
-
-	//		プレイ状態
-	std::unique_ptr<SelectPlayState> m_selectPlayState;
-
-	//		終了状態
-	std::unique_ptr<SelectEndState> m_selectEndState;
-
-	//		設定状態
-	std::unique_ptr<SelectSettingState> m_selectSettingState;
-
-	//		シーンを切り替える状態
-	std::unique_ptr<ChangeSceneState> m_changeSceneState;
-
-	//		スタート状態
-	std::unique_ptr<StartSceneState> m_startSeceneState;
-public:
-
-	/*
-	*	プレイ選択状態を受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	SelectPlayState* GetSelectPlayState() { return m_selectPlayState.get(); }
-
-	/*
-	*	終了選択状態を受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	SelectEndState* GetSelectEndState() { return m_selectEndState.get(); }
-	
-	/*
-	*	設定状態を受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	SelectSettingState* GetSelectSettingState() { return m_selectSettingState.get(); }
-
-	/*
-	*	シーンを切り替える状態を受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	ChangeSceneState* GetChangeSceneState() { return m_changeSceneState.get(); }
-
-private:
-
 	//		中心始点
 	const DirectX::SimpleMath::Vector2 CENTER_POINT = { 0.0f,120.0f };
 
@@ -174,10 +144,32 @@ private:
 	//		最小スケール
 	const float MIN_SCALE = 0.5f;
 
-	//		背景移動処理
-	std::unique_ptr<BackGroundMove> m_backGroundMove;
+public:
+
+	/*
+	*	最大スケールを受け取る
+	* 
+	*	@return 大きさ
+	*/
+	const float GetMaxScale() { return MAX_SCALE; }
+
+	/*
+	*	最小スケールを受け取る
+	* 
+	*	@return 大きさ
+	*/
+	const float GetMinScale() { return MIN_SCALE; }
 
 private:
+
+	//		選択
+	ITitleSelect* m_iState;
+
+	//		状態の情報
+	std::unordered_map<State, std::unique_ptr<ITitleSelect>> m_stateInformation;
+
+	//		現在の状態
+	State m_state;
 
 	//		テレビ削除エフェクト
 	std::unique_ptr<TVOFEffec> m_tvOffEffect;
@@ -208,6 +200,21 @@ private:
 
 	//		フェード
 	std::unique_ptr<FadeRender> m_fade;
+
+	//		メニューを開いているかどうか
+	bool m_menuJudgement;
+
+	//		背景移動処理
+	std::unique_ptr<BackGroundMove> m_backGroundMove;
+
+
+	ConstBuffer m_constBuffer;
+
+	//		シェーダー
+	std::unique_ptr<UIRenderManager> m_shader;
+	
+	//		シェーダーの情報
+	std::unordered_map<UIType, UIInformation> m_shaderInformation;
 
 public:
 
@@ -319,4 +326,11 @@ public:
 	*	@param	(time)	時間
 	*/
 	void FadeViewProcess(float time) { m_fade->Render(time); }
+
+	/*
+	*	メニューを開いているかどうか受け取る
+	* 
+	*	@param	(judgement)	true : 開いている　false : 開いていない
+	*/
+	void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
 };

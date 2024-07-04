@@ -90,7 +90,7 @@ void SelectPlayState::ChangeSceneProcess()
 			button.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 		{
 			//		終了選択状態にする
-			m_titleSelectManager->ChangeState(m_titleSelectManager->GetChangeSceneState());
+			m_titleSelectManager->ChangeState(TitleSelectManager::State::ChangState);
 		}
 	}
 	else
@@ -100,12 +100,12 @@ void SelectPlayState::ChangeSceneProcess()
 		if (!m_titleSelectManager->GetDirection())
 		{
 			//		終了選択状態にする
-			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectEndState());
+			m_titleSelectManager->ChangeState(TitleSelectManager::State::EndState);
 		}
 		else
 		{
 			//		設定選択状態にする
-			m_titleSelectManager->ChangeState(m_titleSelectManager->GetSelectSettingState());
+			m_titleSelectManager->ChangeState(TitleSelectManager::State::SettingState);
 		}
 	}
 }

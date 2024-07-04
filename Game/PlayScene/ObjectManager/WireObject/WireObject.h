@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "WireObjectInformation.h"
+
 class WireObject
 {
 public:
@@ -18,7 +20,7 @@ public:
 	~WireObject();
 
 	//		初期化処理
-	void Initialize(DirectX::SimpleMath::Vector3 position);
+	void Initialize(DirectX::SimpleMath::Vector3 position, int number);
 
 	/*
 	*	更新処理
@@ -53,13 +55,7 @@ private:
 
 	//		デバック用のワールド座標
 	DirectX::SimpleMath::Matrix m_debugWorld;
-
-	//		ワイヤーが使えるかどうか
-	bool m_wireAvailableJudgement;
-
-	//		座標
-	DirectX::SimpleMath::Vector3 m_position;
-
+	
 	//		範囲
 	float m_range;
 
@@ -69,6 +65,9 @@ private:
 	//		羽の座標
 	std::vector<DirectX::SimpleMath::Vector3> m_wingPosition;
 
+	//		情報
+	WireObjectInformation m_information;
+
 public:
 
 	/*
@@ -76,13 +75,14 @@ public:
 	* 
 	*	@return 使用可能か true : 使用可能 false : 使用不可能
 	*/
-	bool GetWireAvailableJudgement() { return m_wireAvailableJudgement; }
+	bool GetWireAvailableJudgement() { return m_information.m_usedJudgement; }
 
 	/*
 	*	座標を受け取る
 	* 
 	*	@return 座標
 	*/
-	const DirectX::SimpleMath::Vector3& GetPosition() { return m_position; }
+	const DirectX::SimpleMath::Vector3& GetPosition() { return m_information.position; }
 
+	WireObjectInformation* GetWireInformation() { return &m_information; }
 };

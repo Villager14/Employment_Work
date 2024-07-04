@@ -13,6 +13,8 @@
 
 #include "../Player/PlayerInformation.h"
 
+#include "Game/PlayScene/ObjectManager/WireObject/WireObjectInformation.h"
+
 class EffectManager
 {
 public:
@@ -51,9 +53,10 @@ private:
 	//		プレイヤーの情報
 	PlayerInformation* m_playerInformation;
 
-	std::vector<DirectX::SimpleMath::Vector3> m_wirePosition;
+	//		ワイヤーの情報
+	std::vector<WireObjectInformation*> m_wireInformation;
 
 public:
 
-	void SetWirePosition(const std::vector<DirectX::SimpleMath::Vector3>& position) { m_wirePosition = position; }
+	void SetWireInformation(std::vector<WireObjectInformation*> wire) { m_wireInformation = wire; }
 };
