@@ -36,8 +36,13 @@ void EffectManager::Update(PlayerCameraInformation* cameraInformation)
 
 void EffectManager::Render()
 {
-	//		ワイヤー使用時のエフェクトの描画
-	m_wireUseEffect->Render(m_wirePosition);
+	for (int i = 0, max = static_cast<int>(m_wireInformation.size()); i < max; ++i)
+	{
+		if (!(*m_wireInformation[i]).m_usedJudgement) continue;
+
+		//		ワイヤー使用時のエフェクトの描画
+		m_wireUseEffect->Render((*m_wireInformation[i]).position);
+	}
 }
 
 void EffectManager::Finalize()

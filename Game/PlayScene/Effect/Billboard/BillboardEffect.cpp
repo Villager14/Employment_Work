@@ -50,7 +50,7 @@ void BillboardEffect::Create()
 	m_batch = std::make_unique<DirectX::PrimitiveBatch<DirectX::VertexPositionColorTexture>>(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext());
 }
 
-void BillboardEffect::Render(const std::vector<DirectX::SimpleMath::Vector3>& position)
+void BillboardEffect::Render(DirectX::SimpleMath::Vector3 position)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
@@ -99,23 +99,18 @@ void BillboardEffect::Render(const std::vector<DirectX::SimpleMath::Vector3>& po
 	context->GSSetConstantBuffers(0, 1, cb);
 	context->PSSetConstantBuffers(0, 1, cb);
 
+	DirectX::VertexPositionColorTexture m_vertices{};
+
+	DirectX::VertexPositionColorTexture v;
+
+	v.position = position;
+	v.color = { 1,1,1,1 };
+	v.textureCoordinate = DirectX::XMFLOAT2(10.0f, 0.0f);
+
+	m_vertices = v;
+
 	m_batch->Begin();
-
-	for (int i = 0; i < position.size(); ++i)
-	{
-		DirectX::VertexPositionColorTexture m_vertices{};
-
-		DirectX::VertexPositionColorTexture v;
-
-		v.position = position[i];
-		v.color = { 1,1,1,1 };
-		v.textureCoordinate = DirectX::XMFLOAT2(10.0f, 0.0f);
-
-		m_vertices = v;
-
-		m_batch->Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &m_vertices, 1);
-	}
-
+	m_batch->Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &m_vertices, 1);
 	m_batch->End();
 
 	context->VSSetShader(nullptr, nullptr, 0);

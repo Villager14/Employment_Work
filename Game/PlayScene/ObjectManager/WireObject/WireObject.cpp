@@ -14,9 +14,7 @@
 
 WireObject::WireObject()
 	:
-	//m_objectManager(objectManager),
 	m_wireModel{},
-	m_wireAvailableJudgement(false),
 	m_range(120.0f),
 	m_rotation(0.0f)
 {
@@ -27,8 +25,10 @@ WireObject::~WireObject()
 
 }
 
-void WireObject::Initialize(DirectX::SimpleMath::Vector3 position)
+void WireObject::Initialize(DirectX::SimpleMath::Vector3 position, int number)
 {
+	m_information.number = number;
+
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
 					::GetInstance()->GetEffectFactory();
@@ -72,7 +72,6 @@ void WireObject::Initialize(DirectX::SimpleMath::Vector3 position)
 			}
 		});
 
-
 	//		
 	m_wingPosition.push_back({ 4.0f, 5.0f, 3.6f });
 	m_wingPosition.push_back({ 4.2f, 5.0f, -3.0f });
@@ -81,28 +80,30 @@ void WireObject::Initialize(DirectX::SimpleMath::Vector3 position)
 
 
 	//		座標
-	m_position = position;
+	//m_position = position;
+
+	m_information.position = position;
 
 	//		座標を設定する
-	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_information.position);
 
 	//		デバックワールドの半径の大きさ
 	m_debugWorld = DirectX::SimpleMath::Matrix::CreateScale(m_range);
 
 	//		座標を設定する
-	m_debugWorld *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	m_debugWorld *= DirectX::SimpleMath::Matrix::CreateTranslation(m_information.position);
 }
 
 void WireObject::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 {
 	//		プレイヤーとの距離が一定いないの場合
-	if ((playerPosition - m_position).Length() < m_range + 7.0f)
+	if ((playerPosition - m_information.position).Length() < m_range + 7.0f)
 	{
 		//		使用可能
-   		m_wireAvailableJudgement = true;
+		m_information.m_usedJudgement = true;
 	}
 	//		使用不可能
-	else m_wireAvailableJudgement = false;
+	else 		m_information.m_usedJudgement = false;
 
 	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
 }

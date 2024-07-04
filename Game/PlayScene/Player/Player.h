@@ -39,6 +39,8 @@
 
 #include "Game/PlayScene/Shadow/Shadow.h"
 
+#include "../ObjectManager/WireObject/WireObjectInformation.h"
+
 #include <unordered_map>
 
 class PlayerStay;
@@ -212,6 +214,9 @@ private:
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
 
+	//		ワイヤーの情報
+	std::vector<WireObjectInformation*> m_wireInformation;
+
 public:
 
 	/*
@@ -271,4 +276,18 @@ public:
 	*	@return ポインタのインスタンス
 	*/
 	PlayerAnimation* GetAnimation() { return m_playerAnimation.get(); }
+
+	/*
+	*	ワイヤーの情報を設定する
+	* 
+	*	@param	(wireInformation)	ワイヤーの情報
+	*/
+	void SetWireInformation(std::vector<WireObjectInformation*> wireInformation) { m_wireInformation = wireInformation; }
+
+	/*
+	*	ワイヤー情報を受け取る
+	* 
+	*	@return ワイヤーの情報
+	*/
+	std::vector<WireObjectInformation*> GetWireObjectInformation() { return m_wireInformation; }
  }; 

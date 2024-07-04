@@ -221,6 +221,21 @@
     <Filter Include="Library\Music">
       <UniqueIdentifier>{acfcdda3-68f6-4620-9856-64fd98e54614}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Menu">
+      <UniqueIdentifier>{4adf085f-bc71-4667-887b-b2cd70bdfa98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\State">
+      <UniqueIdentifier>{3b837777-bd01-4574-b8a1-b44e4307fe1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Slider">
+      <UniqueIdentifier>{11510385-a190-4cf0-a33c-f0d0c61d3425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Slider">
+      <UniqueIdentifier>{34fd825b-4916-483f-abbd-0c0f13be47f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Shader">
+      <UniqueIdentifier>{2de7bf5e-06bc-405f-b05a-f1a4a4be0bc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -621,6 +636,36 @@
     <ClInclude Include="Library\Music\MusicLibrary.h">
       <Filter>Library\Music</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObjectInformation.h">
+      <Filter>Game\PlayScene\ObjectManager\WireObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\IMenu.h">
+      <Filter>Game\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\MenuManager.h">
+      <Filter>Game\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\State\AudioSetting.h">
+      <Filter>Game\Menu\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\State\MenuStart.h">
+      <Filter>Game\Menu\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Slider\Slider.h">
+      <Filter>Game\Menu\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Slider\SliderRender.h">
+      <Filter>Game\Menu\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Shader\UIRenderManager.h">
+      <Filter>Library\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Shader\ConstBufferManager.h">
+      <Filter>Library\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\TitleUIManager.h">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -974,6 +1019,30 @@
     <ClCompile Include="Library\Music\MusicLibrary.cpp">
       <Filter>Library\Music</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Menu\MenuManager.cpp">
+      <Filter>Game\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\State\AudioSetting.cpp">
+      <Filter>Game\Menu\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\State\MenuStart.cpp">
+      <Filter>Game\Menu\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Slider\Slider.cpp">
+      <Filter>Game\Menu\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Slider\SliderRender.cpp">
+      <Filter>Game\Menu\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Shader\UIRenderManager.cpp">
+      <Filter>Library\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Shader\ConstBufferManager.cpp">
+      <Filter>Library\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\TitleUIManager.cpp">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1034,6 +1103,9 @@
     </None>
     <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli">
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
+    </None>
+    <None Include="Resources\Shader\Slider\Slider.hlsli">
+      <Filter>Resorces\Shader\Slider</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1257,6 +1329,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureVS.hlsl">
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Slider\SliderGS.hlsl">
+      <Filter>Resorces\Shader\Slider</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Slider\SliderPS.hlsl">
+      <Filter>Resorces\Shader\Slider</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Slider\SliderVS.hlsl">
+      <Filter>Resorces\Shader\Slider</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
-#include "BackGroundMoveRender.h"
+#include "Library/Shader/UIRenderManager.h"
 
 class BackGroundMove
 {
@@ -27,11 +27,20 @@ public:
 
 	void Finalize();
 
+public:
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 time;
+	};
 
 private:
 
-	//		背景移動の描画
-	std::unique_ptr<BackGroundMoveRender> m_backGroundMoveRender;
+	//		UI描画マネージャー
+	std::unique_ptr<UIRenderManager> m_uiRenderManager;
 
 	//		時間
 	float m_time;
@@ -41,4 +50,6 @@ private:
 
 	//		フェードアウトをするかどうか判断する
 	bool m_fadeoutResetJudgement;
+
+	ConstBuffer buffer;
 };

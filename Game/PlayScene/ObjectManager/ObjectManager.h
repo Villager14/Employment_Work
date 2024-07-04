@@ -23,6 +23,8 @@
 
 #include "Game/PlayScene/Shadow/ShadowInformation.h"
 
+#include "WireObject/WireObjectInformation.h"
+
 class ObjectManager
 {
 public:
@@ -101,6 +103,9 @@ private:
 	//		ワイヤーオブジェクトの座標
 	std::vector<DirectX::SimpleMath::Vector3> m_wireObjectPosition;
 
+	//		ワイヤーの情報
+	std::vector<WireObjectInformation*> m_wireInformation;
+
 public:
 
 	/*
@@ -130,4 +135,11 @@ public:
 	*	@return 座標
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetWirePosition() { return m_wirePosition; }
+
+	/*
+	*	ワイヤーオブジェクトの情報を受け取る
+	* 
+	*	@return	ワイヤー情報
+	*/
+	std::vector<WireObjectInformation*> GetUseWireInformation() { return m_wireInformation; }
 };
