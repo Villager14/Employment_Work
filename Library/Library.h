@@ -17,8 +17,8 @@ namespace Library
 	*	@param	(max)	Å‘å’l
 	*	@return ’l
 	*/
-	template<typename T>
-	inline T Clamp(T val, T min, T max)
+	template<typename UIType>
+	inline UIType Clamp(UIType val, UIType min, UIType max)
 	{
 		if (val >= max) return max;
 		else if (val <= min) return min;

@@ -32,7 +32,7 @@ void SceneManager::Initialize()
 	//		リザルトシーンを生成する
 	m_resultScene = std::make_unique<ResultScene>(this);
 	//		初期シーンを設定する
-	m_scene = m_titleScene.get();
+	m_scene = m_resultScene.get();
 	//		シーンを初期化する
 	m_scene->Initialize();
 

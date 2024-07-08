@@ -51,6 +51,7 @@ void SelectPlayState::UIMove()
 	//		ƒL[ˆ—‚ª‚È‚©‚Á‚½ê‡ˆ—‚ð‚µ‚È‚¢
 	if (!m_titleSelectManager->GetKeyInput()) return;
 
+	//		Œo‰ßŽžkØ
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * m_titleSelectManager->GetMoveSpeed();
 
 	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
@@ -58,20 +59,20 @@ void SelectPlayState::UIMove()
 	//		ã‚ÉˆÚ“®
 	if (m_titleSelectManager->GetDirection())
 	{
-		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Play);
+		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Play);
 
-		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Setting);
+		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Setting);
 
-		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::End);
+		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::End);
 	}
 	//		‰º‚ÉˆÚ“®
 	else
 	{
-		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::End);
+		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::End);
 
-		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Play);
+		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Play);
 
-		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Setting);
+		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Setting);
 	}
 }
 

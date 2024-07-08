@@ -9,6 +9,7 @@
 
 #include "StartSceneState.h"
 
+
 StartSceneState::StartSceneState(TitleSelectManager* titleSelectManager)
 	:
 	m_titleSelectManager(titleSelectManager),
@@ -27,11 +28,13 @@ void StartSceneState::Initialize()
 
 void StartSceneState::Update()
 {
+	//		経過時間
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		ゲーム開始時の音量のボリューム調整
 	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
 
+	//		時間が一以上になったら状態を切り替える
 	if (m_time >= 1.0f)
 	{
 		//		開始状態にする
@@ -41,6 +44,7 @@ void StartSceneState::Update()
 
 void StartSceneState::Render()
 {
+	//		フェードの描画
 	m_titleSelectManager->FadeViewProcess(m_time);
 }
 

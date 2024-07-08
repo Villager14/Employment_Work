@@ -47,8 +47,10 @@ public:
 
 private:
 
+	//		タイトルセレクトマネージャーのインスタンスのポインタ
 	TitleSelectManager* m_titleSelectManager;
 
+	//		時間
 	float m_time;
 
 };

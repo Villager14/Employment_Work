@@ -44,6 +44,7 @@ void ChangeSceneState::Update()
 
 void ChangeSceneState::Render()
 {
+	//		フェードの描画
 	m_titleSelectManager->FadeViewProcess(m_time);
 }
 

@@ -37,20 +37,20 @@ void ResultStay::Update()
 		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 	{
 		//		ó‘Ô‚ðØ‚è‘Ö‚¦‚é(”ŽšˆÚ“®ó‘Ô)
-		m_resultManager->ChangeState(m_resultManager->GetResultEnd());
+		m_resultManager->ChangeState(ResultManager::State::End);
 	}
 }
 
 void ResultStay::Render()
 {
-	//		UI”wŒi‚Ì•`‰æ
-	m_resultManager->UIViewProcess(1);
+	//		•]‰¿
+	m_resultManager->GetStandardShader()->Render(ResultManager::EvaluationUI);
 
-	//		ƒ{ƒ^ƒ“
-	m_resultManager->UIViewProcess(2);
+	//		‘JˆÚ—U“±‰æ‘œ
+	m_resultManager->GetStandardShader()->Render(ResultManager::Button);
 
 	//		”Žš‚Ì•`‰æ
-	m_resultManager->NumberRender(4.0f);
+	m_resultManager->GetRiseNumberShader()->Render(4.0f);
 }
 
 void ResultStay::Finalize()

@@ -38,7 +38,7 @@ void ResultStart::Update()
 	if (m_time >= 1.0f)
 	{
 		//		ó‘Ô‚ğØ‚è‘Ö‚¦‚é(”šˆÚ“®ó‘Ô)
-		m_resultManager->ChangeState(m_resultManager->GetNumberMove());
+		m_resultManager->ChangeState(ResultManager::State::NumberMove);
 	}
 }
 

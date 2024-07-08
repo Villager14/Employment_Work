@@ -7,24 +7,28 @@
 
 #pragma once
 
-#include "Game/PlayScene/GameManager/GameManager.h"
-
 #include "Library/Shader/UIRenderManager.h"
 
 class BackGroundMove
 {
 public:
 
+	//		コンストラクタ
 	BackGroundMove();
 
+	//		デストラクタ
 	~BackGroundMove();
 
+	//		初期化処理
 	void Initialize();
 
+	//		更新処理
 	void Update();
 
+	//		描画処理
 	void Render();
 
+	//		終了処理
 	void Finalize();
 
 public:
@@ -32,9 +36,9 @@ public:
 	//		コンストバッファ
 	struct ConstBuffer
 	{
-		DirectX::SimpleMath::Vector4 windowSize;
-		DirectX::SimpleMath::Matrix  rotationMatrix;
-		DirectX::SimpleMath::Vector4 time;
+		DirectX::SimpleMath::Vector4 windowSize;		//		ウィンドウサイズ
+		DirectX::SimpleMath::Matrix  rotationMatrix;	//		回転行列
+		DirectX::SimpleMath::Vector4 time;				//		時間
 	};
 
 private:
@@ -51,5 +55,6 @@ private:
 	//		フェードアウトをするかどうか判断する
 	bool m_fadeoutResetJudgement;
 
+	//		コンストバッファ
 	ConstBuffer buffer;
 };

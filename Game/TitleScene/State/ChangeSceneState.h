@@ -13,7 +13,7 @@
 
 class TitleSelectManager;
 
-class StartSceneState : public ITitleSelect
+class ChangeSceneState : public ITitleSelect
 {
 public:
 
@@ -22,10 +22,10 @@ public:
 	* 
 	*	@param	(titleSelectManager)	タイトル選択マネージャーのインスタンスのポインタ
 	*/
-	StartSceneState(TitleSelectManager* titleSelectManager);
+	ChangeSceneState(TitleSelectManager* titleSelectManager);
 
 	//		デストラクタ
-	~StartSceneState();
+	~ChangeSceneState();
 
 	//		初期化処理
 	void Initialize() override;
@@ -41,7 +41,9 @@ public:
 
 private:
 
+	//		タイトルセレクトマネージャーのインスタンスのポインタ
 	TitleSelectManager* m_titleSelectManager;
 
+	//		時間
 	float m_time;
 };

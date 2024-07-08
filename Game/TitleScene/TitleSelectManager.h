@@ -7,58 +7,39 @@
 
 #pragma once
 
+#include <unordered_map>
+
 #include "ITitleSelect.h"
-
-#include "State/SelectPlayState.h"
-#include "State/SelectEndState.h"
-#include "State/SelectSettingState.h"
-#include "State/ChangeSceneState.h"
-#include "State/StartSceneState.h"
-
-#include "Game/PlayScene/UIManager/UIRender.h"
 
 #include "Game/TitleScene/UI/BackGroundMove.h"
 
 #include "Game/PlayScene/UIManager/Fade/FadeRender.h"
 
-#include "../TVOFEffec.h"
+#include "Library/Shader/StandardShader.h"
 
-
-#include "Library/Shader/UIRenderManager.h"
-
-#include <unordered_map>
+class TitleUIManager;
 
 class TitleSelectManager
 {
 public:
 
-	enum UIType
+	//		UIの種類
+	enum TitleUIType
 	{
-		Play,
-		End,
-		Setting,
-		TitleRogo
+		Play,		//		プレイ
+		End,		//		終了
+		Setting,	//		設定
+		TitleRogo	//		タイトルロゴ
 	};
 
-	struct UIInformation
-	{
-		DirectX::SimpleMath::Vector2 position;
-		DirectX::SimpleMath::Vector2 scale;
-	};
-
+	//		状態
 	enum State
 	{
-		PlayState,
-		EndState,
-		SettingState,
-		ChangState,
-		StartState
-	};
-
-	struct ConstBuffer
-	{
-		DirectX::SimpleMath::Vector4 windowSize;
-		DirectX::SimpleMath::Matrix  rotationMatrix;
+		PlayState,		//		プレイ状態
+		EndState,		//		終了状態
+		SettingState,	//		設定状態
+		ChangState,		//		変更状態
+		StartState		//		スタート状態
 	};
 
 public:
@@ -84,6 +65,9 @@ public:
 	//		キー入力
 	void InputKey();
 
+	//		スタンダードシェーダーの作製
+	void CreateStandardShader();
+
 	/*
 	*	状態を変更する
 	*
@@ -96,33 +80,21 @@ public:
 	* 
 	*	@bool (direction)	true : 上へ移動する false : 中心へ移動する
 	*/
-	void CentreUP(bool direction, float time, UIType type);
+	void CentreUP(bool direction, float time, TitleUIType type);
 
 	/*
 	*	中心から下への処理
 	* 
 	*	@bool (direction)	true : 下へ移動する false : 中心へ移動する
 	*/
-	void CenterUnder(bool direction, float time, UIType type);
+	void CenterUnder(bool direction, float time, TitleUIType type);
 
 	/*
 	*	中心から下への処理
 	*
 	*	@bool (direction)	true : 下へ移動する false : 中心へ移動する
 	*/
-	void UPUnder(bool direction, float time, UIType type);
-
-
-	/*
-	*	UIを追加する
-	* 
-	*	@param	(path)		テクスチャファイルパス
-	*	@param	(position)	座標
-	*	@param	(size)		サイズ
-	*/
-	void AddRenderUI(const wchar_t* path,
-		DirectX::SimpleMath::Vector2 position,
-		DirectX::SimpleMath::Vector2 size);
+	void UPUnder(bool direction, float time, TitleUIType type);
 
 private:
 
@@ -144,22 +116,6 @@ private:
 	//		最小スケール
 	const float MIN_SCALE = 0.5f;
 
-public:
-
-	/*
-	*	最大スケールを受け取る
-	* 
-	*	@return 大きさ
-	*/
-	const float GetMaxScale() { return MAX_SCALE; }
-
-	/*
-	*	最小スケールを受け取る
-	* 
-	*	@return 大きさ
-	*/
-	const float GetMinScale() { return MIN_SCALE; }
-
 private:
 
 	//		選択
@@ -171,20 +127,8 @@ private:
 	//		現在の状態
 	State m_state;
 
-	//		テレビ削除エフェクト
-	std::unique_ptr<TVOFEffec> m_tvOffEffect;
-
-	//		UIマネージャー
-	std::vector<std::unique_ptr<UIRender>> m_uiRender;
-
-	//		UIの座標
-	std::vector<DirectX::SimpleMath::Vector2> m_uiPosition;
-
-	//		UIのサイズ
-	std::vector<DirectX::SimpleMath::Vector2> m_uiSize;
-
 	//		描画順を設定する
-	std::vector<int> m_drawOder;
+	std::vector<TitleUIType> m_drawOder;
 
 	//		キー入力があったかどうか
 	bool m_inputKey;
@@ -207,46 +151,24 @@ private:
 	//		背景移動処理
 	std::unique_ptr<BackGroundMove> m_backGroundMove;
 
-
-	ConstBuffer m_constBuffer;
-
-	//		シェーダー
-	std::unique_ptr<UIRenderManager> m_shader;
-	
-	//		シェーダーの情報
-	std::unordered_map<UIType, UIInformation> m_shaderInformation;
+	//		タイトルUIマネージャー
+	std::unique_ptr<StandardShader<TitleUIType>> m_standardShader;
 
 public:
 
 	/*
-	*	座標を設定する
-	* 
-	*	@parma	(position)	座標
-	*	@param	(type)		UIのタイプ
-	*/
-	void SetUIPosition(const DirectX::SimpleMath::Vector2& position, UIType type) { m_uiPosition[type] = position; }
+*	最大スケールを受け取る
+*
+*	@return 大きさ
+*/
+	const float GetMaxScale() { return MAX_SCALE; }
 
 	/*
-	*	UI座標を設定する
-	* 
-	*	@return 座標
-	*/
-	const std::vector<DirectX::SimpleMath::Vector2>& GetUIPosition() { return m_uiPosition; }
-
-	/*
-	*	サイズを設定する
+	*	最小スケールを受け取る
 	*
-	*	@parma	(size)	サイズ
-	*	@param	(type)	UIのタイプ
+	*	@return 大きさ
 	*/
-	void SetUISize(const DirectX::SimpleMath::Vector2& size, UIType type) { m_uiSize[type] = size; }
-
-	/*
-	*	UIサイズを設定する
-	*
-	*	@return サイズ
-	*/
-	const std::vector<DirectX::SimpleMath::Vector2>& GetUISize() { return m_uiSize; }
+	const float GetMinScale() { return MIN_SCALE; }
 
 	/*
 	*	中心ポイントを受け取る
@@ -333,4 +255,11 @@ public:
 	*	@param	(judgement)	true : 開いている　false : 開いていない
 	*/
 	void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
+
+	/*
+	*	タイトルUIマネージャーのインスタンスのポインタを受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	StandardShader<TitleUIType>* GetStandardShader() { return m_standardShader.get(); }
 };

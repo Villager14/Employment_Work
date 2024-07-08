@@ -42,12 +42,14 @@ void ResultEvaluation::Update()
 		size = 1.0f - pow(-2.0f * m_time + 2.0f, 3.0f) / 2.0f;
 	}
 
-	m_resultManager->UIScare(1, size);
+	//		•]‰¿
+	(*m_resultManager->GetStandardShader()->GetUIInformation())[ResultManager::EvaluationUI].scale = { 1, size };
+
 
 	if (m_time >= 1.0f)
 	{
 		//		ó‘Ô‚ðØ‚è‘Ö‚¦‚é(‘Ò‹@ó‘Ô)
-		m_resultManager->ChangeState(m_resultManager->GetResultStay());
+		m_resultManager->ChangeState(ResultManager::State::Stay);
 	}
 
 	//	ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒXƒLƒbƒv
@@ -56,11 +58,11 @@ void ResultEvaluation::Update()
 
 void ResultEvaluation::Render()
 {
-	//		UI”wŒi‚Ì•`‰æ
-	m_resultManager->UIViewProcess(1);
+	//		•]‰¿
+	m_resultManager->GetStandardShader()->Render(ResultManager::EvaluationUI);
 
 	//		”Žš‚Ì•`‰æ
-	m_resultManager->NumberRender(4.0f);
+	m_resultManager->GetRiseNumberShader()->Render(4.0f);
 }
 
 void ResultEvaluation::Finalize()

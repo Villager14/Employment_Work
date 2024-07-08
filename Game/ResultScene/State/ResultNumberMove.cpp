@@ -34,7 +34,7 @@ void ResultNumberMove::Update()
 	if (m_time >= 4.0f)
 	{
 		//		ó‘Ô‚ðØ‚è‘Ö‚¦‚é(•]‰¿ó‘Ô)
-		m_resultManager->ChangeState(m_resultManager->GetEvaluation());
+		m_resultManager->ChangeState(ResultManager::State::Evaluation);
 	}
 
 	//	ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒXƒLƒbƒv
@@ -46,7 +46,10 @@ void ResultNumberMove::Render()
 	//		UI”wŒi‚Ì•`‰æ
 	//m_resultManager->UIViewProcess(0);
 
-	m_resultManager->NumberRender(m_time);
+	//		”Žš‚Ì•`‰æ
+	m_resultManager->GetRiseNumberShader()->Render(m_time);
+
+	//m_resultManager->NumberRender(m_time);
 }
 
 void ResultNumberMove::Finalize()
