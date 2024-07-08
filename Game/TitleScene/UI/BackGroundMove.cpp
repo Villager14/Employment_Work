@@ -34,6 +34,7 @@ void BackGroundMove::Initialize()
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
+	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
@@ -41,6 +42,7 @@ void BackGroundMove::Initialize()
 
 void BackGroundMove::Update()
 {
+	//		背景の移動時間
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.1f;
 }
 

@@ -11,9 +11,7 @@
 
 #include "../SceneManager.h"
 
-#include "Game/TitleScene/UI/Select/TitleSelectManager.h"
-
-#include "Library/Shader/UIRenderManager.h"
+#include "Game/TitleScene/TitleSelectManager.h"
 
 class SceneManager;
 
@@ -39,21 +37,10 @@ public:
 	//		終了処理
 	void Finalize() override;
 
-public:
-
-	struct ConstBuffer
-	{
-		DirectX::SimpleMath::Vector4 windowSize;
-		DirectX::SimpleMath::Matrix  rotationMatrix;
-	};
-
 private:
 	//		シーンマネージャーのインスタンスのポインタ
 	SceneManager* m_sceneManager;
 
 	//		タイトル選択マネージャー
 	std::unique_ptr<TitleSelectManager> m_titleSelectManager;
-
-	//		UIシェーダーマネージャー
-	std::unique_ptr<UIRenderManager> m_uiShaderManager;
 };

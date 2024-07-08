@@ -12,11 +12,11 @@ public:
 	//		デストラクタ
 	~ConstBufferManager();
 
-	template<typename T>
-	void CreateConstBuffer(const T& obj);
+	template<typename UIType>
+	void CreateConstBuffer(const UIType& obj);
 
-	template<typename T>
-	void UpdateBuffer(const T& data);
+	template<typename UIType>
+	void UpdateBuffer(const UIType& data);
 
 	void BindBuffer();
 private:
@@ -25,12 +25,12 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_buffer;
 };
 
-template<typename T>
-inline void ConstBufferManager::CreateConstBuffer(const T& obj)
+template<typename UIType>
+inline void ConstBufferManager::CreateConstBuffer(const UIType& obj)
 {
 	UNREFERENCED_PARAMETER(obj);
 
-	T buffer = {};
+	UIType buffer = {};
 
 	//		シェーダにデータを渡すためのコンスタントバッファ生成
 	D3D11_BUFFER_DESC bd;
@@ -44,8 +44,8 @@ inline void ConstBufferManager::CreateConstBuffer(const T& obj)
 		->CreateBuffer(&bd, nullptr, &m_buffer);
 }
 
-template<typename T>
-inline void ConstBufferManager::UpdateBuffer(const T& data)
+template<typename UIType>
+inline void ConstBufferManager::UpdateBuffer(const UIType& data)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 

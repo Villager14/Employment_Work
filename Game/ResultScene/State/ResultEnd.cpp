@@ -42,15 +42,16 @@ void ResultEnd::Update()
 
 void ResultEnd::Render()
 {
-	//		UI”wŒi‚Ì•`‰æ
-	m_resultManager->UIViewProcess(1);
+	//		•]‰¿
+	m_resultManager->GetStandardShader()->Render(ResultManager::EvaluationUI);
 
-	//		ƒ{ƒ^ƒ“
-	m_resultManager->UIViewProcess(2);
+	//		‘JˆÚ—U“±‰æ‘œ
+	m_resultManager->GetStandardShader()->Render(ResultManager::Button);
 
 	//		”Žš‚Ì•`‰æ
-	m_resultManager->NumberRender(4.0f);
+	m_resultManager->GetRiseNumberShader()->Render(4.0f);
 
+	//		ƒtƒF[ƒhˆ—
 	m_resultManager->FadeViewProcess(m_time);
 }
 

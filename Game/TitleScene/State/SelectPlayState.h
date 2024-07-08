@@ -1,8 +1,8 @@
 /*
-* @file		ChangeSceneState.h
-* @brief	シーン切り替えをした状態
+* @file		SelectPlayerState.h
+* @brief	プレイを選択した状態
 * @author	Morita
-* @date		2024/05/27
+* @date		2024/05/25
 */
 
 #pragma once
@@ -13,7 +13,7 @@
 
 class TitleSelectManager;
 
-class ChangeSceneState : public ITitleSelect
+class SelectPlayState : public ITitleSelect
 {
 public:
 
@@ -22,10 +22,10 @@ public:
 	* 
 	*	@param	(titleSelectManager)	タイトル選択マネージャーのインスタンスのポインタ
 	*/
-	ChangeSceneState(TitleSelectManager* titleSelectManager);
+	SelectPlayState(TitleSelectManager* titleSelectManager);
 
 	//		デストラクタ
-	~ChangeSceneState();
+	~SelectPlayState();
 
 	//		初期化処理
 	void Initialize() override;
@@ -39,9 +39,17 @@ public:
 	//		終了処理
 	void Finalize() override;
 
+	//		UIの移動
+	void UIMove();
+
+	//		シーンを切り替える処理
+	void ChangeSceneProcess();
+
 private:
 
+	//		タイトル選択マネージャーのインスタンスのポインタ
 	TitleSelectManager* m_titleSelectManager;
 
+	//		時間
 	float m_time;
 };

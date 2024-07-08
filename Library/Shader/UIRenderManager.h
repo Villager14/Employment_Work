@@ -46,13 +46,13 @@ public:
 	*	@param	(scale)			スケール
 	*	@param	(centerPoint)	中心点
 	*/
-	template<typename T>
+	template<typename UIType>
 	void Create(
 		const wchar_t* texpath,
 		const wchar_t* vsPath,
 		const wchar_t* gsPath,
 		const wchar_t* psPath,
-		const T& obj,
+		const UIType& obj,
 		DirectX::SimpleMath::Vector2 position,
 		DirectX::SimpleMath::Vector2 scale,
 		CENTER_POINT centerPoint = CENTER_POINT::MIDDLE_CENTER);
@@ -64,8 +64,8 @@ public:
 		const wchar_t* psPath
 		);
 
-	template<typename T>
-	void Render(const T& obj);
+	template<typename UIType>
+	void Render(const UIType& obj);
 
 private:
 
@@ -139,12 +139,21 @@ public:
 	void SetSize(DirectX::SimpleMath::Vector2 size) { m_scale = size; }
 
 	ConstBufferManager* GetConstBufferManager() { return m_constBufferManager.get(); }
+
+	void SetTexture(Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture) { m_texture = texture; };
+
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetTexture() { return m_texture; }
+
+	DirectX::SimpleMath::Vector2 GetTextureSize() 
+	{ return { static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight) }; }
+
+	void SetTextureSize(int width, int height) {m_textureWidth = width; m_textureHeight = height; }
 };
 
-template<typename T>
+template<typename UIType>
 inline void UIRenderManager::Create(const wchar_t* texpath,
 	const wchar_t* vsPath, const wchar_t* gsPath, const wchar_t* psPath,
-	const T& obj, DirectX::SimpleMath::Vector2 position,
+	const UIType& obj, DirectX::SimpleMath::Vector2 position,
 	DirectX::SimpleMath::Vector2 scale, CENTER_POINT centerPoint)
 {
 	m_position = position;
@@ -162,8 +171,8 @@ inline void UIRenderManager::Create(const wchar_t* texpath,
 	LoadTexture(texpath);
 }
 
-template<typename T>
-inline void UIRenderManager::Render(const T& obj)
+template<typename UIType>
+inline void UIRenderManager::Render(const UIType& obj)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 

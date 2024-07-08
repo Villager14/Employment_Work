@@ -52,6 +52,7 @@ void SelectSettingState::UIMove()
 	//		ƒL[ˆ—‚ª‚È‚©‚Á‚½ê‡ˆ—‚ğ‚µ‚È‚¢
 	if (!m_titleSelectManager->GetKeyInput()) return;
 
+	//		Œo‰ßŠÔ
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * m_titleSelectManager->GetMoveSpeed();
 
 	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
@@ -59,20 +60,20 @@ void SelectSettingState::UIMove()
 	//		ã‚ÉˆÚ“®
 	if (m_titleSelectManager->GetDirection())
 	{
-		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Setting);
+		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Setting);
 
-		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::End);
+		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::End);
 
-		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Play);
+		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Play);
 	}
 	//		‰º‚ÉˆÚ“®
 	else
 	{
-		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Play);
+		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Play);
 
-		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::Setting);
+		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Setting);
 
-		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::UIType::End);
+		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::End);
 	}
 }
 
@@ -81,7 +82,7 @@ void SelectSettingState::ChangeSceneProcess()
 	//		ŠÔ‚ª‚PˆÈ‰º‚Ìê‡ˆ—‚ğ‚µ‚È‚¢
 	if (m_time < 1.0f)
 	{
-
+		//		İ’è‚Ìˆ—‚ğ•`‚­!
 	}
 	else
 	{
@@ -97,5 +98,4 @@ void SelectSettingState::ChangeSceneProcess()
 			m_titleSelectManager->ChangeState(TitleSelectManager::State::PlayState);
 		}
 	}
-
 }

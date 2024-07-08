@@ -9,6 +9,12 @@
 
 #include "TitleSelectManager.h"
 
+#include "State/SelectPlayState.h"
+#include "State/SelectEndState.h"
+#include "State/SelectSettingState.h"
+#include "State/ChangeSceneState.h"
+#include "State/StartSceneState.h"
+
 TitleSelectManager::TitleSelectManager()
 	:
 	m_inputKey(false),
@@ -30,41 +36,20 @@ void TitleSelectManager::Initialize()
 	//		マウスのフォールチをリセットする
 	DirectX::Mouse::Get().ResetScrollWheelValue();
 
-	//		Playの描画
-	AddRenderUI(L"Resources/Texture/TitleScene/Select/TitlePlay.png",
-		CENTER_POINT, { MAX_SCALE, MAX_SCALE });
-
-	//		Playの描画
-	AddRenderUI(L"Resources/Texture/TitleScene/Select/TitleEnd.png",
-		UP_POINT, { MIN_SCALE, MIN_SCALE });
-
-	//		Playの描画
-	AddRenderUI(L"Resources/Texture/TitleScene/Select/TitleSetting.png",
-		UNDER_POINT, { MIN_SCALE, MIN_SCALE });
-
-	//		TitleRogoの描画
-	//AddRenderUI(L"Resources/Texture/TitleScene/TitleRogo.png",
-	//	{ 0.0f,-170.0f }, { MAX_SCALE, MAX_SCALE });
-
 	//		背景の生成
 	m_backGroundMove = std::make_unique<BackGroundMove>();
 
 	//		背景の初期化
 	m_backGroundMove->Initialize();
 
-	//		TVOffのエフェクトの生成
-	m_tvOffEffect = std::make_unique<TVOFEffec>();
-
-	//		エフェクトの作詞絵
-	m_tvOffEffect->Create(L"Resources/Texture/TitleScene/Black.png",{0.0f, 0.0f}, {1.0f, 1.0f});
-
-
+	//		状態の情報を設定する
 	m_stateInformation.insert({ State::PlayState, std::make_unique<SelectPlayState>(this) });
 	m_stateInformation.insert({ State::EndState, std::make_unique<SelectEndState>(this) });
 	m_stateInformation.insert({ State::SettingState, std::make_unique<SelectSettingState>(this) });
 	m_stateInformation.insert({ State::StartState, std::make_unique<StartSceneState>(this) });
 	m_stateInformation.insert({ State::ChangState, std::make_unique<ChangeSceneState>(this) });
 
+	//		初期の状態
 	m_state = State::StartState;
 
 	//		初期の状態
@@ -81,36 +66,12 @@ void TitleSelectManager::Initialize()
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
 	//		描画順を設定する
-	for (int i = 0; i < 3; ++i)
-	{
-		m_drawOder.push_back(i);
-	}
+	m_drawOder.push_back(TitleUIType::Play);
+	m_drawOder.push_back(TitleUIType::Setting);
+	m_drawOder.push_back(TitleUIType::End);
 
-	//		UIシェーダーマネージャーの生成
-	m_shader = std::make_unique<UIRenderManager>();
-
-	//		シェーダーの作製
-	m_shader->Create(L"Resources/Texture/TitleScene/TitleRogo.png",
-		L"Resources/Shader/UI/UIShaderVS.cso",
-		L"Resources/Shader/UI/UIShaderGS.cso",
-		L"Resources/Shader/UI/UIShaderPS.cso",
-		m_constBuffer,
-		{ 0.0f, -170.0f , }, { MAX_SCALE, MAX_SCALE },
-		CENTER_POINT::MIDDLE_CENTER);
-
-	UIInformation uiInformation;
-
-	uiInformation.position = { 0.0f, -170.0f };
-
-	m_shaderInformation.insert({UIType::TitleRogo, uiInformation});
-
-	//		ウィンドウサイズを送る
-	m_constBuffer.windowSize = DirectX::SimpleMath::Vector4(
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
-
-	//		回転行列を送る
-	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
+	//		スタンダードシェーダーの作製
+	CreateStandardShader();
 }
 
 void TitleSelectManager::Update()
@@ -133,33 +94,18 @@ void TitleSelectManager::Render()
 	//		メニューを開いている場合は処理をしない
 	if (m_menuJudgement) return;
 
-	////		描画処理
-	//m_state->Render();
-
-	for (int i = 0; i < m_uiRender.size(); ++i)
+	//		選択の描画
+	for (int i = 0, max = static_cast<int>(m_drawOder.size()); i < max; ++i)
 	{
-		//		UIの座標を設定する
-		m_uiRender[i]->SetPosition(m_uiPosition[i]);
-
-		//		UIのサイズを設定する
-		m_uiRender[i]->SetSize(m_uiSize[i]);
+		//		選択UIの描画
+		m_standardShader->Render(m_drawOder[i]);
 	}
 
-	//		UIの描画(選択肢)
-	for (int i = 0; i < 3; ++i)
-	{
-		m_uiRender[m_drawOder[i]]->Render();
-	}
+	//		タイトルロゴの描画
+	m_standardShader->Render(TitleUIType::TitleRogo);
 
 	//		描画処理
 	m_iState->Render();
-
-	m_shader->Render(m_constBuffer);
-
-	//		タイトルロゴの描画
-	//m_uiRender[UIType::TitleRogo]->Render();
-
-	//m_tvOffEffect->Render(0.5f);
 
 }
 
@@ -203,8 +149,44 @@ void TitleSelectManager::InputKey()
 			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Select);
 		}
 
+		//		ホイールの値を更新する
 		m_scrollWheeel = DirectX::Mouse::Get().GetState().scrollWheelValue;
 	}
+}
+
+void TitleSelectManager::CreateStandardShader()
+{
+	//		タイトルUIマネージャーの生成
+	m_standardShader = std::make_unique<StandardShader<TitleUIType>>();
+
+	//		タイトルUIマネージャの初期化
+	m_standardShader->Initialize();
+
+	//		タイトルロゴの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/TitleRogo.png",
+		{ 0.0f, -170.0f }, { MAX_SCALE,
+		MAX_SCALE },
+		TitleSelectManager::TitleUIType::TitleRogo);
+
+	//		Playの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/Select/TitlePlay.png",
+		CENTER_POINT, { MAX_SCALE,
+		MAX_SCALE },
+		TitleSelectManager::TitleUIType::Play);
+
+	//		Endの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/Select/TitleEnd.png",
+		UP_POINT, { MIN_SCALE,
+		MIN_SCALE },
+		TitleSelectManager::TitleUIType::End);
+
+	//		Settingの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/Select/TitleSetting.png",
+		UNDER_POINT, { MIN_SCALE,
+		MIN_SCALE },
+		TitleSelectManager::TitleUIType::Setting);
+
+
 }
 
 void TitleSelectManager::ChangeState(State state)
@@ -225,68 +207,99 @@ void TitleSelectManager::ChangeState(State state)
 	m_iState->Initialize();
 }
 
-void TitleSelectManager::CentreUP(bool direction, float time, UIType type)
+void TitleSelectManager::CentreUP(bool direction, float time, TitleUIType type)
 {
+	//		遷移量
 	float move = 0.0f;
+	//		遷移量
 	float size = 0.0f;
 
+	//		初期座標
 	DirectX::SimpleMath::Vector2 firstPosition;
+	//		最終座標
 	DirectX::SimpleMath::Vector2 endPosition;
 
+	//		初期サイズ
 	float firstSize = 0.0f;
+	//		最終サイズ
 	float endSize = 0.0f;
 
 	//		描画順を最後にする
 	m_drawOder[2] = type;
 
+	//		移動方向を見て処理を変える
 	if (direction)
 	{
-		firstPosition = { 0.0f,120.0f };
-		endPosition = { 0.0f, 40.0f };
+		firstPosition = CENTER_POINT;
+		endPosition = UP_POINT;
 
+		//		移動の遷移量
 		move = sqrt(1.0f - pow(time - 1.0f, 2.0f));
+		//		サイズの遷移量
 		size = 1.0f - sqrt(1 - pow(time, 2.0f));
+
+		//		初期サイズを設定
 		firstSize = MAX_SCALE;
+		//		最終サイズを設定
 		endSize = MIN_SCALE;
 	}
 	else
 	{
-		firstPosition = { 0.0f,40.0f };
-		endPosition = { 0.0f, 120.0f };
+		firstPosition = UP_POINT;
+		endPosition = CENTER_POINT;
 
+		//		移動の遷移量
 		move = 1.0f - sqrt(1.0f - pow(time, 2.0f));
+		//		サイズの遷移量
 		size = sqrt(1.0f - pow(time - 1.0f, 2.0f));
-		firstSize = 0.7f;
-		endSize = 1.0f;
+
+		//		初期サイズを設定
+		firstSize = MIN_SCALE;
+		//		最終サイズを設定
+		endSize = MAX_SCALE;
 	}
 
-	m_uiPosition[type] = DirectX::SimpleMath::Vector2::Lerp(firstPosition, endPosition, move);
+	//		座標を設定する
+	(*m_standardShader->GetUIInformation())[type].position = DirectX::SimpleMath::Vector2::Lerp(firstPosition, endPosition, move);
 
-	m_uiSize[type] = DirectX::SimpleMath::Vector2::Lerp({ firstSize, firstSize }, { endSize, endSize }, size);
+	//		サイズを設定する
+	(*m_standardShader->GetUIInformation())[type].scale = DirectX::SimpleMath::Vector2::Lerp({ firstSize, firstSize }, { endSize, endSize }, size);
 }
 
-void TitleSelectManager::CenterUnder(bool direction, float time, UIType type)
+void TitleSelectManager::CenterUnder(bool direction, float time, TitleUIType type)
 {
+	//		遷移量
 	float move = 0.0f;
+	//		遷移量
 	float size = 0.0f;
 
+	//		初期座標
 	DirectX::SimpleMath::Vector2 firstPosition;
+	//		最終座標
 	DirectX::SimpleMath::Vector2 endPosition;
 
+	//		初期サイズ
 	float firstSize = 0.0f;
+	//		最終サイズ
 	float endSize = 0.0f;
 
-	//		描画順を最後にする
+	//		描画順を中間にする
 	m_drawOder[1] = type;
 
+	//		移動方向を見て処理を変える
 	if (direction)
 	{
 		firstPosition = UNDER_POINT;
 		endPosition = CENTER_POINT;
 
+		//		移動の遷移量
 		move = 1.0f - sqrt(1.0f - pow(time, 2.0f));
+		//		サイズの遷移量
 		size = sqrt(1.0f - pow(time - 1.0f, 2.0f));
+
+		//		初期サイズを設定
 		firstSize = MIN_SCALE;
+		//		最終サイズを設定
 		endSize = MAX_SCALE;
 	}
 	else
@@ -294,31 +307,45 @@ void TitleSelectManager::CenterUnder(bool direction, float time, UIType type)
 		firstPosition = CENTER_POINT;
 		endPosition = UNDER_POINT;
 
+		//		移動の遷移量
 		move = sqrt(1.0f - pow(time - 1.0f, 2.0f));
+		//		サイズの遷移量
 		size = 1.0f - sqrt(1.0f - pow(time, 2.0f));
+
+		//		初期サイズを設定
 		firstSize = MAX_SCALE;
+		//		最終サイズを設定
 		endSize = MIN_SCALE;
 	}
 
-	m_uiPosition[type] = DirectX::SimpleMath::Vector2::Lerp(firstPosition, endPosition, move);
+	//		座標を設定する
+	(*m_standardShader->GetUIInformation())[type].position = DirectX::SimpleMath::Vector2::Lerp(firstPosition, endPosition, move);
 
-	m_uiSize[type] = DirectX::SimpleMath::Vector2::Lerp({ firstSize, firstSize }, { endSize, endSize }, size);
+	//		サイズを設定する
+	(*m_standardShader->GetUIInformation())[type].scale = DirectX::SimpleMath::Vector2::Lerp({ firstSize, firstSize }, { endSize, endSize }, size);
 }
 
-void TitleSelectManager::UPUnder(bool direction, float time, UIType type)
+void TitleSelectManager::UPUnder(bool direction, float time, TitleUIType type)
 {
+	//		遷移量
 	float move = 0.0f;
+	//		遷移量
 	float size = 0.0f;
 
+	//		初期座標
 	DirectX::SimpleMath::Vector2 firstPosition;
+	//		最終座標
 	DirectX::SimpleMath::Vector2 endPosition;
 
+	//		初期サイズ
 	float firstSize = MIN_SCALE - 0.5f;
+	//		最終サイズ
 	float endSize = MIN_SCALE;
 
 	//		描画順を最初にする
 	m_drawOder[0] = type;
 
+	//		移動方向を見て処理を変える
 	if (direction)
 	{
 		firstPosition = UP_POINT;
@@ -339,23 +366,9 @@ void TitleSelectManager::UPUnder(bool direction, float time, UIType type)
 
 	size = Library::Clamp(size, 0.0f, 1.0f);
 
-	m_uiPosition[type] = DirectX::SimpleMath::Vector2::Lerp(firstPosition, endPosition, move);
+	//		座標を設定する
+	(*m_standardShader->GetUIInformation())[type].position = DirectX::SimpleMath::Vector2::Lerp(firstPosition, endPosition, move);
 
-	m_uiSize[type] = DirectX::SimpleMath::Vector2::Lerp({ firstSize, firstSize }, { endSize, endSize }, size);
-}
-
-void TitleSelectManager::AddRenderUI(const wchar_t* path, DirectX::SimpleMath::Vector2 position, DirectX::SimpleMath::Vector2 size)
-{
-	//		UIレンダーの生成
-	std::unique_ptr<UIRender> uiRender = std::make_unique<UIRender>();
-
-	//		UIの作製
-	uiRender->Create(path, position, size);
-
-	m_uiPosition.push_back(position);
-
-	m_uiSize.push_back(size);
-
-	//		UIの追加
-	m_uiRender.push_back(std::move(uiRender));
+	//		サイズを設定する
+	(*m_standardShader->GetUIInformation())[type].scale = DirectX::SimpleMath::Vector2::Lerp({ firstSize, firstSize }, { endSize, endSize }, size);
 }
