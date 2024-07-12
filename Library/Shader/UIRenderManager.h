@@ -9,7 +9,20 @@
 
 #include "ConstBufferManager.h"
 
-#include "Game/PlayScene/UIManager/UIRender.h"
+enum class CENTER_POINT
+{
+	ABOVE_LEFT,
+	ABOVE_CENTER,
+	ABOVE_RIGHT,
+
+	MIDDLE_LEFT,
+	MIDDLE_CENTER,
+	MIDDLE_RIGHT,
+
+	UNDER_LEFT,
+	UNDER_CENTER,
+	UNDER_RIGHT,
+};
 
 class UIRenderManager
 {
@@ -137,6 +150,13 @@ public:
 	*	@param	(size)	サイズ
 	*/
 	void SetSize(DirectX::SimpleMath::Vector2 size) { m_scale = size; }
+
+	/*
+	*	センターポイントを設定する
+	* 
+	*	@param	(centerPoint)	中心位置
+	*/
+	void SetCenterPoint(CENTER_POINT centerPoint) { m_centerPoint = centerPoint; }
 
 	ConstBufferManager* GetConstBufferManager() { return m_constBufferManager.get(); }
 

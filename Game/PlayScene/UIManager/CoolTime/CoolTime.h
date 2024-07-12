@@ -7,20 +7,18 @@
 
 #pragma once
 
-#include "../CircleShader.h"
-
-#include "../UIRender.h"
-
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
-#include "../NumberShader.h"
+#include "Library/Shader/UIRenderManager.h"
+
+#include "../UIManager.h"
 
 class CoolTime
 {
 public:
 
 	//		コンストラクタ
-	CoolTime();
+	CoolTime(UIManager* uiManager);
 
 	//		デストラクタ
 	~CoolTime();
@@ -41,6 +39,9 @@ public:
 	//		終了処理
 	void Finalize();
 
+	//		数字の描画
+	void NumberView();
+
 private:
 
 	enum State
@@ -49,6 +50,23 @@ private:
 		Reduce,		//		減らす状態
 		Increase	//		増やす状態
 	};
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;		//		アスペクト比
+		DirectX::SimpleMath::Matrix  rotationMatrix;	//		回転行列
+		DirectX::SimpleMath::Vector4 number;			//		数字
+	};
+
+	//		コンストバッファ回転
+	struct ConstBufferCircle
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 rotation;
+	};
+
 
 private:
 
@@ -60,11 +78,8 @@ private:
 
 private:
 
-	//		数字の描画
-	std::unique_ptr<CircleShader> m_circleShader;
-
-	//		背景の描画
-	std::unique_ptr<UIRender> m_backRender;;
+	//		UIマネージャのインスタンスのポインタ
+	UIManager* m_uiManager;
 
 	//		角度
 	float m_angle;
@@ -81,7 +96,15 @@ private:
 	//		状態
 	State m_state;
 
-	//		数字の描画
-	std::unique_ptr<NumberShader> m_numberShader;
+	//		シェーダー
+	std::unique_ptr<UIRenderManager> m_shader;
 
+	//		回転シェーダー
+	std::unique_ptr<UIRenderManager> m_rotataionShader;
+
+	//		コンストバッファ
+	ConstBuffer buffer;
+
+	//		回転コンストバッファ
+	ConstBufferCircle circleBuffer;
 };

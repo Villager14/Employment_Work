@@ -27,6 +27,9 @@ void PlayerStart::Initialize()
 
 	//		アニメーションスタート
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Start);
+	
+	//		メニューを使えないようにする
+	m_player->SetMenuUiseJudgement(false);
 }
 
 void PlayerStart::Update()
@@ -55,6 +58,8 @@ void PlayerStart::Render()
 
 void PlayerStart::Finalize()
 {
+	//		メニューを使えないようにする
+	m_player->SetMenuUiseJudgement(true);
 }
 
 void PlayerStart::ChangeStateJudgement()

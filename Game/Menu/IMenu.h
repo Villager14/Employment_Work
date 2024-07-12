@@ -23,5 +23,5 @@ public:
 	virtual void Finalize() = 0;
 
 	//		デストラクタ
-	~IMenu() = default;
+	virtual ~IMenu() = default;
 };

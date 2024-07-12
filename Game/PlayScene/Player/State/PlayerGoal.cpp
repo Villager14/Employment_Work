@@ -13,7 +13,8 @@
 
 PlayerGoal::PlayerGoal(Player* player)
 	:
-	m_player(player)
+	m_player(player),
+	m_firstHeight(0.0f)
 {
 }
 
@@ -29,6 +30,9 @@ void PlayerGoal::Initialize()
 
 	//		アニメーション立ち状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Upright);
+
+	//		メニューを使えないようにする
+	m_player->SetMenuUiseJudgement(false);
 }
 
 void PlayerGoal::Update()

@@ -39,6 +39,9 @@ public:
 	//		終了処理
 	void Finalize() override;
 
+	//		スライダーの描画
+	void SliderView(float transitionTime);
+
 private:
 
 	//		メニューマネージャーのインスタンスのポインタ
@@ -49,4 +52,17 @@ private:
 
 	//		移動
 	float m_move;
+
+
+	//		タイトルの遷移時間
+	float m_transitionTitleTime;
+
+	//		大まかなメニューの遷移時間
+	float m_transitionRoughTime;
+
+	//		設定する部分のUIの遷移時間
+	float m_transitionSettingUITime;
+
+	//		初期遷移を行うかどうか判断する
+	bool m_startJudgement;
 };

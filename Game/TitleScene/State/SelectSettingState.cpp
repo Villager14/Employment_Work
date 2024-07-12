@@ -82,7 +82,18 @@ void SelectSettingState::ChangeSceneProcess()
 	//		時間が１以下の場合処理をしない
 	if (m_time < 1.0f)
 	{
-		//		設定の処理を描く!
+		//		キーボードの取得
+		DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
+
+		//		ボタンの取得
+		DirectX::Mouse::ButtonStateTracker button = *LibrarySingleton::GetInstance()->GetButtonStateTracker();
+
+		if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
+			button.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
+		{
+			//		メニューを開く
+			*m_titleSelectManager->GetMenuJudgement() = true;
+		}
 	}
 	else
 	{

@@ -49,12 +49,21 @@ void ResultScene::Initialize()
 
 void ResultScene::Update()
 {
+	//		背景の更新
+	m_resultManager->BackGroundUpdate();
+
+	//		メニューを開いている場合処理をしない
+	if (*m_sceneManager->GetMenuJudgement()) return;
+
+	//		メニューを使えるかどうか
+	m_sceneManager->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
+
 	//		リザルトマネージャーの更新処理
 	m_resultManager->Update();
 
 	if (m_resultManager->GetChangeSceneJudgement())
 	{
-		m_sceneManager->ChangeState(m_sceneManager->GetTitleScene());
+		m_sceneManager->ChangeScene(SceneManager::SceneType::Title);
 	}
 }
 

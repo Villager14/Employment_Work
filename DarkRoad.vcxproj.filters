@@ -98,17 +98,8 @@
     <Filter Include="Game\PlayScene\ObjectManager\BackGround">
       <UniqueIdentifier>{89346af3-c05f-4eb9-8bd3-a5f8e3df1b2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\UIManager\ScreenRay">
-      <UniqueIdentifier>{9541c0a5-3e31-4597-b4b7-eb480bcf4c9b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\Shadow">
       <UniqueIdentifier>{6dc21f19-5928-4d97-b181-2a3a8991bbc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\TitleScene">
-      <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\TitleScene\UI">
-      <UniqueIdentifier>{3d864d14-41ac-4c44-8a8f-bffabd28eb05}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GoalObject">
       <UniqueIdentifier>{3fc37252-63e8-4008-86c5-3f13c00004ae}</UniqueIdentifier>
@@ -176,9 +167,6 @@
     <Filter Include="Resorces\Shader\ConcentrationLine">
       <UniqueIdentifier>{e2f096a8-123d-4e52-b2fd-d22f9ae66e99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\UIManager\ConcentrationLine">
-      <UniqueIdentifier>{f741d2eb-ef06-43fc-9b1e-3c5daa9baf10}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\FBX\Player">
       <UniqueIdentifier>{24aadd23-d916-4d8e-a9cd-cb91e95d688f}</UniqueIdentifier>
     </Filter>
@@ -209,9 +197,6 @@
     <Filter Include="Game\Menu\State">
       <UniqueIdentifier>{3b837777-bd01-4574-b8a1-b44e4307fe1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Menu\Slider">
-      <UniqueIdentifier>{11510385-a190-4cf0-a33c-f0d0c61d3425}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\Slider">
       <UniqueIdentifier>{34fd825b-4916-483f-abbd-0c0f13be47f3}</UniqueIdentifier>
     </Filter>
@@ -230,8 +215,23 @@
     <Filter Include="Game\ResultManager\ScreenEffect">
       <UniqueIdentifier>{df773b49-5e02-46ca-98fd-3342b0f6292e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resorces\Shader\AboveUI">
+      <UniqueIdentifier>{9df10f37-241f-447c-bb16-5bd364348c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene">
+      <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\UI">
+      <UniqueIdentifier>{3d864d14-41ac-4c44-8a8f-bffabd28eb05}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\TitleScene\State">
       <UniqueIdentifier>{9c4105e1-bf06-4936-be4e-7f08fe01601b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI">
+      <UniqueIdentifier>{3c8508d3-2924-4dba-a66c-4cdf77711c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\MenuSelect">
+      <UniqueIdentifier>{60b27914-eeb4-47e1-a89f-794833ca8d53}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -393,9 +393,6 @@
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h">
       <Filter>Game\PlayScene\UIManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\UIRender.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h">
       <Filter>Game\PlayScene\UIManager</Filter>
     </ClInclude>
@@ -405,14 +402,8 @@
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h">
       <Filter>Game\PlayScene\UIManager\Clock</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\NumberShader.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h">
       <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\CircleShader.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h">
       <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
@@ -438,9 +429,6 @@
     <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h">
       <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeRender.h">
-      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
     </ClInclude>
@@ -461,9 +449,6 @@
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h">
-      <Filter>Game\PlayScene\UIManager\ScreenRay</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\Shadow\Shadow.h">
       <Filter>Game\PlayScene\Shadow</Filter>
@@ -522,12 +507,6 @@
     <ClInclude Include="Game\PlayScene\Effect\Billboard\BillboardEffect.h">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\ConcentrationLine\ConcentrationLineManager.h">
-      <Filter>Game\PlayScene\UIManager\ConcentrationLine</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\ConcentrationLineShader.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\Player\Bons\PlayerBons.h">
       <Filter>Game\PlayScene\Player\Bons</Filter>
     </ClInclude>
@@ -576,12 +555,6 @@
     <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h">
       <Filter>Game\PlayScene\UIManager\GameClear</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\GlitchShader.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\CenterShader.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.h">
       <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClInclude>
@@ -618,12 +591,6 @@
     <ClInclude Include="Game\Menu\State\MenuStart.h">
       <Filter>Game\Menu\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Menu\Slider\Slider.h">
-      <Filter>Game\Menu\Slider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\Slider\SliderRender.h">
-      <Filter>Game\Menu\Slider</Filter>
-    </ClInclude>
     <ClInclude Include="Library\Shader\UIRenderManager.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
@@ -656,6 +623,27 @@
     </ClInclude>
     <ClInclude Include="Game\ResultScene\UI\RiseNumberShader.h">
       <Filter>Game\ResultManager\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\AboveUI.h">
+      <Filter>Game\Menu\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\State\OptionSetting.h">
+      <Filter>Game\Menu\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\State\EndSetting.h">
+      <Filter>Game\Menu\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\MenuSelect.h">
+      <Filter>Game\Menu\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Slider.h">
+      <Filter>Game\Menu\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\State\MenuClose.h">
+      <Filter>Game\Menu\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\MenuInformation.h">
+      <Filter>Game\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -794,9 +782,6 @@
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp">
       <Filter>Game\PlayScene\UIManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp">
       <Filter>Game\PlayScene\UIManager</Filter>
     </ClCompile>
@@ -806,14 +791,8 @@
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp">
       <Filter>Game\PlayScene\UIManager\Clock</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\NumberShader.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp">
       <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\CircleShader.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp">
       <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
@@ -828,9 +807,6 @@
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp">
-      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeRender.cpp">
       <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp">
@@ -853,9 +829,6 @@
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp">
-      <Filter>Game\PlayScene\UIManager\ScreenRay</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp">
       <Filter>Game\PlayScene\Shadow</Filter>
@@ -908,12 +881,6 @@
     <ClCompile Include="Game\PlayScene\Effect\Billboard\BillboardEffect.cpp">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\ConcentrationLine\ConcentrationLineManager.cpp">
-      <Filter>Game\PlayScene\UIManager\ConcentrationLine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\ConcentrationLineShader.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp">
       <Filter>Game\PlayScene\Player\Bons</Filter>
     </ClCompile>
@@ -956,12 +923,6 @@
     <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp">
       <Filter>Game\PlayScene\UIManager\GameClear</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\GlitchShader.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\CenterShader.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.cpp">
       <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClCompile>
@@ -992,12 +953,6 @@
     <ClCompile Include="Game\Menu\State\MenuStart.cpp">
       <Filter>Game\Menu\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Menu\Slider\Slider.cpp">
-      <Filter>Game\Menu\Slider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\Slider\SliderRender.cpp">
-      <Filter>Game\Menu\Slider</Filter>
-    </ClCompile>
     <ClCompile Include="Library\Shader\UIRenderManager.cpp">
       <Filter>Library\Shader</Filter>
     </ClCompile>
@@ -1024,6 +979,24 @@
     </ClCompile>
     <ClCompile Include="Game\ResultScene\UI\RiseNumberShader.cpp">
       <Filter>Game\ResultManager\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\AboveUI.cpp">
+      <Filter>Game\Menu\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\State\OptionSetting.cpp">
+      <Filter>Game\Menu\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\State\EndSetting.cpp">
+      <Filter>Game\Menu\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\MenuSelect.cpp">
+      <Filter>Game\Menu\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Slider.cpp">
+      <Filter>Game\Menu\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\State\MenuClose.cpp">
+      <Filter>Game\Menu\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1088,6 +1061,12 @@
     </None>
     <None Include="Resources\Shader\Slider\Slider.hlsli">
       <Filter>Resorces\Shader\Slider</Filter>
+    </None>
+    <None Include="Resources\Shader\AboveUI\AboveUI.hlsli">
+      <Filter>Resorces\Shader\AboveUI</Filter>
+    </None>
+    <None Include="Resources\Shader\MenuSelect\MenuSelect.hlsli">
+      <Filter>Resorces\Shader\MenuSelect</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1320,6 +1299,24 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\Slider\SliderVS.hlsl">
       <Filter>Resorces\Shader\Slider</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveUI\AboveUIGS.hlsl">
+      <Filter>Resorces\Shader\AboveUI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveUI\AboveUIPS.hlsl">
+      <Filter>Resorces\Shader\AboveUI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveUI\AboveUIVS.hlsl">
+      <Filter>Resorces\Shader\AboveUI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectGS.hlsl">
+      <Filter>Resorces\Shader\MenuSelect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectPS.hlsl">
+      <Filter>Resorces\Shader\MenuSelect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectVS.hlsl">
+      <Filter>Resorces\Shader\MenuSelect</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

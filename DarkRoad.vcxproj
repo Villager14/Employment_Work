@@ -23,6 +23,7 @@
     <ProjectGuid>{d096e231-05c1-460b-9be6-5b543d16942b}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>DarkRoad</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -198,11 +199,16 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h" />
     <ClInclude Include="Game\Menu\IMenu.h" />
+    <ClInclude Include="Game\Menu\MenuInformation.h" />
     <ClInclude Include="Game\Menu\MenuManager.h" />
-    <ClInclude Include="Game\Menu\Slider\Slider.h" />
-    <ClInclude Include="Game\Menu\Slider\SliderRender.h" />
     <ClInclude Include="Game\Menu\State\AudioSetting.h" />
+    <ClInclude Include="Game\Menu\State\EndSetting.h" />
+    <ClInclude Include="Game\Menu\State\MenuClose.h" />
     <ClInclude Include="Game\Menu\State\MenuStart.h" />
+    <ClInclude Include="Game\Menu\State\OptionSetting.h" />
+    <ClInclude Include="Game\Menu\UI\AboveUI.h" />
+    <ClInclude Include="Game\Menu\UI\MenuSelect.h" />
+    <ClInclude Include="Game\Menu\UI\Slider.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionInformation.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionManager.h" />
@@ -268,23 +274,14 @@
     <ClInclude Include="Game\PlayScene\Shadow\Shadow.h" />
     <ClInclude Include="Game\PlayScene\Shadow\ShadowInformation.h" />
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\CenterShader.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\CircleShader.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\ConcentrationLineShader.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\ConcentrationLine\ConcentrationLineManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeRender.h" />
     <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\GlitchShader.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\NumberShader.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\UIRender.h" />
     <ClInclude Include="Game\ResultScene\IResultManager.h" />
     <ClInclude Include="Game\ResultScene\ResultManager.h" />
     <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h" />
@@ -339,10 +336,14 @@
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.cpp" />
     <ClCompile Include="Game\Menu\MenuManager.cpp" />
-    <ClCompile Include="Game\Menu\Slider\Slider.cpp" />
-    <ClCompile Include="Game\Menu\Slider\SliderRender.cpp" />
     <ClCompile Include="Game\Menu\State\AudioSetting.cpp" />
+    <ClCompile Include="Game\Menu\State\EndSetting.cpp" />
+    <ClCompile Include="Game\Menu\State\MenuClose.cpp" />
     <ClCompile Include="Game\Menu\State\MenuStart.cpp" />
+    <ClCompile Include="Game\Menu\State\OptionSetting.cpp" />
+    <ClCompile Include="Game\Menu\UI\AboveUI.cpp" />
+    <ClCompile Include="Game\Menu\UI\MenuSelect.cpp" />
+    <ClCompile Include="Game\Menu\UI\Slider.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionInformation.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionManager.cpp" />
@@ -400,23 +401,14 @@
     <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp" />
     <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\CenterShader.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\CircleShader.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\ConcentrationLineShader.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\ConcentrationLine\ConcentrationLineManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeRender.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\GameOver\GameOverManager.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\GlitchShader.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\NumberShader.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\ScreenRay\ScreenRay.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\UIRender.cpp" />
     <ClCompile Include="Game\ResultScene\ResultManager.cpp" />
     <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultEnd.cpp" />
@@ -467,6 +459,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Shader\AboveNumber\AboveNumber.hlsli" />
+    <None Include="Resources\Shader\AboveUI\AboveUI.hlsli" />
     <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli" />
     <None Include="Resources\Shader\CenterShader\CenterShader.hlsli" />
     <None Include="Resources\Shader\ConcentrationLine\ConcentrationLine.hlsli" />
@@ -474,6 +467,7 @@
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli" />
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\GlitchShader\GlitchShader.hlsli" />
+    <None Include="Resources\Shader\MenuSelect\MenuSelect.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
     <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli" />
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
@@ -609,6 +603,26 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveNumber\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/AboveNumber\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveUI\AboveUIGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveUI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/AboveUI\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveUI\AboveUIPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveUI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/AboveUI\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\AboveUI\AboveUIVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/AboveUI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/AboveUI\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
@@ -750,6 +764,26 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/GlitchShader\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/GlitchShader\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/MenuSelect\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/MenuSelect\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/MenuSelect\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/MenuSelect\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/MenuSelect\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/MenuSelect\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Model\ModelPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

@@ -100,21 +100,6 @@ void PlayerModelTexture::Render(ID3D11ShaderResourceView* shaderResouceView)
 	//		ピクセルシェーダにテクスチャを登録する
 	context->PSSetShaderResources(0, 1, &shaderResouceView);
 
-	//		テクスチャがない場合テクスチャを追加する
-	if (m_pasttexture == nullptr)
-	{
-		//		過去のテクスチャとして保存する
-		m_pasttexture = shaderResouceView;
-
-		//		ピクセルシェーダにテクスチャを登録する
-		context->PSSetShaderResources(1, 1, m_pasttexture.GetAddressOf());
-	}
-	else
-	{
-		//		ピクセルシェーダにテクスチャを登録する
-		context->PSSetShaderResources(1, 1, m_pasttexture.GetAddressOf());
-	}
-
 	//		インプットレイアウトの登録
 	context->IASetInputLayout(m_inputLayout.Get());
 

@@ -13,9 +13,7 @@
 
 #include "Game/TitleScene/UI/BackGroundMove.h"
 
-#include "Game/PlayScene/UIManager/Fade/FadeRender.h"
-
-#include "Game/PlayScene/UIManager/UIRender.h"
+#include "Library/Shader/UIRenderManager.h"
 
 #include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
 
@@ -63,6 +61,9 @@ public:
 	//		シェーダーの作製
 	void CreateStandardShader();
 
+	//		背景の更新
+	void BackGroundUpdate();
+
 public:
 
 	//		状態
@@ -81,6 +82,14 @@ public:
 		Back,			//		UI背景
 		Button,			//		ボタンヒント
 		EvaluationUI	//		評価
+	};
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 time;
 	};
 
 private:
@@ -111,8 +120,10 @@ private:
 	//		背景移動の描画
 	std::unique_ptr<BackGroundMove> m_backGroundMove;
 
-	//		フェードイン描画
-	std::unique_ptr<FadeRender> m_fadeRender;
+	ConstBuffer buffer;
+
+	//		フェード描画
+	std::unique_ptr<UIRenderManager> m_fade;
 
 	//		スコア
 	int m_score;
@@ -136,6 +147,9 @@ private:
 	//		数字の上昇シェーダー
 	std::unique_ptr<RiseNumberShader> m_riseNumber;
 
+	//		メニューを使えるかどうか
+	bool m_menuUseJudgement;
+
 public:
 
 	/*
@@ -150,7 +164,9 @@ public:
 	* 
 	*	@param	(time)	時間
 	*/
-	void FadeViewProcess(float time) { m_fadeRender->Render(time); }
+	void FadeViewProcess(float time) { 
+		buffer.time = { time, 0.0f, 0.0f, 0.0f };
+		m_fade->Render(buffer); }
 
 	/*
 	*	シーンを切り替えるか設定する
@@ -179,4 +195,18 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	RiseNumberShader* GetRiseNumberShader() { return m_riseNumber.get(); }
+
+	/*
+	*	メニューを使えるかどうか受け取る
+	* 
+	*	@return true : 使える false : 使えない
+	*/
+	bool GetMenuUseJugement() { return m_menuUseJudgement; }
+
+	/*
+	*	メニューを使えるかどうか設定する
+	*
+	*	@param	(judgement) true : 使える false : 使えない
+	*/
+	void SetMenuUseJugement(bool judgement) { m_menuUseJudgement = judgement; }
 };

@@ -13,12 +13,14 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
+#include "../UIManager.h"
+
 class ClockManager
 {
 public:
 
 	//		コンストラクタ
-	ClockManager();
+	ClockManager(UIManager* uiManager);
 
 	//		デストラクタ
 	~ClockManager();
@@ -40,6 +42,9 @@ public:
 	void Finalize();
 
 private:
+
+	//		UIManagerのインスタンスのポインタ
+	UIManager* m_uiManager;
 
 	//		時計の背景
 	std::unique_ptr<ClockBackGround> m_clockBackGround;

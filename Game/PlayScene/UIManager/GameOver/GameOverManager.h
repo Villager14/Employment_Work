@@ -9,13 +9,13 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
-#include "Game/PlayScene/UIManager/UIRender.h"
+#include "../UIManager.h"
 
 class GameOverManager
 {
 public:
 	//		コンストラクタ
-	GameOverManager(GameManager* gameManager);
+	GameOverManager(GameManager* gameManager, UIManager* uiManager);
 
 	//		デストラクタ
 	~GameOverManager();
@@ -37,8 +37,8 @@ private:
 	//		ゲームマネージャーのインスタンスのポインタ
 	GameManager* m_gameManager;
 
-	//		ゲームオーバーの描画
-	std::vector<std::unique_ptr<UIRender>> m_gameOverRender;
+	//		UIマネージャーのインスタンスのポインタ
+	UIManager* m_uiManager;
 
 	//		経過時間
 	float m_elapsedTime;

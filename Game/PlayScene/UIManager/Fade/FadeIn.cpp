@@ -25,12 +25,24 @@ FadeIn::~FadeIn()
 
 void FadeIn::Initialize()
 {
-	//		UI•`‰æ‚Ì¶¬
-	m_fadeRender = std::make_unique<FadeRender>();
+	//		ƒtƒF[ƒh•`‰æ‚Ì¶¬
+	m_fadeRender = std::make_unique<UIRenderManager>();
 
-	//		UI•`‰æ‚Ìì»
 	m_fadeRender->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
+		L"Resources/Shader/Fade/FadeShaderVS.cso",
+		L"Resources/Shader/Fade/FadeShaderGS.cso",
+		L"Resources/Shader/Fade/FadeShaderPS.cso",
+		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+
+	//		ƒEƒBƒ“ƒhƒEƒTƒCƒY‚ğİ’è‚·‚é
+	buffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	//		‰ñ“]—Ê‚ğİ’è‚·‚é
+	buffer.rotationMatrix = m_fadeRender->GetRotationMatrix();
+
 }
 
 void FadeIn::Update(GameManager* gameManager)
@@ -106,8 +118,9 @@ void FadeIn::Update(GameManager* gameManager)
 
 void FadeIn::Render()
 {
-	//		”wŒi‚Ì•`‰æ
-	m_fadeRender->Render(m_time);
+	buffer.time = { m_time, 0.0f, 0.0f, 0.0f };
+
+	m_fadeRender->Render(buffer);
 }
 
 void FadeIn::Finalize()

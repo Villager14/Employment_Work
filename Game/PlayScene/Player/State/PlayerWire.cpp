@@ -131,9 +131,10 @@ void PlayerWire::Finalize()
 
 	std::vector<WireObjectInformation*> m_wireInformation = m_player->GetWireObjectInformation();
 
-
-	
-
+	for (int i = 0; i < m_player->GetWireObjectInformation().size(); ++i)
+	{
+		m_player->GetWireObjectInformation()[i]->m_actionJudgement = false;
+	}
 }
 
 void PlayerWire::MoveProcessing()

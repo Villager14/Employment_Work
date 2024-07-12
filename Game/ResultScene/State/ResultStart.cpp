@@ -25,6 +25,8 @@ void ResultStart::Initialize()
 	//		タイトルのBGMの再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::TitleScene);
 
+	//		メニューを使えないようにする
+	m_resultManager->SetMenuUseJugement(false);
 }
 
 void ResultStart::Update()
@@ -53,4 +55,6 @@ void ResultStart::Render()
 
 void ResultStart::Finalize()
 {
+	//		メニューを使えるようにする
+	m_resultManager->SetMenuUseJugement(true);
 }

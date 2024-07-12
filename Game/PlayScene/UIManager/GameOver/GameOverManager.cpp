@@ -10,10 +10,11 @@
 #include "GameOverManager.h"
 
 
-GameOverManager::GameOverManager(GameManager* gameManager)
+GameOverManager::GameOverManager(GameManager* gameManager, UIManager* uiManager)
 	:
 	m_gameManager(gameManager),
-	m_elapsedTime(0.0f)
+	m_elapsedTime(0.0f),
+	m_uiManager(uiManager)
 {
 }
 
@@ -23,23 +24,6 @@ GameOverManager::~GameOverManager()
 
 void GameOverManager::Initialize()
 {
-	for (int i = 0; i < 3; ++i)
-	{
-		//		UI•`‰æ‚Ì¶¬
-		m_gameOverRender.push_back(std::make_unique<UIRender>());
-	}
-
-	//		UI•`‰æ‚Ìì»(GameOver)
-	m_gameOverRender[0]->Create(L"Resources/Texture/UI/GameOver/GameOver.png",
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
-
-	//		UI•`‰æ‚Ìì»(Continue)
-	m_gameOverRender[1]->Create(L"Resources/Texture/UI/GameOver/Continue.png",
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
-
-	//		UI•`‰æ‚Ìì»(Continue)
-	m_gameOverRender[2]->Create(L"Resources/Texture/UI/GameOver/button.png",
-		{ 0.0f, 200.0f }, { 1.0f, 1.0f });
 }
 
 void GameOverManager::Update()
@@ -64,12 +48,12 @@ void GameOverManager::Render()
 	
 	if (m_elapsedTime < 3.0f)
 	{
-		m_gameOverRender[0]->Render();
+		m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameOver);
 	}
 	else
 	{
-		m_gameOverRender[1]->Render();
-		m_gameOverRender[2]->Render();
+		m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameOverContinue);
+		m_uiManager->GetStandardShader()->Render(UIManager::UIType::NextInduction);
 	}
 }
 

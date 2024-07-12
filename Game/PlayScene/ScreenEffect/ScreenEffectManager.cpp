@@ -63,7 +63,6 @@ void ScreenEffectManager::Render()
 		m_redScreen->Render(m_shaderResouceView);
 	else if (m_scene == Scene::ResultScene)
 		m_playerModelTexture->Render(m_shaderResouceView);
-
 }
 
 void ScreenEffectManager::Finalize()
@@ -114,6 +113,7 @@ void ScreenEffectManager::ChangeRenderTarget()
 
 	//		レンダーターゲット
 	auto rtv = m_renderTexture->GetRenderTargetView();
+
 	//		リソース
 	m_shaderResouceView = m_renderTexture->GetShaderResourceView();
 
@@ -123,7 +123,9 @@ void ScreenEffectManager::ChangeRenderTarget()
 
 	//		レンダーターゲットを変更
 	context->ClearRenderTargetView(rtv, m_backColor);
+
 	context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
 	context->OMSetRenderTargets(1, &rtv, depthStencil);
 }
 

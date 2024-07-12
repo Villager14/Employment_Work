@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <unordered_map>
+
 #include "Scene/IScene.h"
 
 #include "SceneState/PlayScene.h"
@@ -40,46 +42,19 @@ public:
 	//		終了処理
 	void Finalize();
 
-	//		状態を切り替える
-	void ChangeState(IScene* scene);
-
-private:
-	//		シーン
-	IScene* m_scene;
-
-	//		プレイシーン
-	std::unique_ptr<PlayScene> m_playScene;
-
-	//		タイトルシーン
-	std::unique_ptr<TitleScene> m_titleScene;
-
-	//		リザルトシーン
-	std::unique_ptr<ResultScene> m_resultScene;
-
 public:
 
-	/*
-	*	プレイシーンを受け取る
-	*
-	*	@return プレイシーンのインスタンスのポインタ
-	*/
-	PlayScene* GetPlayScene() { return m_playScene.get(); }
-
-	/*
-	*	タイトルシーンを受け取る
-	* 
-	*	@return タイトルシーンのインスタンスのポインタ
-	*/
-	TitleScene* GetTitleScene() { return m_titleScene.get(); }
-
-	/*
-	*	リザルトシーンを受け取る
-	* 
-	*	@return リザルトシーンのインスタンスのポインタ
-	*/
-	ResultScene* GetResultScene() { return m_resultScene.get(); }
+	enum SceneType
+	{
+		Title,
+		Play,
+		Result,
+	};
 
 private:
+
+	//		シーン
+	IScene* m_scene;
 
 	//		メニューマネージャー
 	std::unique_ptr<MenuManager> m_menuManager;
@@ -90,10 +65,20 @@ private:
 	//        死亡カウント
 	int m_deathCount;
 
-	//		メニューを開いているかどうか
-	bool m_menuJudgement;
+	std::unique_ptr<bool> m_menuJudgement;
+
+	//		メニューを使えるかどうか判断する
+	bool m_menuUseJudgement;
+
+	//		シーンの情報
+	std::unordered_map<SceneType, std::unique_ptr<IScene>> m_sceneInformation;
+
+	//		シーンタイプ
+	SceneType m_sceneType;
 
 public:
+
+	void ChangeScene(SceneType type);
 
 	/*
 	*    クリアタイムを設定する
@@ -124,9 +109,32 @@ public:
 	int GetDeathCount() { return m_deathCount; }
 
 	/*
-	*	メニューを開いているかどうか
+	*	メニューを開いているかどうか受け取る
 	* 
 	*	@return true : 開いている false : 開いていない
 	*/
-	bool GetMenuJudgement() { return m_menuJudgement; }
+	bool* GetMenuJudgement() 
+	{ 
+		return m_menuJudgement.get(); }
+
+	/*
+	*	メニューを開いているかどうか設定する
+	*
+	*	@param	(judgement) true : 開いている false : 開いていない
+	*/
+	//void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
+
+	/*
+	*	メニューを使えるかどうか判断する
+	* 
+	*	@return true : 使える false : 使えない
+	*/
+	bool GetMenuUseJudgement() { return m_menuUseJudgement; }
+
+	/*
+	*	メニューを使えるかどうか設定する
+	* 
+	*	@param	(judgement)	true : 使える false : 使えない
+	*/
+	void SetMenuUseJudgement(bool judgement) { m_menuUseJudgement = judgement; }
 };

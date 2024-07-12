@@ -139,21 +139,6 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	//		ピクセルシェーダにテクスチャを登録する
 	context->PSSetShaderResources(0, 1, &shaderResouceView);
 
-	//		テクスチャがない場合テクスチャを追加する
-	if (m_pasttexture == nullptr)
-	{
-		//		過去のテクスチャとして保存する
-		m_pasttexture = shaderResouceView;
-
-		//		ピクセルシェーダにテクスチャを登録する
-		context->PSSetShaderResources(1, 1, m_pasttexture.GetAddressOf());
-	}
-	else
-	{
-		//		ピクセルシェーダにテクスチャを登録する
-		context->PSSetShaderResources(1, 1, m_pasttexture.GetAddressOf());
-	}
-
 	//		インプットレイアウトの登録
 	context->IASetInputLayout(m_inputLayout.Get());
 
@@ -161,9 +146,6 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Begin();
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &vertex[0], 1);
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->End();
-
-	//		過去のテクスチャとして保存する
-	m_pasttexture = shaderResouceView;
 
 	//		シェーダの登録を解除しておく
 	context->VSSetShader(nullptr, nullptr, 0);

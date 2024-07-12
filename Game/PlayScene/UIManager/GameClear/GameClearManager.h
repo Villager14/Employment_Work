@@ -9,17 +9,15 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
-#include "Game/PlayScene/UIManager/UIRender.h"
+#include "../UIManager.h"
 
-#include "../CenterShader.h"
-
-#include "../GlitchShader.h"
+#include "Library/Shader/UIRenderManager.h"
 
 class GameClearManager
 {
 public:
 	//		コンストラクタ
-	GameClearManager(GameManager* gameManager);
+	GameClearManager(GameManager* gameManager, UIManager* uiManager);
 
 	//		デストラクタ
 	~GameClearManager();
@@ -36,19 +34,28 @@ public:
 	//		終了処理
 	void Finalize();
 
+public:
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 time;
+	};
+
 private:
+
+	//		UIマネージャーのインスタンスのポインタ
+	UIManager* m_uiManager;
 
 	//		ゲームマネージャーのインスタンスのポインタ
 	GameManager* m_gameManager;
 
-	//		ゲームオーバーの描画
-	std::vector<std::unique_ptr<UIRender>> m_gameOverRender;
+	//		メッセージのシェーダー描画
+	std::unique_ptr<UIRenderManager> m_messageShader;
 
-	//		中心シェーダー
-	std::unique_ptr<CenterShader> m_centerShader;
-
-	//		グリッチシェーダー
-	std::unique_ptr<GlitchShader> m_glitchShader;
+	ConstBuffer buffer;
 
 	//		経過時間
 	float m_elapsedTime;

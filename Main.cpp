@@ -19,7 +19,7 @@ namespace
     std::unique_ptr<Game> g_game;
 }
 
-LPCWSTR g_szAppName = L"ˆÃ‚¢“¹";
+LPCWSTR g_szAppName = L"ATHLETIC";
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void ExitGame() noexcept;

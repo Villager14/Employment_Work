@@ -49,12 +49,23 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	//		数字上昇シェーダーの初期化
 	m_riseNumber->Initialize(m_deathCount, m_time, m_score);
 	
-	//		UI描画の生成
-	m_fadeRender = std::make_unique<FadeRender>();
+	//		フェード描画の作製
+	m_fade = std::make_unique<UIRenderManager>();
 
-	//		UI描画の作製
-	m_fadeRender->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
+	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
+		L"Resources/Shader/Fade/FadeShaderVS.cso",
+		L"Resources/Shader/Fade/FadeShaderGS.cso",
+		L"Resources/Shader/Fade/FadeShaderPS.cso",
+		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+
+	//		ウィンドウサイズを設定する
+	buffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	//		回転量を設定する
+	buffer.rotationMatrix = m_fade->GetRotationMatrix();
 
 	//		スタンダードシェーダーの作製
 	CreateStandardShader();
@@ -80,11 +91,9 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 
 void ResultManager::Update()
 {
+
 	//		状態の更新
 	m_iState->Update();
-
-	//		背景の更新
-	m_backGroundMove->Update();
 
 	//		プレイヤーの回転
 	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * PLAYER_ROTATION_SPEED;
@@ -198,6 +207,12 @@ void ResultManager::CreateStandardShader()
 	m_shader->CreateUIInformation(L"Resources/Texture/UI/GameOver/button.png",
 		{ 0.0f, 280.0f }, { 1.0f, 1.0f },
 		ResultManager::ResultUIType::Button);
+}
+
+void ResultManager::BackGroundUpdate()
+{
+	//		背景の更新
+	m_backGroundMove->Update();
 }
 
 void ResultManager::ChangeState(State state)
