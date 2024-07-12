@@ -13,8 +13,10 @@ std::unique_ptr<MusicLibrary> MusicLibrary::m_library = nullptr;
 
 MusicLibrary::MusicLibrary()
 	:
-	m_bgmVolume(0.2f),
-	m_maxVolume(0.2f),
+	m_bgmVolume(0.5f),
+	m_maxVolume(0.5f),
+	m_soundEffectVolum(0.5f),
+	m_mastarVolume(1.0f),
 	m_nowBGM(Empty)
 {
 
@@ -66,8 +68,8 @@ void MusicLibrary::Initialize()
 	CreateSoundEffect(SoundEffectType::Wire, L"Resources/Music/SoundEffect/PlayScene/ジャンプ.wav");
 
 	//		初期のボリューム
-	m_audioEngineBGM->SetMasterVolume(0.0f);
-	m_audioEngineSoundEffect->SetMasterVolume(0.5f);
+	m_audioEngineBGM->SetMasterVolume(m_bgmVolume);
+	m_audioEngineSoundEffect->SetMasterVolume(m_soundEffectVolum);
 }
 
 void MusicLibrary::CreateBGM(BGMType type, const wchar_t* path)

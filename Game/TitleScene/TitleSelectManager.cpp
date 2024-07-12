@@ -22,13 +22,15 @@ TitleSelectManager::TitleSelectManager()
 	m_scrollWheeel(0),
 	m_changeSceneJudgement(false),
 	m_iState(),
-	m_menuJudgement(false),
-	m_state{}
+	m_menuUseJudgement(false),
+	m_state{},
+	m_menuJudgement{NULL}
 {
 }
 
 TitleSelectManager::~TitleSelectManager()
 {
+	m_menuJudgement = nullptr;
 }
 
 void TitleSelectManager::Initialize()
@@ -58,12 +60,24 @@ void TitleSelectManager::Initialize()
 	//		初期化する
 	m_iState->Initialize();
 
-	//		フェードの生成
-	m_fade = std::make_unique<FadeRender>();
+	//		フェード描画の作製
+	m_fade = std::make_unique<UIRenderManager>();
 
-	//		UI描画の作製
 	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
+		L"Resources/Shader/Fade/FadeShaderVS.cso",
+		L"Resources/Shader/Fade/FadeShaderGS.cso",
+		L"Resources/Shader/Fade/FadeShaderPS.cso",
+		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+
+	//		ウィンドウサイズを設定する
+	buffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	//		回転量を設定する
+	buffer.rotationMatrix = m_fade->GetRotationMatrix();
+
 
 	//		描画順を設定する
 	m_drawOder.push_back(TitleUIType::Play);
@@ -80,7 +94,7 @@ void TitleSelectManager::Update()
 	m_backGroundMove->Update();
 
 	//		メニューを開いている場合は処理をしない
-	if (m_menuJudgement) return;
+	if (*m_menuJudgement) return;
 
 	//		更新処理
 	m_iState->Update();
@@ -90,9 +104,6 @@ void TitleSelectManager::Render()
 {
 	//		背景の描画
 	m_backGroundMove->Render();
-
-	//		メニューを開いている場合は処理をしない
-	if (m_menuJudgement) return;
 
 	//		選択の描画
 	for (int i = 0, max = static_cast<int>(m_drawOder.size()); i < max; ++i)
@@ -111,6 +122,7 @@ void TitleSelectManager::Render()
 
 void TitleSelectManager::Finalize()
 {
+	m_menuJudgement = nullptr;
 }
 
 void TitleSelectManager::InputKey()

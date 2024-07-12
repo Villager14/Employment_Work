@@ -217,6 +217,9 @@ private:
 	//		ワイヤーの情報
 	std::vector<WireObjectInformation*> m_wireInformation;
 
+	//		メニューを使えるかどうか
+	bool m_menuUseJudgement;
+
 public:
 
 	/*
@@ -290,4 +293,18 @@ public:
 	*	@return ワイヤーの情報
 	*/
 	std::vector<WireObjectInformation*> GetWireObjectInformation() { return m_wireInformation; }
+
+	/*
+	*	メニューを使うことができるかどうか受け取る
+	*	
+	*	return true : 使うことができる　false : 使うことができない
+	*/
+	bool GetMenuUseJugement() { return m_menuUseJudgement; }
+
+	/*
+	*	メニューを使うことができるかどうか設定する
+	*
+	*	@param	(judgement) true : 使うことができる　false : 使うことができない
+	*/
+	void SetMenuUiseJudgement(bool judgement) { m_menuUseJudgement = judgement; }
  }; 

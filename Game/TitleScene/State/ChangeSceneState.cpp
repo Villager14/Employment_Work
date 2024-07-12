@@ -24,6 +24,9 @@ void ChangeSceneState::Initialize()
 {
 	m_time = 1.0f;
 
+	//		ƒƒjƒ…[‚ðŽg‚¦‚é‚æ‚¤‚É‚·‚é
+	m_titleSelectManager->SetMenuUseJudgement(false);
+
 	//		Œø‰Ê‰¹
 	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
 }

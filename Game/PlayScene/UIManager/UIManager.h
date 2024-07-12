@@ -7,23 +7,18 @@
 
 #pragma once
 
-#include "Clock/ClockManager.h"
-
-#include "CoolTime/CoolTime.h"
-
 #include "Fade/FadeIn.h"
 
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
-#include "Game/PlayScene/UIManager/GameOver/GameOverManager.h"
+#include "Library/Shader/StandardShader.h"
 
-#include "Game/PlayScene/UIManager/ScreenRay/ScreenRay.h"
-
-#include "Game/PlayScene/UIManager/ConcentrationLine/ConcentrationLineManager.h"
-
-#include "Game/PlayScene/UIManager/GameClear/GameClearManager.h"
+class ClockManager;
+class CoolTime;
+class GameOverManager;
+class GameClearManager;
 
 class UIManager
 {
@@ -37,11 +32,31 @@ public:
 	//		初期処理
 	void Initialize();
 
+	//		更新処理
 	void Update();
 
 	void FrontRender();
 
 	void BackRender();
+
+	//		UIテクスチャの作製
+	void CreateStandardUITexture();
+
+public:
+
+	enum UIType
+	{
+		ClockBackGround,		//		時計の背景
+		ClockColon,				//		時計のコロン
+		CloolTimeBackGround,	//		クールタイムの背景
+		GameOver,				//		ゲームオーバー
+		GameOverContinue,		//		ゲームオーバーのコンティニュー
+		NextInduction,			//		次の状態の誘導
+		ScreenRay,				//		スクリーンのレイ
+		GameClearBarUnder,		//		ゲームクリアのバー
+		GameClearBarUp,			//		ゲームクリアのバー		
+		GameClearBackGround,	//		ゲームクリアの背景
+	}; 
 
 private:
 	//		時計の背景
@@ -56,12 +71,6 @@ private:
 	//		ゲームオーバー
 	std::unique_ptr<GameOverManager> m_gameOver;
 
-	//		スクリーンのレイ
-	std::unique_ptr<ScreenRay> m_screenRay;
-
-	//		集中線
-	std::unique_ptr<ConcentrationLineManager> m_concentrationLine;
-
 	//		プレイヤーの情報を受け取る
 	PlayerInformation* m_playerInformation;
 
@@ -70,4 +79,17 @@ private:
 
 	//		ゲームクリアマネージャー
 	std::unique_ptr<GameClearManager> m_clearManager;
+
+	//		スタンダードシェーダー
+	std::unique_ptr<StandardShader<UIType>> m_standardShader;
+
+public:
+
+	/*
+	*	スタンダードシェーダーを受け取る
+	* 
+	*	@return スタンダードシェーダーを受け取る
+	*/
+	StandardShader<UIType>* GetStandardShader() { return m_standardShader.get(); }
+
 };

@@ -9,6 +9,12 @@
 
 #include "UIManager.h"
 
+#include "Clock/ClockManager.h"
+#include "CoolTime/CoolTime.h"
+#include "Game/PlayScene/UIManager/GameOver/GameOverManager.h"
+#include "Game/PlayScene/UIManager/GameClear/GameClearManager.h"
+
+
 UIManager::UIManager(PlayerInformation* playerInformation,
 					 GameManager* gameManager)
 	:
@@ -24,13 +30,13 @@ UIManager::~UIManager()
 void UIManager::Initialize()
 {
 	//		時計の背景の生成
-	m_clockManager = std::make_unique<ClockManager>();
+	m_clockManager = std::make_unique<ClockManager>(this);
 
 	//		時計の背景の初期化
 	m_clockManager->Initialize();
 
 	//		クールタイムの生成
-	m_coolTime = std::make_unique<CoolTime>();
+	m_coolTime = std::make_unique<CoolTime>(this);
 
 	//		クールタイムの初期化
 	m_coolTime->Initialize();
@@ -42,28 +48,27 @@ void UIManager::Initialize()
 	m_fadeIn->Initialize();
 
 	//		ゲームーオーバーの生成
-	m_gameOver = std::make_unique<GameOverManager>(m_gameManager);
+	m_gameOver = std::make_unique<GameOverManager>(m_gameManager, this);
 
 	//		ゲームオーバーの初期化
 	m_gameOver->Initialize();
 
-	//		スクリーンの例の生成
-	m_screenRay = std::make_unique<ScreenRay>(m_gameManager);
-
-	//		スクリーンの初期化
-	m_screenRay->Initialize();
-
 	//		ゲームクリアマネージャーの生成
-	m_clearManager = std::make_unique<GameClearManager>(m_gameManager);
+	m_clearManager = std::make_unique<GameClearManager>(m_gameManager, this);
 
 	//		ゲームクリアマネージャーの初期化
 	m_clearManager->Initialize();
 
-	//		集中線の生成
-	m_concentrationLine = std::make_unique<ConcentrationLineManager>();
 
-	//		集中線の初期化
-	m_concentrationLine->Initialize();
+
+	//		スタンダードシェーダーの作製
+	m_standardShader = std::make_unique<StandardShader<UIType>>();
+
+	//		スタンダードシェーダーの初期化
+	m_standardShader->Initialize();
+
+	//		UIテクスチャの作製
+	CreateStandardUITexture();
 }
 
 void UIManager::Update()
@@ -79,19 +84,10 @@ void UIManager::Update()
 
 	//		ゲームオーバーの更新
 	m_gameOver->Update();
-
-	//		スクリーンの線の更新
-	m_screenRay->Update();
-
-	//		集中線の更新
-	m_concentrationLine->Update();
 }
 
 void UIManager::FrontRender()
 {
-	//		集中線の描画
-	m_concentrationLine->Render();
-
 	//		時計の描画
 	m_clockManager->Render();
 
@@ -99,7 +95,7 @@ void UIManager::FrontRender()
 	m_coolTime->Render();
 
 	//		スクリーンの線の描画
-	m_screenRay->Render();
+	m_standardShader->Render(UIType::ScreenRay);
 
 	//		ゲームクリアマネージャーの描画
 	m_clearManager->Render();
@@ -115,4 +111,19 @@ void UIManager::BackRender()
 
 	//		フェードインの描画
 	m_fadeIn->Render();
+}
+
+void UIManager::CreateStandardUITexture()
+{
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/Clock/ClockBackGround.png", { 480.0f, 200.0f }, { 0.8f, 0.8f }, UIType::ClockBackGround);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/Clock/ClockColon.png", { 480.0f, 200.0f }, { 0.8f, 0.8f }, UIType::ClockColon);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/CoolTime/CoolTimeBack.png", { 539.0f, 0.0f }, { 0.6f, 0.6f }, UIType::CloolTimeBackGround);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameOver/GameOver.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameOver);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameOver/Continue.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameOverContinue);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameOver/button.png", { 0.0f, 200.0f }, { 0.6f, 0.6f }, UIType::NextInduction);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/ScreenRay/ScreenRay.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::ScreenRay);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png", { 0.0f, 13.0f }, { 0.0f, 1.0f }, UIType::GameClearBarUp);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png", { 0.0f, -13.0f }, { 0.0f, 1.0f }, UIType::GameClearBarUnder);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png", { 0.0f, 0.0f }, { 1.0f, 0.0f }, UIType::GameClearBackGround);
+
 }

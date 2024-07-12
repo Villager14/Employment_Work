@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "../UIRender.h"
+#include "../UIManager.h"
 
 class ClockBackGround
 {
 public:
 	//		コンストラクタ
-	ClockBackGround();
+	ClockBackGround(UIManager* uiManager);
 
 	//		デストラクタ
 	~ClockBackGround();
@@ -36,15 +36,13 @@ public:
 
 private:
 
+	//		回転量
 	const float ROTATION_RADIAN = 60.0f;
 
 private:
 
-	//		UIの描画
-	std::unique_ptr<UIRender> m_uiRender;
-
-	//		コロンの描画
-	std::unique_ptr<UIRender> m_colonRender;
+	//		UIマネージャーのインスタンスのポインタ
+	UIManager* m_uiManager;
 
 	//		最小時間
 	float m_rotationMin;
@@ -54,4 +52,7 @@ private:
 
 	//		過去の時間
 	float m_pastTime;
+
+	//		回転量
+	float m_rotation;
 };

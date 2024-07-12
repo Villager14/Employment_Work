@@ -5,7 +5,7 @@ static const unsigned int vnum = 4;
 static const float4 offset_array[vnum] =
 {
 	float4(0.0f, 1.0f, 0.0f, 1.0f),		//		¶ã
-	float4(1.0f, 1.0f, 0.0f,1.0f),		//		‰Eã
+	float4(1.0f, 1.0f, 0.0f, 1.0f),//		‰Eã
 	float4(0.0f, 0.0f, 0.0f, 1.0f),		//		¶‰º
 	float4(1.0f, 0.0f, 0.0f, 1.0f),		//		‰E‰º
 };

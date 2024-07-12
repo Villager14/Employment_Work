@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "FadeRender.h"
-
 #include "Game/PlayScene/GameManager/GameManager.h"
+
+#include "Library/Shader/UIRenderManager.h"
 
 class FadeIn
 {
@@ -27,11 +27,17 @@ public:
 
 	void Finalize();
 
+public:
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 time;
+	};
 
 private:
-
-	//		フェードの描画
-	std::unique_ptr<FadeRender> m_fadeRender;
 
 	//		時間
 	float m_time;
@@ -47,4 +53,10 @@ private:
 
 	//		初めのフェードインかどうか
 	bool m_firstJudgement;
+
+	//		コンストバッファ
+	ConstBuffer buffer;
+
+	//		フェードの描画
+	std::unique_ptr<UIRenderManager> m_fadeRender;
 };

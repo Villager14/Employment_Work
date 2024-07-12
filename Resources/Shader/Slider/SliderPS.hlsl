@@ -6,9 +6,19 @@ SamplerState samLinear : register(s0);
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-	float4 output = tex.Sample(samLinear, input.tex);
+	float2 uv = input.tex;
 
-	output.a *= lerp(1.0f, 0.0f, time.x);
+	uv.y -= 1.0f;
+	uv.y += clamp(time.x, 0.0f, 1.0f);
+
+	float4 output = tex.Sample(samLinear, uv);
+
+	output.w *= ceil(uv.y);
+
+	if (uv.x > slideVal.x)
+	{
+		output.w *= 0.0f;
+	}
 
 	return output;
 }

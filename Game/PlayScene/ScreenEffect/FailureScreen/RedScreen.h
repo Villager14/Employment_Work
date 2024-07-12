@@ -147,8 +147,6 @@ private:
 	//		‰ñ“]s—ñ
 	DirectX::SimpleMath::Matrix m_rotationMatrix;
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pasttexture;
-
 	//		ŠÔ
 	float m_time;
 

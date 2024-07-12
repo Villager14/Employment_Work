@@ -9,9 +9,10 @@
 
 #include "ClockManager.h"
 
-ClockManager::ClockManager()
+ClockManager::ClockManager(UIManager* uiManager)
 	:
-	m_elapsedTime(0.0f)
+	m_elapsedTime(0.0f),
+	m_uiManager(uiManager)
 {
 }
 
@@ -22,7 +23,7 @@ ClockManager::~ClockManager()
 void ClockManager::Initialize()
 {
 	//		Œv‚Ì”wŒi‚Ì¶¬
-	m_clockBackGround = std::make_unique<ClockBackGround>();
+	m_clockBackGround = std::make_unique<ClockBackGround>(m_uiManager);
 
 	//		Œv‚Ì”wŒi‚Ì‰Šú‰»
 	m_clockBackGround->Initialize();

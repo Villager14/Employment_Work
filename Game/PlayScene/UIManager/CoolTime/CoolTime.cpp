@@ -8,13 +8,14 @@
 
 #include "CoolTime.h"
 
-CoolTime::CoolTime()
+CoolTime::CoolTime(UIManager* uiManager)
 	:
 	m_angle(360.0f),
 	m_time(0.0f),
 	m_coolTimeJudgement(false),
 	m_ratio(100.0f),
-	m_state()
+	m_state(),
+	m_uiManager(uiManager)
 {
 }
 
@@ -24,28 +25,44 @@ CoolTime::~CoolTime()
 
 void CoolTime::Initialize()
 {
-	//		数字シェーダーの生成
-	m_circleShader = std::make_unique<CircleShader>();
+	//		回転シェーダーの生成
+	m_rotataionShader = std::make_unique<UIRenderManager>();
 
-	float scale = 0.6f;
+		//		回転シェーダーの作製
+	m_rotataionShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
+		L"Resources/Shader/CoolTime/CoolTimeVS.cso",
+		L"Resources/Shader/CoolTime/CoolTimeGS.cso",
+		L"Resources/Shader/CoolTime/CoolTimePS.cso",
+		buffer,
+		{ 270.0f, 0.0f }, { 0.6f, 0.6f });
 
-	//		クールタイムシェーダーの作製
-	m_circleShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
-		{270.0f, 0.0f}, { scale, scale });
-		
-	//		背景シェーダーの生成
-	m_backRender = std::make_unique<UIRender>();
+	//		ウィンドウサイズを設定する
+	circleBuffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
 
-	//		背景シェーダーの作製
-	m_backRender->Create(L"Resources/Texture/UI/CoolTime/CoolTimeBack.png",
-		{ 539.0f, 0.0f }, { scale, scale });
+	//		回転量を設定する
+	circleBuffer.rotationMatrix = m_rotataionShader->GetRotationMatrix();
 
-	//		数字シェーダーの生成
-	m_numberShader = std::make_unique<NumberShader>();
+
+	//		シェーダー描画マネージャーの生成
+	m_shader = std::make_unique<UIRenderManager>();
 
 	//		数字シェーダーの作製
-	m_numberShader->Create(L"Resources/Texture/UI/CoolTime/cooltimeNumber.png",
-		{ 1200.0f, 360.0f }, { 0.3f, 0.3f });
+	m_shader->Create(L"Resources/Texture/UI/CoolTime/cooltimeNumber.png",
+		L"Resources/Shader/Number/NumberVS.cso",
+		L"Resources/Shader/Number/NumberGS.cso",
+		L"Resources/Shader/Number/NumberPS.cso",
+		buffer,
+		{ 0.0f, 0.0f }, { 0.3f, 0.3f });
+
+	//		ウィンドウサイズを設定する
+	buffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	//		回転量を設定する
+	buffer.rotationMatrix = m_shader->GetRotationMatrix();
 
 	//		何もない状態
 	m_state = State::None;
@@ -112,34 +129,47 @@ void CoolTime::Update(PlayerInformation* playerInformation)
 
 	//		割合を設定する
 	m_ratio = Library::Lerp(100.0f, 0.0f, m_time);
-
 }
 
 void CoolTime::Render()
 {
 	//		背景の描画
-	m_backRender->Render();
+	m_uiManager->GetStandardShader()->Render(UIManager::UIType::CloolTimeBackGround);
 
+	//		回転量を設定する
+	circleBuffer.rotation = { m_angle, 0.0f, 0.0f, 0.0f };
 
-	//		円の描画
-	m_circleShader->Render(static_cast<int>(m_angle));
+	//		周りの描画
+	m_rotataionShader->Render(circleBuffer);
 
-	
-
-	//		数字シェーダーの座標を設定する（百の位）
-	m_numberShader->SetPosition({ NUMBER_CENTER_POSITION - NUMBER_INTERVAL, LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f });
-	//		数字の描画（百の位）
-	m_numberShader->Render(static_cast<int>(m_ratio / 100));
-	//		数字シェーダーの座標を設定する（十の位）
-	m_numberShader->SetPosition({ NUMBER_CENTER_POSITION, LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f });
-	//		数字の描画（十の位）
-	m_numberShader->Render(static_cast<int>(m_ratio) % 100 / 10);
-	//		数字シェーダーの座標を設定する（一の位）
-	m_numberShader->SetPosition({ NUMBER_CENTER_POSITION + NUMBER_INTERVAL, LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f });
-	//		数字の描画（一の位）
-	m_numberShader->Render(static_cast<int>(m_ratio) % 100 % 10);
+	//		数字の描画
+	NumberView();
 }
 
 void CoolTime::Finalize()
 {
+}
+
+void CoolTime::NumberView()
+{
+	//		数字の設定(百の位)
+	buffer.number = { static_cast<float>(static_cast<int>(m_ratio / 100)), 0.0f, 0.0f, 0.0f };
+	//		数字の座標設定(百の位)
+	m_shader->SetPosition({ NUMBER_CENTER_POSITION - NUMBER_INTERVAL, LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f });
+	//		数字の描画（百の位）
+	m_shader->Render(buffer);
+
+	//		数字の設定(十の位)
+	buffer.number = { static_cast<float>(static_cast<int>(m_ratio) % 100 / 10), 0.0f, 0.0f, 0.0f };
+	//		数字の座標設定(十の位)
+	m_shader->SetPosition({ NUMBER_CENTER_POSITION, LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f });
+	//		数字の描画（十の位）
+	m_shader->Render(buffer);
+
+	//		数字の設定(一の位)
+	buffer.number = { static_cast<float>(static_cast<int>(m_ratio) % 100 % 10), 0.0f, 0.0f, 0.0f };
+	//		数字の座標設定(一の位)
+	m_shader->SetPosition({ NUMBER_CENTER_POSITION + NUMBER_INTERVAL, LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f });
+	//		数字の描画（一の位）
+	m_shader->Render(buffer);
 }

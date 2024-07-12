@@ -13,9 +13,9 @@
 
 #include "Game/TitleScene/UI/BackGroundMove.h"
 
-#include "Game/PlayScene/UIManager/Fade/FadeRender.h"
-
 #include "Library/Shader/StandardShader.h"
+
+#include "Library/Shader/UIRenderManager.h"
 
 class TitleUIManager;
 
@@ -40,6 +40,14 @@ public:
 		SettingState,	//		設定状態
 		ChangState,		//		変更状態
 		StartState		//		スタート状態
+	};
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 windowSize;
+		DirectX::SimpleMath::Matrix  rotationMatrix;
+		DirectX::SimpleMath::Vector4 time;
 	};
 
 public:
@@ -142,17 +150,22 @@ private:
 	//		シーンを変更するかどうか
 	bool m_changeSceneJudgement;
 
-	//		フェード
-	std::unique_ptr<FadeRender> m_fade;
-
 	//		メニューを開いているかどうか
-	bool m_menuJudgement;
+	bool *m_menuJudgement;
+
+	//		メニューを使えるかどうか
+	bool m_menuUseJudgement;
 
 	//		背景移動処理
 	std::unique_ptr<BackGroundMove> m_backGroundMove;
 
 	//		タイトルUIマネージャー
 	std::unique_ptr<StandardShader<TitleUIType>> m_standardShader;
+
+	ConstBuffer buffer;
+
+	//		フェード描画
+	std::unique_ptr<UIRenderManager> m_fade;
 
 public:
 
@@ -241,20 +254,43 @@ public:
 	*/
 	bool GetChangeScnenJudgemnet() { return m_changeSceneJudgement; }
 
-
 	/*
 	*	フェードの描画
 	*
 	*	@param	(time)	時間
 	*/
-	void FadeViewProcess(float time) { m_fade->Render(time); }
+	void FadeViewProcess(float time) { 
+		buffer.time = { time, 0.0f, 0.0f, 0.0f };
+		m_fade->Render(buffer);
+	}
 
 	/*
-	*	メニューを開いているかどうか受け取る
+	*	メニューを開いているかどうか設定する
 	* 
 	*	@param	(judgement)	true : 開いている　false : 開いていない
 	*/
-	void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
+	void SetMenuJudgement(bool *judgement) { m_menuJudgement = judgement; }
+
+	/*
+	*	メニューを開いているかどうか受け取る
+	*
+	*	@return	true : 開いている　false : 開いていない
+	*/
+	bool *GetMenuJudgement() { return m_menuJudgement; }
+
+	/*
+	*	メニューを開けるかどうか設定する
+	* 
+	*	@param	(judgement)	true : 使える false : 使えない
+	*/
+	void SetMenuUseJudgement(bool judgement) { m_menuUseJudgement= judgement; }
+
+	/*
+	*	メニューを開けるかどうか設定する
+	*
+	*	@return	true : 使える false : 使えない
+	*/
+	bool GetMenuUseJudgement() { return m_menuUseJudgement; }
 
 	/*
 	*	タイトルUIマネージャーのインスタンスのポインタを受け取る

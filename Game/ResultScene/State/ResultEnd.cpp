@@ -22,6 +22,8 @@ ResultEnd::~ResultEnd()
 
 void ResultEnd::Initialize()
 {
+	//		ƒƒjƒ…[‚ðŽg‚¦‚È‚¢‚æ‚¤‚É‚·‚é
+	m_resultManager->SetMenuUseJugement(false);
 }
 
 void ResultEnd::Update()

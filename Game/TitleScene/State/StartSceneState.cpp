@@ -52,4 +52,7 @@ void StartSceneState::Finalize()
 {
 	m_titleSelectManager->SetKeyInput(false);
 	m_time = 0.0f;
+
+	//		ƒƒjƒ…[‚ðŽg‚¦‚é‚æ‚¤‚É‚·‚é
+	m_titleSelectManager->SetMenuUseJudgement(true);
 }

@@ -104,7 +104,7 @@ void Game::Update(DX::StepTimer const& timer)
     //      ƒQ[ƒ€‚ğI—¹‚·‚é
     if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
     {
-        PostQuitMessage(0);
+        //PostQuitMessage(0);
     }
 
     // TODO: Add your game logic here.

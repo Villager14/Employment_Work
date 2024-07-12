@@ -9,11 +9,13 @@
 
 #include "ClockBackGround.h"
 
-ClockBackGround::ClockBackGround()
+ClockBackGround::ClockBackGround(UIManager* uiManager)
 	:
 	m_rotationMax(ROTATION_RADIAN),
 	m_rotationMin(0.0f),
-	m_pastTime(0.0f)
+	m_pastTime(0.0f),
+	m_uiManager(uiManager),
+	m_rotation(0.0f)
 {
 }
 
@@ -23,19 +25,7 @@ ClockBackGround::~ClockBackGround()
 
 void ClockBackGround::Initialize()
 {
-	//		UIï`âÊÇÃê∂ê¨
-	m_uiRender = std::make_unique<UIRender>();
 
-	//		UIï`âÊÇÃçÏêª
-	m_uiRender->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		{480.0f, 200.0f}, {0.8f, 0.8f});
-
-	//		ÉRÉçÉìÇÃê∂ê¨
-	m_colonRender = std::make_unique<UIRender>();
-
-	//		ÉRÉçÉìÇÃçÏêª
-	m_colonRender->Create(L"Resources/Texture/UI/Clock/ClockColon.png",
-		{ 480.0f, 200.0f }, { 0.8f, 0.8f });
 }
 
 void ClockBackGround::Update(float elapsedTime)
@@ -64,22 +54,26 @@ void ClockBackGround::Update(float elapsedTime)
 		move = pow(2.0f, 10.0f * time - 10.0f);
 	}
 	
-	float rotation = 0;
-
-	rotation = Library::Lerp(m_rotationMin, m_rotationMax, move);
+	m_rotation = Library::Lerp(m_rotationMin, m_rotationMax, move);
 
 	m_pastTime = time;
-
-	m_uiRender->SetRotationMatrix(DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(rotation)));
 }
 
 void ClockBackGround::Render()
 {
-	//		îwåiÇÃï`âÊ
-	m_uiRender->Render();
+	//		âÒì]çsóÒÇÃçÏêª
+	m_uiManager->GetStandardShader()->GetConsutBuffer()->rotationMatrix
+		= DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation));
 
-	//		ÉRÉçÉìï`âÊ
-	m_colonRender->Render();
+	//		îwåiÇÃï`âÊ
+	m_uiManager->GetStandardShader()->Render(UIManager::UIType::ClockBackGround);
+
+	//		âÒì]çsóÒÇÃèâä˙âª
+	m_uiManager->GetStandardShader()->GetConsutBuffer()
+		->rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
+
+	//		ÉRÉçÉìÇÃï`âÊ
+	m_uiManager->GetStandardShader()->Render(UIManager::UIType::ClockColon);
 }
 
 void ClockBackGround::Finalize()

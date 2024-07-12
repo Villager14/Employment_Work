@@ -13,7 +13,8 @@
 
 PlayScene::PlayScene(SceneManager* sceneManager)
 	:
-	m_sceneManager{sceneManager}
+	m_sceneManager{sceneManager},
+	m_menuCloseJugement(false)
 {
 }
 
@@ -91,6 +92,15 @@ void PlayScene::Initialize()
 
 void PlayScene::Update()
 {
+	if (*m_sceneManager->GetMenuJudgement())
+	{
+		m_menuCloseJugement = true;
+		return;
+	}
+
+	//		メニューが使えるかどうか？
+	m_sceneManager->SetMenuUseJudgement(m_player->GetMenuUseJugement());
+
 	//		プレイヤーのワールド座標を受け取る
 	m_objectManager->SetPlayerWorld(m_player->GetInformation()->GetWorld());
 
@@ -128,8 +138,16 @@ void PlayScene::Update()
 	//		メッシュアップデート
 	m_player->MeshUpdate();
 
-	//		カメラマネージャーの更新処理
-	m_playerCameraManager->Update(m_player->GetInformation());
+	//		マウス絶対モードから相対モードに切り替わる時一フレーム必要なので
+	if (m_menuCloseJugement)
+	{
+		m_menuCloseJugement = false;
+	}
+	else
+	{
+		//		カメラマネージャーの更新処理
+		m_playerCameraManager->Update(m_player->GetInformation());
+	}
 
 	//		プレイヤーにカメラの角度を送る
 	m_player->GetInformation()->SetCameraAngle(m_playerCameraManager->GetInformation()->GetAngle());
@@ -166,17 +184,17 @@ void PlayScene::Update()
 		m_sceneManager->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));
 
 		//		次のシーンに切り替える（リザルトシーン）
-		m_sceneManager->ChangeState(m_sceneManager->GetResultScene());
+		m_sceneManager->ChangeScene(SceneManager::SceneType::Result);
 	}
 }
 
 void PlayScene::Render()
 {
 	//		レンダーターゲットの変更
-	m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
+	//m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
 
 	//		プレイヤーの描画処理
-	m_player->Render(m_shadow.get());
+	//m_player->Render(m_shadow.get());
 
 	//		レンダーターゲットの変更
 	m_screenEffectManager->ChangeRenderTarget();

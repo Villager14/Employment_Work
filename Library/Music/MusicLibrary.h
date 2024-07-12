@@ -78,11 +78,17 @@ private:
 	//		BGMのボリューム
 	float m_bgmVolume;
 
+	//		効果音のボリューム
+	float m_soundEffectVolum;
+
 	//		再生中のBGM
 	BGMType m_nowBGM;
 
 	//		最大音量
 	float m_maxVolume;
+
+	//		マスターボリューム
+	float m_mastarVolume;
 
 public:
 
@@ -124,7 +130,44 @@ public:
 		m_bgmVolume = Library::Lerp(0.0f, m_maxVolume, time);
 
 		//		初期のボリューム
-		m_audioEngineBGM->SetMasterVolume(m_bgmVolume);
+		m_audioEngineBGM->SetMasterVolume(Library::Lerp(0.0f, m_bgmVolume, m_mastarVolume));
+	}
+
+	/*
+	*	BGMのボリュームを設定する
+	* 
+	*	@param	(val)	ボリューム
+	*/
+	void SetBGMVolume(float val)
+	{
+		m_bgmVolume = Library::Clamp(val, 0.0f, 1.0f);
+
+		m_audioEngineBGM->SetMasterVolume(Library::Lerp(0.0f, m_bgmVolume, m_mastarVolume));
+	}
+
+	/*
+	*	効果音のボリュームを設定する
+	*
+	*	@param	(val)	ボリューム
+	*/
+	void SetSoundEffectVolume(float val)
+	{
+		m_soundEffectVolum = Library::Clamp(val, 0.0f, 1.0f);
+
+		m_audioEngineSoundEffect->SetMasterVolume(Library::Lerp(0.0f, m_soundEffectVolum, m_mastarVolume));
+	}
+
+	/*
+	*	マスターボリュームを設定する
+	*	
+	*	@param	(val)	ボリューム
+	*/
+	void SetMastaraVolume(float val)
+	{
+		m_mastarVolume = Library::Clamp(val, 0.01f, 1.0f); 
+
+		m_audioEngineBGM->SetMasterVolume(Library::Lerp(0.0f, m_bgmVolume, m_mastarVolume));
+		m_audioEngineSoundEffect->SetMasterVolume(Library::Lerp(0.0f, m_soundEffectVolum, m_mastarVolume));
 	}
 
 private:

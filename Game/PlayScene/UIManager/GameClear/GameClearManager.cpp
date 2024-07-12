@@ -10,12 +10,13 @@
 #include "GameClearManager.h"
 
 
-GameClearManager::GameClearManager(GameManager* gameManager)
+GameClearManager::GameClearManager(GameManager* gameManager, UIManager* uiManager)
 	:
 	m_gameManager(gameManager),
 	m_elapsedTime(0.0f),
 	m_scale(0.0f),
-	m_move(0.0f)
+	m_move(0.0f),
+	m_uiManager(uiManager)
 {
 }
 
@@ -25,39 +26,25 @@ GameClearManager::~GameClearManager()
 
 void GameClearManager::Initialize()
 {
-	for (int i = 0; i < 6; ++i)
-	{
-		//		UI描画の生成
-		m_gameOverRender.push_back(std::make_unique<UIRender>());
-	}
+	//		メッセージ描画シェーダーの生成
+	m_messageShader = std::make_unique<UIRenderManager>();
 
-	//		UI描画の作製(Continue)
-	m_gameOverRender[0]->Create(L"Resources/Texture/UI/GameClear/Messege.png",
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+	//		メッセージの作成
+	m_messageShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
+		L"Resources/Shader/CenterShader/CenterShaderVS.cso",
+		L"Resources/Shader/CenterShader/CenterShaderGS.cso",
+		L"Resources/Shader/CenterShader/CenterShaderPS.cso",
+		buffer,
+		{0.0f, 0.0f}, {1.0f, 1.0f}
+	);
 
-	//		UI描画の作製()Continue
-	m_gameOverRender[1]->Create(L"Resources/Texture/UI/GameClear/messegeBer.png",
-		{ 0.0f, 13.0f }, { 0.0f, 1.0f });
+	//		ウィンドウサイズを設定する
+	buffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
 
-	//		UI描画の作製()Continue
-	m_gameOverRender[2]->Create(L"Resources/Texture/UI/GameClear/messegeBer.png",
-		{ 0.0f, -13.0f }, { 0.0f, 1.0f });
-
-	//		UI描画の作製()Continue
-	m_gameOverRender[3]->Create(L"Resources/Texture/UI/GameClear/messegeBack.png",
-		{ 0.0f, 0.0f }, { 1.0f, 0.0f });
-
-	m_centerShader = std::make_unique<CenterShader>();
-
-	m_centerShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
-
-	//		グリッチシェーダーの生成
-	m_glitchShader = std::make_unique<GlitchShader>();
-
-	//		グリッチシェーダーの作製
-	m_glitchShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+	//		回転量を設定する
+	buffer.rotationMatrix = m_messageShader->GetRotationMatrix();
 }
 
 void GameClearManager::Update()
@@ -83,9 +70,10 @@ void GameClearManager::Update()
 			move = 1.0f - pow(2.0f, -10.0f * m_scale);
 		}
 
+		
 
-		m_gameOverRender[1]->SetSize({ move, 1.0f });
-		m_gameOverRender[2]->SetSize({ move, 1.0f });
+		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUnder].scale = { move, 1.0f };
+		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUp].scale = { move, 1.0f };
 	}
 	else
 	{
@@ -104,28 +92,23 @@ void GameClearManager::Update()
 			move = 1.0f - pow(2.0f, -10.0f * m_move);
 		}
 
-		m_gameOverRender[1]->SetPosition({ 0.0f, Library::Lerp(13.0f, 300.0f, move) });
-		m_gameOverRender[2]->SetPosition({ 0.0f, Library::Lerp(-13.0f, -300.0f, move) });
-		m_gameOverRender[3]->SetSize({ 1.0f, move });
-		m_centerShader->SetTime(move);
+		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUnder].position = { 0.0f, Library::Lerp(13.0f, 300.0f, move) };
+		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUp].position = { 0.0f, Library::Lerp(-13.0f, -300.0f, move) };
+
+		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBackGround].scale = { 1.0f, move };
+		buffer.time = { move, 0.0f, 0.0f, 0.0f };
 	}
 
 }
 
 void GameClearManager::Render()
 {
-	//		ゲームクリア状態ではないなら処理をしない
-	//if (!m_gameManager->GetGoalJudgement()) return;
-	
-	m_gameOverRender[3]->Render();
+	m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameClearBackGround);
 
-	m_centerShader->Render();
+	m_messageShader->Render(buffer);
 
-	m_gameOverRender[1]->Render();
-	m_gameOverRender[2]->Render();
-
-
-	//m_glitchShader->Render();
+	m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameClearBarUnder);
+	m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameClearBarUp);
 }
 
 void GameClearManager::Finalize()

@@ -85,4 +85,6 @@ private:
 
 	//		エフェクトマネージャー
 	std::unique_ptr<EffectManager> m_effectManager;
+
+	bool m_menuCloseJugement;
 };
