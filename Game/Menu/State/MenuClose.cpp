@@ -27,10 +27,12 @@ void MenuClose::Initialize()
 	m_move = 0.0f;
 	m_scale = 0.0f;
 	m_mainClose = 1.0f;
+	m_menuManager->GetInformation()->SetMenuTransrationJudgement(false);
 }
 
 void MenuClose::Update()
 {
+
 	if (m_move < 1.0f)
 	{
 		m_move += LibrarySingleton::GetInstance()->GetElpsedTime() * m_menuManager->GetInformation()->MENU_SPEED;
@@ -88,6 +90,6 @@ void MenuClose::Render()
 void MenuClose::Finalize()
 {
 	//		ƒƒjƒ…[‚ðI—¹‚·‚é
-	*m_menuManager->GetMenuJudgement() = false;
+	m_menuManager->GetInformation()->SetMenuJudgement(false);
 	m_menuManager->SetFirstAudioMenuJudgement(true);
 }

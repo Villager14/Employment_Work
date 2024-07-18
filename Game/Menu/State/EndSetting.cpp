@@ -28,6 +28,8 @@ EndSetting::~EndSetting()
 void EndSetting::Initialize()
 {
 	m_menuCloseJudgement = false;
+
+
 }
 
 void EndSetting::Update()
@@ -71,9 +73,14 @@ void EndSetting::Render()
 	//		メニューを閉じる
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::MenuClose, m_menuManager->EasingIcon(m_transitionSettingUITime));
 
+	//		メニューを閉じるの枠
+	m_menuManager->GetInformation()->GetFramWalkUI()->Render(m_menuManager->EasingIcon(m_transitionSettingUITime), FrameWalkUI::MenuClear);
+
 	//		Exit
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::Exit, m_menuManager->EasingIcon(m_transitionSettingUITime));
 
+	//		EXITの枠
+	m_menuManager->GetInformation()->GetFramWalkUI()->Render(m_menuManager->EasingIcon(m_transitionSettingUITime), FrameWalkUI::EXIT);
 }
 
 void EndSetting::Finalize()
@@ -84,12 +91,13 @@ void EndSetting::Finalize()
 	m_endJudgement = false;
 	m_transitionRoughTime = 1.0f;
 	m_menuCloseJudgement = false;
+	m_menuManager->GetInformation()->GetFramWalkUI()->Reset();
 }
 
 void EndSetting::ButtonProcess()
 {
 	//		メニューを閉じるかどうか
-	if (m_menuManager->BoxCollider({ 617.0f, 200.0f }, { 1064.0f, 317.0f }))
+	if (m_menuManager->BoxCollider({ 640, 200.0f }, { 1039.0f, 317.0f }))
 	{
 		//		左クリック
 		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
@@ -98,10 +106,21 @@ void EndSetting::ButtonProcess()
 			m_endJudgement = true;
 			m_menuCloseJudgement = true;
 		}
+
+		//		当たっている
+		(*m_menuManager->GetInformation()->GetFramWalkUI()->GetFrameInformation())
+			[FrameWalkUI::FrameType::MenuClear].boxhitJudgement = true;
+
+	}
+	else
+	{
+		//		当たっている
+		(*m_menuManager->GetInformation()->GetFramWalkUI()->GetFrameInformation())
+			[FrameWalkUI::FrameType::MenuClear].boxhitJudgement = false;
 	}
 
 	//		ゲームを閉じるかどうか
-	if (m_menuManager->BoxCollider({ 617.0f, 351.0f }, { 1064.0f, 470.0f }))
+	if (m_menuManager->BoxCollider({ 640.0f, 351.0f }, { 1039.0f, 470.0f }))
 	{
 		//		左クリック
 		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
@@ -110,5 +129,15 @@ void EndSetting::ButtonProcess()
 			//		ゲームを閉じる
 			PostQuitMessage(0);
 		}
+
+		//		当たっている
+		(*m_menuManager->GetInformation()->GetFramWalkUI()->GetFrameInformation())
+			[FrameWalkUI::FrameType::EXIT].boxhitJudgement = true;
+	}
+	else
+	{
+		//		当たっている
+		(*m_menuManager->GetInformation()->GetFramWalkUI()->GetFrameInformation())
+			[FrameWalkUI::FrameType::EXIT].boxhitJudgement = false;
 	}
 }

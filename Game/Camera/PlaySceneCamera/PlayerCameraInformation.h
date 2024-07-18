@@ -15,7 +15,9 @@ public:
 	//		コンストラクタ
 	PlayerCameraInformation()
 		:
-		m_angleMin(0.0f)
+		m_angleMin(0.0f),
+		m_viewAngle(70.0f),
+		m_mouseSpeed(5.0f)
 	{};
 
 	//		デストラクタ
@@ -29,15 +31,6 @@ private:
 
 	//		最小角度Y
 	const float ANGLE_Y_MIN = -50.0f;
-
-	//		カメラの速度
-	const float CAMERA_SPEED = 5.0f;
-
-	//		視野角最大
-	const float VIEWING_ANGLE_MAX = 90.0f;
-
-	//		視野角最小
-	const float VIEWING_ANGLE_MIN = 70.0f;
 
 public:
 
@@ -55,14 +48,13 @@ public:
 	*/
 	float GetMinAngleY() { return ANGLE_Y_MIN; }
 
-	/*
-	*	カメラの速度を受け取る
-	*
-	*	@return 速度
-	*/
-	float GetCameraSpeed() { return CAMERA_SPEED; }
-
 private:
+
+	//		視野角
+	float m_viewAngle;
+
+	//		マウスの速度
+	float m_mouseSpeed;
 
 	//		最小値
 	float m_angleMin;
@@ -83,6 +75,20 @@ private:
 	DirectX::SimpleMath::Vector2 m_cameraMove;
 
 public:
+
+	/*
+	*	視野角を設定する
+	* 
+	*	@param	(angle)	角度
+	*/
+	void SetViewAngle(float angle) { m_viewAngle = angle; }
+
+	/*
+	*	視野角を受け取る
+	* 
+	*	@return	角度
+	*/
+	float GetViewAngle() { return m_viewAngle; }
 
 	/*
 	*	カメラの角度を受けとる
@@ -111,20 +117,6 @@ public:
 	*	@return ベクトル
 	*/
 	const DirectX::SimpleMath::Vector3& GetViewVelocity() { return m_viewVelocity; }
-
-	/*
-	*	視野角最小角度を受け取る
-	*
-	*	@return 角度
-	*/
-	const float GetViewingAngleMin() { return VIEWING_ANGLE_MIN; }
-
-	/*
-	*	視野角最大角度を受け取る
-	*
-	*	@return 角度
-	*/
-	const float GetViewingAngleMax() { return VIEWING_ANGLE_MAX; }
 
 	/*
 	*	Eyeベクトルを設定する
@@ -195,4 +187,19 @@ public:
 	*	@param	(angle)	角度
 	*/
 	void SetCameraAngleMin(float angle) { m_angleMin = angle; }
+
+	/*
+	*	マウスの速度を受け取る
+	* 
+	*	@return	速度
+	*/
+	float GetCameraSpeed() { return m_mouseSpeed; }
+
+	/*
+	*	マウスの速度を設定する
+	* 
+	*	@param	(speed)
+	*/
+	void SetCameraSpeed(float speed) { m_mouseSpeed = speed; }
+
 };

@@ -43,6 +43,8 @@ public:
 		MastarVolum,
 		BGMVolum,
 		SoundEffect,
+		FOV,
+		Mouse,
 
 		Empty,
 	};
@@ -57,7 +59,6 @@ private:
 
 	//		シェーダーの情報
 	std::unordered_map<UIType, UIInformation> m_shaderInformation;
-
 
 public:
 

@@ -26,9 +26,10 @@ RedScreen::RedScreen()
 	concentrationCoolTime(0.0f),
 	m_blerString(0.0f),
 	m_baseScale(0.0f),
-	m_grayJudgement(false)
+	m_grayJudgement(false),
+	m_menuTime(0.0f),
+	m_menuOpenJudgement(false)
 {
-
 }
 
 RedScreen::~RedScreen()
@@ -79,8 +80,37 @@ void RedScreen::Update(GameManager* gameManager, PlayerCameraInformation* player
 	concentrationLineTime = LibrarySingleton::GetInstance()->Random(0.0f, 1080.0f);
 
 	concentrationChange = LibrarySingleton::GetInstance()->Random(0.2f, 0.3);
+}
 
+void RedScreen::Gray(MenuInformation* menuInformation)
+{
+	//		メニューが開いた時
+	if (menuInformation->GetMenuTransrationJudgement() && !m_menuOpenJudgement)
+	{
+		m_menuTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
 
+		m_menuTime = Library::Clamp(m_menuTime, 0.0f, 1.0f);
+
+		if (m_menuTime >= 1.0f)
+		{
+			//		メニューが開いている状態にする
+			m_menuOpenJudgement = true;
+		}
+	}
+
+	//		メニューを開いている時
+	if (m_menuOpenJudgement && !menuInformation->GetMenuTransrationJudgement())
+	{
+		m_menuTime -= LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
+
+		m_menuTime = Library::Clamp(m_menuTime, 0.0f, 1.0f);
+
+		if (m_menuTime <= 0.0f)
+		{
+			//		メニューが開いている状態にする
+			m_menuOpenJudgement = false;
+		}
+	}
 }
 
 void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
@@ -105,6 +135,7 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	cbuff.motionVector = { m_cameraMove.x, m_cameraMove.y, 0.0f, 0.0f};
 	cbuff.blurStrength = { m_blerString, 0.0f ,0.0f, 0.0f };
 	cbuff.concentrationLineTime = { concentrationLineTime , concentrationChange, 0.0f ,0.0f};
+	cbuff.grayStrength = { m_menuTime , 0.0f, 0.0f, 0.0f };
 
 	//		受け渡し用バッファ
 	context->UpdateSubresource(m_CBuffer.Get(), 0, NULL, &cbuff, 0, 0);

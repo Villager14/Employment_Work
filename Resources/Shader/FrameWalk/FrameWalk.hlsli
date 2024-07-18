@@ -3,10 +3,6 @@ cbuffer ConstBuffer : register(b0)
 	float4 windowSize;
 	float4x4 rotationMatrix;
 	float4 time;
-	float4 motionVector;			//		モーションの強さ	(実験)
-	float4 blurStrength;			//		ブラーの強さ
-	float4 concentrationLineTime;	//
-	float4 grayStrength;				//		グレイスケールの強さ
 }
 
 struct VS_INPUT

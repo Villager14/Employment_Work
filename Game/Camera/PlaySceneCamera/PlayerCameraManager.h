@@ -62,6 +62,9 @@ public:
 	//		視野角
 	void ViewingAngle();
 
+	//		視野角の更新
+	void ViewAngleUpdate(PlayerInformation* playerInformation);
+
 public:
 
 	//		カメラのタイプ

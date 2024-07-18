@@ -32,6 +32,8 @@ void Slider::Initialize()
 	CreateUIInformation({ 200.0f, -100.0f }, { 1.0f, 1.0f }, 1.0f, UIType::MastarVolum);
 	CreateUIInformation({ 200.0f, 50.0f }, { 1.0f, 1.0f }, 0.5f, UIType::BGMVolum);
 	CreateUIInformation({ 200.0f, 200.0f }, { 1.0f, 1.0f }, 0.5f, UIType::SoundEffect);
+	CreateUIInformation({ 200.0f, -100.0f }, { 1.0f, 1.0f }, 0.0f, UIType::FOV);
+	CreateUIInformation({ 200.0f, 50.0f }, { 1.0f, 1.0f }, 0.5f, UIType::Mouse);
 
 	//		âÒì]çsóÒÇëóÇÈ
 	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;

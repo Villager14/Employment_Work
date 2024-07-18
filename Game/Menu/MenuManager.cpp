@@ -16,14 +16,12 @@ MenuManager::MenuManager()
 	m_type{},
 	m_rangeUI{ AboveUI::UIType::Empty },
 	m_slideUIType{AboveUI::UIType::Empty},
-	m_menuJudgement{NULL},
 	m_firstAudioMenuJudgement(true)
 {
 }
 
 MenuManager::~MenuManager()
 {
-	m_menuJudgement = nullptr;
 }
 
 void MenuManager::Initialize()
@@ -43,24 +41,53 @@ void MenuManager::Initialize()
 	//		初期化処理
 	m_state->Initialize();
 
-	//		メニューの情報を生成する
-	m_information = std::make_unique<MenuInformation>();
-
-	//		メニューの情報を初期化する
-	m_information->Initialzie();
+	//		UIを作成する
+	CreateUI();
 }
 
 void MenuManager::Update()
 {
-	//		マウスを相対位置にする
-	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_ABSOLUTE);
+	//		メニューを使用することができるかどうか
+	if (!m_information->GetMenuUseJudgement()) return;
+
+	//		キーボードの取得
+	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
+
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::Escape))
+	{
+		m_information->SetMenuJudgement(true);
+	}
+
+	//		メニューを使用するかどうか
+	if (!m_information->GetMenuJudgement()) return;
+
+
+	//		マウスのモードを変更するかどうか
+	if (m_information->GetMouseModeJudgement())
+	{
+		//		マウスを相対位置にする
+		DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_ABSOLUTE);
+
+		//		マウスのモードを変更できないようにする
+		m_information->SetMouseModeJudgement(false);
+	}
 
 	//		更新処理
 	m_state->Update();
+
+	//		メニューモードを終了したとき
+	if (!m_information->GetMenuJudgement())
+	{
+		//		マウスのモードを変更できるようにする
+		m_information->SetMouseModeJudgement(true);
+	}
 }
 
 void MenuManager::Render()
 {
+	//		メニューを使用しているかどうか
+	if (!m_information->GetMenuJudgement()) return;
+
 	//		描画処理
 	m_state->Render();
 
@@ -106,6 +133,54 @@ bool MenuManager::BoxCollider(DirectX::SimpleMath::Vector2 min, DirectX::SimpleM
 
 	//		範囲外
 	return false;
+}
+
+void MenuManager::CreateUI()
+{
+	//		スタンダードシェーダーの生成
+	m_standardShader = std::make_unique<StandardShader<MenuInformation::UIType>>();
+
+	//		スタンダードシェーダーの初期化処理
+	m_standardShader->Initialize();
+
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png",
+		{ 0.0f, 13.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::Bar1);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png",
+		{ 0.0f, -13.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::Bar2);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png",
+		{ 0.0f, 0.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::BackGround);
+
+	//		上昇UIの生成
+	m_aboveUI = std::make_unique<AboveUI>();
+
+	//		上昇UIの初期化
+	m_aboveUI->Initialize();
+
+	//		スライダーUIの生成
+	m_slider = std::make_unique<Slider>();
+
+	//		スライダーUIの初期化
+	m_slider->Initialize();
+
+	//		メニュー選択UIの生成
+	m_menuSelect = std::make_unique<MenuSelect>();
+
+	//		メニュー選択UIの初期化
+	m_menuSelect->Initialize();
+
+	//		フレームワークを生成する
+	m_frameWalkUI = std::make_unique<FrameWalkUI>();
+
+	//		フレームワークを生成する
+	m_frameWalkUI->Initialize();
+
+	//		メニューの情報を生成する
+	m_information = std::make_unique<MenuInformation>();
+
+	//		メニューの情報を初期化する
+	m_information->Initialzie(m_standardShader.get(),
+		m_aboveUI.get(), m_slider.get(), m_menuSelect.get(), m_frameWalkUI.get());
+
 }
 
 void MenuManager::RoughMenuViwe(float transitionTime)

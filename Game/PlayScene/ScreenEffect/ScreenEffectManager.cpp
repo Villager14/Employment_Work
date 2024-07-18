@@ -14,7 +14,8 @@ ScreenEffectManager::ScreenEffectManager(GameManager* gameManager)
 	:
 	m_gameManager(gameManager),
 	m_shaderResouceView(),
-	m_scene()
+	m_scene(),
+	m_backColor()
 {
 }
 
@@ -149,4 +150,10 @@ void ScreenEffectManager::FirstRenderTarget()
 	auto viewPoart = LibrarySingleton::GetInstance()->GetDeviceResources()->GetScreenViewport();
 
 	context->RSSetViewports(1, &viewPoart);
+}
+
+void ScreenEffectManager::GrayScare(MenuInformation* menuInformation)
+{
+	if (m_scene == Scene::PlayScene)
+		m_redScreen->Gray(menuInformation);
 }

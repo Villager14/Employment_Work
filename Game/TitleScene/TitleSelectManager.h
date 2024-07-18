@@ -17,6 +17,8 @@
 
 #include "Library/Shader/UIRenderManager.h"
 
+#include "Game/Menu/MenuInformation.h"
+
 class TitleUIManager;
 
 class TitleSelectManager
@@ -150,9 +152,6 @@ private:
 	//		シーンを変更するかどうか
 	bool m_changeSceneJudgement;
 
-	//		メニューを開いているかどうか
-	bool *m_menuJudgement;
-
 	//		メニューを使えるかどうか
 	bool m_menuUseJudgement;
 
@@ -166,6 +165,9 @@ private:
 
 	//		フェード描画
 	std::unique_ptr<UIRenderManager> m_fade;
+
+	//		メニューの情報
+	MenuInformation* m_menuInformation;
 
 public:
 
@@ -265,20 +267,6 @@ public:
 	}
 
 	/*
-	*	メニューを開いているかどうか設定する
-	* 
-	*	@param	(judgement)	true : 開いている　false : 開いていない
-	*/
-	void SetMenuJudgement(bool *judgement) { m_menuJudgement = judgement; }
-
-	/*
-	*	メニューを開いているかどうか受け取る
-	*
-	*	@return	true : 開いている　false : 開いていない
-	*/
-	bool *GetMenuJudgement() { return m_menuJudgement; }
-
-	/*
 	*	メニューを開けるかどうか設定する
 	* 
 	*	@param	(judgement)	true : 使える false : 使えない
@@ -298,4 +286,19 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	StandardShader<TitleUIType>* GetStandardShader() { return m_standardShader.get(); }
+
+	/*
+	*	メニューの情報を設定する
+	* 
+	*	@param	(information)	カメラのインスタンスのポインタ
+	*/
+	void SetMenuInformation(MenuInformation* information) { m_menuInformation = information; }
+
+	/*
+	*	メニューの情報を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	MenuInformation* GetMenuInformation() { return m_menuInformation; }
+
 };
