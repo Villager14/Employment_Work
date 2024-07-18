@@ -15,7 +15,6 @@ SceneManager::SceneManager()
 	m_scene{},
 	m_deathCount(0),
 	m_clearTime(0),
-	m_menuUseJudgement(false),
 	m_sceneType{}
 {
 }
@@ -26,7 +25,11 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initialize()
 {
-	m_menuJudgement = std::make_unique<bool>(false);
+	//		メニューマネージャーの生成
+	m_menuManager = std::make_unique<MenuManager>();
+
+	//		メニューマネージャーの初期化
+	m_menuManager->Initialize();
 
 	//		シーンを作成する
 	m_sceneInformation.insert({ SceneType::Title, std::make_unique<TitleScene>(this) });
@@ -34,22 +37,13 @@ void SceneManager::Initialize()
 	m_sceneInformation.insert({ SceneType::Result, std::make_unique<ResultScene>(this) });
 
 	//		初期のシーンタイプを設定する
-	m_sceneType = SceneType::Title;
+	m_sceneType = SceneType::Play;
 
 	//		シーンを設定する
 	m_scene = m_sceneInformation[m_sceneType].get();
 
 	//		シーンを初期化する
 	m_scene->Initialize();
-
-
-	//		メニューマネージャーの生成
-	m_menuManager = std::make_unique<MenuManager>();
-
-	//		メニューマネージャーの初期化
-	m_menuManager->Initialize();
-
-	m_menuManager->SetMenuJudgement(m_menuJudgement.get());
 }
 
 void SceneManager::Update()
@@ -57,23 +51,11 @@ void SceneManager::Update()
 	//		シーンの更新処理
 	m_scene->Update();
 
-	if (!m_menuUseJudgement) return;
-
-	//		キーボードの取得
-	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
-
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Escape))
-	{
-		*m_menuJudgement = true;
-	}
-
-	if (!*m_menuJudgement) return;
-
 	//		メニューマネージャーの更新
 	m_menuManager->Update();
 
 	//		プレイシーンの場合マウスを元に戻す
-	if (!*m_menuJudgement && m_sceneType == SceneType::Play)
+	if (!m_menuManager->GetInformation()->GetMenuJudgement() && m_sceneType == SceneType::Play)
 	{
 		//		マウス相対モード
 		DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
@@ -84,8 +66,6 @@ void SceneManager::Render()
 {
 	//		シーンの描画処理
 	m_scene->Render();
-
-	if (!*m_menuJudgement)return;
 
 	//		メニューマネージャーの描画
 	m_menuManager->Render();

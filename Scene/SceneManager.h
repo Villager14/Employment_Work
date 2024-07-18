@@ -65,11 +65,6 @@ private:
 	//        死亡カウント
 	int m_deathCount;
 
-	std::unique_ptr<bool> m_menuJudgement;
-
-	//		メニューを使えるかどうか判断する
-	bool m_menuUseJudgement;
-
 	//		シーンの情報
 	std::unordered_map<SceneType, std::unique_ptr<IScene>> m_sceneInformation;
 
@@ -109,32 +104,9 @@ public:
 	int GetDeathCount() { return m_deathCount; }
 
 	/*
-	*	メニューを開いているかどうか受け取る
+	*	メニューマネージャーを受け取る
 	* 
-	*	@return true : 開いている false : 開いていない
+	*	@return インスタンスのポインタ
 	*/
-	bool* GetMenuJudgement() 
-	{ 
-		return m_menuJudgement.get(); }
-
-	/*
-	*	メニューを開いているかどうか設定する
-	*
-	*	@param	(judgement) true : 開いている false : 開いていない
-	*/
-	//void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
-
-	/*
-	*	メニューを使えるかどうか判断する
-	* 
-	*	@return true : 使える false : 使えない
-	*/
-	bool GetMenuUseJudgement() { return m_menuUseJudgement; }
-
-	/*
-	*	メニューを使えるかどうか設定する
-	* 
-	*	@param	(judgement)	true : 使える false : 使えない
-	*/
-	void SetMenuUseJudgement(bool judgement) { m_menuUseJudgement = judgement; }
+	MenuManager* GetMenuManager() { return m_menuManager.get(); }
 };

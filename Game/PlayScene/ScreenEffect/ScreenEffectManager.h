@@ -17,12 +17,15 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
+#include "Game/Menu/MenuInformation.h"
+
 class ScreenEffectManager
 {
 public:
 
 	enum Scene
 	{
+
 		PlayScene,
 		ResultScene,
 	};
@@ -57,6 +60,9 @@ public:
 	void FirstRenderTarget();
 
 	void ChangeScreenEffect();
+
+	//		グレイスケール
+	void GrayScare(MenuInformation* menuInformation);
 
 private:
 

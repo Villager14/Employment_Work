@@ -95,16 +95,25 @@ float4 main(PS_INPUT input) : SV_TARGET
 	//		色情報を受け取る
 	float4 output = tex.Sample(samLinear, input.tex);
 
-	float4 g = Sepia(output);
+	float4 sepiaVal = Sepia(output);
 
 	float elapsedTime = clamp(time.x, 0.0f, 1.0f);
 	
 	output = blur(input.tex);
 
 	//		時間経過により色を変える
-	output.r = lerp(output.r, g.x, elapsedTime);
-	output.g = lerp(output.g, g.y, elapsedTime);
-	output.b = lerp(output.b, g.z, elapsedTime);
+	output.r = lerp(output.r, sepiaVal.x, elapsedTime);
+	output.g = lerp(output.g, sepiaVal.y, elapsedTime);
+	output.b = lerp(output.b, sepiaVal.z, elapsedTime);
+
+
+	//		グレイスケール
+	float gray = Gray(output);
+
+	output.r = lerp(output.r, gray, grayStrength.x);
+	output.g = lerp(output.g, gray, grayStrength.x);
+	output.b = lerp(output.b, gray, grayStrength.x);
+
 
 	//output = MotionBler(input.tex);
 	

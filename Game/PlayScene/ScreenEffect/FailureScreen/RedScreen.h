@@ -14,6 +14,8 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
+#include "Game/Menu/MenuInformation.h"
+
 class RedScreen
 {
 public:
@@ -26,6 +28,7 @@ public:
 		DirectX::SimpleMath::Vector4	motionVector;
 		DirectX::SimpleMath::Vector4	blurStrength;
 		DirectX::SimpleMath::Vector4    concentrationLineTime;
+		DirectX::SimpleMath::Vector4    grayStrength;
 	};
 public:
 
@@ -53,6 +56,10 @@ public:
 	*	@param	(timer)	DX::StepTimer
 	*/
 	void Update(GameManager* gameManager, PlayerCameraInformation* playerCameraInformation);
+
+
+	//		グレイプロセス
+	void Gray(MenuInformation* menuInformation);
 
 	/*
 	*	描画処理
@@ -167,4 +174,10 @@ private:
 
 	//		集中線の変化率
 	float concentrationChange;
+
+	//		メニューの時間
+	float m_menuTime;
+
+	//		メニューが開いているかどうか判断する
+	bool m_menuOpenJudgement;
 };

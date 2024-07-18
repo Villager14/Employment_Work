@@ -37,6 +37,8 @@ void MenuStart::Initialize()
 
 void MenuStart::Update()
 {
+	m_menuManager->GetInformation()->SetMenuTransrationJudgement(true);
+
 	if (m_scale < 1.0f)
 	{
 		m_scale += LibrarySingleton::GetInstance()->GetElpsedTime() * m_menuManager->GetInformation()->MENU_SPEED;

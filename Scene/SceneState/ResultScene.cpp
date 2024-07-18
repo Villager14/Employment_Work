@@ -53,10 +53,10 @@ void ResultScene::Update()
 	m_resultManager->BackGroundUpdate();
 
 	//		メニューを開いている場合処理をしない
-	if (*m_sceneManager->GetMenuJudgement()) return;
+	if (m_sceneManager->GetMenuManager()->GetInformation()->GetMenuJudgement()) return;
 
 	//		メニューを使えるかどうか
-	m_sceneManager->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
+	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
 
 	//		リザルトマネージャーの更新処理
 	m_resultManager->Update();

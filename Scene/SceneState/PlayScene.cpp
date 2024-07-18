@@ -88,18 +88,44 @@ void PlayScene::Initialize()
 
 	//		プレイシーン時のBGMを再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
+
+
+
+	//		視野角の情報を受け取る
+	m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetMenuManager()->GetInformation()->GetViewAngle());
+
+	//		視野角の更新
+	m_playerCameraManager->ViewAngleUpdate(m_player->GetInformation());
+
+	//		カメラの速度の更新
+	m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
 }
 
 void PlayScene::Update()
 {
-	if (*m_sceneManager->GetMenuJudgement())
+	//		メニューを開いている場合の処理
+	if (m_sceneManager->GetMenuManager()->GetInformation()->GetMenuJudgement())
 	{
+		//		メニューを開いている
 		m_menuCloseJugement = true;
+
+		//		視野角の情報を受け取る
+		m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetMenuManager()->GetInformation()->GetViewAngle());
+
+		//		視野角の更新
+		m_playerCameraManager->ViewAngleUpdate(m_player->GetInformation());
+
+		//		カメラの速度の更新
+		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
+		
+		//		グレイ
+		m_screenEffectManager->GrayScare(m_sceneManager->GetMenuManager()->GetInformation());
+
 		return;
 	}
 
 	//		メニューが使えるかどうか？
-	m_sceneManager->SetMenuUseJudgement(m_player->GetMenuUseJugement());
+	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
 
 	//		プレイヤーのワールド座標を受け取る
 	m_objectManager->SetPlayerWorld(m_player->GetInformation()->GetWorld());
@@ -169,10 +195,6 @@ void PlayScene::Update()
 
 	//		エフェクトマネージャーの描画
 	m_effectManager->Update(m_playerCameraManager->GetInformation());
-
-
-	//		戻すようにする
-	//return;
 
 	//		次のシーンに切り替えるかどうか
 	if (m_gameManager->GetNextSceneJudgement())

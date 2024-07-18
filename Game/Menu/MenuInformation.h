@@ -13,50 +13,66 @@
 #include "UI/AboveUI.h"
 #include "UI/Slider.h"
 #include "UI/MenuSelect.h"
+#include "UI/FrameWalkUI.h"
 
 class MenuInformation
 {
 public:
 	//		コンストラクタ
-	MenuInformation()
-	{
-		//		スタンダードシェーダーの生成
-		m_standardShader = std::make_unique<StandardShader<UIType>>();
-
-		//		上昇UIの生成
-		m_aboveUI = std::make_unique<AboveUI>();
-
-		//		スライダーUIの生成
-		m_slider = std::make_unique<Slider>();
-
-		//		メニュー選択UIの生成
-		m_menuSelect = std::make_unique<MenuSelect>();
-	}
+	MenuInformation() 
+	:
+		m_aboveUI{nullptr},
+		m_standardShader{nullptr},
+		m_menuSelect{nullptr},
+		m_slider{nullptr},
+		m_frameWalkUI{ nullptr },
+		m_viewAngle(70.0f),
+		m_cameraSpeed(5.0f),
+		m_menuUseJudgement(false),
+		m_menuJudgement(false),
+		m_mouseModeChangeJdugement(true),
+		m_menuTransitionJudgement(false)
+	{}
 
 	//		デストラクタ
 	~MenuInformation() {}
 
-	void Initialzie()
+
+public:
+
+	enum UIType
 	{
-		//		スタンダードシェーダーの初期化処理
-		m_standardShader->Initialize();
+		Bar1,
+		Bar2,
+		BackGround,
+		AudioSelect,
+		OptionSelect,
+		GamePlaySelect,
+		Slide,
+		AudioTitle
+	};
 
-		m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png",
-			{ 0.0f, 13.0f }, { 0.0f, 1.0f }, UIType::Bar1);
-		m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png",
-			{ 0.0f, -13.0f }, { 0.0f, 1.0f }, UIType::Bar2);
-		m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png",
-			{ 0.0f, 0.0f }, { 0.0f, 1.0f }, UIType::BackGround);
+public:
 
-		//		上昇UIの初期化
-		m_aboveUI->Initialize();
-
-		//		スライダーUIの初期化
-		m_slider->Initialize();
-
-		//		メニュー選択UIの初期化
-		m_menuSelect->Initialize();
-
+	/*
+	*	初期化
+	* 
+	*	@param	(standardShader)	スタンダードシェーダーのインスタンスのポインタ
+	*	@param	(aboveUI)			上昇シェーダーのインスタンスのポインタ
+	*	@param	(slider)			スライダーシェーダーのインスタンスのポインタ
+	*	@param	(menuSelect)		メニュー選択シェーダーのインスタンスのポインタ
+	*	@param	(frameWalkUI)		フレームワークシェーダーのインスタンスのポインタ
+	*/
+	void Initialzie(StandardShader<MenuInformation::UIType>* standardShader,
+		AboveUI* aboveUI,
+		Slider* slider,
+		MenuSelect* menuSelect, FrameWalkUI* frameWalk)
+	{
+		m_standardShader = standardShader;
+		m_aboveUI = aboveUI;
+		m_slider = slider;
+		m_menuSelect = menuSelect;
+		m_frameWalkUI = frameWalk;
 	}
 	
 
@@ -83,33 +99,40 @@ public:
 	//		つまみの大きさ
 	const DirectX::SimpleMath::Vector2 KNOB_LENGTH = { 15.0f, 33.0f };
 
-public:
-
-	enum UIType
-	{
-		Bar1,
-		Bar2,
-		BackGround,
-		AudioSelect,
-		OptionSelect,
-		GamePlaySelect,
-		Slide,
-		AudioTitle
-	};
-
 private:
 
 	//		スタンダードシェーダー
-	std::unique_ptr<StandardShader<UIType>> m_standardShader;
+	StandardShader<UIType>* m_standardShader;
 
 	//		上昇UI
-	std::unique_ptr<AboveUI> m_aboveUI;
+	AboveUI* m_aboveUI;
 
 	//		スライダーUI
-	std::unique_ptr<Slider> m_slider;
+	Slider* m_slider;
 
 	//		メニューの選択
-	std::unique_ptr<MenuSelect> m_menuSelect;
+	MenuSelect* m_menuSelect;
+
+	//		フレームワーク
+	FrameWalkUI* m_frameWalkUI;
+
+	//		視野角
+	float m_viewAngle;
+
+	//		カメラの速度
+	float m_cameraSpeed;
+
+	//		メニューを使用することができるか
+	bool m_menuUseJudgement;
+
+	//		メニューを使っているか
+	bool m_menuJudgement;
+
+	//		マウスのモードを変更するかどうか
+	bool m_mouseModeChangeJdugement;
+
+	//		メニューが遷移中かどうか
+	bool m_menuTransitionJudgement;
 
 public:
 
@@ -118,26 +141,118 @@ public:
 	* 
 	*	@return インスタンスのポインタ
 	*/
-	StandardShader<UIType>* GetStandardShader() { return m_standardShader.get(); }
+	StandardShader<UIType>* GetStandardShader() { return m_standardShader; }
 
 	/*
 	*	上昇UIを受け取る
 	* 
 	*	@return インスタンスのポインタ
 	*/
-	AboveUI* GetAboveUI() { return m_aboveUI.get(); }
+	AboveUI* GetAboveUI() { return m_aboveUI; }
 
 	/*
 	*	スライダーUIを受け取る
 	*
 	*	@return インスタンスのポインタ
 	*/
-	Slider* GetSlider() { return m_slider.get(); }
+	Slider* GetSlider() { return m_slider; }
 
 	/*
 	*	メニュー選択UIを受け取る
 	* 
 	*	@return インスタンスのポインタ
 	*/
-	MenuSelect* GetMenuSelect() { return m_menuSelect.get(); }
+	MenuSelect* GetMenuSelect() { return m_menuSelect; }
+
+	/*
+	*	フレームワークUIを受け取る
+	* 
+	*	@return フレームワークのポインタ
+	*/
+	FrameWalkUI* GetFramWalkUI() { return m_frameWalkUI; }
+
+	/*
+	*	視野角を設定する
+	* 
+	*	@param	(angle)	角度
+	*/
+	void SetViewAngle(float angle) { m_viewAngle = angle; }
+
+	/*
+	*	視野角を受け取る
+	* 
+	*	@return 角度
+	*/
+	float GetViewAngle() { return m_viewAngle; }
+
+	/*
+	*	カメラの速度を設定する
+	* 
+	*	@param	(speed)	速度
+	*/
+	void SetCameraSpeed(float speed) { m_cameraSpeed = speed; }
+
+	/*
+	*	カメラ速度を受け取る
+	* 
+	*	@retuen	速度
+	*/
+	float GetCameraSpeed() { return m_cameraSpeed; }
+
+	/*
+	*	メニューを使えるかどうか判断する
+	*
+	*	@return true : 使える false : 使えない
+	*/
+	bool GetMenuUseJudgement() { return m_menuUseJudgement; }
+
+	/*
+	*	メニューを使えるかどうか設定する
+	*
+	*	@param	(judgement)	true : 使える false : 使えない
+	*/
+	void SetMenuUseJudgement(bool judgement) { m_menuUseJudgement = judgement; }
+
+	/*
+	*	メニューを使っているかどうか受け取る
+	* 
+	*	@returen true : 使っている　false 使っていない
+	*/
+	bool GetMenuJudgement() { return m_menuJudgement; }
+
+	/*
+	*	メニューを使っているかどうか設定する
+	* 
+	*	@param	(judgement)	true : 使っている　false 使っていない
+	*/
+	void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
+
+	/*
+	*	マウスのモードを変更するかどうか受け取る
+	*
+	*	@returen true : 変更する　false 変更しない
+	*/
+	bool GetMouseModeJudgement() { return m_mouseModeChangeJdugement; }
+
+	/*
+	*	マウスのモードを変更するかどうか設定する
+	*
+	*	@param	(judgement)	true : 変更する　false 変更しない
+	*/
+	void SetMouseModeJudgement(bool judgement) { m_mouseModeChangeJdugement = judgement; }
+
+	/*
+	*	メニューの遷移状態かどうか受け取る
+	*
+	*	@returen true : 遷移状態開始　false 遷移状態終了
+	*/
+	bool GetMenuTransrationJudgement() { return m_menuTransitionJudgement; }
+
+	/*
+	*	メニューの遷移状態かどうか設定する
+	*
+	*	@returen true : 遷移状態開始　false 遷移状態終了
+	*/
+	void SetMenuTransrationJudgement(bool judgement) { m_menuTransitionJudgement = judgement; }
+
 };

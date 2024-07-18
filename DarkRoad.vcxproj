@@ -207,6 +207,7 @@
     <ClInclude Include="Game\Menu\State\MenuStart.h" />
     <ClInclude Include="Game\Menu\State\OptionSetting.h" />
     <ClInclude Include="Game\Menu\UI\AboveUI.h" />
+    <ClInclude Include="Game\Menu\UI\FrameWalkUI.h" />
     <ClInclude Include="Game\Menu\UI\MenuSelect.h" />
     <ClInclude Include="Game\Menu\UI\Slider.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h" />
@@ -342,6 +343,7 @@
     <ClCompile Include="Game\Menu\State\MenuStart.cpp" />
     <ClCompile Include="Game\Menu\State\OptionSetting.cpp" />
     <ClCompile Include="Game\Menu\UI\AboveUI.cpp" />
+    <ClCompile Include="Game\Menu\UI\FrameWalkUI.cpp" />
     <ClCompile Include="Game\Menu\UI\MenuSelect.cpp" />
     <ClCompile Include="Game\Menu\UI\Slider.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp" />
@@ -466,6 +468,7 @@
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli" />
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli" />
     <None Include="Resources\Shader\Fade\FadeShader.hlsli" />
+    <None Include="Resources\Shader\FrameWalk\FrameWalk.hlsli" />
     <None Include="Resources\Shader\GlitchShader\GlitchShader.hlsli" />
     <None Include="Resources\Shader\MenuSelect\MenuSelect.hlsli" />
     <None Include="Resources\Shader\Number\Number.hlsli" />
@@ -743,6 +746,26 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Fade\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Fade\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/FrameWalk\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/FrameWalk\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/FrameWalk\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/FrameWalk\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/FrameWalk\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/FrameWalk\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderGS.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

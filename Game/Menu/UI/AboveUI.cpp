@@ -61,6 +61,14 @@ void AboveUI::Initialize()
 		{ 200.0f, -100.0f }, { 1.0f, 1.0f }, UIType::MenuClose);
 	CreateUIInformation(L"Resources/Texture/Menu/GamePlay/Exit.png",
 		{ 200.0f, 50.0f }, { 1.0f, 1.0f }, UIType::Exit);
+	CreateUIInformation(L"Resources/Texture/Menu/Slide/FOV.png",
+		{ -70.0f, -160.0f }, { 1.0f, 1.0f }, UIType::FOV);
+	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
+		{ -80.0f, -100.0f }, { 1.0f, 1.0f }, UIType::FOVKnob);
+	CreateUIInformation(L"Resources/Texture/Menu/Slide/mouseSe.png",
+		{ 90.0f, -10.0f }, { 1.0f, 1.0f }, UIType::Mouse);
+	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
+		{ 200.0f, 50.0f }, { 1.0f, 1.0f }, UIType::MouseKnob);
 
 	//		âÒì]çsóÒÇëóÇÈ
 	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;

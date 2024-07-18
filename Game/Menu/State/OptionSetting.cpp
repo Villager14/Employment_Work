@@ -48,6 +48,25 @@ void OptionSetting::Update()
 	{
 		m_endJudgement = true;
 	}
+
+	m_menuManager->SlideProcess(AboveUI::UIType::FOVKnob);
+	m_menuManager->SlideProcess(AboveUI::UIType::MouseKnob);
+
+	float fov = ((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::FOVKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
+
+	//		マスターボリュームのスライダーの更新
+	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::FOV].slideVal = fov;
+		
+	m_menuManager->GetInformation()->SetViewAngle(Library::Lerp(70.0f, 120.0f, fov));
+
+
+	float mouse = ((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::MouseKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
+
+	//		マスターボリュームのスライダーの更新
+	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::Mouse].slideVal = mouse;
+
+	m_menuManager->GetInformation()->SetCameraSpeed(Library::Lerp(0.1f, 10.0f, mouse));
+
 }
 
 void OptionSetting::Render()
@@ -62,6 +81,21 @@ void OptionSetting::Render()
 
 	//		大まかなメニューの描画
 	m_menuManager->RoughMenuViwe(m_menuManager->EasingIcon(m_transitionRoughTime));
+
+	float transitionTime = m_menuManager->EasingIcon(m_transitionSettingUITime);
+
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, -100.0f };
+	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
+	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::FOV, transitionTime);
+	m_menuManager->GetInformation()->GetSlider()->Render(Slider::FOV, transitionTime);
+	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::FOVKnob, transitionTime);
+
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, 50.0f };
+	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
+	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::Mouse, transitionTime);
+	m_menuManager->GetInformation()->GetSlider()->Render(Slider::Mouse, transitionTime);
+	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::MouseKnob, transitionTime);
+
 }
 
 void OptionSetting::Finalize()

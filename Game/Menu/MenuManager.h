@@ -47,6 +47,9 @@ public:
 	//		四角の当たり判定
 	bool BoxCollider(DirectX::SimpleMath::Vector2 min, DirectX::SimpleMath::Vector2 max);
 
+	//		UIの作製
+	void CreateUI();
+
 public:
 	enum MenuType
 	{
@@ -79,14 +82,27 @@ private:
 	//		スライダーを使っているUIの種類
 	AboveUI::UIType m_slideUIType;
 
-	//		メニューを開いているかどうか
-	bool *m_menuJudgement;
-
 	//		初めて音楽メニューを開いているかどうか
 	bool m_firstAudioMenuJudgement;
 
 	//		メニューの情報
 	std::unique_ptr<MenuInformation> m_information;
+
+
+	//		スタンダードシェーダー
+	std::unique_ptr<StandardShader<MenuInformation::UIType>> m_standardShader;
+
+	//		上昇UI
+	std::unique_ptr<AboveUI> m_aboveUI;
+
+	//		スライダーUI
+	std::unique_ptr<Slider> m_slider;
+
+	//		メニューの選択
+	std::unique_ptr<MenuSelect> m_menuSelect;
+
+	//		フレームワークUI
+	std::unique_ptr<FrameWalkUI> m_frameWalkUI;
 
 public:
 
@@ -168,20 +184,6 @@ public:
 	}
 
 	/*
-	*	メニューを開いているかを設定する
-	*	
-	*	@param	true : 開いている false : 開いていない
-	*/
-	void SetMenuJudgement(bool* judgement) { m_menuJudgement = judgement; }
-
-	/*
-	*	メニューを開いているかを受け取る
-	* 
-	*	@param	true : 開いている false : 開いていない
-	*/
-	bool* GetMenuJudgement() { return m_menuJudgement; }
-
-	/*
 	*	Audioメニューをメニューを開いた時一度だけ行う処理を受け取る
 	* 
 	*	@retun	true : 行う false : 行わない
@@ -194,4 +196,5 @@ public:
 	*	@param	(judgement)	true : 行う false : 行わない
 	*/
 	void SetFirstAudioMenuJudgement(bool judgement) { m_firstAudioMenuJudgement = judgement; }
+
 };

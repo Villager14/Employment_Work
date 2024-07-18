@@ -24,13 +24,12 @@ TitleSelectManager::TitleSelectManager()
 	m_iState(),
 	m_menuUseJudgement(false),
 	m_state{},
-	m_menuJudgement{NULL}
+	m_menuInformation(nullptr)
 {
 }
 
 TitleSelectManager::~TitleSelectManager()
 {
-	m_menuJudgement = nullptr;
 }
 
 void TitleSelectManager::Initialize()
@@ -94,7 +93,7 @@ void TitleSelectManager::Update()
 	m_backGroundMove->Update();
 
 	//		メニューを開いている場合は処理をしない
-	if (*m_menuJudgement) return;
+	if (m_menuInformation->GetMenuJudgement()) return;
 
 	//		更新処理
 	m_iState->Update();
@@ -122,7 +121,6 @@ void TitleSelectManager::Render()
 
 void TitleSelectManager::Finalize()
 {
-	m_menuJudgement = nullptr;
 }
 
 void TitleSelectManager::InputKey()

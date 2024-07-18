@@ -233,6 +233,9 @@
     <Filter Include="Resorces\Shader\MenuSelect">
       <UniqueIdentifier>{60b27914-eeb4-47e1-a89f-794833ca8d53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resorces\Shader\FrameWalk">
+      <UniqueIdentifier>{8ae1a69f-d672-4e80-9449-227e609501e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -645,6 +648,9 @@
     <ClInclude Include="Game\Menu\MenuInformation.h">
       <Filter>Game\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Menu\UI\FrameWalkUI.h">
+      <Filter>Game\Menu\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -998,6 +1004,9 @@
     <ClCompile Include="Game\Menu\State\MenuClose.cpp">
       <Filter>Game\Menu\State</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Menu\UI\FrameWalkUI.cpp">
+      <Filter>Game\Menu\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1067,6 +1076,9 @@
     </None>
     <None Include="Resources\Shader\MenuSelect\MenuSelect.hlsli">
       <Filter>Resorces\Shader\MenuSelect</Filter>
+    </None>
+    <None Include="Resources\Shader\FrameWalk\FrameWalk.hlsli">
+      <Filter>Resorces\Shader\FrameWalk</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1317,6 +1329,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectVS.hlsl">
       <Filter>Resorces\Shader\MenuSelect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkGS.hlsl">
+      <Filter>Resorces\Shader\FrameWalk</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkPS.hlsl">
+      <Filter>Resorces\Shader\FrameWalk</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkVS.hlsl">
+      <Filter>Resorces\Shader\FrameWalk</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

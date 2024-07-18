@@ -59,6 +59,10 @@ public:
 		SoundEffectKnob,
 		MenuClose,
 		Exit,
+		FOV,
+		FOVKnob,
+		Mouse,
+		MouseKnob,
 
 		Empty,
 	};

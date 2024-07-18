@@ -30,14 +30,14 @@ void TitleScene::Initialize()
 	//		タイトルのBGMの再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::TitleScene);
 
-	//		メニューを設定
-	m_titleSelectManager->SetMenuJudgement(m_sceneManager->GetMenuJudgement());
+	//		メニューの情報を設定する
+	m_titleSelectManager->SetMenuInformation(m_sceneManager->GetMenuManager()->GetInformation());
 }
 
 void TitleScene::Update()
 {
 	//		メニューを使える状態にするかどうか？
-	m_sceneManager->SetMenuUseJudgement(m_titleSelectManager->GetMenuUseJudgement());
+	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_titleSelectManager->GetMenuUseJudgement());
 
 	//		タイトル選択マネージャーの更新処理
 	m_titleSelectManager->Update();

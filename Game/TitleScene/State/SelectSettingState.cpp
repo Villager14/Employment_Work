@@ -92,7 +92,7 @@ void SelectSettingState::ChangeSceneProcess()
 			button.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 		{
 			//		ƒƒjƒ…[‚ğŠJ‚­
-			*m_titleSelectManager->GetMenuJudgement() = true;
+			m_titleSelectManager->GetMenuInformation()->SetMenuJudgement(true);
 		}
 	}
 	else

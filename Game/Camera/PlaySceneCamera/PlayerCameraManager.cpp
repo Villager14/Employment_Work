@@ -13,7 +13,8 @@ PlayerCameraManager::PlayerCameraManager(GameManager* gameManager)
 	:
 	m_state{},
 	m_playerInformation{},
-	m_gameManager(gameManager)
+	m_gameManager(gameManager),
+	m_cameraType{}
 {
 }
 
@@ -33,7 +34,7 @@ void PlayerCameraManager::Initialize()
 	*/
 	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView
-		(DirectX::XMConvertToRadians(m_information->GetViewingAngleMin()), LibrarySingleton::GetInstance()->GetScreenSize().x /
+		(DirectX::XMConvertToRadians(m_information->GetViewAngle()), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
 			0.1f, 360.0f);
 
@@ -125,7 +126,8 @@ void PlayerCameraManager::ViewingAngle()
 
 		float move = time;
 
-		float viewAnge = Library::Lerp(m_information->GetViewingAngleMin(), m_information->GetViewingAngleMax(), move);
+		//float viewAnge = Library::Lerp(m_information->GetViewingAngleMin(), m_information->GetViewingAngleMax(), move);
+		float viewAnge = Library::Lerp(m_information->GetViewAngle(), m_information->GetViewAngle() + 20.0f, move);
 
 		//		ビュー行列を作成する
 		DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
@@ -137,4 +139,25 @@ void PlayerCameraManager::ViewingAngle()
 		//		プロジェクション行列を設定する
 		LibrarySingleton::GetInstance()->SetProj(proj);
 	}
+}
+
+void PlayerCameraManager::ViewAngleUpdate(PlayerInformation* playerInformation)
+{
+	m_playerInformation = playerInformation;
+
+	float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 30.0f) / 60.0f), 0.0f, 1.0f);
+
+	float move = time;
+
+	float viewAnge = Library::Lerp(m_information->GetViewAngle(), m_information->GetViewAngle() + 20.0f, move);
+
+	//		ビュー行列を作成する
+	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
+		CreatePerspectiveFieldOfView
+		(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /
+			LibrarySingleton::GetInstance()->GetScreenSize().y,
+			0.1f, 360.0f);
+
+	//		プロジェクション行列を設定する
+	LibrarySingleton::GetInstance()->SetProj(proj);
 }
