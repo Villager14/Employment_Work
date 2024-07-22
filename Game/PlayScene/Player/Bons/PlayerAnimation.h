@@ -23,21 +23,9 @@
 #include "AnimationState/WallJumpAnimationState.h"
 #include "AnimationState/WallWalkAnimationState.h"
 #include "AnimationState/UprightAnimationState.h"
+#include "AnimationState/FallAnimationState.h"
 
 #include <unordered_map>
-
-class WalkAnimationState;
-class StayAnimationState;
-class CrouchingStayAnimationState;
-class CrouchingWalkAnimationState;
-class DashAnimationState;
-class JumpAnimationState;
-class SlidingAnimationState;
-class StartAnimationState;
-class WireJumpAnimationState;
-class WallJumpAnimationState;
-class WallWalkAnimationState;
-class UprightAnimationState;
 
 class PlayerAnimation
 {
@@ -85,6 +73,10 @@ public:
 
 	//		下半身の値を初期の値にする
 	void AnimationLegInitialValue(std::vector<PlayerBonsInformation>* m_bonesInformation, float transrationSpeed);
+
+	//		着地処理
+	void Landing(float height);
+
 public:
 
 	enum AnimationState
@@ -100,7 +92,8 @@ public:
 		WallJump,
 		Wire,
 		Start,
-		Upright
+		Upright,
+		Fall,
 	};
 
 public:
@@ -132,5 +125,17 @@ private:
 
 	//		ワールド座標
 	std::vector<DirectX::SimpleMath::Matrix> m_world;
+
+	//		落下していたかどうか
+	bool m_fallJudgement;
+
+	//		着地時間
+	float m_landingTime;
+
+public:
+
+	bool GetFallJudgement() { return m_fallJudgement; }
+
+	void SetFallJudgement(bool judgement) { m_fallJudgement = judgement; }
 };
 

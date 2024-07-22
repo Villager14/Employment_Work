@@ -83,6 +83,9 @@ void PlayScene::Initialize()
 	//		エフェクトマネージャーの作製
 	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation());
 
+	//		ワイヤーの情報を受け取る
+	m_effectManager->SetWireInformation(m_objectManager->GetUseWireInformation());
+
 	//		エフェクトマネージャーの初期化
 	m_effectManager->Initialize();
 
@@ -189,9 +192,6 @@ void PlayScene::Update()
 
 	//		ゲームマネージャーの更新処理
 	m_gameManager->Update();
-
-	//		ワイヤーの情報を受け取る
-	m_effectManager->SetWireInformation(m_objectManager->GetUseWireInformation());
 
 	//		エフェクトマネージャーの描画
 	m_effectManager->Update(m_playerCameraManager->GetInformation());

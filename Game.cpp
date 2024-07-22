@@ -102,7 +102,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_sceneManager->Update();
 
     //      ƒQ[ƒ€‚ğI—¹‚·‚é
-    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Enter))
+    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Q))
     {
         PostQuitMessage(0);
     }

@@ -1,71 +1,66 @@
 /*
-* @file		WalkAnimationState.cpp
-* @brief	歩くのアニメーション
+* @file		FallAnimationState.cpp
+* @brief	落下のアニメーション
 * @author	Morita
-* @date		2024/06/25
+* @date		2024/07/19
 */
 
 #include "pch.h"
 
-#include "WalkAnimationState.h"
+#include "FallAnimationState.h"
 
 #include "../PlayerAnimation.h"
 
 
-WalkAnimationState::WalkAnimationState(PlayerAnimation* playerAnimation)
+FallAnimationState::FallAnimationState(PlayerAnimation* PlayerAnimation)
 	:
 	m_elapsedTime(0.0f),
 	m_animationTransration(0.0f),
-	m_playerAnimation(playerAnimation)
+	m_playerAnimation(PlayerAnimation)
 {
 }
 
-WalkAnimationState::~WalkAnimationState()
+FallAnimationState::~FallAnimationState()
 {
 }
 
-void WalkAnimationState::Initialize()
+void FallAnimationState::Initialize()
 {
 	m_animationTransration = 1.0f;
 
 	m_elapsedTime = 0.0f;
 }
 
-void WalkAnimationState::Update(float speed, DirectX::SimpleMath::Vector3 position,
+void FallAnimationState::Update(float speed, DirectX::SimpleMath::Vector3 position,
 	DirectX::SimpleMath::Vector2 angle, float height,
 	std::vector<PlayerBonsInformation>* bonesInformation)
 {
+	UNREFERENCED_PARAMETER(speed);
+
 	(*bonesInformation)[BonsType::Body].position = position;
-
-	if (m_playerAnimation->GetFallJudgement())
-	{
-		//		着地処理
-		m_playerAnimation->Landing(height);
-	}
-	else
-	{
-		(*bonesInformation)[BonsType::Body].position.y += height - 1.8f;
-	}
-
+	(*bonesInformation)[BonsType::Body].position.y += height - 1.8f;
 	(*bonesInformation)[BonsType::Body].rotation =
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
 			{ 0.0f, DirectX::XMConvertToRadians(-angle.x + 180.0f), 0.0f });
 
-	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * Library::Lerp(0.0f, 20.0f, speed / 70.0f);
+
+	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
+
+	m_elapsedTime = Library::Clamp(m_elapsedTime, 0.0f, 1.0f);
 
 	DirectX::SimpleMath::Quaternion LArmUp =
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
-			{ Library::Lerp(DirectX::XMConvertToRadians(50.0f), DirectX::XMConvertToRadians(65.0f),
-				cosf(m_elapsedTime) + 1.0f / 2.0f), DirectX::XMConvertToRadians(20.0f) , 0.0f });
+			{ Library::Lerp(DirectX::XMConvertToRadians(60.0f), DirectX::XMConvertToRadians(90.0f),
+				m_elapsedTime), DirectX::XMConvertToRadians(50.0f) , 0.0f });
 
-	DirectX::SimpleMath::Quaternion  LArmDown =
+	DirectX::SimpleMath::Quaternion LArmDown =
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
 			{ DirectX::XMConvertToRadians(45.0f), DirectX::XMConvertToRadians(45.0f), DirectX::XMConvertToRadians(90.0f) });
 
 	DirectX::SimpleMath::Quaternion RArmUp =
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
-			{ Library::Lerp(DirectX::XMConvertToRadians(50.0f), DirectX::XMConvertToRadians(65.0f),
-				-cosf(m_elapsedTime) + 1.0f / 2.0f), DirectX::XMConvertToRadians(-20.0f) , 0.0f });
+			{ Library::Lerp(DirectX::XMConvertToRadians(60.0f), DirectX::XMConvertToRadians(90.0f),
+				m_elapsedTime), DirectX::XMConvertToRadians(-50.0f) , 0.0f });
 
 	DirectX::SimpleMath::Quaternion RArmDown =
 		DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
@@ -82,6 +77,6 @@ void WalkAnimationState::Update(float speed, DirectX::SimpleMath::Vector3 positi
 	m_playerAnimation->AnimationLegInitialValue(bonesInformation, m_animationTransration);
 }
 
-void WalkAnimationState::Finalize()
+void FallAnimationState::Finalize()
 {
 }

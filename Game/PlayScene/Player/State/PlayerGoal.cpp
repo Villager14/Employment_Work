@@ -38,19 +38,19 @@ void PlayerGoal::Initialize()
 void PlayerGoal::Update()
 {
 	//		メッシュと当たった時の処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 }
 
 void PlayerGoal::Move()
 {
 	//		床に当たっているか
-	m_player->FloorMeshHitJudgement();
+	m_player->GetCommonProcessing()->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		シーンを切り替えるかどうか
 	ChangeSceneJudgement();

@@ -85,4 +85,16 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constBuffer;
 
 	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColorTexture>> m_batch;
+
+	//		スケール
+	float m_scale;
+
+public:
+
+	/*
+	*	スケールを設定する
+	* 
+	*	@parma	(scale)	スケール
+	*/
+	void SetScale(float scale) { m_scale = scale; }
 };

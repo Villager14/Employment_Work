@@ -35,23 +35,23 @@ void PlayerCrouching::Update()
 	MoveProcessing();
 
 	//		メッシュと当たった時の処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 
 }
 
 void PlayerCrouching::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		床に当たっているか
-	m_player->FloorMeshHitJudgement();
+	m_player->GetCommonProcessing()->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		しゃがみ高さにする処理
-	m_player->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetCrouchingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetCrouchingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -100,7 +100,7 @@ void PlayerCrouching::MoveProcessing()
 	DirectX::SimpleMath::Vector3 direction = DirectX::SimpleMath::Vector3::Zero;
 
 	//		移動する方向を受け取る
-	direction = m_player->Direction(&m_keyInputJudgement);
+	direction = m_player->GetCommonProcessing()->Direction(&m_keyInputJudgement);
 
 	//		正規化
 	direction.Normalize();
@@ -145,6 +145,9 @@ void PlayerCrouching::ChangeStateJudgement()
 		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
 
+	//		ワイヤーを飛ぶことができるかどうか
+	m_player->GetCommonProcessing()->WireActionJudgement();
+
 	//		キーを離した場合
 	if (keyboard.IsKeyReleased(DirectX::Keyboard::LeftControl))
 	{
@@ -171,7 +174,7 @@ void PlayerCrouching::SpeedProcessing()
 	DirectX::SimpleMath::Vector3 accelaration = m_player->GetInformation()->GetAcceleration();
 
 	//		加速度の処理
-	accelaration += m_player->MoveDirection(m_player->GetInformation()->GetDirection())
+	accelaration += m_player->GetCommonProcessing()->MoveDirection(m_player->GetInformation()->GetDirection())
 		* 2000.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		もし歩きの速さより早くなった場合

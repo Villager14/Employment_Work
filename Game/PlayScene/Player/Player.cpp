@@ -9,15 +9,14 @@
 #include "pch.h"
 #include "Player.h"
 
-#include <bitset>
-
 Player::Player(GameManager* gameManager)
 	:
 	m_state{},
 	m_collitionInformation(),
 	m_gameManager(gameManager),
 	m_cameraInformation(),
-	m_playerState{}
+	m_playerState{},
+	m_menuUseJudgement(false)
 {
 }
 
@@ -49,6 +48,7 @@ void Player::Initialize()
 	m_stateInformation.insert({ PlayerState::Start, std::make_unique<PlayerStart>(this) });
 	m_stateInformation.insert({ PlayerState::Death, std::make_unique<PlayerDeath>(this) });
 	m_stateInformation.insert({ PlayerState::Goal, std::make_unique<PlayerGoal>(this) });
+	m_stateInformation.insert({ PlayerState::Fall, std::make_unique<PlayerFall>(this) });
 
 	//		初期状態
 	m_playerState = PlayerState::Start;
@@ -84,6 +84,7 @@ void Player::Initialize()
 		->GetD3DDevice(),
 		L"Resources/Models/Player.cmo", *m_effect);
 
+	m_commonProcessing = std::make_unique<PlayerCommonProcessing>(this);
 
 	//m_information->SetPosition({ 0.0f, 500.0f, 0.0f });
 }
@@ -95,13 +96,11 @@ void Player::Update(PlayerCameraInformation* cameraInformation)
 	//		更新処理
 	m_state->Update();
 
-	WireActionJudgement();
-
 	m_playerInformationCollition->SetPlayerPosition(m_information->GetPlanPosition());
 	m_playerInformationCollition->SetPlayerHeight(m_information->GetPlayerHeight());
 
 	//		ダッシュのクールタイムの処理
-	DashCoolTime();
+	m_commonProcessing->DashCoolTime();
 
 	m_information->SetWallWalkNormalize(m_playerInformationCollition->GetWallWalkNormalize());
 }
@@ -173,372 +172,6 @@ void Player::DeathJudgement()
 	}
 }
 
-void Player::DashCoolTime()
-{
-	if (!m_information->GetDashJudgement())
-	{
-		//		クールタイム
-		float coolTime = m_information->GetDashCoolTime();
-
-		//		経過時間
-		coolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
-
-		//		一定時間たったら
-		if (coolTime >= 2.0f)
-		{
-			m_information->SetDashJudgement(true);
-			coolTime = 0.0f;
-		}
-
-		//		クールタイムを設定する
-		m_information->SetDashCoolTime(coolTime);
-	}
-}
-
-DirectX::SimpleMath::Vector3 Player::Direction(bool* keyPressjudgement)
-{
-	std::bitset<4> directionbit;
-
-	//		キーボードStateの取得
-	DirectX::Keyboard::State m_keyboard = LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState();
-
-	//		移動する向き
-	DirectX::SimpleMath::Vector3 direction = DirectX::SimpleMath::Vector3::Zero;
-
-	if (m_keyboard.IsKeyDown(DirectX::Keyboard::W))
-	{
-		directionbit.set(0, 1);
-
-		direction.z += 1.0f;
-	}
-
-	if (m_keyboard.IsKeyDown(DirectX::Keyboard::S))
-	{
-		directionbit.set(1, 1);
-
-		direction.z += -1.0f;
-	}
-
-	if (m_keyboard.IsKeyDown(DirectX::Keyboard::D))
-	{
-		directionbit.set(2, 1);
-
-		direction.x += -1.0f;
-	}
-
-	if (m_keyboard.IsKeyDown(DirectX::Keyboard::A))
-	{
-		directionbit.set(3, 1);
-
-		direction.x += 1.0f;
-	}
-
-	if (directionbit != 0)
-	{
-		//		キーが押されている
-		*keyPressjudgement = true;
-	}
-
-	return direction;
-}
-
-DirectX::SimpleMath::Vector3 Player::MoveDirection
-(const DirectX::SimpleMath::Vector3 direction)
-{
-	//		カメラの向き
-	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY
-	(DirectX::XMConvertToRadians(m_information->GetCameraAngle().x));
-
-	//		移動する方向
-	return DirectX::SimpleMath::Vector3::Transform(
-		direction, matrixY.Invert());
-}
-
-void Player::Gravity(bool weekJudgement)
-{
-	float speed = 2.0f;
-
-	//		落下時間を受け取る
-	float fallTime = m_information->GetFallTime();
-
-	if (weekJudgement)
-	{
-		speed = 1.0f;
-
-		//		重力加速度
-		fallTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
-
-		m_information->SetGravity(m_information->GetGravitationalAcceleration() * (fallTime * fallTime));
-
-	}
-	else
-	{
-		//		重力加速度
-		fallTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed * (m_information->GetTimeSpeed()* m_information->GetTimeSpeed());
-
-		m_information->SetGravity(m_information->GetGravitationalAcceleration() * (fallTime * fallTime));
-	}
-
-	//		落下時間を設定する
-	m_information->SetFallTime(fallTime);
-
-	m_information->SetPlanPosition({ m_information->GetPlanPosition().x,
-									 m_information->GetPlanPosition().y - m_information->GetGravity() * 
-									LibrarySingleton::GetInstance()->GetElpsedTime()
-									* m_information->GetTimeSpeed(),
-									 m_information->GetPlanPosition().z});
-
-
-}
-
-bool Player::FloorMeshHitJudgement()
-{
-	//		床に当たっているか
-	if (m_collitionInformation->GetFloorMeshHitPoint().size() != 0)
-	{
-		//		メッシュのY座標を受け取る
-		m_information->SetPlanPosition({ m_information->GetPlanPosition().x,
-			m_collitionInformation->GetFloorMeshHitPoint()[0].y,
-			m_information->GetPlanPosition().z });
-
-		//		落下時間を０にする
-		m_information->SetFallTime(0.0f);
-
-		//		ジャンプできる状態にする
-		m_information->SetJumpJudgement(false);
-
-		//		頭を揺らす状態にする
-		m_information->SetHeadShakingJudgement(true);
-
-		return true;
-	}
-
-	//		頭を揺らさない状態にする
-	m_information->SetHeadShakingJudgement(false);
-
-	return false;
-}
-
-bool Player::WallMeshHitJudgement()
-{
-	if (m_collitionInformation->GetWallHitVelocity().size() > 0)
-	{
-		DirectX::SimpleMath::Vector3 planePosition = m_information->GetPlanPosition();
-
-		planePosition.x = m_collitionInformation->GetWallHitVelocity()[0].x;
-		planePosition.z = m_collitionInformation->GetWallHitVelocity()[0].y;
-
-		m_information->SetPlanPosition(planePosition);
-
-		return true;
-	}
-
-	return false;
-}
-
-void Player::PlayerHeightTransition(const float& firstHeight, const float& endHeight, const float& speed)
-{
-	DirectX::SimpleMath::Vector3 headPosition = m_information->GetPosition();
-
-	float heightTime = m_information->GetHeightTime();
-
-	//		一以上なら処理をしない
-	if (heightTime < 1.0f)
-	{
-		//		遷移速度
-		heightTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
-
-		//		一以上にならないようにする
-		heightTime = Library::Clamp(heightTime, 0.0f, 1.0f);
-
-		//		easeOutQuart
-		float move = 1.0f - pow(1.0f - heightTime, 4.0f);
-
-		m_information->SetHeightTime(heightTime);
-
-		//		ラープで初期の高さから立ちの高さへ
-		headPosition.y = m_information->GetPosition().y + Library::Lerp(firstHeight, endHeight, move);
-	}
-	else
-	{
-		headPosition.y = m_information->GetPosition().y + endHeight;
-	}
-
-	if (m_information->GetHeadMove() > 0.0f)
-	{
-		float headMove = m_information->GetHeadMove();
-
-		//		移動速度
-		headMove -= m_information->GetHeadMoveSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
-
-		//		移動量の制限
-		headMove = Library::Clamp(headMove, 0.0f, m_information->GetHeadMoveMAX());
-
-		//		頭の移動量を足す
-		headPosition.x += m_playerInformationCollition->GetWallWalkNormalize().x * headMove;
-		headPosition.z += m_playerInformationCollition->GetWallWalkNormalize().z * headMove;
-
-		m_information->SetHeadMove(headMove);
-	}
-
-	//		高さを設定する
-	m_information->SetPlayerHeight(headPosition);
-}
-
-bool Player::WireActionJudgement()
-{
-	//		ワイヤーを使用できない状態にする
-	m_information->SetWireJudgement(false);
-
-	for (int i = 0, max = static_cast<int>(m_wireInformation.size()); i < max; ++i)
-	{
-
-		if (!(*m_wireInformation[i]).m_usedJudgement || (*m_wireInformation[i]).m_actionJudgement) continue;
-
-		//		ワイヤーのある方向
-		DirectX::SimpleMath::Vector3 wireDirection = (*m_wireInformation[i]).position - m_information->GetPlayerHeight();
-
-		//		視線ベクトル
-		DirectX::SimpleMath::Vector3 viewDirection = m_information->GetViewVelocity();
-
-		//		正規化
-		wireDirection.Normalize();
-		viewDirection.Normalize();
-
-		//		内積を取る
-		float dot = wireDirection.Dot(viewDirection);
-
-		//		ワイヤーの方向を向いていなかったら
-		if (dot < 0.9f) continue;
-
-		//		ワイヤーを使用できる状態にする
-		m_information->SetWireJudgement(true);
-
-		//		マウストラッカーの値を受け取る
-		DirectX::Mouse::ButtonStateTracker* mouse = LibrarySingleton::GetInstance()->GetButtonStateTracker();
-
-		//		マウスが押された場合
-		if (mouse->leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
-		{
-			//		移動ワイヤーの座標を設定する
-			DirectX::SimpleMath::Vector3 wireMovePosition = (*m_wireInformation[i]).position;
-
-			wireMovePosition.y -= 12.0f;
-
-			//		移動ワイヤー座標を設定する
-			m_information->SetWireMovePosition(wireMovePosition);
-
-			//		状態を遷移する		
-			m_state->Finalize();
-
-			//		ワイヤー状態にする
-			m_playerState = PlayerState::Wire;
-
-			m_state = m_stateInformation[m_playerState].get();
-
-			(*m_wireInformation[i]).m_actionJudgement = true;
-
-			m_state->Initialize();
-
-			return true;
-		}
-	}
-
-	/*
-	//		ワイヤーを使用できない状態にする
-	m_information->SetWireJudgement(false);
-
-	//		ワイヤーの座標がない場合処理をしない
-	if (m_information->GetWirePosition().size() == 0) return false;
-
-	//		ワイヤーのある方向
-	DirectX::SimpleMath::Vector3 wireDirection = m_information->GetWirePosition()[0] - m_information->GetPlayerHeight();
-
-	//		視線ベクトル
-	DirectX::SimpleMath::Vector3 viewDirection = m_information->GetViewVelocity();
-
-	//		正規化
-	wireDirection.Normalize();
-	viewDirection.Normalize();
-
-	//		内積を取る
-	float dot = wireDirection.Dot(viewDirection);
-
-	//		ワイヤーの方向を向いていたら
-	if (dot < 0.9f) return false;
-
-	//		ワイヤーを使用できる状態にする
-	m_information->SetWireJudgement(true);
-
-	//		マウストラッカーの値を受け取る
-	DirectX::Mouse::ButtonStateTracker* mouse = LibrarySingleton::GetInstance()->GetButtonStateTracker();
-
-	//		マウスが押された場合
-	if (mouse->leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
-	{
-		//		移動ワイヤーの座標を設定する
-		DirectX::SimpleMath::Vector3 wireMovePosition = m_information->GetWirePosition()[0];
-
-		wireMovePosition.y -= 12.0f;
-
-		//		移動ワイヤー座標を設定する
-		m_information->SetWireMovePosition(wireMovePosition);
-
-		//		状態を遷移する		
-		m_state->Finalize();
-
-		//		ワイヤー状態にする
-		m_playerState = PlayerState::Wire;
-
-		m_state = m_stateInformation[m_playerState].get();
-
-		m_state->Initialize();
-
-		return true;
-	}
-	*/
-
-	return false;
-}
-
-void Player::WallWalkJudgement()
-{
-	//		壁に当たっている場合
-	if (m_collitionInformation->GetMeshWallNormalize().size() == 1)
-	{
-		DirectX::SimpleMath::Vector3 acceleation = m_information->GetAcceleration();
-
-		acceleation.Normalize();
-
-		float dot = m_collitionInformation->GetMeshWallNormalize()[0].Dot(acceleation);
-
-		//		プレイヤーが一定の角度を向いている場合処理をする
-		if (dot <= -0.1f && dot >= -0.95f)
-		{
-			//		法線を代入する
-			m_playerInformationCollition->SetWallWalkNormalize(m_collitionInformation->GetMeshWallNormalize()[0]);
-
-			//		状態を切り替える(壁歩き状態)
-			ChangeState(PlayerState::WallWalk);
-
-			return;
-		}
-	}
-}
-
-void Player::SpeedUpperLimit()
-{
-	float speed = m_information->GetAcceleration().Length();
-
-	if (speed <= 70.0f) return;
-
-	DirectX::SimpleMath::Vector3 velocity = m_information->GetAcceleration();
-
-	velocity.Normalize();
-
-	m_information->SetAcceleration(velocity * 70.0f);
-}
-
 void Player::ChangeState(PlayerState state)
 {
 	//		同じ状態なら処理をしない
@@ -554,5 +187,20 @@ void Player::ChangeState(PlayerState state)
 	m_state = m_stateInformation[m_playerState].get();
 
 	//		新しい状態の初期化処理をする
+	m_state->Initialize();
+}
+
+void Player::ChangeWireState(int index)
+{
+	//		状態を遷移する
+	m_state->Finalize();
+
+	//		ワイヤー状態にする
+	m_playerState = PlayerState::Wire;
+
+	m_state = m_stateInformation[m_playerState].get();
+
+	(*m_wireInformation[index]).m_actionJudgement = true;
+
 	m_state->Initialize();
 }

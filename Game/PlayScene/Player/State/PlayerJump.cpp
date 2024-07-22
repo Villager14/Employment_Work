@@ -73,13 +73,13 @@ void PlayerJump::Update()
 	MoveProcessing();
 
 	//		重力処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 }
 
 void PlayerJump::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		レイの処理を行うかどうか
 	if (m_rayprocessJudgement)
@@ -106,7 +106,7 @@ void PlayerJump::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	m_player->GetInformation()->SetPlayerHeight({
 	m_player->GetInformation()->GetPosition().x,
@@ -160,7 +160,7 @@ void PlayerJump::MoveProcessing()
 		DirectX::SimpleMath::Vector3::Zero;
 
 	//		移動する方向を受け取る
-	direction = m_player->Direction(&m_keyInputJudgement);
+	direction = m_player->GetCommonProcessing()->Direction(&m_keyInputJudgement);
 
 	if (m_keyInputJudgement && m_stopJump)
 	{
@@ -241,7 +241,7 @@ void PlayerJump::ChangeStateJudgement()
 	m_player->DeathJudgement();
 
 	//		壁歩き状態かどうか
-	m_player->WallWalkJudgement();
+	m_player->GetCommonProcessing()->WallWalkJudgement();
 
 	//		一秒経過後処理をする
 	if (m_elapsedTime >= 1.0f) { m_rayprocessJudgement = true; }
@@ -251,6 +251,9 @@ void PlayerJump::ChangeStateJudgement()
 
 	//		キーボードステートの取得
 	DirectX::Keyboard::State keyboardState = LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState();
+
+	//		ワイヤーを飛ぶことができるかどうか
+	m_player->GetCommonProcessing()->WireActionJudgement();
 
 	//		Shiftを押した場合
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::LeftShift) 

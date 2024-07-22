@@ -12,7 +12,9 @@
 PlayerAnimation::PlayerAnimation()
 	:
 	m_IState{},
-	m_animationState()
+	m_animationState(),
+	m_fallJudgement(false),
+	m_landingTime(0.0f)
 {
 }
 
@@ -43,6 +45,7 @@ void PlayerAnimation::Initialize(bool createHead)
 	m_animationStateInformation.insert({ AnimationState::WallWalk, std::make_unique<WallWalkAnimationState>(this) });
 	m_animationStateInformation.insert({ AnimationState::WallJump, std::make_unique<WallJumpAnimationState>(this) });
 	m_animationStateInformation.insert({ AnimationState::Upright, std::make_unique<UprightAnimationState>(this) });
+	m_animationStateInformation.insert({ AnimationState::Fall, std::make_unique<FallAnimationState>(this) });
 
 	m_animationState = AnimationState::Start;
 
@@ -70,10 +73,6 @@ void PlayerAnimation::Render(bool wireJudgement)
 {
 	for (int i = 0; i < m_playerModel.size(); ++i)
 	{
-		//DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateScale(2.6f);
-
-		//m_playerBons->ParentProcess(&world, (*m_playerBons->GetBonesInformation())[i].type);
-
 		m_playerModel[i]->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			m_world[i], LibrarySingleton::GetInstance()->GetView(),
@@ -141,6 +140,24 @@ void PlayerAnimation::AnimationLegInitialValue(std::vector<PlayerBonsInformation
 	AnimationMovement(BonsType::BodyDown, m_bonesInformation, DirectX::SimpleMath::Quaternion::Identity, (*m_bonesInformation)[BonsType::BodyDown].rotation, transrationSpeed);
 }
 
+void PlayerAnimation::Landing(float height)
+{
+	m_landingTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 1.0f;
+
+	m_landingTime = Library::Clamp(m_landingTime, 0.0f, 1.0f);
+
+	float val = sinf(DirectX::XMConvertToRadians(Library::Lerp(0.0f, 180.0f, m_landingTime)));
+
+	float lo = Library::Lerp(0.0f, -0.2f, val);
+
+	(*m_playerBons->GetBonesInformation())[BonsType::Body].position.y += height - 1.8f + lo;
+
+	if (m_landingTime >= 1.0f)
+	{
+ 		m_fallJudgement = false;
+	}
+}
+
 void PlayerAnimation::ChangeState(AnimationState State)
 {
 	if (m_animationState == State)
@@ -150,6 +167,15 @@ void PlayerAnimation::ChangeState(AnimationState State)
 
 	//		現在の状態の終了処理
 	m_IState->Finalize();
+
+	//		もし落下アニメーションだった場合
+	if (m_animationState == AnimationState::Fall)
+	{
+		m_landingTime = 0.0f;
+
+		//		落下中状態にする
+		m_fallJudgement = true;
+	}
 
 	m_animationState = State;
 

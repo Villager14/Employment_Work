@@ -50,22 +50,26 @@ void PlayerWalk::Update()
 	MoveProcessing();
 
 	//		メッシュと当たった時の処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 }
 
 void PlayerWalk::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		床に当たっているか
-	m_player->FloorMeshHitJudgement();
+	if (!m_player->GetCommonProcessing()->FloorMeshHitJudgement())
+	{
+		//		状態を遷移する(落下)
+		m_player->ChangeState(m_player->PlayerState::Fall);
+	}
 
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 	
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -104,7 +108,7 @@ void PlayerWalk::MoveProcessing()
 	DirectX::SimpleMath::Vector3 direction = DirectX::SimpleMath::Vector3::Zero;
 
 	//		移動する方向を受け取る
-	direction = m_player->Direction(&m_keyInputJudgement);
+	direction = m_player->GetCommonProcessing()->Direction(&m_keyInputJudgement);
 
 	//		正規化
 	direction.Normalize();
@@ -123,7 +127,7 @@ void PlayerWalk::MoveProcessing()
 	}
 
 	//		加速度を計算する
-	DirectX::SimpleMath::Vector3 accelaration = m_player->MoveDirection(
+	DirectX::SimpleMath::Vector3 accelaration = m_player->GetCommonProcessing()->MoveDirection(
 		m_player->GetInformation()->GetDirection()) * m_speed;
 
 	//		加速度を設定する
@@ -152,7 +156,8 @@ void PlayerWalk::ChangeStateJudgement()
 	DirectX::Keyboard::State keyState = LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState();
 	
 	//		spaceでジャンプ
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space)&&
+		m_player->GetInformation()->GetJumpJudgement())
 	{
 		//		状態を切り替える(ジャンプ)
 		m_player->ChangeState(m_player->PlayerState::Jump);
@@ -164,6 +169,9 @@ void PlayerWalk::ChangeStateJudgement()
 		//		状態を切り替える（ゴール）
 		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
+
+	//		ワイヤーを飛ぶことができるかどうか
+	m_player->GetCommonProcessing()->WireActionJudgement();
 
 	//		Controlでしゃがみ
 	if (keyState.IsKeyDown(DirectX::Keyboard::LeftControl))

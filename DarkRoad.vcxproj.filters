@@ -651,6 +651,18 @@
     <ClInclude Include="Game\Menu\UI\FrameWalkUI.h">
       <Filter>Game\Menu\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Menu\MenuInformationRead.h">
+      <Filter>Game\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\PlayerCommonProcessing.h">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerFall.h">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.h">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -1006,6 +1018,15 @@
     </ClCompile>
     <ClCompile Include="Game\Menu\UI\FrameWalkUI.cpp">
       <Filter>Game\Menu\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp">
+      <Filter>Game\PlayScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerFall.cpp">
+      <Filter>Game\PlayScene\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.cpp">
+      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
