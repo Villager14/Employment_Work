@@ -59,17 +59,17 @@ void PlayerSliding::Update()
 	MoveProcessing();
 
 	//		メッシュと当たった時の処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 
 }
 
 void PlayerSliding::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		床に当たっているか
-	m_player->FloorMeshHitJudgement();
+	m_player->GetCommonProcessing()->FloorMeshHitJudgement();
 
 	//		頭を揺らす状態にしない
 	m_player->GetInformation()->SetHeadShakingJudgement(false);
@@ -78,7 +78,7 @@ void PlayerSliding::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetSlidngHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetSlidngHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -141,7 +141,7 @@ void PlayerSliding::MoveProcessing()
 		m_player->GetInformation()->SetAcceleration(m_acceleration);
 
 		//		速度上限に達しているか判断する
-		m_player->SpeedUpperLimit();
+		m_player->GetCommonProcessing()->SpeedUpperLimit();
 
 		//		速度を設定する
 		m_speed = m_player->GetInformation()->GetAcceleration().Length();
@@ -181,7 +181,7 @@ void PlayerSliding::MoveProcessing()
 		m_player->GetInformation()->SetAcceleration(m_acceleration);
 
 		//		速度上限に達しているか判断する
-		m_player->SpeedUpperLimit();
+		m_player->GetCommonProcessing()->SpeedUpperLimit();
 
 		//		座標に設定する
 		m_player->GetInformation()->SetPlanPosition(m_player->GetInformation()->GetPosition() +
@@ -195,6 +195,9 @@ void PlayerSliding::ChangeStateJudgement()
 	DirectX::Keyboard::State keyState =
 		LibrarySingleton::GetInstance()->
 		GetKeyboardStateTracker()->GetLastState();
+
+	//		ワイヤーを飛ぶことができるかどうか
+	m_player->GetCommonProcessing()->WireActionJudgement();
 
 	if (m_player->GetInformation()->GetAcceleration().Length() <= 10.0f)
 	{

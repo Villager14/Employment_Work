@@ -33,9 +33,9 @@ public:
 
 	struct UIInformation
 	{
-		DirectX::SimpleMath::Vector2 position;						//		座標
-		DirectX::SimpleMath::Vector2 scale;							//		サイズ
-		float slideVal;						//		スライダーの値
+		DirectX::SimpleMath::Vector2 position;		//		座標
+		DirectX::SimpleMath::Vector2 scale;			//		サイズ
+		float slideVal = 0.0f;						//		スライダーの値
 	};
 
 	enum UIType

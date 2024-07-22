@@ -200,6 +200,7 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h" />
     <ClInclude Include="Game\Menu\IMenu.h" />
     <ClInclude Include="Game\Menu\MenuInformation.h" />
+    <ClInclude Include="Game\Menu\MenuInformationRead.h" />
     <ClInclude Include="Game\Menu\MenuManager.h" />
     <ClInclude Include="Game\Menu\State\AudioSetting.h" />
     <ClInclude Include="Game\Menu\State\EndSetting.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.h" />
+    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.h" />
@@ -252,6 +254,7 @@
     <ClInclude Include="Game\PlayScene\Player\Bons\PlayerBons.h" />
     <ClInclude Include="Game\PlayScene\Player\IPlayer.h" />
     <ClInclude Include="Game\PlayScene\Player\Player.h" />
+    <ClInclude Include="Game\PlayScene\Player\PlayerCommonProcessing.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformation.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformationCollition.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformationUI.h" />
@@ -259,6 +262,7 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerCrouching.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerDash.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerDeath.h" />
+    <ClInclude Include="Game\PlayScene\Player\State\PlayerFall.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerGoal.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerJump.h" />
     <ClInclude Include="Game\PlayScene\Player\State\PlayerSliding.h" />
@@ -371,6 +375,7 @@
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.cpp" />
@@ -383,10 +388,12 @@
     <ClCompile Include="Game\PlayScene\Player\Bons\PlayerAnimation.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Player.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerAttack.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerCrouching.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDash.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDeath.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\State\PlayerFall.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerGoal.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerJump.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerSliding.cpp" />

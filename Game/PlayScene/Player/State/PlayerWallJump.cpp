@@ -65,13 +65,13 @@ void PlayerWallJump::Update()
 	MoveProcessing();
 
 	//		重力処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 }
 
 void PlayerWallJump::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		レイの処理を行うかどうか
 	if (m_rayprocessJudgement)
@@ -98,7 +98,7 @@ void PlayerWallJump::Move()
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	//m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態を遷移するかどうか
 	ChangeStateJudgement();
@@ -145,7 +145,7 @@ void PlayerWallJump::MoveProcessing()
 		DirectX::SimpleMath::Vector3::Zero;
 
 	//		移動する方向を受け取る
-	direction = m_player->Direction(&m_keyInputJudgement);
+	direction = m_player->GetCommonProcessing()->Direction(&m_keyInputJudgement);
 
 	//		移動方向を設定する
 	m_player->GetInformation()->SetDirection(direction);
@@ -196,7 +196,7 @@ void PlayerWallJump::ChangeStateJudgement()
 	m_player->DeathJudgement();
 
 	//		壁歩き状態かどうか
-	m_player->WallWalkJudgement();
+	m_player->GetCommonProcessing()->WallWalkJudgement();
 
 	//		一秒経過後処理をする
 	if (m_elapsedTime >= 1.0f) { m_rayprocessJudgement = true; }
@@ -225,6 +225,9 @@ void PlayerWallJump::ChangeStateJudgement()
 		//		状態を切り替える（ゴール）
 		m_player->ChangeState(m_player->PlayerState::Goal);
 	}
+
+	//		ワイヤーを飛ぶことができるかどうか
+	m_player->GetCommonProcessing()->WireActionJudgement();
 
 	//		床に当たったら別の状態にする
 	if (m_rayHitJudgement)

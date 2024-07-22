@@ -26,7 +26,7 @@ PlayerSlowTime::~PlayerSlowTime()
 void PlayerSlowTime::Initialize()
 {
 	//		移動方向
-	m_direction = m_player->MoveDirection(m_player->GetInformation()->GetDirection());
+	m_direction = m_player->GetCommonProcessing()->MoveDirection(m_player->GetInformation()->GetDirection());
 
 	//		時間の速度を設定する
 	m_player->GetInformation()->SetTimeSpeed(0.1f);
@@ -50,16 +50,16 @@ void PlayerSlowTime::Update()
 void PlayerSlowTime::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		床に当たっているか
-	m_player->FloorMeshHitJudgement();
+	m_player->GetCommonProcessing()->FloorMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 	
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -111,7 +111,7 @@ void PlayerSlowTime::MoveProcessing()
 	float speed = 10.0f;
 
 	//		移動する方向
-	DirectX::SimpleMath::Vector3 velocity = m_player->MoveDirection(direction) * speed *
+	DirectX::SimpleMath::Vector3 velocity = m_player->GetCommonProcessing()->MoveDirection(direction) * speed *
 		LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		移動予定場所

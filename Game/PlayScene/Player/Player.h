@@ -34,6 +34,7 @@
 #include "State/PlayerDeath.h"
 #include "State/PlayerStart.h"
 #include "State/PlayerGoal.h"
+#include "State/PlayerFall.h"
 
 #include "State/PlayerAttack.h"
 
@@ -43,19 +44,7 @@
 
 #include <unordered_map>
 
-class PlayerStay;
-class PlayerWork;
-class PlayerCrouching;
-class PlayerJump;
-class PlayerSliding;
-class PlayerDash;
-class PlayerSlowTime;
-class PlayerWallWalk;
-class PlayerWire;
-class PlayerWallJump;
-class PlayerDeath;
-class PlayerStart;
-class PlayerGoal;
+#include "PlayerCommonProcessing.h"
 
 class Player
 {
@@ -88,67 +77,11 @@ public:
 	//		デバック描画
 	void DebugRender();
 
-
 	//		終了処理
 	void Finalize();
 
 	//		死亡したか判断する
 	void DeathJudgement();
-
-	//		ダッシュのクールタイム
-	void DashCoolTime();
-
-	/*
-	*	移動処理
-	*
-	*	@param	(keyPressJudgement)	キーを押したかどうか
-	*	@return 移動方向
-	*/
-	DirectX::SimpleMath::Vector3 Direction(bool* keyPressjudgement);
-
-	/*
-	*	移動する向き
-	*
-	*	@param (direction) 移動したい方向
-	*	@return 向き
-	*/
-	DirectX::SimpleMath::Vector3 MoveDirection
-	(const DirectX::SimpleMath::Vector3 direction);
-
-	/*
-	*	重力処理
-	* 
-	*	@param	(weekJudgement)	弱い重力にするかどうか
-	*/
-	void Gravity(bool weekJudgement = false);
-
-	//		床メッシュに当たっているか判断する
-	bool FloorMeshHitJudgement();
-
-	//		壁メッシュに当たっているか判断する
-	bool WallMeshHitJudgement();
-
-	/*
-	*	立つ状態にする
-	*
-	*	@param	(firstHeight)	最初の高さ
-	*	@param	(endHeight)		最終的な高さ
-	*	@param	(speed)			速度
-	*/
-	void PlayerHeightTransition(const float& firstHeight, const float& endHeight, const float& speed);
-
-	/*
-	*	ワイヤーアクションをするかどうか
-	* 
-	*	@returnr するかどうか true : 行う fales : 行わない
-	*/
-	bool WireActionJudgement();
-
-	//		壁ジャンプ状態になるかどうか
-	void WallWalkJudgement();
-
-	//		速度上限
-	void SpeedUpperLimit();
 
 public:
 
@@ -167,6 +100,7 @@ public:
 		Death,
 		Start,
 		Goal,
+		Fall,
 	};
 
 public:
@@ -178,6 +112,8 @@ public:
 	*/
 	void ChangeState(PlayerState state);
 
+	//		ワイヤーの状態遷移
+	void ChangeWireState(int index);
 
 private:
 
@@ -207,6 +143,9 @@ private:
 
 	//		プレイヤーモデル
 	std::unique_ptr<DirectX::Model> m_playerObject;
+
+	//		プレイヤーの共通処理
+	std::unique_ptr<PlayerCommonProcessing> m_commonProcessing;
 
 	//		カメラの情報
 	PlayerCameraInformation* m_cameraInformation;
@@ -258,6 +197,13 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	CollitionInformation* GetCollitionInformation() { return m_collitionInformation; }
+
+	/*
+	*	プレイヤーの共通処理
+	* 
+	*	@return インスタ巣のポンタ
+	*/
+	PlayerCommonProcessing* GetCommonProcessing() { return m_commonProcessing.get(); }
 
 	/*
 	*	当たり判定用情報を設定する

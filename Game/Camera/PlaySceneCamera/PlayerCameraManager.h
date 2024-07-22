@@ -99,6 +99,9 @@ private:
 	//		現在のカメラタイプ
 	CameraType m_cameraType;
 
+	//		現在の視野角
+	float m_nowViewAngle;
+
 public:
 	/*
 	*	カメラの状態の切り替え

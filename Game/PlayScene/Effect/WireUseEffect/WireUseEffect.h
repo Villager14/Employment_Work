@@ -24,24 +24,48 @@ public:
 	~WireUseEffect();
 
 	//		初期化処理
-	void Initialize();
+	void Initialize(int size);
 
 	/*
 	*	更新処理
 	*
-	*	@param	(playerPosition)	プレイヤーの座標
+	*	@param	(index)	要素数
 	*/
-	void Update(PlayerCameraInformation* cameraInformation);
+	void Update(DirectX::SimpleMath::Vector3 position, int index);
+
+	/*
+	*	ビルボードの更新処理
+	*
+	*	@param	(cameraInformation)	カメラの情報
+	*/
+	void BillbordUpdate(PlayerCameraInformation* cameraInformation);
 
 	/*
 	*	描画処理
 	*
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render(DirectX::SimpleMath::Vector3 position);
+	void Render(DirectX::SimpleMath::Vector3 position, int index);
 
 	//		終了処理
 	void Finalize();
+
+	struct WireStatas
+	{
+		bool firstJudgement = true;
+		bool sclaeChangeJudgement = true;
+		bool resetFlag = false;
+		float scale = 30.0f;
+		float time = 0.0f;
+		float maxScale = 0.0f;
+	};
+
+	/*
+	*	ワイヤーを使った際のリセット処理
+	* 
+	*	@param	(index)	要素数
+	*/
+	void ResetProcess(int index);
 
 private:
 	//		ビルボードエフェクト
@@ -49,4 +73,7 @@ private:
 
 	//		プレイヤーの情報
 	PlayerInformation* m_playerInformation;
+
+	//		ワイヤーのステータス
+	std::vector<WireStatas> m_wireStatas;
 };

@@ -65,20 +65,20 @@ void PlayerWire::Update()
 	MoveProcessing();
 
 	//		重力処理
-	m_player->Gravity(true);
+	m_player->GetCommonProcessing()->Gravity(true);
 }
 
 void PlayerWire::Move()
 {
 	//		壁メッシュの当たり判定
-	if (m_player->WallMeshHitJudgement())
+	if (m_player->GetCommonProcessing()->WallMeshHitJudgement())
 	{
 		//		影に当たっている
 		if (m_fallJudgement)m_wallHitJudgement = true;
 	}
 
 	//		床に当たっているか
-	if (m_player->FloorMeshHitJudgement())
+	if (m_player->GetCommonProcessing()->FloorMeshHitJudgement())
 	{
 		//		床に当たっている
 		if (m_fallJudgement)m_floorHitJudgement = true;
@@ -91,7 +91,7 @@ void PlayerWire::Move()
 	FallJudgement();
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight,m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -158,7 +158,7 @@ void PlayerWire::ChangeStateJudgement()
 	m_player->DeathJudgement();
 
 	//		ワイヤーアクションができるかどうか判断する
-	m_player->WireActionJudgement();
+	m_player->GetCommonProcessing()->WireActionJudgement();
 
 	//		キーボードの取得
 	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
@@ -266,13 +266,13 @@ void PlayerWire::FallProcess()
 	DirectX::SimpleMath::Vector3 direction = DirectX::SimpleMath::Vector3::Zero;
 
 	//		移動する方向を受け取る
-	direction = m_player->Direction(&keyInputJudgement);
+	direction = m_player->GetCommonProcessing()->Direction(&keyInputJudgement);
 
 	//		正規化
 	direction.Normalize();
 
 	//		移動する方向を追加する
-	m_direction += m_player->MoveDirection(direction) * 0.7f * LibrarySingleton::GetInstance()->GetElpsedTime();
+	m_direction += m_player->GetCommonProcessing()->MoveDirection(direction) * 0.7f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		正規化
 	m_direction.Normalize();

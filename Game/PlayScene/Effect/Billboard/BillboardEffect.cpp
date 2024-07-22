@@ -105,7 +105,7 @@ void BillboardEffect::Render(DirectX::SimpleMath::Vector3 position)
 
 	v.position = position;
 	v.color = { 1,1,1,1 };
-	v.textureCoordinate = DirectX::XMFLOAT2(10.0f, 0.0f);
+	v.textureCoordinate = DirectX::XMFLOAT2(m_scale, 0.0f);
 
 	m_vertices = v;
 

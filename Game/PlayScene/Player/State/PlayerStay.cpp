@@ -38,23 +38,23 @@ void PlayerStay::Update()
 	Deceleration();
 
 	//		メッシュと当たった時の処理
-	m_player->Gravity();
+	m_player->GetCommonProcessing()->Gravity();
 
 }
 
 void PlayerStay::Move()
 {
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		床に当たっているか
-	m_player->FloorMeshHitJudgement();
-	
+	m_player->GetCommonProcessing()->FloorMeshHitJudgement();
+
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
 
 	//		立つ処理
-	m_player->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
+	m_player->GetCommonProcessing()->PlayerHeightTransition(m_firstHeight, m_player->GetInformation()->GetStandingHeight(), 3.0f);
 
 	//		状態遷移判断
 	ChangeStateJudgement();
@@ -113,7 +113,7 @@ void PlayerStay::ChangeStateJudgement()
 	DirectX::Keyboard::State keyboardState = LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState();
 
 	//		ワイヤーアクションをするかどうか
-	if (m_player->WireActionJudgement())
+	if (m_player->GetCommonProcessing()->WireActionJudgement())
 	{
 		return;
 	}
@@ -138,7 +138,8 @@ void PlayerStay::ChangeStateJudgement()
 	}
 
 	//		spaceでジャンプ
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space))
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space)&&
+		m_player->GetInformation()->GetJumpJudgement())
 	{
 		//		状態を切り替える(しゃがみ)
 		m_player->ChangeState(m_player->PlayerState::Jump);

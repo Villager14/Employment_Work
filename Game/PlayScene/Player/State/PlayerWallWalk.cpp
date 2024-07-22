@@ -79,7 +79,7 @@ void PlayerWallWalk::Move()
 	}
 
 	//		壁メッシュの当たり判定
-	m_player->WallMeshHitJudgement();
+	m_player->GetCommonProcessing()->WallMeshHitJudgement();
 
 	//		移動予定座標からプレイヤー座標に代入する
 	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetPlanPosition());
@@ -168,7 +168,7 @@ void PlayerWallWalk::ChangeStateJudgement()
 			m_player->GetInformation()->SetDirection(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f));
 
 			//		ジャンプする方向
-			m_player->GetInformation()->SetAcceleration(m_player->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetInformation()->GetAcceleration().Length());
+			m_player->GetInformation()->SetAcceleration(m_player->GetCommonProcessing()->MoveDirection(m_player->GetInformation()->GetDirection()) * m_player->GetInformation()->GetAcceleration().Length());
 
 			//		状態を切り替える(ジャンプ)
 			m_player->ChangeState(m_player->PlayerState::Jump);
