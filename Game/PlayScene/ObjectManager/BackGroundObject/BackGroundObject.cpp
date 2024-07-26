@@ -38,39 +38,78 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 		L"Resources/Models/Background.cmo", *m_effect);
 
 	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
-	{
-		auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
-
-		if (fog)
 		{
-			fog->SetFogEnabled(true);
-			fog->SetFogStart(100.0f);
-			fog->SetFogEnd(300.0f);
-			fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
-		}
+			/*
+			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
 
-		auto light = dynamic_cast<DirectX::IEffectLights*>(effect);
+			if (fog)
+			{
+				fog->SetFogEnabled(true);
+				fog->SetFogStart(100.0f);
+				fog->SetFogEnd(300.0f);
+				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+			}
 
-		if (light)
-		{
-			light->SetAmbientLightColor(DirectX::SimpleMath::Vector3::Zero);
-			light->SetLightEnabled(0, false);
-			light->SetLightEnabled(1, false);
-			light->SetLightEnabled(2, false);
-		}
+			auto light = dynamic_cast<DirectX::IEffectLights*>(effect);
 
-		auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
+			if (light)
+			{
+				light->SetAmbientLightColor(DirectX::SimpleMath::Vector3::Zero);
+				light->SetLightEnabled(0, false);
+				light->SetLightEnabled(1, false);
+				light->SetLightEnabled(2, false);
+			}
 
-		if (basicEffect)
-		{
-			basicEffect->SetEmissiveColor(DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
-		}
-	});
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
+
+			if (basicEffect)
+			{
+				basicEffect->SetEmissiveColor(DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+			}
+			*/
+
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
+
+			if (basicEffect)
+			{
+				basicEffect->SetLightingEnabled(true);
+				basicEffect->SetPerPixelLighting(true);
+				basicEffect->SetTextureEnabled(true);
+				basicEffect->SetVertexColorEnabled(false);
+			}
+
+		});
 
 	//		背景の情報を生成する
 	m_information = std::make_unique<BackGroundObjectInformation>();
 
 	m_information->Create(mesh, wirePosition);
+
+	// ピクセルシェーダーの作成（トーラス用）
+	std::vector<uint8_t> ps_torus =
+		DX::ReadData(L"Resources/Shader/BillShader/BillShaderPS.cso");
+	DX::ThrowIfFailed(
+		device->CreatePixelShader(ps_torus.data(), ps_torus.size(),
+			nullptr, m_pixselShader.ReleaseAndGetAddressOf())
+	);
+
+	UNREFERENCED_PARAMETER(m_constBuffer);
+
+	ConstBuffer buffer = {};
+
+	//		シェーダにデータを渡すためのコンスタントバッファ生成
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(buffer);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	bd.CPUAccessFlags = 0;
+
+	LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+		->CreateBuffer(&bd, nullptr, &m_buffer);
+
+	m_constBuffer.fogLength = {100.0f, 300.0f, 0.0f,0.0f};
+	m_constBuffer.fogColor = DirectX::Colors::MediumSeaGreen;
 }
 
 void BackGroundObject::Update()
@@ -98,7 +137,20 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 		m_floorModel->Draw(context,
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			world, LibrarySingleton::GetInstance()->GetView(),
-			LibrarySingleton::GetInstance()->GetProj());
+			LibrarySingleton::GetInstance()->GetProj(), false, [&]() {
+
+				m_constBuffer.cameraPosition = { cameraPosition.x, cameraPosition.y, cameraPosition.z, 0.0f };
+
+				//		受け渡し用バッファ
+				context->UpdateSubresource(m_buffer.Get(), 0, NULL, &m_constBuffer, 0, 0);
+
+				//		定数バッファの設定
+				ID3D11Buffer* cbuff[] = { m_buffer.Get()};
+
+				context->PSSetConstantBuffers(0, 1, cbuff);
+
+				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
+			});
 	}
 }
 

@@ -25,15 +25,15 @@ public:
 
 	/*
 	*	ファイルパス
-	* 
-	* 
+	*
+	*
 	*/
-	std::vector<std::unique_ptr<Triangle>> 
+	std::vector<Triangle>
 		Lead(const wchar_t* filePath);
 
 	/*
 	*	メッシュの三角形の作製
-	* 
+	*
 	*	@param	(vertex)		頂点
 	*	@param	(vertexIndex)	頂点インデックス
 	*/
@@ -44,8 +44,27 @@ public:
 	//		法線の作製
 	void CreateNormalize();
 
+	//		オブジェクトごとの情報にする
+	void ObjectInformation();
+
+	bool Sort(int index);
+
+	void AddCodNumber(int index);
+
+	void AddObject();
+
+	//		オブジェクトメッシュを受け取る
+	std::unordered_map<int, std::vector<Triangle>> GetObjectMesh() { return m_object; }
+
 private:
 
 	//		三角形情報
-	std::vector<std::unique_ptr<Triangle>> m_triangle;
+	std::vector<Triangle> m_triangle;
+
+	std::vector<Triangle> m_copytriangle;
+
+	std::unordered_map<int, std::vector<Triangle>> m_object;
+
+	std::vector<int> codNumber;
+
 };
