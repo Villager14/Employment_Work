@@ -236,6 +236,9 @@
     <Filter Include="Resorces\Shader\FrameWalk">
       <UniqueIdentifier>{8ae1a69f-d672-4e80-9449-227e609501e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resorces\Shader\BillShader">
+      <UniqueIdentifier>{cd3d6970-e1ce-49f7-a63e-7b2bf2d76e3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -663,6 +666,12 @@
     <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.h">
       <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionHead.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\Instancing.h">
+      <Filter>Library\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -1028,6 +1037,12 @@
     <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.cpp">
       <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\Instancing.cpp">
+      <Filter>Library\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1359,6 +1374,9 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkVS.hlsl">
       <Filter>Resorces\Shader\FrameWalk</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BillShader\BillShaderPS.hlsl">
+      <Filter>Resorces\Shader\BillShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

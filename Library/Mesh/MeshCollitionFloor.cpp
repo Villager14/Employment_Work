@@ -28,6 +28,7 @@ const std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionFloor::FloorCollit
 	ObjectMesh* objectMesh, const DirectX::SimpleMath::Vector3& playerPosition)
 {
 	FloorCollitionInitalize(playerPosition);
+
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
 
@@ -63,7 +64,6 @@ const std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionFloor::FloorCollit
 				continue;
 			}
 		}
-
 
 		//		メッシュの三角形の内側かどうか
 		if (m_meshCollitionManager->InsideTriangle(vertex,

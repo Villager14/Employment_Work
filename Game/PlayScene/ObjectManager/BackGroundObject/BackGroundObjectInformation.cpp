@@ -177,3 +177,30 @@ void BackGroundObjectInformation::Clear()
 	m_meshCenter.clear();
 	m_meshLength.clear();
 }
+
+void BackGroundObjectInformation::InstanceExpelement(std::vector<ObjectMesh*> mesh)
+{
+	//		メッシュの読み込みインスタンスの生成
+	//m_loadMesh = std::make_unique<LeadMesh>();
+
+	//std::vector<std::unique_ptr<Triangle>> triangle = m_loadMesh->Lead(L"Resources/ModelMesh/Bill.obj");
+
+	//for (int i = 0; i < triangle.size(); ++i)
+	//{
+	//	Vertex vertex;
+	//	m_vertex.push_back(vertex);
+
+	//	m_vertex[i].position = triangle[i]->m_vertex;
+	//}
+	//		頂点バッファ
+	//D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
+	//vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	//vertexBufferDesc.ByteWidth = sizeof(Vertex) * .size();
+	//vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	//vertexBufferDesc.CPUAccessFlags = 0;
+
+	//D3D11_SUBRESOURCE_DATA vertexData = { 0 };
+	//vertexData.pSysMem = .data();
+
+
+}

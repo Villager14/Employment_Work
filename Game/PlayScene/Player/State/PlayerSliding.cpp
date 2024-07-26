@@ -245,7 +245,7 @@ void PlayerSliding::SlopeJudgement()
 		Dot(m_player->GetCollitionInformation()->GetFloorMeshHitNormalize()[0]);
 
 	//		â‚Æ”»’è‚·‚éŠp“x‚©‚Ç‚¤‚©”»’f‚·‚é
-	if (dot >= 1.0f && dot < 0.2f)
+	if (dot >= 1.0f || dot < 0.2f)
 	{
 		m_slopeJudgement = false;
 

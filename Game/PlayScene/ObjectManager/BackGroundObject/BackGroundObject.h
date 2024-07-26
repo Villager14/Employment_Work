@@ -8,7 +8,6 @@
 #include "BackGroundObjectInformation.h"
 
 #include "Library/Mesh/ObjectMesh.h"
-
 class BackGroundObject
 {
 public:
@@ -53,6 +52,8 @@ private:
 	//		情報
 	std::unique_ptr<BackGroundObjectInformation> m_information;
 
+	//		ピクセルシェーダー
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixselShader;
 
 public:
 

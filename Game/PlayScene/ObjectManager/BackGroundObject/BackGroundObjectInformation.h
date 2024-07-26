@@ -7,6 +7,8 @@
 
 #include "Library/Mesh/ObjectMesh.h"
 
+#include "Library/Mesh/LeadMesh.h"
+
 class BackGroundObjectInformation
 {
 public:
@@ -84,6 +86,16 @@ public:
 	//		いらない情報を開放する
 	void Clear();
 
+	//		インスタンス描画の実験
+	void InstanceExpelement(std::vector<ObjectMesh*> mesh);
+
+	struct Vertex
+	{
+		DirectX::SimpleMath::Vector3 position;
+		DirectX::SimpleMath::Vector3 normal;
+		DirectX::SimpleMath::Vector2 texcoord;
+	};
+
 private:
 	
 	//		建物が存在しない距離
@@ -114,6 +126,12 @@ private:
 
 	//		オブジェクトのクオータニオン
 	std::vector<DirectX::SimpleMath::Quaternion> m_objectQuaternion;
+
+	//		メッシュの読み込み
+	std::unique_ptr<LeadMesh> m_loadMesh;
+
+	//		頂点情報
+	std::vector<Vertex> m_vertex;
 
 public:
 

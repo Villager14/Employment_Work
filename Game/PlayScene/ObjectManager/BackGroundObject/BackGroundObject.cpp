@@ -11,6 +11,8 @@
 
 #include "PostProcess.h"
 
+#include "Common/ReaData.h"
+
 BackGroundObject::BackGroundObject()
 {
 }
@@ -22,6 +24,8 @@ BackGroundObject::~BackGroundObject()
 void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 	const std::vector<DirectX::SimpleMath::Vector3>& wirePosition)
 {
+	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
+
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
 		::GetInstance()->GetEffectFactory();
@@ -33,38 +37,35 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Background.cmo", *m_effect);
 
-	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
+	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
+	{
+		auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+
+		if (fog)
 		{
-			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+			fog->SetFogEnabled(true);
+			fog->SetFogStart(100.0f);
+			fog->SetFogEnd(300.0f);
+			fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+		}
 
-			if (fog)
-			{
-				fog->SetFogEnabled(true);
-				fog->SetFogStart(100.0f);
-				fog->SetFogEnd(300.0f);
-				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
-			}
+		auto light = dynamic_cast<DirectX::IEffectLights*>(effect);
 
-			auto light = dynamic_cast<DirectX::IEffectLights*>(effect);
+		if (light)
+		{
+			light->SetAmbientLightColor(DirectX::SimpleMath::Vector3::Zero);
+			light->SetLightEnabled(0, false);
+			light->SetLightEnabled(1, false);
+			light->SetLightEnabled(2, false);
+		}
 
-			if (light)
-			{
-				light->SetAmbientLightColor(DirectX::SimpleMath::Vector3::Zero);
-				light->SetLightEnabled(0, false);
-				light->SetLightEnabled(1, false);
-				light->SetLightEnabled(2, false);
-			}
+		auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 
-			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
-
-			if (basicEffect)
-			{
-				basicEffect->SetEmissiveColor(DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
-			}
-
-			//std::unique_ptr<DirectX::SkinnedNormalMapEffect> normal = std::make_unique<DirectX::SkinnedNormalMapEffect>(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice());
-		});
-
+		if (basicEffect)
+		{
+			basicEffect->SetEmissiveColor(DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+		}
+	});
 
 	//		背景の情報を生成する
 	m_information = std::make_unique<BackGroundObjectInformation>();
