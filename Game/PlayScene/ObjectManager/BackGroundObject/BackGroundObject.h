@@ -8,6 +8,7 @@
 #include "BackGroundObjectInformation.h"
 
 #include "Library/Mesh/ObjectMesh.h"
+
 class BackGroundObject
 {
 public:
@@ -41,6 +42,13 @@ public:
 	bool Culling(int index, DirectX::SimpleMath::Vector3 cameraVelocity,
 		DirectX::SimpleMath::Vector3 cameraPosition);
 
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 fogColor;        //      フォグの色
+		DirectX::SimpleMath::Vector4 fogLength;       //      フォグの変化距離
+		DirectX::SimpleMath::Vector4 cameraPosition;  //      カメラの座標
+	};
+
 private:
 
 	//		床モデル
@@ -54,6 +62,11 @@ private:
 
 	//		ピクセルシェーダー
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixselShader;
+
+	ConstBuffer m_constBuffer;
+
+	//		バッファー
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_buffer;
 
 public:
 

@@ -51,13 +51,16 @@ private:
 	ObjectType m_objectType;
 
 	//		三角形情報
-	std::vector<std::unique_ptr<Triangle>> m_triangle;
+	std::vector<Triangle> m_triangle;
 
 	//		メッシュ情報の読み込み
 	std::unique_ptr<LeadMesh> m_leadMesh;
 
 	//		静的オブジェクトかどうか
 	bool m_staticObjectJudgement;
+
+	//		オブジェクトメッシュ
+	std::unordered_map<int, std::vector<Triangle>> m_objectMesh;
 
 public:
 
@@ -69,7 +72,7 @@ public:
 	*/
 	DirectX::SimpleMath::Vector3 GetVertexPosition
 	(const int& meshNumber, const int& vertexNumber)
-	{ return m_triangle[meshNumber]->m_vertex[vertexNumber]; }
+	{ return m_triangle[meshNumber].m_vertex[vertexNumber]; }
 
 	/*
 	*	法線を受け取る
@@ -78,7 +81,7 @@ public:
 	*/
 	DirectX::SimpleMath::Vector3 GetNormalizePosition
 	(const int& meshNumber) {
-		return m_triangle[meshNumber]->m_normalVector;}
+		return m_triangle[meshNumber].m_normalVector;}
 
 	/*
 	*	静的なオブジェクトかどうか
@@ -107,4 +110,7 @@ public:
 	*	@return オブジェクトのタイプ
 	*/
 	const ObjectType& GetObjectType() { return m_objectType; }
+
+	//		オブジェクトメッシュ
+	std::unordered_map<int, std::vector<Triangle>> GetObjectMesh() { return m_objectMesh; }
 };

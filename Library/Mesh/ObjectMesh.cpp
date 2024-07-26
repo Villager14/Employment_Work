@@ -25,6 +25,9 @@ void ObjectMesh::Initialize(const wchar_t* filePath)
 	//		読み込む
 	m_triangle = m_leadMesh->Lead(filePath);
 
+	//		オブジェクトメッシュを受け取る
+	m_objectMesh = m_leadMesh->GetObjectMesh();
+
 	//		リソースの開放(今後使わないので)
 	m_leadMesh.reset();
 }
@@ -38,15 +41,15 @@ void ObjectMesh::StaticProcess(const DirectX::SimpleMath::Matrix& world, const D
 	for (int i = 0, max = static_cast<int>(m_triangle.size());
 		i < max; ++i)
 	{
-		m_triangle[i]->m_vertex[0] = DirectX::SimpleMath::Vector3::Transform(m_triangle[i]->m_vertex[0], world);
-		m_triangle[i]->m_vertex[1] = DirectX::SimpleMath::Vector3::Transform(m_triangle[i]->m_vertex[1], world);
-		m_triangle[i]->m_vertex[2] = DirectX::SimpleMath::Vector3::Transform(m_triangle[i]->m_vertex[2], world);
+		m_triangle[i].m_vertex[0] = DirectX::SimpleMath::Vector3::Transform(m_triangle[i].m_vertex[0], world);
+		m_triangle[i].m_vertex[1] = DirectX::SimpleMath::Vector3::Transform(m_triangle[i].m_vertex[1], world);
+		m_triangle[i].m_vertex[2] = DirectX::SimpleMath::Vector3::Transform(m_triangle[i].m_vertex[2], world);
 
-		m_triangle[i]->m_vertex[0] += move;
-		m_triangle[i]->m_vertex[1] += move;
-		m_triangle[i]->m_vertex[2] += move;
+		m_triangle[i].m_vertex[0] += move;
+		m_triangle[i].m_vertex[1] += move;
+		m_triangle[i].m_vertex[2] += move;
 
-		m_triangle[i]->m_normalVector = DirectX::SimpleMath::Vector3::Transform(m_triangle[i]->m_normalVector, world);
+		m_triangle[i].m_normalVector = DirectX::SimpleMath::Vector3::Transform(m_triangle[i].m_normalVector, world);
 	}
 }
 
