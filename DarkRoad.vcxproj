@@ -308,8 +308,10 @@
     <ClInclude Include="Library\Library.h" />
     <ClInclude Include="Library\LibrarySingleton.h" />
     <ClInclude Include="Library\Mesh\DrawMesh.h" />
+    <ClInclude Include="Library\Mesh\Instancing.h" />
     <ClInclude Include="Library\Mesh\LeadMesh.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionFloor.h" />
+    <ClInclude Include="Library\Mesh\MeshCollitionHead.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionManager.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionWall.h" />
     <ClInclude Include="Library\Mesh\ObjectMesh.h" />
@@ -436,8 +438,10 @@
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
     <ClCompile Include="Library\Mesh\DrawMesh.cpp" />
+    <ClCompile Include="Library\Mesh\Instancing.cpp" />
     <ClCompile Include="Library\Mesh\LeadMesh.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionFloor.cpp" />
+    <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionManager.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionWall.cpp" />
     <ClCompile Include="Library\Mesh\ObjectMesh.cpp" />
@@ -653,6 +657,12 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/BackGroundMove\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/BackGroundMove\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\BillShader\BillShaderPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/BillShader\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/BillShader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\CenterShader\CenterShaderGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
