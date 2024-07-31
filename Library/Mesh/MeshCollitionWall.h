@@ -31,6 +31,14 @@ public:
 		float height);
 
 	/*
+	*	オブジェクトの当たり判定
+	*
+	*	@param	(objectMesh)	オブジェクトメッシュ
+	*	@param	(index)			要素
+	*/
+	void ObjectCollider(ObjectMesh* objectMesh, int index, float height);
+	
+	/*
 	*	壁に当たった時の法線
 	*
 	*	@return 法線
@@ -59,7 +67,8 @@ public:
 	std::vector<DirectX::SimpleMath::Vector3>& WallWalk(ObjectMesh* objectMesh,
 		const DirectX::SimpleMath::Vector3& playerPosition);
 
-	void Penetration();
+	void WallWalkCollider(ObjectMesh* objectMesh,
+		const DirectX::SimpleMath::Vector3& playerPosition, int index);
 
 private:
 
@@ -92,6 +101,7 @@ private:
 	//		過去の座標
 	DirectX::SimpleMath::Vector3 m_pastPosition;
 
+	bool m_wallHitJudgement = false;
 public:
 
 	/*

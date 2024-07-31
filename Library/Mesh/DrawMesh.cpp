@@ -26,6 +26,35 @@ void DrawMesh::StaticRender(ObjectMesh* objectMesh)
 
 	std::vector<DirectX::SimpleMath::Vector3> vertex;
 
+	for (int i = 0; i < objectMesh->GetObjectMesh().size(); ++i)
+	{
+		for (int j = 0; j < objectMesh->GetObjectMesh()[i].size(); ++j)
+		{
+			vertex.push_back(objectMesh->GetObjectMesh()[i][j].m_vertex[0]);
+			vertex.push_back(objectMesh->GetObjectMesh()[i][j].m_vertex[1]);
+			vertex.push_back(objectMesh->GetObjectMesh()[i][j].m_vertex[2]);
+
+			//		ƒƒbƒVƒ…‚Ì•`‰æ
+			DX::DrawTriangle(LibrarySingleton::GetInstance()->
+				GetVertexPositionColor(),
+				vertex[0], vertex[1], vertex[2],
+				DirectX::Colors::Red);
+
+			//		–@ü‚Ì•`‰æ
+			NormalizeRender(vertex,
+				objectMesh->GetObjectMesh()[i][j].m_normalVector);
+
+			vertex.clear();
+		}
+
+
+	}
+
+	LibrarySingleton::GetInstance()->
+		GetVertexPositionColor()->End();
+
+
+	/*
 	for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
 	{
 		vertex.push_back(objectMesh->GetVertexPosition(i, 0));
@@ -47,6 +76,7 @@ void DrawMesh::StaticRender(ObjectMesh* objectMesh)
 
 	LibrarySingleton::GetInstance()->
 		GetVertexPositionColor()->End();
+		*/
 }
 
 void DrawMesh::DaynamicRender(ObjectMesh* objectMesh,
@@ -57,24 +87,24 @@ void DrawMesh::DaynamicRender(ObjectMesh* objectMesh,
 
 	std::vector<DirectX::SimpleMath::Vector3> vertex;
 
-	for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
-	{
-		vertex.push_back(DirectX::SimpleMath::Vector3::Transform(objectMesh->GetVertexPosition(i, 0), world));
-		vertex.push_back(DirectX::SimpleMath::Vector3::Transform(objectMesh->GetVertexPosition(i, 0), world));
-		vertex.push_back(DirectX::SimpleMath::Vector3::Transform(objectMesh->GetVertexPosition(i, 0), world));
+	//for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
+	//{
+	//	vertex.push_back(DirectX::SimpleMath::Vector3::Transform(objectMesh->GetVertexPosition(i, 0), world));
+	//	vertex.push_back(DirectX::SimpleMath::Vector3::Transform(objectMesh->GetVertexPosition(i, 0), world));
+	//	vertex.push_back(DirectX::SimpleMath::Vector3::Transform(objectMesh->GetVertexPosition(i, 0), world));
 
-		//		ƒƒbƒVƒ…‚Ì•`‰æ
-		DX::DrawTriangle(LibrarySingleton::GetInstance()->
-			GetVertexPositionColor(),
-			vertex[0], vertex[1], vertex[2],
-			DirectX::Colors::Red);
+	//	//		ƒƒbƒVƒ…‚Ì•`‰æ
+	//	DX::DrawTriangle(LibrarySingleton::GetInstance()->
+	//		GetVertexPositionColor(),
+	//		vertex[0], vertex[1], vertex[2],
+	//		DirectX::Colors::Red);
 
-		//		–@ü‚Ì•`‰æ
-		NormalizeRender(vertex,
-			objectMesh->GetNormalizePosition(i));
+	//	//		–@ü‚Ì•`‰æ
+	//	NormalizeRender(vertex,
+	//		objectMesh->GetNormalizePosition(i));
 
-		vertex.clear();
-	}
+	//	vertex.clear();
+	//}
 
 	LibrarySingleton::GetInstance()->
 		GetVertexPositionColor()->End();

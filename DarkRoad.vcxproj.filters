@@ -669,7 +669,7 @@
     <ClInclude Include="Library\Mesh\MeshCollitionHead.h">
       <Filter>Library\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Mesh\Instancing.h">
+    <ClInclude Include="Library\Mesh\MeshCommonProcessing.h">
       <Filter>Library\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1040,7 +1040,7 @@
     <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp">
       <Filter>Library\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Library\Mesh\Instancing.cpp">
+    <ClCompile Include="Library\Mesh\MeshCommonProcessing.cpp">
       <Filter>Library\Mesh</Filter>
     </ClCompile>
   </ItemGroup>

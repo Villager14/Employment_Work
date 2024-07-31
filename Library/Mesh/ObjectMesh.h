@@ -1,6 +1,6 @@
 /*
-* @file		LeadMesh.cpp
-* @brief	メッシュの読み込み
+* @file		ObjectMesh.h
+* @brief	オブジェクトのメッシュ
 * @author	Morita
 * @date		2024/04/16
 */
@@ -24,18 +24,21 @@ public:
 	~ObjectMesh();
 
 	//		初期化処理
+	/*
+	*	初期化処理
+	* 
+	*	@param	(filePath)	ファイルパス
+	*/
 	void Initialize(const wchar_t* filePath);
 
 	/*
 	*	静的な処理を行う(静的なオブジェクトの場合のみ呼ぶ)
 	* 
 	*	@param	(world)	ワールド行列
+	*	@param	(move)	移動処理
 	*/
 	void StaticProcess(const DirectX::SimpleMath::Matrix& world,
 					  const DirectX::SimpleMath::Vector3& move);
-
-
-
 public:
 
 	enum class ObjectType
@@ -43,15 +46,13 @@ public:
 		Floor,
 		Wall,
 		Goal,
+		Null
 	};
 
 private:
 
 	//		オブジェクトの種類
 	ObjectType m_objectType;
-
-	//		三角形情報
-	std::vector<Triangle> m_triangle;
 
 	//		メッシュ情報の読み込み
 	std::unique_ptr<LeadMesh> m_leadMesh;
@@ -62,26 +63,13 @@ private:
 	//		オブジェクトメッシュ
 	std::unordered_map<int, std::vector<Triangle>> m_objectMesh;
 
+	//		メッシュの長さ
+	std::vector<float> m_meshLength;
+
+	//		メッシュの中心
+	std::vector<DirectX::SimpleMath::Vector3> m_meshCenter;
+
 public:
-
-	/*
-	*	頂点を受け取る
-	* 
-	*	@param	(meshNumber)	メッシュの番号
-	*	@param	(vertexNumber)	頂点の番号
-	*/
-	DirectX::SimpleMath::Vector3 GetVertexPosition
-	(const int& meshNumber, const int& vertexNumber)
-	{ return m_triangle[meshNumber].m_vertex[vertexNumber]; }
-
-	/*
-	*	法線を受け取る
-	* 
-	*	@param	(meshNumber)	メッシュの番号
-	*/
-	DirectX::SimpleMath::Vector3 GetNormalizePosition
-	(const int& meshNumber) {
-		return m_triangle[meshNumber].m_normalVector;}
 
 	/*
 	*	静的なオブジェクトかどうか
@@ -89,13 +77,6 @@ public:
 	*	@return true : 静的なオブジェクト false : 動的なオブジェクト
 	*/
 	bool GetStaticObjectJudgement() { return m_staticObjectJudgement; }
-
-	/*
-	*	メッシュの数を受け取る
-	* 
-	*	@return メッシュの数
-	*/
-	int GetVertexSize() { return static_cast<int>(m_triangle.size()); }
 
 	/*
 	*	オブジェクトのタイプを設定する
@@ -111,6 +92,24 @@ public:
 	*/
 	const ObjectType& GetObjectType() { return m_objectType; }
 
-	//		オブジェクトメッシュ
-	std::unordered_map<int, std::vector<Triangle>> GetObjectMesh() { return m_objectMesh; }
+	/*
+	*	オブジェクトのメッシュ情報を受け取る
+	* 
+	*	@return オブジェクトメッシュ
+	*/
+	inline std::unordered_map<int, std::vector<Triangle>>& GetObjectMesh() { return m_objectMesh; }
+
+	/*
+	*	メッシュの長さを受け取る
+	*
+	*	@return 長さ
+	*/
+	std::vector<float> GetMesnLength() { return m_meshLength; }
+
+	/*
+	*	メッシュの中心を受け取る
+	*
+	*	@return 中心
+	*/
+	std::vector<DirectX::SimpleMath::Vector3> GetMeshCenter() { return m_meshCenter; }
 };

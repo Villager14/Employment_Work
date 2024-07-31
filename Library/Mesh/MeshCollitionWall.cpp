@@ -26,94 +26,20 @@ std::vector<DirectX::SimpleMath::Vector2> MeshCollitionWall::WallCollition(Objec
 {
 	m_playerPosition = playerPosition;
 
-	m_normalize.clear();
+	//		0以外の時削除する
+	if (m_normalize.size() != 0) m_normalize.clear();
 
-	bool m_wallHitJudgement = false;
+	m_wallHitJudgement = false;
 
-	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
-
-	//		壁の当たり判定
-	for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
+	for (int i = 0, max = static_cast<int>(objectMesh->GetObjectMesh().size()); i < max; ++i)
 	{
-		//		壁かどうか判断する
-		if (!WallJudgement(objectMesh->GetNormalizePosition(i))) continue;
+		if (!m_meshCollitionManager->GetCommon()->PlayerObjectDirection(objectMesh, playerPosition, i)) continue;
 
-		//		頂点の座標を受け取る
-		vertex[0] = objectMesh->GetVertexPosition(i, 0);
-		vertex[1] = objectMesh->GetVertexPosition(i, 1);
-		vertex[2] = objectMesh->GetVertexPosition(i, 2);
-
-		//		円の当たり判定
-		if (!m_meshCollitionManager->CollitionCC(vertex, m_playerPosition, height)) continue;
-
-		//		壁の高さの当たり判定
-		if (!WallHeight(vertex, height)) continue;
-
-		
-		//		レイの開始地点
-		m_rayStart = m_playerPosition;
-
-		
-		m_rayStart.y = std::min(vertex[0].y, std::min(vertex[1].y, vertex[2].y));
-
-		m_rayStart.y += 0.01f;
-		
-		if (m_rayStart.y > m_playerPosition.y + 7.0f)
-		{
-			continue;
-		}
-		
-		m_rayEnd = m_rayStart;
-
-		m_rayEnd += -objectMesh->GetNormalizePosition(i) * 2.0f;
-
-		//		同一平面上にいるかどうか
-		if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
-			objectMesh->GetNormalizePosition(i), &m_hitPoint))
-		{
-			//		貫通時の処理
-
-			//		過去の座標をレイの開始位置にする
-			m_rayStart = m_pastPosition;
-
-			//		同一平面上にいるかどうか
-			if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
-				objectMesh->GetNormalizePosition(i), &m_hitPoint))
-			{
-				continue;
-			}
-			else
-			{
-				//		メッシュの三角形の内側かどうか
-				if (!m_meshCollitionManager->InsideTriangle(vertex,
-					objectMesh->GetNormalizePosition(i),
-					m_hitPoint)) continue;
-
-				m_playerPosition.x = m_hitPoint.x + objectMesh->GetNormalizePosition(i).x * 2.0f;
-				m_playerPosition.z = m_hitPoint.z + objectMesh->GetNormalizePosition(i).z * 2.0f;
-
-				m_normalize.push_back(objectMesh->GetNormalizePosition(i));
-
-				m_wallHitJudgement = true;
-			}
-		}
-		else
-		{
-
-			//		メッシュの三角形の内側かどうか
-			if (!m_meshCollitionManager->InsideTriangle(vertex,
-				objectMesh->GetNormalizePosition(i),
-				m_hitPoint)) continue;
-
-			//		個々の中にいる場合当たっている
-			if (!Extrusion(objectMesh->GetNormalizePosition(i))) continue;
-
-			//		当たっている
-			m_wallHitJudgement = true;
-		}
+		ObjectCollider(objectMesh, i, height);
 	}
 
-	m_moveVelocity.clear();
+	//		0以外の時削除する
+	if (m_moveVelocity.size() != 0) m_moveVelocity.clear();
 
 	//		壁と当たっている場合
 	if (m_wallHitJudgement)
@@ -122,6 +48,89 @@ std::vector<DirectX::SimpleMath::Vector2> MeshCollitionWall::WallCollition(Objec
 	}
 
 	return m_moveVelocity;
+}
+
+void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float height)
+{
+	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
+
+	for (int i = 0; i < objectMesh->GetObjectMesh()[index].size(); ++i)
+	{
+		//		壁かどうか判断する
+		if (!WallJudgement(objectMesh->GetObjectMesh()[index][i].m_normalVector)) continue;
+
+		//		頂点の座標を受け取る
+		vertex[0] = objectMesh->GetObjectMesh()[index][i].m_vertex[0];
+		vertex[1] = objectMesh->GetObjectMesh()[index][i].m_vertex[1];
+		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
+
+		//		円の当たり判定
+		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, m_playerPosition, height)) continue;
+
+		//		壁の高さの当たり判定
+		if (!WallHeight(vertex, height)) continue;
+
+		//		レイの開始地点
+		m_rayStart = m_playerPosition;
+
+		m_rayStart.y = std::min(vertex[0].y, std::min(vertex[1].y, vertex[2].y));
+
+		m_rayStart.y += 0.01f;
+
+		if (m_rayStart.y > m_playerPosition.y + 7.0f)
+		{
+			continue;
+		}
+
+		m_rayEnd = m_rayStart;
+
+		m_rayEnd += -objectMesh->GetObjectMesh()[index][i].m_normalVector * 2.0f;
+
+		//		同一平面上にいるかどうか
+		if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
+			objectMesh->GetObjectMesh()[index][i].m_normalVector, &m_hitPoint))
+		{
+			//		貫通時の処理
+
+			//		過去の座標をレイの開始位置にする
+			m_rayStart = m_pastPosition;
+
+			//		同一平面上にいるかどうか
+			if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
+				objectMesh->GetObjectMesh()[index][i].m_normalVector, &m_hitPoint))
+			{
+				continue;
+			}
+			else
+			{
+				//		メッシュの三角形の内側かどうか
+				if (!m_meshCollitionManager->GetCommon()->InsideTriangle(vertex,
+					objectMesh->GetObjectMesh()[index][i].m_normalVector,
+					m_hitPoint)) continue;
+
+				m_playerPosition.x = m_hitPoint.x + objectMesh->GetObjectMesh()[index][i].m_normalVector.x * 2.0f;
+				m_playerPosition.z = m_hitPoint.z + objectMesh->GetObjectMesh()[index][i].m_normalVector.z * 2.0f;
+
+				m_normalize.push_back(objectMesh->GetObjectMesh()[index][i].m_normalVector);
+
+				m_wallHitJudgement = true;
+			}
+		}
+		else
+		{
+
+			//		メッシュの三角形の内側かどうか
+			if (!m_meshCollitionManager->GetCommon()->InsideTriangle(vertex,
+				objectMesh->GetObjectMesh()[index][i].m_normalVector,
+				m_hitPoint)) continue;
+
+			//		個々の中にいる場合当たっている
+			if (!Extrusion(objectMesh->GetObjectMesh()[index][i].m_normalVector)) continue;
+
+			//		当たっている
+			m_wallHitJudgement = true;
+		}
+	}
 }
 
 bool MeshCollitionWall::WallJudgement(const DirectX::SimpleMath::Vector3& normalize)
@@ -150,7 +159,6 @@ bool MeshCollitionWall::WallHeight(const std::vector<DirectX::SimpleMath::Vector
 	//		壁の高さ内
 	return true;
 }
-
 
 bool MeshCollitionWall::Extrusion(const DirectX::SimpleMath::Vector3& normalize)
 {
@@ -185,15 +193,38 @@ bool MeshCollitionWall::Extrusion(const DirectX::SimpleMath::Vector3& normalize)
 	return true;
 }
 
-
-
 std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionWall::WallWalk
 (ObjectMesh* objectMesh, const DirectX::SimpleMath::Vector3& playerPosition)
+{
+	//		サイズが０ではない時削除する
+	if (m_hitpp.size() != 0) m_hitpp.clear();
+
+	for (int i = 0, max = static_cast<int>(objectMesh->GetObjectMesh().size()); i < max; ++i)
+	{
+		if (!m_meshCollitionManager->GetCommon()->PlayerObjectDirection(objectMesh, playerPosition, i)) continue;
+
+		WallWalkCollider(objectMesh, playerPosition, i);
+	}
+
+	if (m_hitpp.size() == 1)
+	{
+		DirectX::SimpleMath::Vector3 pplayerPosition = { m_meshCollitionManager->GetWallWalkNormalize().x,
+			0.0f, m_meshCollitionManager->GetWallWalkNormalize().z };
+
+		pplayerPosition *= 2.0f;
+
+		m_hitpp[0] += pplayerPosition;
+	}
+
+	return m_hitpp;
+}
+
+void MeshCollitionWall::WallWalkCollider(ObjectMesh* objectMesh, const DirectX::SimpleMath::Vector3& playerPosition, int index)
 {
 	//		この値から法線を作成する
 	m_meshCollitionManager->GetWallWalkNormalize();
 
-	DirectX::SimpleMath::Vector2 normalize = 
+	DirectX::SimpleMath::Vector2 normalize =
 	{ m_meshCollitionManager->GetWallWalkNormalize().x,
 		m_meshCollitionManager->GetWallWalkNormalize().z };
 
@@ -211,20 +242,18 @@ std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionWall::WallWalk
 
 	rayEnd += {normalize.x, 0.0f, normalize.y};
 
-	m_hitpp.clear();
-
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
 
-	for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
+	for (int i = 0; i < objectMesh->GetObjectMesh()[index].size(); ++i)
 	{
 		//		壁かどうか判断する
-		if (!WallJudgement(objectMesh->GetNormalizePosition(i))) continue;
+		if (!WallJudgement(objectMesh->GetObjectMesh()[index][i].m_normalVector)) continue;
 
 		//		頂点の座標を受け取る
-		vertex[0] = objectMesh->GetVertexPosition(i, 0);
-		vertex[1] = objectMesh->GetVertexPosition(i, 1);
-		vertex[2] = objectMesh->GetVertexPosition(i, 2);
+		vertex[0] = objectMesh->GetObjectMesh()[index][i].m_vertex[0];
+		vertex[1] = objectMesh->GetObjectMesh()[index][i].m_vertex[1];
+		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
 
 		//		プレイーの伸長より小さい場合処理をしない
 		if (std::max(vertex[0].y, std::max(vertex[1].y, vertex[2].y)) - std::min(vertex[0].y, std::min(vertex[1].y, vertex[2].y)) < 7.0f)
@@ -233,31 +262,19 @@ std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionWall::WallWalk
 		}
 
 		//		円の当たり判定が当たっていない場合これ以上処理をしない
-		if (!m_meshCollitionManager->CollitionCC(vertex, rayStart, 2.0f))continue;
+		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, rayStart, 2.0f))continue;
 
 		//		同一平面上にいるかどうか
-		if (!m_meshCollitionManager->OnTheSamePlane(vertex, rayStart, rayEnd,
-			objectMesh->GetNormalizePosition(i), &m_wallWalkHitPoint)) continue;
+		if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, rayStart, rayEnd,
+			objectMesh->GetObjectMesh()[index][i].m_normalVector, &m_wallWalkHitPoint)) continue;
 
 		//		メッシュの三角形の内側かどうか
-		if (m_meshCollitionManager->InsideTriangle(vertex,
-			objectMesh->GetNormalizePosition(i),
+		if (m_meshCollitionManager->GetCommon()->InsideTriangle(vertex,
+			objectMesh->GetObjectMesh()[index][i].m_normalVector,
 			m_wallWalkHitPoint))
 		{
 			//		当たっている部分を追加する
 			m_hitpp.push_back(m_wallWalkHitPoint);
 		}
 	}
-
-	if (m_hitpp.size() == 1)
-	{
-		DirectX::SimpleMath::Vector3 pplayerPosition = { m_meshCollitionManager->GetWallWalkNormalize().x,
-			0.0f, m_meshCollitionManager->GetWallWalkNormalize().z };
-
-		pplayerPosition *= 2.0f;
-
-		m_hitpp[0] += pplayerPosition;
-	}
-
-	return m_hitpp;
 }

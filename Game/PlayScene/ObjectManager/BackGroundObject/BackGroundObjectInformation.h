@@ -28,13 +28,6 @@ public:
 		const std::vector<DirectX::SimpleMath::Vector3>& wirePosition);
 
 	/*
-	*	メッシュの情報を使えるものかどうかチェックする
-	*
-	*	@param	(mesh)	オブジェクトのメッシュの情報のポインタ
-	*/
-	void MeshChackProcess(ObjectMesh* mesh);
-
-	/*
 	*	メッシュの法線の情報から判断する
 	* 
 	*	@param	(normalize)	メッシュの法線
@@ -43,27 +36,6 @@ public:
 	bool ChackNormalize(DirectX::SimpleMath::Vector3 normalize);
 	
 	/*
-	*	メッシュの中心点を計算する
-	* 
-	*	@param	(mesh)	オブジェクトのメッシュの情報のポインタ
-	*	@param	(index)	要素
-	*	@return メッシュの中心座標
-	*/
-	DirectX::SimpleMath::Vector3 MeshCenter(ObjectMesh* mesh, int index);
-
-	/*
-	*	メッシュの中心から頂点の最大距離を求める
-	* 
-	*	@param	(mesh)				オブジェクトのメッシュの情報のポインタ
-	*	@param	(index)				要素数
-	*	@param	(centerPosition)	中心座標
-	*/
-	float MeshMaxSide(ObjectMesh* mesh, int index, DirectX::SimpleMath::Vector3 centerPosition);
-
-	//		オブジェクトの座標を作成
-	void CreateObjectPosition();
-
-	/*
 	*	ランダムなオブジェクトの座標の処理
 	* 
 	*	@param	(maxX)	Xの最大距離
@@ -71,23 +43,19 @@ public:
 	*	@param	(maxZ)	Zの最大距離
 	*	@param	(minZ)	Zの最小距離
 	*/
-	void RandomObjectPosition(float maxX, float minX, float maxZ, float minZ);
+	void RandomObjectPosition(float maxX, float minX, float maxZ, float minZ,
+		std::vector<ObjectMesh*> mesh, const std::vector<DirectX::SimpleMath::Vector3>& wirePosition);
 
 	/*
 	*	オブジェクトとメッシュの距離を計算する
 	* 
 	*	@param	(randomPosition)	オブジェクトの座標
 	*/
-	bool ObjectMeshLength(DirectX::SimpleMath::Vector3 randomPosition);
+	bool ObjectMeshLength(DirectX::SimpleMath::Vector3 randomPosition,
+		std::vector<ObjectMesh*> mesh, const std::vector<DirectX::SimpleMath::Vector3>& wirePosition);
 
 	//		オブジェクトの回転を設定する
 	void ObjectCreateRotation();
-
-	//		いらない情報を開放する
-	void Clear();
-
-	//		インスタンス描画の実験
-	void InstanceExpelement(std::vector<ObjectMesh*> mesh);
 
 	struct Vertex
 	{
@@ -111,12 +79,6 @@ private:
 
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
-
-	//		メッシュの中心点
-	std::vector<DirectX::SimpleMath::Vector3> m_meshCenter;
-
-	//		メッシュの距離
-	std::vector<float> m_meshLength;
 
 	//		オブジェクトの座標
 	std::vector<DirectX::SimpleMath::Vector3> m_objectPosition;

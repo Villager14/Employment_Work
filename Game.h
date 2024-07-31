@@ -72,5 +72,4 @@ private:
 
     //      マウスステートトラッカー
     DirectX::Mouse::ButtonStateTracker m_mouse;
-
 };

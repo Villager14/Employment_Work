@@ -28,6 +28,7 @@ struct Triangle
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> m_vertex;
 
+	//		頂点インデックス
 	std::vector<int> m_vertexIndex;
 
 	//		法線
