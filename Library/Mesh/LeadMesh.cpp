@@ -13,6 +13,8 @@
 
 #include <Effects.h>
 
+#include <algorithm>
+
 LeadMesh::LeadMesh()
 {
 }
@@ -152,6 +154,12 @@ void LeadMesh::ObjectInformation()
 		}
 		else
 		{
+			//		頂点インデックスの情報を削除する
+			ClearVertexIndex();
+
+			//		オブジェクトの半径を作成する
+			CreateRadius();
+
 			break;
 		}
 	}
@@ -165,7 +173,7 @@ bool LeadMesh::Sort(int index)
 			m_copytriangle[index].m_vertexIndex[i]) !=
 			codNumber.end())
 		{
-			m_object[m_object.size() - 1].push_back(m_copytriangle[index]);
+			m_object[static_cast<int>(m_object.size()) - 1].push_back(m_copytriangle[index]);
 
 			AddCodNumber(index);
 
@@ -209,4 +217,93 @@ void LeadMesh::AddObject()
 	triangle.push_back(m_copytriangle[0]);
 
 	m_object.insert({ m_object.size(), triangle });
+}
+
+void LeadMesh::ClearVertexIndex()
+{
+	for (auto& e : m_object)
+	{
+		for (int i = 0; i < e.second.size(); ++i)
+		{
+			e.second[i].m_vertexIndex.clear();
+		}
+	}
+}
+
+void LeadMesh::CreateRadius()
+{
+	for (auto& e : m_object)
+	{
+		std::vector<DirectX::SimpleMath::Vector3> m_max;
+		std::vector<DirectX::SimpleMath::Vector3> m_min;
+
+		for (int i = 0; i < e.second.size(); ++i)
+		{
+			m_max.push_back(ObjectMax(e.second[i].m_vertex));
+			m_min.push_back(ObjectMin(e.second[i].m_vertex));
+		}
+
+		//		オブジェクトの長さ
+		Objectlength(ObjectMax(m_max), ObjectMin(m_min));
+	}
+}
+
+DirectX::SimpleMath::Vector3 LeadMesh::ObjectMax(std::vector<DirectX::SimpleMath::Vector3> max)
+{
+	auto maxZ = std::max_element(max.begin(), max.end(),
+		[&](const DirectX::SimpleMath::Vector3& a, const DirectX::SimpleMath::Vector3& b)
+		{
+			return a.x < b.x;
+		});
+
+	auto maxy = std::max_element(max.begin(), max.end(),
+		[&](const DirectX::SimpleMath::Vector3& a, const DirectX::SimpleMath::Vector3& b)
+		{
+			return a.y < b.y;
+		});
+
+	auto maxz = std::max_element(max.begin(), max.end(),
+		[&](const DirectX::SimpleMath::Vector3& a, const DirectX::SimpleMath::Vector3& b)
+		{
+			return a.z < b.z;
+		});
+	
+	return { maxZ->x, maxy->y, maxz->z };
+}
+
+DirectX::SimpleMath::Vector3 LeadMesh::ObjectMin(std::vector<DirectX::SimpleMath::Vector3> min)
+{
+	auto minx = std::min_element(min.begin(), min.end(),
+		[](const DirectX::SimpleMath::Vector3& a, const DirectX::SimpleMath::Vector3& b)
+		{
+			return a.x < b.x;
+		});
+
+	auto miny = std::min_element(min.begin(), min.end(),
+		[](const DirectX::SimpleMath::Vector3& a, const DirectX::SimpleMath::Vector3& b)
+		{
+			return a.y < b.y;
+		});
+
+	auto minz = std::min_element(min.begin(), min.end(),
+		[](const DirectX::SimpleMath::Vector3& a, const DirectX::SimpleMath::Vector3& b)
+		{
+			return a.z < b.z;
+		});
+
+	return { minx->x, miny->y, minz->z };
+}
+
+void LeadMesh::Objectlength(DirectX::SimpleMath::Vector3 max, DirectX::SimpleMath::Vector3 min)
+{
+	//		メッシュの中心
+	m_meshCenter.push_back((max + min) / 2.0f);
+
+	//		長さを求める
+	float length = (max - min).Length();
+
+	//		半径が欲しいので計算する
+	length /= 2.0f;
+
+	m_meshLength.push_back(length);
 }

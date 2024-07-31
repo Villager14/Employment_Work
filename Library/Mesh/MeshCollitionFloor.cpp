@@ -29,52 +29,12 @@ const std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionFloor::FloorCollit
 {
 	FloorCollitionInitalize(playerPosition);
 
-	//		頂点
-	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
-
-	for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
+	for (int i = 0, max = static_cast<int>(objectMesh->GetObjectMesh().size()); i < max; ++i)
 	{
-		//		床かどうか判断する
-		if (!FloorJudgement(objectMesh->GetNormalizePosition(i))) continue;
+		if (!m_meshCollitionManager->GetCommon()->PlayerObjectDirection(objectMesh, playerPosition, i)) continue;
 
-		//		頂点の座標を受け取る
-		vertex[0] = objectMesh->GetVertexPosition(i, 0);
-		vertex[1] = objectMesh->GetVertexPosition(i, 1);
-		vertex[2] = objectMesh->GetVertexPosition(i, 2);
-
-		//		円の当たり判定が当たっていない場合これ以上処理をしない
-		if (!m_meshCollitionManager->CollitionCC(vertex, m_rayStart, 2.0f))continue;
-
-		//		同一平面上にいるかどうか
-		if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
-			objectMesh->GetNormalizePosition(i), &m_hitPoint))
-		{
-			//		貫通時の処理
-
-			//		過去の座標をレイの開始位置にする
-			m_rayStart = m_pastPosition;
-
-			//		上にレイを上げる
-			m_rayStart.y += m_rayAboveLength;
-
-			//		同一平面上にいるかどうか
-			if (!m_meshCollitionManager->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
-				objectMesh->GetNormalizePosition(i), &m_hitPoint))
-			{
-				continue;
-			}
-		}
-
-		//		メッシュの三角形の内側かどうか
-		if (m_meshCollitionManager->InsideTriangle(vertex,
-			objectMesh->GetNormalizePosition(i),
-			m_hitPoint))
-		{
-			//		当たっている部分を追加する
-			m_hitMeshPoint.push_back(m_hitPoint);
-			//		法線を追加
-			m_normalize.push_back(objectMesh->GetNormalizePosition(i));
-		}
+		//		オブジェクトの当たり判定
+		ObjectCollider(objectMesh, i);
 	}
 
 	//		メッシュに当たっているか
@@ -88,6 +48,7 @@ const std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionFloor::FloorCollit
 
 void MeshCollitionFloor::PlayerFootRadian(ObjectMesh* objectMesh)
 {
+	/*
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
 
@@ -120,6 +81,55 @@ void MeshCollitionFloor::PlayerFootRadian(ObjectMesh* objectMesh)
 
 			//		プレイヤーとメッシュの最短距離を求める
 			MinLengthMP();
+		}
+	}
+	*/
+}
+
+void MeshCollitionFloor::ObjectCollider(ObjectMesh* objectMesh, int index)
+{
+	//		頂点
+	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
+
+	for (int i = 0; i < objectMesh->GetObjectMesh()[index].size(); ++i)
+	{
+		//		頂点の座標を受け取る
+		vertex[0] = objectMesh->GetObjectMesh()[index][i].m_vertex[0];
+		vertex[1] = objectMesh->GetObjectMesh()[index][i].m_vertex[1];
+		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
+
+		//		円の当たり判定が当たっていない場合これ以上処理をしない
+		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, m_rayStart, 2.0f))continue;
+
+		//		同一平面上にいるかどうか
+		if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
+			objectMesh->GetObjectMesh()[index][i].m_normalVector, &m_hitPoint))
+		{
+			//		貫通時の処理
+
+			//		過去の座標をレイの開始位置にする
+			m_rayStart = m_pastPosition;
+
+			//		上にレイを上げる
+			m_rayStart.y += m_rayAboveLength;
+
+			//		同一平面上にいるかどうか
+			if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
+				objectMesh->GetObjectMesh()[index][i].m_normalVector, &m_hitPoint))
+			{
+				continue;
+			}
+		}
+
+		//		メッシュの三角形の内側かどうか
+		if (m_meshCollitionManager->GetCommon()->InsideTriangle(vertex,
+			objectMesh->GetObjectMesh()[index][i].m_normalVector,
+			m_hitPoint))
+		{
+			//		当たっている部分を追加する
+			m_hitMeshPoint.push_back(m_hitPoint);
+			//		法線を追加
+			m_normalize.push_back(objectMesh->GetObjectMesh()[index][i].m_normalVector);
 		}
 	}
 }

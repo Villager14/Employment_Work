@@ -19,15 +19,15 @@ MeshCollitionHead::~MeshCollitionHead()
 void MeshCollitionHead::HeadCollition(ObjectMesh* objectMesh,
 	const DirectX::SimpleMath::Vector3& playerPosition)
 {
-	//		頂点の数だけ処理をする
-	for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
-	{
-		//		天井かどうか判断する
-		if (CeilingJudgement(objectMesh->GetNormalizePosition(i))) continue;
+	////		頂点の数だけ処理をする
+	//for (int i = 0; i < objectMesh->GetVertexSize(); ++i)
+	//{
+	//	//		天井かどうか判断する
+	//	if (CeilingJudgement(objectMesh->GetNormalizePosition(i))) continue;
 
 
 
-	}
+	//}
 }
 
 bool MeshCollitionHead::CeilingJudgement(const DirectX::SimpleMath::Vector3& normalize)

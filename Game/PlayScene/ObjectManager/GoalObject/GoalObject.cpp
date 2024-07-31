@@ -57,7 +57,6 @@ void GoalObject::Initialize()
 
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Goal);
-
 }
 
 void GoalObject::Update()

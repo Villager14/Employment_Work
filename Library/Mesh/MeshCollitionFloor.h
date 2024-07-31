@@ -39,6 +39,14 @@ public:
 	void PlayerFootRadian(ObjectMesh* objectMesh);
 
 	/*
+	*	オブジェクトの当たり判定
+	* 
+	*	@param	(objectMesh)	オブジェクトメッシュ
+	*	@param	(index)			要素
+	*/
+	void ObjectCollider(ObjectMesh* objectMesh, int index);
+
+	/*
 	*	床かどうか判断する
 	* 
 	*	@param	(normalize)	法線

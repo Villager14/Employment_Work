@@ -17,6 +17,8 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
+#include "MeshCommonProcessing.h"
+
 class MeshCollitionManager
 {
 public:
@@ -29,7 +31,6 @@ public:
 	//		初期化処理
 	void Initialize();
 
-	//		メッシュの当たり判定
 	/*
 	*	メッシュの当たり判定
 	*
@@ -43,47 +44,9 @@ public:
 		const DirectX::SimpleMath::Vector3& playerPosition,
 		float height, bool slidingJudgement, GameManager* gameManager);
 
-	/*
-	*	円と円の当たり判定
-	*
-	*	@param	(vertex)	メッシュの頂点
-	*	@param	(playerPos)	プレイヤーの座標
-	*	@param	(rayStart)	プレイヤーの長さ
-	*	@return 当たったかどうか true : 当たった false : 当たっていない
-	*/
-	bool CollitionCC(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-		const DirectX::SimpleMath::Vector3& playerPos,
-		const float& playerLength);
-
-	/*
-	*	同一平面上にいるかどうか
-	*
-	*	@param	(vertex)	メッシュの頂点
-	*	@param	(rayStart)	レイの始点
-	*	@param	(rayEnd)	レイの終点
-	*	@param	(normalize)	メッシュの法線
-	*	@param	(hitPoint)	当たった場所
-	*	@return 含まれているかどうか	true : 含まれている false : 含まれていない
-	*/
-	bool OnTheSamePlane(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-		const DirectX::SimpleMath::Vector3& rayStart,
-		const DirectX::SimpleMath::Vector3& rayEnd,
-		const DirectX::SimpleMath::Vector3& normalize,
-		DirectX::SimpleMath::Vector3* hitPoint);
-
-	/*
-	*	三角形の内側にいるかどうか
-	*
-	*	@param	(vertex)	メッシュの頂点
-	*	@param	(normalize)	メッシュの法線
-	*	@param	(hitPoint)	当たった場所
-	*	@return 内側にいるかどうか true : 内側 false : 外側
-	*/
-	bool InsideTriangle(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-		const DirectX::SimpleMath::Vector3& normalize,
-		const DirectX::SimpleMath::Vector3& hitPoint);
 
 	void MeshHitPointClear();
+
 private:
 
 	//		プレイヤーのレイの長さ上
@@ -116,6 +79,9 @@ private:
 
 	//		壁歩き時のプレイヤーの座標
 	std::vector<DirectX::SimpleMath::Vector3> m_wallWalkPlayerPosition;
+
+	//		メッシュの共通処理
+	std::unique_ptr<MeshCommonProcessing> m_commonProcessing;
 
 public:
 
@@ -177,4 +143,11 @@ public:
 		m_meshCollitionFloor->SetPastPlayerPosition(playerPosition);
 		m_meshCollitionWall->SetPastPosition(playerPosition);
 	}
+
+	/*
+	*	メッシュの共通処理を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	MeshCommonProcessing* GetCommon() { return m_commonProcessing.get(); }
 };

@@ -308,12 +308,12 @@
     <ClInclude Include="Library\Library.h" />
     <ClInclude Include="Library\LibrarySingleton.h" />
     <ClInclude Include="Library\Mesh\DrawMesh.h" />
-    <ClInclude Include="Library\Mesh\Instancing.h" />
     <ClInclude Include="Library\Mesh\LeadMesh.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionFloor.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionHead.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionManager.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionWall.h" />
+    <ClInclude Include="Library\Mesh\MeshCommonProcessing.h" />
     <ClInclude Include="Library\Mesh\ObjectMesh.h" />
     <ClInclude Include="Library\Mesh\Triangle.h" />
     <ClInclude Include="Library\Music\MusicLibrary.h" />
@@ -438,12 +438,12 @@
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
     <ClCompile Include="Library\Mesh\DrawMesh.cpp" />
-    <ClCompile Include="Library\Mesh\Instancing.cpp" />
     <ClCompile Include="Library\Mesh\LeadMesh.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionFloor.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionManager.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionWall.cpp" />
+    <ClCompile Include="Library\Mesh\MeshCommonProcessing.cpp" />
     <ClCompile Include="Library\Mesh\ObjectMesh.cpp" />
     <ClCompile Include="Library\Music\MusicLibrary.cpp" />
     <ClCompile Include="Library\Shader\ConstBufferManager.cpp" />
