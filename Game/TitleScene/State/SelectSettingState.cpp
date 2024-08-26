@@ -43,37 +43,43 @@ void SelectSettingState::Render()
 
 void SelectSettingState::Finalize()
 {
-	m_titleSelectManager->SetKeyInput(false);
+	m_titleSelectManager->GetInformation()->SetKeyInput(false);
 	m_time = 0.0f;
 }
 
 void SelectSettingState::UIMove()
 {
 	//		キー処理がなかった場合処理をしない
-	if (!m_titleSelectManager->GetKeyInput()) return;
+	if (!m_titleSelectManager->GetInformation()->GetKeyInput()) return;
 
 	//		経過時間
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * m_titleSelectManager->GetMoveSpeed();
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * m_titleSelectManager->GetInformation()->MOVE_SPEED;
 
 	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
 
 	//		上に移動
-	if (m_titleSelectManager->GetDirection())
+	if (m_titleSelectManager->GetInformation()->GetDirection())
 	{
-		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Setting);
+		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::UP,
+			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::Setting);
 
-		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::End);
+		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::Down,
+			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::End);
 
-		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Play);
+		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::Back,
+			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::Play);
 	}
 	//		下に移動
 	else
 	{
-		m_titleSelectManager->CentreUP(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Play);
+		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::UP,
+			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::Play);
 
-		m_titleSelectManager->CenterUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::Setting);
+		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::Down,
+			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::Setting);
 
-		m_titleSelectManager->UPUnder(m_titleSelectManager->GetDirection(), m_time, TitleSelectManager::TitleUIType::End);
+		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::Back,
+			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::End);
 	}
 }
 
@@ -98,15 +104,15 @@ void SelectSettingState::ChangeSceneProcess()
 	else
 	{
 
-		if (m_titleSelectManager->GetDirection())
+		if (m_titleSelectManager->GetInformation()->GetDirection())
 		{
 			//		設定選択状態にする
-			m_titleSelectManager->ChangeState(TitleSelectManager::State::EndState);
+			m_titleSelectManager->ChangeState(TitleInformation::State::EndState);
 		}
 		else
 		{
 			//		終了選択状態にする
-			m_titleSelectManager->ChangeState(TitleSelectManager::State::PlayState);
+			m_titleSelectManager->ChangeState(TitleInformation::State::PlayState);
 		}
 	}
 }

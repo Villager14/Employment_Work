@@ -40,14 +40,13 @@ const std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionFloor::FloorCollit
 	//		メッシュに当たっているか
 	if (DistancePlayer()) return m_hitMeshPoint;
 
-	//		プレイヤーの足元当たり判定
-	//PlayerFootRadian(objectMesh, playerPosition);
-
 	return m_hitMeshPoint;
 }
 
 void MeshCollitionFloor::PlayerFootRadian(ObjectMesh* objectMesh)
 {
+	UNREFERENCED_PARAMETER(objectMesh);
+
 	/*
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
@@ -175,17 +174,19 @@ bool MeshCollitionFloor::DistancePlayer()
 			break;
 		}
 
+		int indexf = i + 1;
+
 		//		もし現在の最短座標より短かった場合
-		if (length <= (m_hitMeshPoint[i + 1] - m_playerPosition).Length())
+		if (length <= (m_hitMeshPoint[indexf] - m_playerPosition).Length())
 		{
 			//		最短座標を更新する
-			length = (m_hitMeshPoint[i + 1] - m_playerPosition).Length();
+			length = (m_hitMeshPoint[indexf] - m_playerPosition).Length();
 
 			//		最短座標を代入する
-			position = m_hitMeshPoint[i + 1];
+			position = m_hitMeshPoint[indexf];
 
 			//		法線を代入する
-			normalize = m_normalize[i + 1];
+			normalize = m_normalize[indexf];
 		}
 	}
 

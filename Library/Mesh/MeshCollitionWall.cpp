@@ -64,6 +64,9 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 		vertex[1] = objectMesh->GetObjectMesh()[index][i].m_vertex[1];
 		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
 
+		//		カメラ分の高さを足す
+		height += 0.5f;
+
 		//		円の当たり判定
 		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, m_playerPosition, height)) continue;
 
@@ -77,10 +80,16 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 
 		m_rayStart.y += 0.01f;
 
-		if (m_rayStart.y > m_playerPosition.y + 7.0f)
+		if (m_rayStart.y > m_playerPosition.y + height)
 		{
 			continue;
 		}
+
+		//if (m_rayStart.y > m_playerPosition.y + 7.0f)
+		//{
+		//	continue;
+		//}
+
 
 		m_rayEnd = m_rayStart;
 
@@ -135,9 +144,9 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 
 bool MeshCollitionWall::WallJudgement(const DirectX::SimpleMath::Vector3& normalize)
 {
-	//		45度以上の法線は壁とする
-	if (DirectX::SimpleMath::Vector3(0.0f, 1.0f, 0.0f).
-		Dot(normalize) >= 0.5f)
+	//		上向きの法線に対して+-45度のものは壁とする
+	if (DirectX::SimpleMath::Vector3(0.0f, 1.0f, 0.0f).Dot(normalize) >= 0.5f ||
+		DirectX::SimpleMath::Vector3(0.0f, 1.0f, 0.0f).Dot(normalize) <= -0.5f)
 	{
 		//		壁ではない
 		return false;

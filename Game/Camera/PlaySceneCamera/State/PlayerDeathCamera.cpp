@@ -59,7 +59,7 @@ void PlayerDeathCamera::Update()
 	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
 
 	//		もし死亡状態が解除されたら
-	if (!m_playerCameraManager->GetGameManager()->GetDeathJudgement())
+	if (!m_playerCameraManager->GetGameManager()->FlagJudgement(GameManager::DeathJudgement))
 	{
 		//		スタートカメラ
 		m_playerCameraManager->ChangeState(

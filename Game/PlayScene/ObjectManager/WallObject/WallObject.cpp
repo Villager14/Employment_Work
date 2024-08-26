@@ -11,10 +11,13 @@
 
 #include <Effects.h>
 
-WallObject::WallObject()
+WallObject::WallObject(ObjectManager* objectManager)
 	:
-	m_floorModel{}
+	m_floorModel{},
+	m_objectManager(objectManager)
 {
+	//		オブジェクトメッシュの生成
+	m_objectMesh = std::make_unique<ObjectMesh>();
 }
 
 WallObject::~WallObject()
@@ -22,11 +25,11 @@ WallObject::~WallObject()
 
 }
 
-void WallObject::Initialize()
+void WallObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector3 rotation)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
-					::GetInstance()->GetEffectFactory();
+		::GetInstance()->GetEffectFactory();
 
 	//		画像の読み込み
 	m_effect->SetDirectory(L"Resources/Models");
@@ -36,27 +39,25 @@ void WallObject::Initialize()
 		L"Resources/Models/WallObject01.cmo", *m_effect);
 
 	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
-	{
-		auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
-
-		if (fog)
 		{
-			fog->SetFogEnabled(true);
-			fog->SetFogStart(200.0f);
-			fog->SetFogEnd(350.0f);
-			fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
-		}
-	});
+			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
 
-	//		オブジェクトメッシュの生成
-	m_objectMesh = std::make_unique<ObjectMesh>();
+			if (fog)
+			{
+				fog->SetFogEnabled(true);
+				fog->SetFogStart(200.0f);
+				fog->SetFogEnd(350.0f);
+				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+			}
+		});
+
 
 	//		初期化処理
 	m_objectMesh->Initialize(L"Resources/ModelMesh/WallObject01.obj");
 
-	m_world = DirectX::SimpleMath::Matrix::CreateRotationY(0.0f);
+	m_world = DirectX::SimpleMath::Matrix::CreateRotationY(rotation.y);
 
-	m_move = { 0.0f, 0.0f, 0.0f };
+	m_move = position;
 
 	//		静的オブジェクトにする
 	m_objectMesh->StaticProcess(m_world, m_move);
@@ -71,10 +72,8 @@ void WallObject::Update()
 {
 }
 
-void WallObject::Render(DrawMesh* drawMesh)
+void WallObject::Render()
 {
-	UNREFERENCED_PARAMETER(drawMesh);
-
 	//		モデルの描画
 	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 		*LibrarySingleton::GetInstance()->GetCommonState(),
@@ -87,4 +86,5 @@ void WallObject::Render(DrawMesh* drawMesh)
 
 void WallObject::Finalize()
 {
+	m_floorModel.release();
 }

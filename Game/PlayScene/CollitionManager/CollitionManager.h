@@ -24,7 +24,7 @@ class CollitionManager
 public:
 
 	//		コンストラクタ
-	CollitionManager();
+	CollitionManager(GameManager* gameManager);
 
 	//		デストラクタ
 	~CollitionManager();
@@ -57,13 +57,14 @@ private:
 	//		弾の座標
 	std::vector<DirectX::SimpleMath::Vector3> m_bulletPosition;
 
-
-
 	//		プレイヤーの座標
 	DirectX::SimpleMath::Vector3 m_playerPosition;
 
 	//		当たり判定の情報
 	std::unique_ptr<CollitionInformation> m_collitionInformation;
+
+	//		ゲームマネージャーのインスタンスのポインタ
+	GameManager* m_gameManager;
 
 public:
 

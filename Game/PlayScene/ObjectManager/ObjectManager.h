@@ -7,13 +7,7 @@
 
 #pragma once
 
-#include "FloorObject/FloorObject.h"
-
 #include "WireObject/WireObject.h"
-
-#include "WallObject/WallObject.h"
-
-#include "GoalObject/GoalObject.h"
 
 #include "BackGroundObject/BackGroundObject.h"
 
@@ -25,12 +19,19 @@
 
 #include "WireObject/WireObjectInformation.h"
 
+#include "../GameManager/GameManager.h"
+
+#include "Library/Factory/Factory.h"
+
+#include "Library/Factory/IFactory.h"
+
 class ObjectManager
 {
 public:
 
 	//		コンストラクタ
-	ObjectManager(ShadowInformation* shadowInformation);
+	ObjectManager(ShadowInformation* shadowInformation,
+		GameManager* gameManager);
 
 	//		デストラクタ
 	~ObjectManager();
@@ -67,14 +68,8 @@ private:
 	//		プレイヤーの行列
 	DirectX::SimpleMath::Matrix m_playerMatrix;
 
-	//		床オブジェクト
-	std::unique_ptr<FloorObject> m_floorObject;
-
 	//		ワイヤーオブジェクト
 	std::vector<std::unique_ptr<WireObject>> m_wireObject;
-
-	//		ゴールオブジェクト
-	std::unique_ptr<GoalObject> m_goalObject;
 
 	//		背景オブジェクト
 	std::unique_ptr<BackGroundObject> m_backGroundObject;
@@ -84,9 +79,6 @@ private:
 
 	//		メッシュを描画する
 	std::unique_ptr<DrawMesh> m_drawMesh;
-
-	//		壁オブジェクトを生成する
-	std::unique_ptr<WallObject> m_wallObject;
 
 	//		ワイヤーの座標
 	std::vector<DirectX::SimpleMath::Vector3> m_wirePosition;
@@ -105,6 +97,13 @@ private:
 
 	//		ワイヤーの情報
 	std::vector<WireObjectInformation*> m_wireInformation;
+
+	//		ファクトリー
+	std::unique_ptr<Factory> m_factory;
+
+	std::vector<std::unique_ptr<IFactory>> m_factoryObject;
+
+	GameManager* m_gameManager;
 
 public:
 
@@ -142,4 +141,6 @@ public:
 	*	@return	ワイヤー情報
 	*/
 	std::vector<WireObjectInformation*> GetUseWireInformation() { return m_wireInformation; }
+
+	GameManager* GetGameManager() { return m_gameManager; }
 };

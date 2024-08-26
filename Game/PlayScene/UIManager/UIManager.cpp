@@ -21,6 +21,7 @@ UIManager::UIManager(PlayerInformation* playerInformation,
 	m_playerInformation(playerInformation),
 	m_gameManager(gameManager)
 {
+	Generation();
 }
 
 UIManager::~UIManager()
@@ -29,37 +30,38 @@ UIManager::~UIManager()
 
 void UIManager::Initialize()
 {
-	//		時計の背景の生成
-	m_clockManager = std::make_unique<ClockManager>(this);
-
 	//		時計の背景の初期化
 	m_clockManager->Initialize();
-
-	//		クールタイムの生成
-	m_coolTime = std::make_unique<CoolTime>(this);
 
 	//		クールタイムの初期化
 	m_coolTime->Initialize();
 
-	//		フェードインの生成
-	m_fadeIn = std::make_unique<FadeIn>();
-
 	//		フェードインの初期化
 	m_fadeIn->Initialize();
-
-	//		ゲームーオーバーの生成
-	m_gameOver = std::make_unique<GameOverManager>(m_gameManager, this);
 
 	//		ゲームオーバーの初期化
 	m_gameOver->Initialize();
 
-	//		ゲームクリアマネージャーの生成
-	m_clearManager = std::make_unique<GameClearManager>(m_gameManager, this);
-
 	//		ゲームクリアマネージャーの初期化
 	m_clearManager->Initialize();
+}
 
+void UIManager::Generation()
+{
+	//		フェードインの生成
+	m_fadeIn = std::make_unique<FadeIn>();
 
+	//		クールタイムの生成
+	m_coolTime = std::make_unique<CoolTime>(this);
+
+	//		時計の背景の生成
+	m_clockManager = std::make_unique<ClockManager>(this);
+
+	//		ゲームーオーバーの生成
+	m_gameOver = std::make_unique<GameOverManager>(m_gameManager, this);
+
+	//		ゲームクリアマネージャーの生成
+	m_clearManager = std::make_unique<GameClearManager>(m_gameManager, this);
 
 	//		スタンダードシェーダーの作製
 	m_standardShader = std::make_unique<StandardShader<UIType>>();
@@ -84,6 +86,11 @@ void UIManager::Update()
 
 	//		ゲームオーバーの更新
 	m_gameOver->Update();
+}
+
+void UIManager::Finalize()
+{
+	m_clearManager->Finalize();
 }
 
 void UIManager::FrontRender()

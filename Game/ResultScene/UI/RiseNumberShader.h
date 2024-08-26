@@ -24,6 +24,9 @@ public:
 	//		初期化処理
 	void Initialize(int dethCount, int clearTime, int score);
 
+	//		生成
+	void Generation();
+
 	//		描画処理
 	void Render(float time);
 
@@ -67,6 +70,24 @@ public:
 
 private:
 
+	//		死亡時の高さ
+	const DirectX::SimpleMath::Vector2 DESH_POSITION = { 970.0f, 140.0f };
+
+	//		死亡の間隔
+	const float INTERVAL = 60.0f;
+
+	//		スコアとタイムのX座標
+	const float SCORE_TIME_X_POSITION = 910.0f;
+
+	//		クリアタイムの高さ
+	const float CLEAR_TIME_Y_POSITION = 250.0f;
+	
+	//		スコアの高さ
+	const float SCORE_Y_POSITION = 360.0f;
+
+
+private:
+
 	//		UI描画マネージャー
 	std::unique_ptr<UIRenderManager> m_uiRenderManager;
 
@@ -81,10 +102,10 @@ public:
 	/*
 	*	数字の作製
 	* 
-	*	@param	(type)		数字の種類
-	*	@param	(position)	座標
-	*	@param	(number)	番号
+	*	@param	(type)		 数字の種類
+	*	@param	(position)	 座標
+	*	@param	(viewNumber) 描画順
 	*/
 	void CreateNumber(NumberType type, DirectX::SimpleMath::Vector2 position,
-		int number, int viewNumber);
+		  int viewNumber);
 };

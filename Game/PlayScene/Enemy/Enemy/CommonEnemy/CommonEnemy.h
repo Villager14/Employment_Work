@@ -12,10 +12,7 @@
 #include "State/CommonEnemyCharge.h"
 #include "State/CommonEnemyAttack.h"
 
-class CommonEnemyStaty;
-class CommonEnemyVigilance;
-class CommonEnemyCharge;
-class CommonEnemyAttack;
+#include "Library/Animation/AnimationManager.h"
 
 class CommonEnemy
 {
@@ -45,73 +42,21 @@ public:
 	//		終了処理
 	void Finalize();
 
-	/*
-	*	状態を切り替える
-	*
-	*	@param	(nextState)	次の状態
-	*/
-	void ChangeState(ICommonEnemy* nextState)
+
+public:
+
+	enum State
 	{
-		//現在の状態の終了処理
-		m_state->Finalize();
-
-		//次の状態を切り替える
-		m_state = nextState;
-
-		//次の状態の初期化処理
-		m_state->Initialize();
-	}
+		Stay,
+		Vigilance,
+		Charge,
+		Attack,
+	};
 
 private:
 
 	//		状態
-	ICommonEnemy* m_state;
-
-	//		待機状態
-	std::unique_ptr<CommonEnemyStay> m_stay;
-
-	//		警戒状態
-	std::unique_ptr<CommonEnemyVigilance> m_vigilance;
-
-	//		チャージ状態
-	std::unique_ptr<CommonEnemyCharge> m_charge;
-
-	//		攻撃状態
-	std::unique_ptr<CommonEnemyAttack> m_attack;
-public:
-
-	/*
-	*	待機状態を受け取る
-	*
-	*	@return 待機状態のインスタンスのポインタ
-	*/
-	CommonEnemyStay* GetStay() { return m_stay.get(); }
-
-	/*
-	*	警戒状態を受け取る
-	*
-	*	@return 待機状態のインスタンスのポインタ
-	*/
-	CommonEnemyVigilance* GetVigilance() { return m_vigilance.get(); }
-
-	/*
-	*	チャージ状態を受け取る
-	*
-	*	@return チャージ状態のインスタンスのポインタ
-	*/
-	CommonEnemyCharge* GetCharge() { return m_charge.get(); }
-
-	/*
-	*	攻撃状態を受け取る
-	*
-	*	@return 攻撃状態のインスタンスのポインタ
-	*/
-	CommonEnemyAttack* GetAttack() { return m_attack.get(); }
-
-private:
-
-	//		モデル
-	std::unique_ptr<DirectX::Model> m_model;
+	ICommonEnemy* m_istate;
 
 	//		プレイヤーの座標
 	DirectX::SimpleMath::Vector3 m_playerPosition;
@@ -130,14 +75,46 @@ private:
 
 	//		攻撃する方向
 	DirectX::SimpleMath::Vector3 m_attakDirection;
+
+	//		状態の情報
+	std::unordered_map<State, std::unique_ptr<ICommonEnemy>> m_stateintarface;
+
+	State m_state;
+
+	//		プレイヤーアニメーション
+	std::unique_ptr<AnimationManager> m_playerAnimation;
+
 public:
 
 	/*
-	*	モデルを受け取る
+	*	状態を切り替える
 	*
-	*	@return モデル
+	*	@param	(nextState)	次の状態
 	*/
-	DirectX::Model* GetModel() { return m_model.get(); }
+	void ChangeState(State nextState)
+	{
+		//		同じ状態の場合処理をしない
+		if (m_state == nextState) return;
+
+		//現在の状態の終了処理
+		m_istate->Finalize();
+
+		//次の状態を切り替える
+		m_state = nextState;
+
+		//次の状態を切り替える
+		m_istate = m_stateintarface[m_state].get();
+
+		//次の状態の初期化処理
+		m_istate->Initialize();
+	}
+
+	/*
+	*	プレイヤーアニメーション
+	* 
+	*	@return プレイヤーアニメーション
+	*/
+	AnimationManager* GetPlayerAnimation() { return m_playerAnimation.get(); }
 
 	/*
 	*	プレイヤーの座標を受け取る

@@ -25,7 +25,7 @@ void ChangeSceneState::Initialize()
 	m_time = 1.0f;
 
 	//		メニューを使えるようにする
-	m_titleSelectManager->SetMenuUseJudgement(false);
+	m_titleSelectManager->GetInformation()->SetMenuUseJudgement(false);
 
 	//		効果音
 	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
@@ -41,18 +41,18 @@ void ChangeSceneState::Update()
 	if (m_time <= 0.0f)
 	{
 		//		プレイシーンに切り替える
-		m_titleSelectManager->SetChangeSceneJudgement(true);
+		m_titleSelectManager->GetInformation()->SetChangeSceneJudgement(true);
 	}
 }
 
 void ChangeSceneState::Render()
 {
 	//		フェードの描画
-	m_titleSelectManager->FadeViewProcess(m_time);
+	m_titleSelectManager->GetInformation()->FadeViewProcess(m_time);
 }
 
 void ChangeSceneState::Finalize()
 {
-	m_titleSelectManager->SetKeyInput(false);
+	m_titleSelectManager->GetInformation()->SetKeyInput(false);
 	m_time = 0.0f;
 }

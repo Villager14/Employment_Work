@@ -15,6 +15,8 @@
 
 #include "MeshCollitionWall.h"
 
+#include "MeshCollitionHead.h"
+
 #include "Game/PlayScene/GameManager/GameManager.h"
 
 #include "MeshCommonProcessing.h"
@@ -23,7 +25,7 @@ class MeshCollitionManager
 {
 public:
 	//		コンストラクタ
-	MeshCollitionManager();
+	MeshCollitionManager(GameManager* gameManager);
 
 	//		デストラクタ
 	~MeshCollitionManager();
@@ -46,6 +48,9 @@ public:
 
 
 	void MeshHitPointClear();
+
+	//		ダメージオブジェクトに当たったかどうか?
+	void DamageHitJudgement();
 
 private:
 
@@ -74,6 +79,9 @@ private:
 	//		メッシュの壁当たり判定
 	std::unique_ptr<MeshCollitionWall> m_meshCollitionWall;
 
+	//		メッシュの頭の当たり判定
+	std::unique_ptr<MeshCollitionHead> m_meshCollitionHead;
+
 	//		壁歩き法線
 	DirectX::SimpleMath::Vector3 m_wallWalkNormalize;
 
@@ -83,6 +91,8 @@ private:
 	//		メッシュの共通処理
 	std::unique_ptr<MeshCommonProcessing> m_commonProcessing;
 
+	//		ゲームマネージャーのインスタンスのポインタ
+	GameManager* m_gameManager;
 public:
 
 	/*
@@ -150,4 +160,11 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	MeshCommonProcessing* GetCommon() { return m_commonProcessing.get(); }
+
+	/*
+	*	頭に天井が当たったかどうか？
+	*	
+	*	@return true : 当たっている fales : 当たっていない
+	*/
+	const bool GetHeadHitJudgement() { return m_meshCollitionHead->GetHitJudgement(); }
 };

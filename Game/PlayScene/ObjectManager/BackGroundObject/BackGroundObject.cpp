@@ -15,6 +15,8 @@
 
 BackGroundObject::BackGroundObject()
 {
+	//		”wŒi‚Ìî•ñ‚ğ¶¬‚·‚é
+	m_information = std::make_unique<BackGroundObjectInformation>();
 }
 
 BackGroundObject::~BackGroundObject()
@@ -79,9 +81,6 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 			}
 
 		});
-
-	//		”wŒi‚Ìî•ñ‚ğ¶¬‚·‚é
-	m_information = std::make_unique<BackGroundObjectInformation>();
 
 	m_information->Create(mesh, wirePosition);
 
@@ -156,6 +155,7 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 
 void BackGroundObject::Finalize()
 {
+	m_information->Finalize();
 }
 
 bool BackGroundObject::Culling(int index,

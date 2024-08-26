@@ -16,11 +16,6 @@ struct PS_INPUT
     float4 Diffuse    : COLOR0;
 };
 
-//struct PS_INPUT
-//{
-//    float2 TexCoord   : TEXCOORD0;
-//};
-
 float4 fog(float4 color, float3 position)
 {
     float dis = distance(cameraPosition.xyz, position);

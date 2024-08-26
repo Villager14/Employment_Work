@@ -173,9 +173,6 @@
     <Filter Include="Game\PlayScene\Player\Bons">
       <UniqueIdentifier>{fdb6f5b6-eef6-4fdf-8d18-11e480cf0944}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\Player\Bons\AnimationState">
-      <UniqueIdentifier>{01acb9d4-fb44-4125-9bf7-4d08ac88ef11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\UIManager\GameClear">
       <UniqueIdentifier>{15776f83-2d7f-4841-aa96-48b0174c6d0c}</UniqueIdentifier>
     </Filter>
@@ -238,6 +235,24 @@
     </Filter>
     <Filter Include="Resorces\Shader\BillShader">
       <UniqueIdentifier>{cd3d6970-e1ce-49f7-a63e-7b2bf2d76e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\GriderObject">
+      <UniqueIdentifier>{cb77693b-47e0-4122-97ad-6d0ee1bb3d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Factory">
+      <UniqueIdentifier>{2d4d2307-9d07-4822-a099-bd095eee23fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\FBX\Enemy">
+      <UniqueIdentifier>{f6157990-77b8-4430-9180-3e8d9b59b115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Animation">
+      <UniqueIdentifier>{6b630f2b-f5cc-45dd-8ad7-a77accf22aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Animation\State">
+      <UniqueIdentifier>{8d3ea413-f93b-42fb-9167-2215ba6eb350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Animation\State\Player">
+      <UniqueIdentifier>{67f9ac52-80f0-4018-99ec-13635674654e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -519,50 +534,8 @@
     <ClInclude Include="Game\PlayScene\Player\Bons\BonInformation.h">
       <Filter>Game\PlayScene\Player\Bons</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\PlayerAnimation.h">
-      <Filter>Game\PlayScene\Player\Bons</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\IPlayerAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WalkAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StayAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WireJumpAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallJumpAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h">
       <Filter>Game\PlayScene\UIManager\GameClear</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.h">
       <Filter>Game\Camera\PlayerCamera\State</Filter>
@@ -663,14 +636,89 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerFall.h">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.h">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClInclude>
     <ClInclude Include="Library\Mesh\MeshCollitionHead.h">
       <Filter>Library\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Library\Mesh\MeshCommonProcessing.h">
       <Filter>Library\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\TitleInformation.h">
+      <Filter>Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResultScene\ResultInformation.h">
+      <Filter>Game\ResultManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\TitleCommonProcess.h">
+      <Filter>Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\MenuCommonProcess.h">
+      <Filter>Game\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.h">
+      <Filter>Game\PlayScene\ObjectManager\GriderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Factory\IFactory.h">
+      <Filter>Library\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Factory\Factory.h">
+      <Filter>Library\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\AnimationManager.h">
+      <Filter>Library\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\IAnimation.h">
+      <Filter>Library\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\AnimationInformation.h">
+      <Filter>Library\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\AnimationCommonProcess.h">
+      <Filter>Library\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\WireJumpAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\AttackAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\CrouchingStayAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\CrouchingWalkAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\DashAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\DropDeadAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\FallAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\JumpAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\SlidingAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\StartAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\StayAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\UprightAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\WalkAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\WallJumpAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Player\WallWalkAnimationState.h">
+      <Filter>Library\Animation\State\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -911,47 +959,8 @@
     <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp">
       <Filter>Game\PlayScene\Player\Bons</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\PlayerAnimation.cpp">
-      <Filter>Game\PlayScene\Player\Bons</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WalkAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StayAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WireJumpAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallJumpAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp">
       <Filter>Game\PlayScene\UIManager\GameClear</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp">
       <Filter>Game\Camera\PlayerCamera\State</Filter>
@@ -1034,14 +1043,74 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerFall.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.cpp">
-      <Filter>Game\PlayScene\Player\Bons\AnimationState</Filter>
-    </ClCompile>
     <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp">
       <Filter>Library\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Library\Mesh\MeshCommonProcessing.cpp">
       <Filter>Library\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\TitleCommonProcess.cpp">
+      <Filter>Game\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\MenuCommonProcess.cpp">
+      <Filter>Game\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\GriderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Factory\Factory.cpp">
+      <Filter>Library\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\AnimationManager.cpp">
+      <Filter>Library\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\AnimationCommonProcess.cpp">
+      <Filter>Library\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\WireJumpAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\AttackAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\CrouchingStayAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\CrouchingWalkAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\DashAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\DropDeadAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\FallAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\JumpAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\SlidingAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\StartAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\StayAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\UprightAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\WalkAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\WallJumpAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Player\WallWalkAnimationState.cpp">
+      <Filter>Library\Animation\State\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1195,6 +1264,57 @@
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player\LShoes.fbx">
       <Filter>Resorces\FBX\Player</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Grider\GrinderRotation.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Grider\Grinder.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\Body.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\BodyUnder.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\Head.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LArmAbove.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LArmUnder.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LHand.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LLeagAbove.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LLeagUnder.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LShoes.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RArmAbove.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RArmUnder.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RHand.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RLeagAbove.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RLeagUnder.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RShoes.fbx">
+      <Filter>Resorces\FBX\Enemy</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>

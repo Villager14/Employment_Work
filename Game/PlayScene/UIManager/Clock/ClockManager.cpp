@@ -14,6 +14,11 @@ ClockManager::ClockManager(UIManager* uiManager)
 	m_elapsedTime(0.0f),
 	m_uiManager(uiManager)
 {
+	//		Œv‚Ì”wŒi‚Ì¶¬
+	m_clockBackGround = std::make_unique<ClockBackGround>(m_uiManager);
+
+	//		Œv‚Ì”š‚Ì¶¬
+	m_clockTime = std::make_unique<ClockTime>();
 }
 
 ClockManager::~ClockManager()
@@ -22,14 +27,9 @@ ClockManager::~ClockManager()
 
 void ClockManager::Initialize()
 {
-	//		Œv‚Ì”wŒi‚Ì¶¬
-	m_clockBackGround = std::make_unique<ClockBackGround>(m_uiManager);
 
 	//		Œv‚Ì”wŒi‚Ì‰Šú‰»
 	m_clockBackGround->Initialize();
-
-	//		Œv‚Ì”š‚Ì¶¬
-	m_clockTime = std::make_unique<ClockTime>();
 
 	//		Œv‚Ì”š‚Ì‰Šú‰»
 	m_clockTime->Initialize();
@@ -37,7 +37,9 @@ void ClockManager::Initialize()
 
 void ClockManager::Update(GameManager* gameManager)
 {
-	if (gameManager->GetGameStartJudgement() && !gameManager->GetDeathJudgement() && !gameManager->GetGoalJudgement())
+	if (gameManager->FlagJudgement(GameManager::GameStart)
+		&& !gameManager->FlagJudgement(GameManager::DeathJudgement)
+		&& !gameManager->FlagJudgement(GameManager::GoalJudgement))
 	{
 		//		Œo‰ßŠÔ
 		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();

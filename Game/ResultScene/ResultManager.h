@@ -17,11 +17,13 @@
 
 #include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
 
-#include "Game/PlayScene/Player/Bons/PlayerAnimation.h"
+#include "Library/Animation/AnimationManager.h"
 
 #include "Library/Shader/StandardShader.h"
 
 #include "UI/RiseNumberShader.h"
+
+#include "ResultInformation.h"
 
 class ResultManager
 {
@@ -42,6 +44,9 @@ public:
 	*	@param	(deathCount)	死亡カウント
 	*/
 	void Initialize(int score, int time, int deathCount);
+
+	//		生成
+	void Generation();
 
 	//		更新処理
 	void Update();
@@ -66,6 +71,7 @@ public:
 
 public:
 
+
 	//		状態
 	enum State
 	{
@@ -76,34 +82,25 @@ public:
 		End,			//		終了
 	};
 
-	//		リザルトのUIの種類
-	enum ResultUIType
-	{
-		Back,			//		UI背景
-		Button,			//		ボタンヒント
-		EvaluationUI	//		評価
-	};
-
-	//		コンストバッファ
-	struct ConstBuffer
-	{
-		DirectX::SimpleMath::Vector4 windowSize;
-		DirectX::SimpleMath::Matrix  rotationMatrix;
-		DirectX::SimpleMath::Vector4 time;
-	};
-
 private:
+	
+	//		スコア
+	int m_score;
 
-	//		プレイヤーの回転速度
-	const float PLAYER_ROTATION_SPEED = 30.0f;
+	//		時間
+	int m_time;
 
-	//		プレイヤーの高さ
-	const float PLAYER_HEIGHT = 2.5f;
+	//		死亡カウント
+	int m_deathCount;
 
-	//		プレイヤーの座標
-	const DirectX::SimpleMath::Vector3 PLAYER_POSITION = { 0.0f, 0.0f, 8.0f };
+	//		回転量
+	float m_rotation;
 
-private:
+	//		メニューを使えるかどうか
+	bool m_menuUseJudgement;
+
+	//		情報
+	std::unique_ptr<ResultInformation> m_information;
 
 	//		状態
 	IResultManager* m_iState;
@@ -113,42 +110,24 @@ private:
 
 	//		状態
 	State m_state;
-	
-	//		シェーダー
-	std::unique_ptr<StandardShader<ResultManager::ResultUIType>> m_shader;
 
-	//		背景移動の描画
-	std::unique_ptr<BackGroundMove> m_backGroundMove;
+	//		数字の上昇シェーダー
+	std::unique_ptr<RiseNumberShader> m_riseNumber;
 
-	ConstBuffer buffer;
+	//		スタンダードシェーダー
+	std::unique_ptr<StandardShader<ResultInformation::ResultUIType>> m_shader;
 
 	//		フェード描画
 	std::unique_ptr<UIRenderManager> m_fade;
 
-	//		スコア
-	int m_score;
-	//		時間
-	int m_time;
-	//		死亡カウント
-	int m_deathCount;
+	//		背景移動の描画
+	std::unique_ptr<BackGroundMove> m_backGroundMove;
 
 	//		スクリーンエフェクトマネージャー
 	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
 
 	//		プレイヤーアニメーション
-	std::unique_ptr<PlayerAnimation> m_playerAnimation;
-
-	//		回転量
-	float m_rotation;
-
-	//		シーンを切り替える
-	bool m_changeScene;
-
-	//		数字の上昇シェーダー
-	std::unique_ptr<RiseNumberShader> m_riseNumber;
-
-	//		メニューを使えるかどうか
-	bool m_menuUseJudgement;
+	std::unique_ptr<AnimationManager> m_playerAnimation;
 
 public:
 
@@ -158,43 +137,6 @@ public:
 	*	@param	(state)	状態
 	*/
 	void ChangeState(State state);
-
-	/*
-	*	フェードの描画
-	* 
-	*	@param	(time)	時間
-	*/
-	void FadeViewProcess(float time) { 
-		buffer.time = { time, 0.0f, 0.0f, 0.0f };
-		m_fade->Render(buffer); }
-
-	/*
-	*	シーンを切り替えるか設定する
-	* 
-	*	@param	(judgement)	true : 切り替える false : 切り替えない
-	*/
-	void SetChangeSceneJudgement(bool judgement) { m_changeScene = judgement; }
-
-	/*
-	*	シーンを切り替えるか受け取る
-	*	
-	*	@return true : 切り替える false : 切り替えない
-	*/
-	bool GetChangeSceneJudgement() { return m_changeScene; }
-
-	/*
-	*	リザルトUIマネジャーのインスタンスのポインタを受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	StandardShader<ResultUIType>* GetStandardShader() { return m_shader.get(); }
-
-	/*
-	*	上昇数字のインスタンスのポインタを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	RiseNumberShader* GetRiseNumberShader() { return m_riseNumber.get(); }
 
 	/*
 	*	メニューを使えるかどうか受け取る
@@ -209,4 +151,13 @@ public:
 	*	@param	(judgement) true : 使える false : 使えない
 	*/
 	void SetMenuUseJugement(bool judgement) { m_menuUseJudgement = judgement; }
+
+	/*
+	*	情報を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	ResultInformation* GetInformation() { return m_information.get(); }
+
+	
 };

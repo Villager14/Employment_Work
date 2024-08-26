@@ -50,7 +50,7 @@ void RedScreen::Create(
 
 void RedScreen::Update(GameManager* gameManager, PlayerCameraInformation* playerCameraInformation)
 {
-	if (gameManager->GetDeathJudgement())
+	if (gameManager->FlagJudgement(GameManager::DeathJudgement))
 	{
 		m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
 

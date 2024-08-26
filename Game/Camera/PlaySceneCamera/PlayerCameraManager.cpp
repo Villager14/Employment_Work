@@ -17,6 +17,17 @@ PlayerCameraManager::PlayerCameraManager(GameManager* gameManager)
 	m_cameraType{},
 	m_nowViewAngle(70.0f)
 {
+	//		カメラの情報を
+	m_information = std::make_unique<PlayerCameraInformation>();
+
+	//		カメラの派生クラスの生成
+	m_stateInformation.insert({ CameraType::Standard, std::make_unique<PlayerCamera>(this) });
+	m_stateInformation.insert({ CameraType::Debug, std::make_unique<DebugCamera>(this) });
+	m_stateInformation.insert({ CameraType::WallWalk, std::make_unique<PlayerWallWalkCamera>(this) });
+	m_stateInformation.insert({ CameraType::Start, std::make_unique<PlayerStartCamera>(this) });
+	m_stateInformation.insert({ CameraType::Stop, std::make_unique<PlayerCameraStop>(this) });
+	m_stateInformation.insert({ CameraType::Death, std::make_unique<PlayerDeathCamera>(this) });
+	m_stateInformation.insert({ CameraType::Goal, std::make_unique<PlayerGoalCamera>(this) });
 }
 
 PlayerCameraManager::~PlayerCameraManager()
@@ -25,8 +36,6 @@ PlayerCameraManager::~PlayerCameraManager()
 
 void PlayerCameraManager::Initialize()
 {
-	//		カメラの情報を
-	m_information = std::make_unique<PlayerCameraInformation>();
 	/*
 	*	視野角70度
 	*
@@ -42,14 +51,8 @@ void PlayerCameraManager::Initialize()
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
 
-	//		カメラの派生クラスの生成
-	m_stateInformation.insert({ CameraType::Standard, std::make_unique<PlayerCamera>(this) });
-	m_stateInformation.insert({ CameraType::Debug, std::make_unique<DebugCamera>(this) });
-	m_stateInformation.insert({ CameraType::WallWalk, std::make_unique<PlayerWallWalkCamera>(this) });
-	m_stateInformation.insert({ CameraType::Start, std::make_unique<PlayerStartCamera>(this) });
-	m_stateInformation.insert({ CameraType::Stop, std::make_unique<PlayerCameraStop>(this) });
-	m_stateInformation.insert({ CameraType::Death, std::make_unique<PlayerDeathCamera>(this) });
-	m_stateInformation.insert({ CameraType::Goal, std::make_unique<PlayerGoalCamera>(this) });
+	//		情報の初期化
+	m_information->Initialize();
 
 	//		初期状態
 	m_cameraType = CameraType::Start;

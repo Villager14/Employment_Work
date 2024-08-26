@@ -32,8 +32,13 @@ public:
 	//		‰Šúˆ—
 	void Initialize();
 
+	//		¶¬
+	void Generation();
+
 	//		XVˆ—
 	void Update();
+
+	void Finalize();
 
 	void FrontRender();
 

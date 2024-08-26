@@ -46,6 +46,7 @@ public:
 		Floor,
 		Wall,
 		Goal,
+		DamageObject,
 		Null
 	};
 

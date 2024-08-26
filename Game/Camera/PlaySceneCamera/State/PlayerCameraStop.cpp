@@ -75,7 +75,7 @@ void PlayerCameraStop::Update()
 	}
 
 	//		Ž€–S‚µ‚Ä‚¢‚éê‡
-	if (m_playerCameraManager->GetGameManager()->GetDeathJudgement())
+	if (m_playerCameraManager->GetGameManager()->FlagJudgement(GameManager::DeathJudgement))
 	{
 		//		Ž€–SƒJƒƒ‰‚É‚·‚é
 		//m_playerCameraManager->ChangeState(m_playerCameraManager->GetDeathCamera());
@@ -85,7 +85,7 @@ void PlayerCameraStop::Update()
 	}
 
 	//		ŽŸ‚ÌƒV[ƒ“‚ð‘I‚ñ‚¾Û
-	if (m_playerCameraManager->GetGameManager()->GetEndJudgement())
+	if (m_playerCameraManager->GetGameManager()->FlagJudgement(GameManager::EndJudgement))
 	{
 		//		ƒS[ƒ‹ƒJƒƒ‰‚É‚·‚é
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Goal);

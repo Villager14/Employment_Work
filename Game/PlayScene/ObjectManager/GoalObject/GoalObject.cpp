@@ -15,11 +15,14 @@
 
 #include <WICTextureLoader.h>
 
-GoalObject::GoalObject()
+GoalObject::GoalObject(ObjectManager* objectManager)
 	:
 	m_floorModel{},
-	m_rotation(0.0f)
+	m_rotation(0.0f),
+	m_objectManager(objectManager)
 {
+	//		オブジェクトメッシュの生成
+	m_objectMesh = std::make_unique<ObjectMesh>();
 }
 
 GoalObject::~GoalObject()
@@ -27,11 +30,11 @@ GoalObject::~GoalObject()
 
 }
 
-void GoalObject::Initialize()
+void GoalObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector3 rotation)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
-					::GetInstance()->GetEffectFactory();
+		::GetInstance()->GetEffectFactory();
 
 	//		画像の読み込み
 	m_effect->SetDirectory(L"Resources/Models");
@@ -40,10 +43,10 @@ void GoalObject::Initialize()
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Goal.cmo", *m_effect);
 
-	//		オブジェクトメッシュの生成
-	m_objectMesh = std::make_unique<ObjectMesh>();
 
-	m_position = { -1356.0f, 49.0f, 669.0f };
+	m_position = position;
+
+	m_rotation = rotation;
 
 	//		初期化処理
 	m_objectMesh->Initialize(L"Resources/ModelMesh/Goal.obj");
@@ -51,7 +54,7 @@ void GoalObject::Initialize()
 	m_world = DirectX::SimpleMath::Matrix::CreateScale(1.0f);
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(-42.0f)), m_position);
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y)), m_position);
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
@@ -61,16 +64,14 @@ void GoalObject::Initialize()
 
 void GoalObject::Update()
 {
-	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
+	m_rotation.z += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
 }
 
-void GoalObject::Render(DrawMesh* drawMesh)
+void GoalObject::Render()
 {
-	UNREFERENCED_PARAMETER(drawMesh);
+	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation.z));
 
-	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation));
-
-	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(-42.0f));
+	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y));
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
@@ -92,4 +93,5 @@ void GoalObject::Render(DrawMesh* drawMesh)
 
 void GoalObject::Finalize()
 {
+	m_floorModel.release();
 }

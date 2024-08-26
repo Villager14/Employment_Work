@@ -116,8 +116,11 @@ void PlayerCommonProcessing::PlayerHeightTransition(const float& firstHeight, co
 	//		ˆêˆÈã‚È‚çˆ—‚ğ‚µ‚È‚¢
 	if (heightTime < 1.0f)
 	{
-		//		‘JˆÚ‘¬“x
-		heightTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
+		if (!m_player->GetCollitionInformation()->GetCeilingJudgement())
+		{
+			//		‘JˆÚ‘¬“x
+			heightTime += LibrarySingleton::GetInstance()->GetElpsedTime() * speed;
+		}
 
 		//		ˆêˆÈã‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
 		heightTime = Library::Clamp(heightTime, 0.0f, 1.0f);
@@ -137,6 +140,7 @@ void PlayerCommonProcessing::PlayerHeightTransition(const float& firstHeight, co
 
 	if (m_player->GetInformation()->GetHeadMove() > 0.0f)
 	{
+
 		float headMove = m_player->GetInformation()->GetHeadMove();
 
 		//		ˆÚ“®‘¬“x

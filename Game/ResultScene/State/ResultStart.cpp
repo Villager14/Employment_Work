@@ -27,6 +27,8 @@ void ResultStart::Initialize()
 
 	//		メニューを使えないようにする
 	m_resultManager->SetMenuUseJugement(false);
+
+	m_time = 0.0f;
 }
 
 void ResultStart::Update()
@@ -50,7 +52,7 @@ void ResultStart::Render()
 	//m_resultManager->UIViewProcess(0);
 
 	//		フェード
-	m_resultManager->FadeViewProcess(m_time);
+	m_resultManager->GetInformation()->FadeViewProcess(m_time);
 }
 
 void ResultStart::Finalize()

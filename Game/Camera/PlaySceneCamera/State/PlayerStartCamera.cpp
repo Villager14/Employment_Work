@@ -25,7 +25,8 @@ void PlayerStartCamera::Initialize()
 	//		マウスを相対参照にする
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
 
-	m_playerCameraManager->GetGameManager()->SetGameStartJudgement(false);
+	//		ゲームスタートフラグをオフにする
+	m_playerCameraManager->GetGameManager()->FalseFlag(GameManager::GameStart);
 }
 
 void PlayerStartCamera::Update()
@@ -73,7 +74,8 @@ void PlayerStartCamera::Update()
 	{
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);
 
-		m_playerCameraManager->GetGameManager()->SetGameStartJudgement(true);
+		//		ゲームスタートフラグをオンにする
+		m_playerCameraManager->GetGameManager()->TrueFlag(GameManager::GameStart);
 	}
 }
 

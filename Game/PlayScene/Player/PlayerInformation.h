@@ -34,6 +34,27 @@ public:
 
 	//		デストラクタ
 	~PlayerInformation() {};
+
+	void Initialize()
+	{
+		m_position = { 0.0f, 0.0f, 0.0f };
+		m_planPosition = { 0.0f, 0 ,0.0f };
+		m_heightTime = 0.0f;
+		m_fallTime = 0.0f;
+		m_gravity = 0.0f;
+		m_meshHitJudgement = false;
+		m_timeSpeed = 1.0f;
+		m_dashJudgement = true;
+		m_dashCoolTime = 0.0f;
+		m_jumpJudgement = true;
+		m_respownJudgement = false;
+		m_headWallMove = 0.0f;
+		m_stopCamera = false;
+		m_wireUseJudgement = false;
+		m_playerHeadShakingJudgement = false;
+		m_acceleration = { 0.0f, 0.0f, 0.0f };
+	}
+
 private:
 
 	//		立つ速度

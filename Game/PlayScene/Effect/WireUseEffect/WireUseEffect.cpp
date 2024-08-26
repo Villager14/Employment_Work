@@ -13,14 +13,6 @@ WireUseEffect::WireUseEffect(PlayerInformation* playerInformation)
 	:
 	m_playerInformation(playerInformation)
 {
-}
-
-WireUseEffect::~WireUseEffect()
-{
-}
-
-void WireUseEffect::Initialize(int size)
-{
 	//		ビルボードエフェクトの生成
 	m_billboardEffect = std::make_unique<BillboardEffect>();
 
@@ -29,7 +21,14 @@ void WireUseEffect::Initialize(int size)
 
 	//		ビルボードの作製
 	m_billboardEffect->Create();
+}
 
+WireUseEffect::~WireUseEffect()
+{
+}
+
+void WireUseEffect::Initialize(int size)
+{
 	WireStatas wireState;
 
 	for (int i = 0; i < size; ++i)
@@ -92,6 +91,7 @@ void WireUseEffect::Render(DirectX::SimpleMath::Vector3 position, int index)
 
 void WireUseEffect::Finalize()
 {
+	m_wireStatas.clear();
 }
 
 void WireUseEffect::ResetProcess(int index)

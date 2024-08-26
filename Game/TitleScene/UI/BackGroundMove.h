@@ -43,17 +43,16 @@ public:
 
 private:
 
+	//		背景の速度
+	const float BACK_GROUND_SPEED = 0.1f;
+
+private:
+
 	//		UI描画マネージャー
 	std::unique_ptr<UIRenderManager> m_uiRenderManager;
 
 	//		時間
 	float m_time;
-
-	//		フェードインをするかどうか判断する
-	bool m_fadeinResetJudgement;
-
-	//		フェードアウトをするかどうか判断する
-	bool m_fadeoutResetJudgement;
 
 	//		コンストバッファ
 	ConstBuffer buffer;

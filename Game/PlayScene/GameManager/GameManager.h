@@ -15,7 +15,25 @@ public:
 
 	~GameManager();
 
+	void Initialize();
+
 	void Update();
+
+	void Finalize();
+public:
+
+	enum Flag
+	{
+		None = 0b0000000,
+		GameStart			= 1 << 0,		//		ゲームを開始するか
+		DeathJudgement		= 1 << 1,		//		死亡しているか判断する
+		RevivalJudgement	= 1 << 2,		//		復活しているか判断する
+		GoalJudgement		= 1 << 3,		//		ゴールしているか判断する
+		EndJudgement		= 1 << 4,		//		終了しているか判断する
+		NextScene			= 1 << 5,		//		次のシーンに行くか判断する
+		DamageObjectHit		= 1 << 6,		//		ダメージオブジェクトに当たっているかどうか
+		FallDead			= 1 << 7,		//		落下死しているかどうか
+	};
 
 private:
 
@@ -25,30 +43,42 @@ private:
 	//		死亡回数
 	int m_deathCount;
 
-	//		ゲームを開始するか
-	bool m_gameStartJudgement;
+	//		ゲームの速度
+	float m_gameSpeed;
 
-	//		死亡しているかどうか判断する
-	bool m_deathJudgement;
+	//		フラグ
+	int m_flag;
 
-	//		復活状態かどうか判断する
-	bool m_revivalJudgement;
-
-	//		ゴールしているかどうか
-	bool m_goalJudgement;
-
-	//		終了するかどうか
-	bool m_endJudgement;
-
-	//		次のシーンに行くか
-	bool m_nextSceneJudgement;
 public:
+
+	/*
+	*	フラグが立っているか
+	* 
+	*	@param	(flag)	確認したいフラグ
+	*	@return true : yes false : no
+	*/
+	 bool FlagJudgement(Flag flag);
+
+	/*
+	*	フラグをOnにする
+	* 
+	*	@param	(flag)	オンにしたいフラグ
+	*/
+	 void TrueFlag(Flag flag);
+
+	/*	
+	*	フラグをofにする
+	* 
+	*	@param	(flag)	オフにしたいフラグ
+	*/
+	 void FalseFlag(Flag flag);
+
 	/*
 	*	時間を設定する
 	* 
 	*	@param	(time)	時間
 	*/
-	void SetTime(float time) { m_time = time; }
+	inline void SetTime(float time) { m_time = time; }
 
 	/*
 	*	時間を受け取る
@@ -72,87 +102,16 @@ public:
 	int GetDeathCount() { return m_deathCount; }
 
 	/*
-	*	ゲームを開始するかどうか受け取る
+	*	ゲームの速度を設定する
 	* 
-	*	@return true : 開始 false : 開始していない
+	*	@return 速度
 	*/
-	bool GetGameStartJudgement() { return m_gameStartJudgement; }
+	float GetGameSpeed() { return m_gameSpeed; }
 
 	/*
-	*	ゲームを開始するかどうか設定する
+	*	ゲームの速度を設定する
 	* 
-	*	@param	(judgement)	true : 開始 false : 開始していない
+	*	@param	(speed) 速度
 	*/
-	void SetGameStartJudgement(bool judgement) { m_gameStartJudgement = judgement; }
-
-	/*
-	*	死亡しているかどうか受け取る
-	* 
-	*	@return true : 死亡している false : 死亡していない
-	*/
-	bool GetDeathJudgement() { return m_deathJudgement; }
-
-	/*
-	*	死亡しているかどうか設定する
-	* 
-	*	@param	(judgement)　true: 死亡している false : 死亡していない
-	*/
-	void SetDeathJudgement(bool judgement) { m_deathJudgement = judgement; }
-
-	/*
-	*	復活状態かどうか受け取る
-	*
-	*	@return true: 復活状態ではない false : 復活状態ではない
-	*/
-	bool GetRevivalJudgement() { return m_revivalJudgement; }
-
-	/*
-	*	復活状態かどうか設定する
-	*
-	*	@param	(judgement)　true: 復活状態ではない false : 復活状態ではない
-	*/
-	void SetRevivalJudgement(bool judgement) { m_revivalJudgement = judgement; }
-
-	/*
-	*	ゴールしているかどうか設定する
-	*	
-	*	@param	(judgement) true : ゴールしている false : ゴールしていない
-	*/
-	void SetGoalJudgement(bool judgement) { m_goalJudgement = judgement; }
-
-	/*
-	*	ゴールしているかどうか受け取る
-	* 
-	*	@return true : ゴールしている false : ゴールしていない
-	*/
-	bool GetGoalJudgement() { return m_goalJudgement; }
-
-	/*
-	*	終了するかどうか受け取る
-	*	
-	*	@return true : 終了する false : 終了しない
-	*/
-	bool GetEndJudgement() { return m_endJudgement; }
-
-	/*
-	*	終了するか設定する
-	* 
-	*	@param	(judgement)	true : 終了する false : 終了しない
-	*/
-	void SetEndJudgement(bool judgement) { m_endJudgement = judgement; }
-
-	/*
-	*	次のシーンに行くかどうか受け取る
-	*
-	*	@return true : 次にシーンに行く false : 次のシーンに行かない
-	*/
-	bool GetNextSceneJudgement() { return m_nextSceneJudgement; }
-
-	/*
-	*	次のシーンに行くかどうか設定する
-	*
-	*	@param	(judgement)	true : 次にシーンに行く false : 次のシーンに行かない
-	*/
-	void SetNextSceneJudgement(bool judgement) { m_nextSceneJudgement = judgement; }
-
+	void SetGameSpeed(float speed) { m_gameSpeed = speed; }
 };

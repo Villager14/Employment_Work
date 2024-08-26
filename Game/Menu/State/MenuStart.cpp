@@ -90,7 +90,7 @@ void MenuStart::Update()
 
 	if (!m_startJudgement)
 	{
-		m_menuManager->ChangState(MenuManager::MenuType::Audio);
+		m_menuManager->ChangState(MenuInformation::MenuType::Audio);
 	}
 
 }

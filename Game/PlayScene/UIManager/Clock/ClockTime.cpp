@@ -13,14 +13,6 @@ ClockTime::ClockTime()
 	:
 	m_time(0)
 {
-}
-
-ClockTime::~ClockTime()
-{
-}
-
-void ClockTime::Initialize()
-{
 	//		シェーダー描画マネージャーの生成
 	m_shader = std::make_unique<UIRenderManager>();
 
@@ -31,7 +23,14 @@ void ClockTime::Initialize()
 		L"Resources/Shader/Number/NumberPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 0.8f, 0.8f });
+}
 
+ClockTime::~ClockTime()
+{
+}
+
+void ClockTime::Initialize()
+{
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),

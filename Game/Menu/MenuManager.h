@@ -20,6 +20,8 @@
 
 #include "MenuInformation.h"
 
+#include "MenuCommonProcess.h"
+
 class MenuManager
 {
 public:
@@ -44,50 +46,25 @@ public:
 	//		メニューの背景の描画
 	void MenuBackRneder();
 
-	//		四角の当たり判定
-	bool BoxCollider(DirectX::SimpleMath::Vector2 min, DirectX::SimpleMath::Vector2 max);
-
 	//		UIの作製
 	void CreateUI();
-
-public:
-	enum MenuType
-	{
-		Start,
-		Audio,
-		Option,
-		GamePlay,
-		Close,
-
-		Empty,
-	};
 
 private:
 
 	//		現在のタイプ
-	MenuType m_type;
-
-	//		次の状態を設定する
-	MenuType m_selectUI;
+	MenuInformation::MenuType m_type;
 
 	//		現在の状態
 	IMenu* m_state;
 
 	//		メニューの状態の情報
-	std::unordered_map<MenuType, std::unique_ptr<IMenu>> m_menuStateInformation;
-
-	//		選択UI
-	AboveUI::UIType m_rangeUI;
-
-	//		スライダーを使っているUIの種類
-	AboveUI::UIType m_slideUIType;
+	std::unordered_map<MenuInformation::MenuType, std::unique_ptr<IMenu>> m_menuStateInformation;
 
 	//		初めて音楽メニューを開いているかどうか
 	bool m_firstAudioMenuJudgement;
 
 	//		メニューの情報
 	std::unique_ptr<MenuInformation> m_information;
-
 
 	//		スタンダードシェーダー
 	std::unique_ptr<StandardShader<MenuInformation::UIType>> m_standardShader;
@@ -103,6 +80,9 @@ private:
 
 	//		フレームワークUI
 	std::unique_ptr<FrameWalkUI> m_frameWalkUI;
+
+	//		共通処理
+	std::unique_ptr<MenuCommonProcess> m_commonProcess;
 
 public:
 
@@ -128,17 +108,7 @@ public:
 	* 
 	*	@param	(type)	状態
 	*/
-	void ChangState(MenuType type);
-
-	//		メニューのESCボタンで閉じる処理
-	bool MenuEscCloseProcess();
-
-	/*
-	*	選択したかどうか
-	* 
-	*	@param	(type)	選択しないメニューの種類
-	*/
-	bool ButtonCollider(MenuType type);
+	void ChangState(MenuInformation::MenuType type);
 
 	/*
 	*	UIの遷移処理
@@ -152,13 +122,6 @@ public:
 	*/
 	bool Transition(float* transitionTime1, float* transitionTime2, float* transitionTime3,
 		bool *startJudgement, bool endJudgement, bool moveJudgement);
-
-	/*
-	*	スライダーの処理
-	* 
-	*	@param	(type)	種類
-	*/
-	void SlideProcess(AboveUI::UIType type);
 
 	/*
 	*	イージング関数通常UI用
@@ -196,5 +159,12 @@ public:
 	*	@param	(judgement)	true : 行う false : 行わない
 	*/
 	void SetFirstAudioMenuJudgement(bool judgement) { m_firstAudioMenuJudgement = judgement; }
+
+	/*
+	*	メニューの共通処理
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	MenuCommonProcess* GetCommonProcess() { return m_commonProcess.get(); }
 
 };

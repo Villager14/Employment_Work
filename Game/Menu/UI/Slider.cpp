@@ -11,6 +11,21 @@
 
 Slider::Slider()
 {
+	m_shader = std::make_unique<UIRenderManager>();
+
+	m_shader->Create(L"Resources/Texture/Menu/Slide/Slide.png",
+		L"Resources/Shader/Slider/SliderVS.cso",
+		L"Resources/Shader/Slider/SliderGS.cso",
+		L"Resources/Shader/Slider/SliderPS.cso",
+		m_constBuffer,
+		{ 200.0f, -100.0f }, { 1.0f,1.0f },
+		CENTER_POINT::MIDDLE_CENTER);
+
+	CreateUIInformation({ 200.0f, -100.0f }, { 1.0f, 1.0f }, 1.0f, UIType::MastarVolum);
+	CreateUIInformation({ 200.0f, 50.0f }, { 1.0f, 1.0f }, MusicLibrary::GetInstance()->FIRST_BMG_VOLUME, UIType::BGMVolum);
+	CreateUIInformation({ 200.0f, 200.0f }, { 1.0f, 1.0f }, MusicLibrary::GetInstance()->FIRST_SOUND_EFFECT_VOLUME, UIType::SoundEffect);
+	CreateUIInformation({ 200.0f, -100.0f }, { 1.0f, 1.0f }, 0.0f, UIType::FOV);
+	CreateUIInformation({ 200.0f, 50.0f }, { 1.0f, 1.0f }, 0.5f, UIType::Mouse);
 }
 
 Slider::~Slider()
@@ -19,22 +34,6 @@ Slider::~Slider()
 
 void Slider::Initialize()
 {
-	m_shader = std::make_unique<UIRenderManager>();
-
-	m_shader->Create(L"Resources/Texture/Menu/Slide/Slide.png",
-		L"Resources/Shader/Slider/SliderVS.cso",
-		L"Resources/Shader/Slider/SliderGS.cso",
-		L"Resources/Shader/Slider/SliderPS.cso",
-		m_constBuffer,
-		{ 200.0f, -100.0f}, { 1.0f,1.0f },
-		CENTER_POINT::MIDDLE_CENTER);
-
-	CreateUIInformation({ 200.0f, -100.0f }, { 1.0f, 1.0f }, 1.0f, UIType::MastarVolum);
-	CreateUIInformation({ 200.0f, 50.0f }, { 1.0f, 1.0f }, 0.5f, UIType::BGMVolum);
-	CreateUIInformation({ 200.0f, 200.0f }, { 1.0f, 1.0f }, 0.5f, UIType::SoundEffect);
-	CreateUIInformation({ 200.0f, -100.0f }, { 1.0f, 1.0f }, 0.0f, UIType::FOV);
-	CreateUIInformation({ 200.0f, 50.0f }, { 1.0f, 1.0f }, 0.5f, UIType::Mouse);
-
 	//		âÒì]çsóÒÇëóÇÈ
 	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
 

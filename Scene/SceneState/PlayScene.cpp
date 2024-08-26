@@ -16,6 +16,7 @@ PlayScene::PlayScene(SceneManager* sceneManager)
 	m_sceneManager{sceneManager},
 	m_menuCloseJugement(false)
 {
+	Generation();
 }
 
 PlayScene::~PlayScene()
@@ -26,17 +27,11 @@ void PlayScene::Initialize()
 {
 	CreateProjaction();
 
-	//		ゲームマネージャーを生成する
-	m_gameManager = std::make_unique<GameManager>();
-
-	//		プレイヤーカメラマネージャーの生成
-	m_playerCameraManager = std::make_unique<PlayerCameraManager>(m_gameManager.get());
+	//		ゲームマネージャーの初期化処理
+	m_gameManager->Initialize();
 
 	//		プレイヤーカメラマネージャーの初期化処理
 	m_playerCameraManager->Initialize();
-
-	//		プレイヤーの生成
-	m_player = std::make_unique<Player>(m_gameManager.get());
 
 	//		カメラの情報を受け取る
 	m_player->SetCameraInformation(m_playerCameraManager->GetInformation());
@@ -44,44 +39,17 @@ void PlayScene::Initialize()
 	//		プレイヤーの初期化処理
 	m_player->Initialize();
 
-	//		影の生成
-	m_shadow = std::make_unique<Shadow>();
-
 	//		影の初期化
-	m_shadow->Initialize();
-
-	//		オブジェクトマネージャーの生成
-	m_objectManager = std::make_unique<ObjectManager>(m_shadow->GetInformation());
+	//m_shadow->Initialize();
 
 	//		オブジェクトマネージャーの初期化処理
 	m_objectManager->Initialize();
 
-	//		当たり判定マネージャーの生成
-	m_collitionManager = std::make_unique<CollitionManager>();
-
-	//		当たり判定マネージャーの初期化
-	m_collitionManager->Initialize();
-
-	//		エネミーマネージャーの生成
-	m_enemyManager = std::make_unique<EnemyManager>();
-
-	//		エネミーマネージャーの初期化
-	m_enemyManager->Initialize();
-
-	//		UIマネージャーの生成
-	m_uiManager = std::make_unique<UIManager>(m_player->GetInformation(), m_gameManager.get());
-
 	//		UIマネージャーの初期化
 	m_uiManager->Initialize();
 
-	//		スクリーンエフェクトマネージャーの生成
-	m_screenEffectManager = std::make_unique<ScreenEffectManager>(m_gameManager.get());
-
 	//		スクリーンエフェクトマネージャーの初期化
-	m_screenEffectManager->Initialize(ScreenEffectManager::Scene::PlayScene);
-
-	//		エフェクトマネージャーの作製
-	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation());
+	m_screenEffectManager->Initialize();
 
 	//		ワイヤーの情報を受け取る
 	m_effectManager->SetWireInformation(m_objectManager->GetUseWireInformation());
@@ -89,10 +57,11 @@ void PlayScene::Initialize()
 	//		エフェクトマネージャーの初期化
 	m_effectManager->Initialize();
 
+	//		エネミーマネージャーの初期化
+	//m_enemyManager->Initialize();
+
 	//		プレイシーン時のBGMを再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
-
-
 
 	//		視野角の情報を受け取る
 	m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetMenuManager()->GetInformation()->GetViewAngle());
@@ -104,7 +73,41 @@ void PlayScene::Initialize()
 	m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
 }
 
-void PlayScene::Update()
+void PlayScene::Generation()
+{
+	//		ゲームマネージャーを生成する
+	m_gameManager = std::make_unique<GameManager>();
+
+	//		プレイヤーカメラマネージャーの生成
+	m_playerCameraManager = std::make_unique<PlayerCameraManager>(m_gameManager.get());
+
+	//		プレイヤーの生成
+	m_player = std::make_unique<Player>(m_gameManager.get());
+
+	//		スクリーンエフェクトマネージャーの生成
+	m_screenEffectManager = std::make_unique<ScreenEffectManager>
+		(ScreenEffectManager::Scene::PlayScene, m_gameManager.get());
+
+	//		エフェクトマネージャーの作製
+	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation());
+
+	//		UIマネージャーの生成
+	m_uiManager = std::make_unique<UIManager>(m_player->GetInformation(), m_gameManager.get());
+
+	//		当たり判定マネージャーの生成
+	m_collitionManager = std::make_unique<CollitionManager>(m_gameManager.get());
+
+	//		影の生成
+	m_shadow = std::make_unique<Shadow>();
+
+	//		オブジェクトマネージャーの生成
+	m_objectManager = std::make_unique<ObjectManager>(m_shadow->GetInformation(), m_gameManager.get());
+
+	//		エネミーマネージャーの生成
+	//m_enemyManager = std::make_unique<EnemyManager>();
+}
+
+bool PlayScene::MenuInformation()
 {
 	//		メニューを開いている場合の処理
 	if (m_sceneManager->GetMenuManager()->GetInformation()->GetMenuJudgement())
@@ -120,12 +123,20 @@ void PlayScene::Update()
 
 		//		カメラの速度の更新
 		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
-		
+
 		//		グレイ
 		m_screenEffectManager->GrayScare(m_sceneManager->GetMenuManager()->GetInformation());
 
-		return;
+		return true;
 	}
+
+	return false;
+}
+
+void PlayScene::Update()
+{
+	//		メニューを開いているかどうか
+	if (MenuInformation()) return;
 
 	//		メニューが使えるかどうか？
 	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
@@ -149,14 +160,8 @@ void PlayScene::Update()
 	//		プレイヤーの更新処理
 	m_player->Update(m_playerCameraManager->GetInformation());
 
-	//		エネミーの更新処理
-	//m_enemyManager->Update(m_player->GetInformation()->GetTimeSpeed(), m_player->GetInformation()->GetPosition());
-
 	//		メッシュを受け取る
 	m_collitionManager->SetObjectMesh(m_objectManager->GetMesh());
-
-	//		弾の座標を設定する
-	m_collitionManager->SetBulletPoistion(m_enemyManager->GetBulletPosition());
 
 	//		当たり判定の更新処理
 	m_collitionManager->Update(m_player->GetPlayerInformationCollition(), m_gameManager.get());
@@ -197,7 +202,7 @@ void PlayScene::Update()
 	m_effectManager->Update(m_playerCameraManager->GetInformation());
 
 	//		次のシーンに切り替えるかどうか
-	if (m_gameManager->GetNextSceneJudgement())
+	if (m_gameManager->FlagJudgement(GameManager::NextScene))
 	{
 		//		クリアタイムを受け取る
 		m_sceneManager->SetClearTime(static_cast<int>(m_gameManager->GetTime()));
@@ -208,6 +213,9 @@ void PlayScene::Update()
 		//		次のシーンに切り替える（リザルトシーン）
 		m_sceneManager->ChangeScene(SceneManager::SceneType::Result);
 	}
+
+	//m_enemyManager->Update(m_gameManager->GetTime(),
+	//	m_player->GetInformation()->GetPosition());
 }
 
 void PlayScene::Render()
@@ -228,7 +236,7 @@ void PlayScene::Render()
 	//		プレイヤーのモデル描画
 	m_player->ModelRender();
 
-	//		エネミーの描画
+	//		エネミーマネージャーの描画
 	//m_enemyManager->Render();
 
 	//		デバック描画
@@ -252,8 +260,15 @@ void PlayScene::Render()
 
 void PlayScene::Finalize()
 {
-	m_player.reset();
-	m_objectManager.reset();
+	m_objectManager->Finalize();
+
+	m_effectManager->Finalize();
+
+	m_gameManager->Finalize();
+
+	m_uiManager->Finalize();
+
+	m_player->Finalize();
 }
 
 void PlayScene::CreateProjaction()

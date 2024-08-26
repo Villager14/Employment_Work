@@ -11,17 +11,7 @@
 
 BackGroundMove::BackGroundMove()
 	:
-	m_time(0.0f),
-	m_fadeinResetJudgement(true),
-	m_fadeoutResetJudgement(false)
-{
-}
-
-BackGroundMove::~BackGroundMove()
-{
-}
-
-void BackGroundMove::Initialize()
+	m_time(0.0f)
 {
 	//		UIï`âÊÇÃê∂ê¨
 	m_uiRenderManager = std::make_unique<UIRenderManager>();
@@ -38,18 +28,28 @@ void BackGroundMove::Initialize()
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	buffer.rotationMatrix = m_uiRenderManager->GetRotationMatrix();
+}
+
+BackGroundMove::~BackGroundMove()
+{
+}
+
+void BackGroundMove::Initialize()
+{
+	m_time = 0.0f;
 }
 
 void BackGroundMove::Update()
 {
 	//		îwåiÇÃà⁄ìÆéûä‘
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.1f;
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * BACK_GROUND_SPEED;
 }
 
 void BackGroundMove::Render()
 {
 	//		ÉRÉìÉXÉgÉoÉbÉtÉ@ÇÃílÇê›íËÇ∑ÇÈ
-	buffer.rotationMatrix = m_uiRenderManager->GetRotationMatrix();
 	buffer.time = { m_time, 0.0f, 0.0f, 0.0f };
 
 	//		îwåiÇÃï`âÊ

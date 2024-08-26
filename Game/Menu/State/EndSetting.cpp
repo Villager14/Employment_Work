@@ -39,13 +39,13 @@ void EndSetting::Update()
 		&m_transitionRoughTime, &m_startJudgement, m_endJudgement, m_menuCloseJudgement)) return;
 
 	//		大まかなメニューボタンの処理
-	if (m_menuManager->ButtonCollider(MenuManager::MenuType::GamePlay))
+	if (m_menuManager->GetCommonProcess()->ButtonCollider(MenuInformation::MenuType::GamePlay))
 	{
 		m_endJudgement = true;
 	}
 
 	//		ESCでメニューをとじる処理
-	if (m_menuManager->MenuEscCloseProcess())
+	if (m_menuManager->GetCommonProcess()->MenuEscCloseProcess())
 	{
 		//		メニューを閉じる状態にする
 		m_endJudgement = true;
@@ -97,7 +97,7 @@ void EndSetting::Finalize()
 void EndSetting::ButtonProcess()
 {
 	//		メニューを閉じるかどうか
-	if (m_menuManager->BoxCollider({ 640, 200.0f }, { 1039.0f, 317.0f }))
+	if (m_menuManager->GetCommonProcess()->BoxCollider({ 640, 200.0f }, { 1039.0f, 317.0f }))
 	{
 		//		左クリック
 		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
@@ -120,7 +120,7 @@ void EndSetting::ButtonProcess()
 	}
 
 	//		ゲームを閉じるかどうか
-	if (m_menuManager->BoxCollider({ 640.0f, 351.0f }, { 1039.0f, 470.0f }))
+	if (m_menuManager->GetCommonProcess()->BoxCollider({ 640.0f, 351.0f }, { 1039.0f, 470.0f }))
 	{
 		//		左クリック
 		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton

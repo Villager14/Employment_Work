@@ -29,7 +29,7 @@ void GameOverManager::Initialize()
 void GameOverManager::Update()
 {
 	//		ゲームオーバー状態ではないなら処理をしない
-	if (!m_gameManager->GetDeathJudgement())
+	if (!m_gameManager->FlagJudgement(GameManager::DeathJudgement))
 	{
 		m_elapsedTime = 0.0f;
 
@@ -44,7 +44,7 @@ void GameOverManager::Update()
 void GameOverManager::Render()
 {
 	//		ゲームオーバー状態ではないなら処理をしない
-	if (!m_gameManager->GetDeathJudgement()) return;
+	if (!m_gameManager->FlagJudgement(GameManager::DeathJudgement)) return;
 	
 	if (m_elapsedTime < 3.0f)
 	{

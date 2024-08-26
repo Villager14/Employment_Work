@@ -17,14 +17,6 @@ FadeIn::FadeIn()
 	m_stayTime(0.0f),
 	m_firstJudgement(true)
 {
-}
-
-FadeIn::~FadeIn()
-{
-}
-
-void FadeIn::Initialize()
-{
 	//		フェード描画の生成
 	m_fadeRender = std::make_unique<UIRenderManager>();
 
@@ -34,7 +26,14 @@ void FadeIn::Initialize()
 		L"Resources/Shader/Fade/FadeShaderPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
+}
 
+FadeIn::~FadeIn()
+{
+}
+
+void FadeIn::Initialize()
+{
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
@@ -43,12 +42,13 @@ void FadeIn::Initialize()
 	//		回転量を設定する
 	buffer.rotationMatrix = m_fadeRender->GetRotationMatrix();
 
+	m_time = 0.0f;
 }
 
 void FadeIn::Update(GameManager* gameManager)
 {
 	//		終了の場合
-	if (gameManager->GetEndJudgement())
+	if (gameManager->FlagJudgement(GameManager::EndJudgement))
 	{
 		m_stayTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 
@@ -64,14 +64,15 @@ void FadeIn::Update(GameManager* gameManager)
 		if (m_time <= 0.0f)
 		{
 			//		次のシーンに切り替える
-			gameManager->SetNextSceneJudgement(true);
+			gameManager->TrueFlag(GameManager::NextScene);
 		}
 
 		return;
 	}
 
 	//		復活状態＆フェードアウトをしない状態の場合
-	if (gameManager->GetRevivalJudgement() && !m_fadeoutResetJudgement)
+	if (gameManager->FlagJudgement(GameManager::RevivalJudgement)
+		&& !m_fadeoutResetJudgement)
 	{
 		m_fadeoutResetJudgement = true;
 
@@ -109,8 +110,8 @@ void FadeIn::Update(GameManager* gameManager)
 			m_fadeoutResetJudgement = false;
 
 			//		復活状態を終了
-			gameManager->SetRevivalJudgement(false);
-			gameManager->SetDeathJudgement(false);
+			gameManager->FalseFlag(GameManager::RevivalJudgement);
+			gameManager->FalseFlag(GameManager::DeathJudgement);
 			m_fadeinResetJudgement = true;
 		}
 	}

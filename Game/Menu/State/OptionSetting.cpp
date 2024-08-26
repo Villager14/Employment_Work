@@ -36,7 +36,7 @@ void OptionSetting::Update()
 		&m_transitionRoughTime, &m_startJudgement, m_endJudgement, m_menuCloseJudgement)) return;
 
 	//		ESCでメニューをとじる処理
-	if (m_menuManager->MenuEscCloseProcess())
+	if (m_menuManager->GetCommonProcess()->MenuEscCloseProcess())
 	{
 		//		メニューを閉じる状態にする
 		m_endJudgement = true;
@@ -44,13 +44,13 @@ void OptionSetting::Update()
 	}
 
 	//		大まかなメニューボタンの処理
-	if (m_menuManager->ButtonCollider(MenuManager::MenuType::Option))
+	if (m_menuManager->GetCommonProcess()->ButtonCollider(MenuInformation::MenuType::Option))
 	{
 		m_endJudgement = true;
 	}
 
-	m_menuManager->SlideProcess(AboveUI::UIType::FOVKnob);
-	m_menuManager->SlideProcess(AboveUI::UIType::MouseKnob);
+	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::FOVKnob);
+	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::MouseKnob);
 
 	float fov = ((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::FOVKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
 

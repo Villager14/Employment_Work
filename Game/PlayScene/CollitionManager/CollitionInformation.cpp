@@ -10,6 +10,8 @@
 #include "CollitionInformation.h"
 
 CollitionInformation::CollitionInformation()
+	:
+	m_ceilingHitJudgement(false)
 {
 }
 
@@ -24,6 +26,7 @@ void CollitionInformation::Clear()
 	m_wallHitVelocity.clear();
 	m_wallHitNormalize.clear();
 	m_wallWalkPosition.clear();
+	m_ceilingHitJudgement = false;
 }
 
 void CollitionInformation::FloorMeshInformation(

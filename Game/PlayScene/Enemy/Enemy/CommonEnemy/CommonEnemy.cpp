@@ -11,11 +11,12 @@
 
 CommonEnemy::CommonEnemy()
 	:
-	m_state{ nullptr },
+	m_istate{ nullptr },
 	m_rotation(0.0f),
 	m_attackJudgement(false),
 	m_timeSpeed(0.0f)
 {
+	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::CommonEnemy);
 }
 
 CommonEnemy::~CommonEnemy()
@@ -26,35 +27,21 @@ void CommonEnemy::Initialize()
 {
 	m_position = { 10.0f, 0.0f, 0.0f };
 
-	//		エフェクトファクトリーを受け取る
-	DirectX::EffectFactory* m_effect = LibrarySingleton
-		::GetInstance()->GetEffectFactory();
+	m_stateintarface[State::Stay] = std::make_unique<CommonEnemyStay>(this);
+	m_stateintarface[State::Vigilance] = std::make_unique<CommonEnemyVigilance>(this);
+	m_stateintarface[State::Charge] = std::make_unique<CommonEnemyCharge>(this);
+	m_stateintarface[State::Attack] = std::make_unique<CommonEnemyAttack>(this);
 
-	//		画像の読み込み
-	m_effect->SetDirectory(L"Resources/Models");
-
-	//		モデルの読み込み
-	m_model = DirectX::Model::CreateFromCMO
-	(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
-		L"Resources/Models/Enemy.cmo", *m_effect);
-
-	//		待機状態の生成
-	m_stay = std::make_unique<CommonEnemyStay>(this);
-
-	//		警戒状態の生成
-	m_vigilance = std::make_unique<CommonEnemyVigilance>(this);
-
-	//		チャージ状態の生成
-	m_charge = std::make_unique<CommonEnemyCharge>(this);
-
-	//		攻撃状態の生成
-	m_attack = std::make_unique<CommonEnemyAttack>(this);
+	m_state = State::Stay;
 
 	//		初期状態
-	m_state = m_stay.get();
+	m_istate = m_stateintarface[m_state].get();
 
 	//		状態の初期化
-	m_state->Initialize();
+	m_istate->Initialize();
+
+	//		初期化処理
+	m_playerAnimation->Initialize();
 }
 
 void CommonEnemy::Update(const DirectX::SimpleMath::Vector3& playerPosition,
@@ -64,13 +51,15 @@ void CommonEnemy::Update(const DirectX::SimpleMath::Vector3& playerPosition,
 	m_timeSpeed = timeSpeed;
 
 	//		状態の更新処理
-	m_state->Update();
+	m_istate->Update();
+
+	m_playerAnimation->Execute(0.0f, m_position, {0.0f, m_rotation}, 4.4f);
 }
 
 void CommonEnemy::Render()
 {
 	//		状態の描画
-	m_state->Render();
+	m_istate->Render();
 }
 
 void CommonEnemy::Finalize()

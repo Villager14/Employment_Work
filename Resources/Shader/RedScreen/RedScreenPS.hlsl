@@ -97,8 +97,8 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 	float4 sepiaVal = Sepia(output);
 
-	float elapsedTime = clamp(time.x, 0.0f, 1.0f);
-	
+	float elapsedTime = lerp(0.0f, 0.5f, clamp(time.x, 0.0f, 1.0f));
+
 	output = blur(input.tex);
 
 	//		ŠÔŒo‰ß‚É‚æ‚èF‚ğ•Ï‚¦‚é

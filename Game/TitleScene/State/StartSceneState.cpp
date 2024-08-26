@@ -38,21 +38,21 @@ void StartSceneState::Update()
 	if (m_time >= 1.0f)
 	{
 		//		開始状態にする
-		m_titleSelectManager->ChangeState(TitleSelectManager::State::PlayState);
+		m_titleSelectManager->ChangeState(TitleInformation::State::PlayState);
 	}
 }
 
 void StartSceneState::Render()
 {
 	//		フェードの描画
-	m_titleSelectManager->FadeViewProcess(m_time);
+	m_titleSelectManager->GetInformation()->FadeViewProcess(m_time);
 }
 
 void StartSceneState::Finalize()
 {
-	m_titleSelectManager->SetKeyInput(false);
+	m_titleSelectManager->GetInformation()->SetKeyInput(false);
 	m_time = 0.0f;
 
 	//		メニューを使えるようにする
-	m_titleSelectManager->SetMenuUseJudgement(true);
+	m_titleSelectManager->GetInformation()->SetMenuUseJudgement(true);
 }

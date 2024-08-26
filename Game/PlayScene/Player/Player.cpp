@@ -1,5 +1,4 @@
 /*
-* 
 * @file		Player.cpp
 * @brief	プレイヤーの処理
 * @author	Morita
@@ -18,6 +17,7 @@ Player::Player(GameManager* gameManager)
 	m_playerState{},
 	m_menuUseJudgement(false)
 {
+	Generation();
 }
 
 Player::~Player()
@@ -26,29 +26,11 @@ Player::~Player()
 
 void Player::Initialize()
 {
-	//		プレイヤーのアニメーションの生成
-	m_playerAnimation = std::make_unique<PlayerAnimation>();
+	//		情報の初期化
+	m_information->Initialize();
 
 	//		プレイヤーのアニメーションの初期化
 	m_playerAnimation->Initialize();
-
-	//		プレイヤーの情報を生成する
-	m_information = std::make_unique<PlayerInformation>();
-
-	//		派生クラスの生成
-	m_stateInformation.insert({PlayerState::Stay, std::make_unique<PlayerStay>(this)});
-	m_stateInformation.insert({ PlayerState::Walk, std::make_unique<PlayerWalk>(this) });
-	m_stateInformation.insert({ PlayerState::Jump, std::make_unique<PlayerJump>(this) });
-	m_stateInformation.insert({ PlayerState::Crouching, std::make_unique<PlayerCrouching>(this) });
-	m_stateInformation.insert({ PlayerState::Dash, std::make_unique<PlayerDash>(this) });
-	m_stateInformation.insert({ PlayerState::WallWalk, std::make_unique<PlayerWallWalk>(this) });
-	m_stateInformation.insert({ PlayerState::WallJump, std::make_unique<PlayerWallJump>(this) });
-	m_stateInformation.insert({ PlayerState::Sliding, std::make_unique<PlayerSliding>(this) });
-	m_stateInformation.insert({ PlayerState::Wire, std::make_unique<PlayerWire>(this) });
-	m_stateInformation.insert({ PlayerState::Start, std::make_unique<PlayerStart>(this) });
-	m_stateInformation.insert({ PlayerState::Death, std::make_unique<PlayerDeath>(this) });
-	m_stateInformation.insert({ PlayerState::Goal, std::make_unique<PlayerGoal>(this) });
-	m_stateInformation.insert({ PlayerState::Fall, std::make_unique<PlayerFall>(this) });
 
 	//		初期状態
 	m_playerState = PlayerState::Start;
@@ -62,14 +44,36 @@ void Player::Initialize()
 	//		立っている高さを入れておく
 	m_information->SetPlayerHeight(DirectX::SimpleMath::Vector3(0.0f, m_information->GetStandingHeight(), 0.0f));
 
+	/*
 	//		プレイヤーの攻撃の生成
 	m_playerAttack = std::make_unique<PlayerAttack>(this);
 
 	//		プレイヤーの攻撃の初期化
 	m_playerAttack->Initialize();
+	*/
 
-	//		当たり判定用プレイヤーの情報を生成する
-	m_playerInformationCollition = std::make_unique<PlayerInformationCollition>();
+	//m_information->SetPosition({ 0.0f, 500.0f, 0.0f });
+}
+
+void Player::Generation()
+{
+	//		プレイヤーの情報を生成する
+	m_information = std::make_unique<PlayerInformation>();
+
+	//		派生クラスの生成
+	m_stateInformation.insert({ PlayerState::Stay, std::make_unique<PlayerStay>(this) });
+	m_stateInformation.insert({ PlayerState::Walk, std::make_unique<PlayerWalk>(this) });
+	m_stateInformation.insert({ PlayerState::Jump, std::make_unique<PlayerJump>(this) });
+	m_stateInformation.insert({ PlayerState::Crouching, std::make_unique<PlayerCrouching>(this) });
+	m_stateInformation.insert({ PlayerState::Dash, std::make_unique<PlayerDash>(this) });
+	m_stateInformation.insert({ PlayerState::WallWalk, std::make_unique<PlayerWallWalk>(this) });
+	m_stateInformation.insert({ PlayerState::WallJump, std::make_unique<PlayerWallJump>(this) });
+	m_stateInformation.insert({ PlayerState::Sliding, std::make_unique<PlayerSliding>(this) });
+	m_stateInformation.insert({ PlayerState::Wire, std::make_unique<PlayerWire>(this) });
+	m_stateInformation.insert({ PlayerState::Start, std::make_unique<PlayerStart>(this) });
+	m_stateInformation.insert({ PlayerState::Death, std::make_unique<PlayerDeath>(this) });
+	m_stateInformation.insert({ PlayerState::Goal, std::make_unique<PlayerGoal>(this) });
+	m_stateInformation.insert({ PlayerState::Fall, std::make_unique<PlayerFall>(this) });
 
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -84,9 +88,14 @@ void Player::Initialize()
 		->GetD3DDevice(),
 		L"Resources/Models/Player.cmo", *m_effect);
 
-	m_commonProcessing = std::make_unique<PlayerCommonProcessing>(this);
+	//		プレイヤーのアニメーションの生成
+	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Player);
 
-	//m_information->SetPosition({ 0.0f, 500.0f, 0.0f });
+	//		当たり判定用プレイヤーの情報を生成する
+	m_playerInformationCollition = std::make_unique<PlayerInformationCollition>();
+
+	//		プレイヤーの共通処理
+	m_commonProcessing = std::make_unique<PlayerCommonProcessing>(this);
 }
 
 void Player::Update(PlayerCameraInformation* cameraInformation)
@@ -103,6 +112,12 @@ void Player::Update(PlayerCameraInformation* cameraInformation)
 	m_commonProcessing->DashCoolTime();
 
 	m_information->SetWallWalkNormalize(m_playerInformationCollition->GetWallWalkNormalize());
+
+	//		デバック用
+	if (LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->IsKeyPressed(DirectX::Keyboard::Enter))
+	{
+		m_gameManager->TrueFlag(GameManager::EndJudgement);
+	}
 }
 
 void Player::MeshUpdate()
@@ -166,6 +181,17 @@ void Player::DeathJudgement()
 {
 	//		簡易死亡判定
 	if (m_information->GetPosition().y < -150.0f)
+	{
+		//		死亡状態に切り替える
+		ChangeState(PlayerState::Death);
+
+		//		落下死をしている
+		//m_gameManager->SetFallDeadJudgement(true);
+		m_gameManager->TrueFlag(GameManager::FallDead);
+	}
+
+	//		オブジェクトに当たり死亡している場合
+	if (m_gameManager->FlagJudgement(GameManager::DamageObjectHit))
 	{
 		//		死亡状態に切り替える
 		ChangeState(PlayerState::Death);

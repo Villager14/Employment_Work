@@ -14,6 +14,8 @@ ResultScene::ResultScene(SceneManager* sceneManager)
 	m_sceneManager(sceneManager),
 	m_score(0.0f)
 {
+	//		リザルトマネージャーの生成
+	m_resultManager = std::make_unique<ResultManager>();
 }
 
 ResultScene::~ResultScene()
@@ -31,8 +33,6 @@ void ResultScene::Initialize()
 	//		スコアの計算をする
 	m_score = ScoreCalculation(m_sceneManager->GetDeathCount(), time);
 
-	//		リザルトマネージャーの生成
-	m_resultManager = std::make_unique<ResultManager>();
 
 	//		リザルトマネージャーの初期化
 	m_resultManager->Initialize(static_cast<int>(m_score), m_sceneManager->GetClearTime(),
@@ -61,7 +61,7 @@ void ResultScene::Update()
 	//		リザルトマネージャーの更新処理
 	m_resultManager->Update();
 
-	if (m_resultManager->GetChangeSceneJudgement())
+	if (m_resultManager->GetInformation()->GetChangeSceneJudgement())
 	{
 		m_sceneManager->ChangeScene(SceneManager::SceneType::Title);
 	}
@@ -75,7 +75,7 @@ void ResultScene::Render()
 
 void ResultScene::Finalize()
 {
-	m_resultManager.reset();
+	m_resultManager->Finalize();
 
 	m_score = 0.0f;
 }

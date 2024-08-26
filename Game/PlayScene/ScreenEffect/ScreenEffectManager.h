@@ -25,7 +25,6 @@ public:
 
 	enum Scene
 	{
-
 		PlayScene,
 		ResultScene,
 	};
@@ -33,13 +32,13 @@ public:
 public:
 
 	//		コンストラクタ
-	ScreenEffectManager(GameManager* gameManager);
+	ScreenEffectManager(Scene scene, GameManager* gameManager);
 
 	//		デストラクタ
 	~ScreenEffectManager();
 
 	//		初期化処理
-	void Initialize(Scene scene);
+	void Initialize();
 
 	//		アップデート
 	void Update(PlayerCameraInformation* playerCameraInformation);
@@ -58,8 +57,6 @@ public:
 
 	//		初期のレンダーターゲットにする
 	void FirstRenderTarget();
-
-	void ChangeScreenEffect();
 
 	//		グレイスケール
 	void GrayScare(MenuInformation* menuInformation);

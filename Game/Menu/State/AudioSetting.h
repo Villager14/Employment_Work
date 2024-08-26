@@ -44,7 +44,6 @@ public:
 
 	//		スライダーの更新処理
 	void SliderUpdate();
-
 private:
 
 	//		メニューマネージャーのインスタンスのポインタ
