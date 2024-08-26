@@ -23,7 +23,13 @@ public:
 	//		デストラクタ
 	~PlayerCameraInformation() {};
 
-
+	void Initialize()
+	{
+		m_angleMin = 0.0f;
+		m_viewAngle = 70.0f;
+		m_mouseSpeed = 5.0f;
+		m_angle = { 0.0f, 0.0f };
+	}
 private:
 
 	//		最大角度Y

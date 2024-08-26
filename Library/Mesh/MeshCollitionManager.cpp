@@ -9,8 +9,22 @@
 
 #include "MeshCollitionManager.h"
 
-MeshCollitionManager::MeshCollitionManager()
+MeshCollitionManager::MeshCollitionManager(GameManager* gameManager)
+	:
+	m_gameManager(gameManager)
 {
+	//		メッシュ床の当たり判定の生成
+	m_meshCollitionFloor = std::make_unique<MeshCollitionFloor>(this);
+
+	//		メッシュの壁の当たり判定
+	m_meshCollitionWall = std::make_unique<MeshCollitionWall>(this);
+
+	//		メッシュの頭の当たり判定
+	m_meshCollitionHead = std::make_unique<MeshCollitionHead>(this);
+
+	//		メッシュの共通処理の生成
+	m_commonProcessing = std::make_unique<MeshCommonProcessing>();
+
 }
 
 MeshCollitionManager::~MeshCollitionManager()
@@ -19,14 +33,6 @@ MeshCollitionManager::~MeshCollitionManager()
 
 void MeshCollitionManager::Initialize()
 {
-	//		メッシュ床の当たり判定の生成
-	m_meshCollitionFloor = std::make_unique<MeshCollitionFloor>(this);
-
-	//		メッシュの壁の当たり判定
-	m_meshCollitionWall = std::make_unique<MeshCollitionWall>(this);
-
-	//		メッシュの共通処理の生成
-	m_commonProcessing = std::make_unique<MeshCommonProcessing>();
 }
 
 void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
@@ -57,12 +63,16 @@ void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 		m_wallHitNormalize = m_meshCollitionWall->GetNormalize();
 	}
 
+	//		頭の当たり判定
+	m_meshCollitionHead->HeadCollition(objectMesh, playerPosition, height);
+
 	//		オブジェクトタイプがゴールの時
 	if (objectMesh->GetObjectType() == ObjectMesh::ObjectType::Goal &&
 		m_wallHit.size() != 0)
 	{
 		//		ゴールを設定する
-		gameManager->SetGoalJudgement(true);
+		//gameManager->SetGoalJudgement(true);
+		gameManager->TrueFlag(GameManager::GoalJudgement);
 	}
 
 	m_wallWalkPlayerPosition = m_meshCollitionWall->WallWalk(objectMesh, playerPosition);
@@ -85,8 +95,14 @@ void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 		if (objectMesh->GetObjectType() == ObjectMesh::ObjectType::Goal)
 		{
 			//		ゴールを設定する
-			gameManager->SetGoalJudgement(true);
+			gameManager->TrueFlag(GameManager::GoalJudgement);
 		}
+	}
+
+	//		ダメージオブジェクトかどうか
+	if (objectMesh->GetObjectType() == ObjectMesh::ObjectType::DamageObject)
+	{
+		DamageHitJudgement();
 	}
 }
 
@@ -95,4 +111,16 @@ void MeshCollitionManager::MeshHitPointClear()
 	m_meshHitPoint.clear();
 	//		壁の当たり判定を
 	m_wallHit.clear();
+}
+
+void MeshCollitionManager::DamageHitJudgement()
+{
+	//		ダメージオブジェクトに当たった場合
+	if (m_meshHitPoint.size() != 0 ||
+		m_wallHit.size() != 0 ||
+		m_meshCollitionHead->GetHitJudgement())
+	{
+		//		死亡状態にする
+		m_gameManager->TrueFlag(GameManager::DamageObjectHit);
+	}
 }

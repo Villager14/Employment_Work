@@ -28,7 +28,7 @@ void CommonEnemyStay::Initialize()
 void CommonEnemyStay::Update()
 {
 	//		ó‘Ô‚ð‘JˆÚ‚·‚é
-	m_commonEnemy->ChangeState(m_commonEnemy->GetVigilance());
+	m_commonEnemy->ChangeState(CommonEnemy::State::Vigilance);
 }
 
 void CommonEnemyStay::Render()
@@ -40,11 +40,13 @@ void CommonEnemyStay::Render()
 	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetPosition());
 
 	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
-	m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()
-		->GetDeviceResources()->GetD3DDeviceContext(),
-	*LibrarySingleton::GetInstance()->GetCommonState(),
-		world, LibrarySingleton::GetInstance()->GetView(),
-	LibrarySingleton::GetInstance()->GetProj());
+	//m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()
+	//	->GetDeviceResources()->GetD3DDeviceContext(),
+	//*LibrarySingleton::GetInstance()->GetCommonState(),
+	//	world, LibrarySingleton::GetInstance()->GetView(),
+	//LibrarySingleton::GetInstance()->GetProj());
+
+	m_commonEnemy->GetPlayerAnimation()->Render();
 }
 
 void CommonEnemyStay::Finalize()

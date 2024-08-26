@@ -37,10 +37,13 @@ void PlayerDeath::Initialize()
 	m_firstGravity = m_player->GetInformation()->GetGravity();
 
 	//		Ž€–Só‘Ô‚É‚·‚é
-	m_player->GetGameManager()->SetDeathJudgement(true);
+	m_player->GetGameManager()->TrueFlag(GameManager::DeathJudgement);
 
 	//		Ž€–S‰ñ”‚ð‘‚â‚·
 	m_player->GetGameManager()->SetDeathCount(m_player->GetGameManager()->GetDeathCount() + 1);
+
+	//		ƒAƒjƒ[ƒVƒ‡ƒ“ƒWƒƒƒ“ƒvó‘Ô
+	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Death);
 }
 
 void PlayerDeath::Update()
@@ -70,6 +73,12 @@ void PlayerDeath::Move()
 
 void PlayerDeath::Animation()
 {
+	//		‘Ò‹@ƒAƒjƒ[ƒVƒ‡ƒ“
+	m_player->GetAnimation()->Execute(
+		m_player->GetInformation()->GetAcceleration().Length(),
+		m_player->GetInformation()->GetPosition(),
+		m_player->GetCameraInformation()->GetAngle(),
+		m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y);
 }
 
 void PlayerDeath::Render()
@@ -95,11 +104,17 @@ void PlayerDeath::Finalize()
 												 m_player->GetInformation()->GetPosition().z});
 	m_player->GetInformation()->SetGravity(0.0f);
 	m_player->GetInformation()->SetFallTime(0.0f);
+
+	//		Ž€–Só‘Ô‚ð‰ðœ‚·‚é
+	m_player->GetGameManager()->FalseFlag(GameManager::DamageObjectHit);
+	m_player->GetGameManager()->FalseFlag(GameManager::FallDead);
+	//		ƒQ[ƒ€‚Ì‘¬“x‚ðŒ³‚É–ß‚·
+	m_player->GetGameManager()->SetGameSpeed(1.0f);
 }
 
 void PlayerDeath::Deceleration()
 {
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.4f;
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	if (m_time >= 1.0f) return;
 
@@ -122,12 +137,15 @@ void PlayerDeath::Deceleration()
 	position.y -= gravity * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	m_player->GetInformation()->SetPlanPosition(position);
+
+	//		ƒQ[ƒ€‚Ì‘¬“x‚ð’x‚­‚·‚é
+	m_player->GetGameManager()->SetGameSpeed(Library::Lerp(1.0f, 0.1f, m_slowTime));
 }
 
 void PlayerDeath::ChangeStateJudgement()
 {
 	//		Ž€–Só‘Ô‚ª‰ðœ‚³‚ê‚Îê‡
-	if (!m_player->GetGameManager()->GetDeathJudgement())
+	if (!m_player->GetGameManager()->FlagJudgement(GameManager::DeathJudgement))
 	{
 		//		•œŠˆó‘Ô‚É‚·‚é
 		m_player->ChangeState(m_player->PlayerState::Start);

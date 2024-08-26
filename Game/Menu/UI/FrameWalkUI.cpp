@@ -14,14 +14,6 @@ FrameWalkUI::FrameWalkUI()
 	m_time(0.0f),
 	m_move(0.0f)
 {
-}
-
-FrameWalkUI::~FrameWalkUI()
-{
-}
-
-void FrameWalkUI::Initialize()
-{
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/GamePlay/MenuFramework.png",
@@ -31,7 +23,14 @@ void FrameWalkUI::Initialize()
 		m_constBuffer,
 		{ 200.0f, -100.0f }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
+}
 
+FrameWalkUI::~FrameWalkUI()
+{
+}
+
+void FrameWalkUI::Initialize()
+{
 	//		âÒì]çsóÒÇëóÇÈ
 	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
 
@@ -42,7 +41,6 @@ void FrameWalkUI::Initialize()
 
 	CreateFrameInformtion(FrameType::MenuClear, { 200.0f, -100.0f });
 	CreateFrameInformtion(FrameType::EXIT, { 200.0f, 50.0f });
-
 }
 
 void FrameWalkUI::Render(float time, FrameType type)

@@ -22,16 +22,16 @@ ResultNumberMove::~ResultNumberMove()
 
 void ResultNumberMove::Initialize()
 {
-
+	m_time = 0.0f;
 }
 
 void ResultNumberMove::Update()
 {
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * MOVE_SPEED;
 
-	m_time = Library::Clamp(m_time, 0.0f, 4.0f);
+	m_time = Library::Clamp(m_time, 0.0f, MAX_TIME);
 
-	if (m_time >= 4.0f)
+	if (m_time >= MAX_TIME)
 	{
 		//		ó‘Ô‚ðØ‚è‘Ö‚¦‚é(•]‰¿ó‘Ô)
 		m_resultManager->ChangeState(ResultManager::State::Evaluation);
@@ -43,13 +43,8 @@ void ResultNumberMove::Update()
 
 void ResultNumberMove::Render()
 {
-	//		UI”wŒi‚Ì•`‰æ
-	//m_resultManager->UIViewProcess(0);
-
 	//		”Žš‚Ì•`‰æ
-	m_resultManager->GetRiseNumberShader()->Render(m_time);
-
-	//m_resultManager->NumberRender(m_time);
+	m_resultManager->GetInformation()->GetRiseNumber()->Render(m_time);
 }
 
 void ResultNumberMove::Finalize()

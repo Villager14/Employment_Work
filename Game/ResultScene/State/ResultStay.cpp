@@ -11,8 +11,7 @@
 
 ResultStay::ResultStay(ResultManager* resultManager)
 	:
-	m_resultManager(resultManager),
-	m_time(0.0f)
+	m_resultManager(resultManager)
 {
 }
 
@@ -44,13 +43,14 @@ void ResultStay::Update()
 void ResultStay::Render()
 {
 	//		•]‰¿
-	m_resultManager->GetStandardShader()->Render(ResultManager::EvaluationUI);
+	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::EvaluationUI);
 
 	//		‘JˆÚ—U“±‰æ‘œ
-	m_resultManager->GetStandardShader()->Render(ResultManager::Button);
+	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::
+		Button);
 
 	//		”Žš‚Ì•`‰æ
-	m_resultManager->GetRiseNumberShader()->Render(4.0f);
+	m_resultManager->GetInformation()->GetRiseNumber()->Render(4.0f);
 }
 
 void ResultStay::Finalize()

@@ -57,6 +57,10 @@ public:
 	//		オブジェクトの回転を設定する
 	void ObjectCreateRotation();
 
+	void Finalize();
+
+public:
+
 	struct Vertex
 	{
 		DirectX::SimpleMath::Vector3 position;

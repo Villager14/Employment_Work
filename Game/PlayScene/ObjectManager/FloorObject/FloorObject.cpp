@@ -15,11 +15,15 @@
 
 #include <WICTextureLoader.h>
 
-FloorObject::FloorObject(ShadowInformation* shadowInformation)
+FloorObject::FloorObject(ObjectManager* objectManager)
 	:
 	m_floorModel{},
-	m_shadowInformation(shadowInformation)
+	m_objectManager(objectManager)
 {
+	//		オブジェクトメッシュの生成
+	m_objectMesh = std::make_unique<ObjectMesh>();
+
+
 }
 
 FloorObject::~FloorObject()
@@ -27,11 +31,11 @@ FloorObject::~FloorObject()
 
 }
 
-void FloorObject::Initialize()
+void FloorObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector3 rotation)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
-					::GetInstance()->GetEffectFactory();
+		::GetInstance()->GetEffectFactory();
 
 	//		画像の読み込み
 	m_effect->SetDirectory(L"Resources/Models");
@@ -77,7 +81,7 @@ void FloorObject::Initialize()
 		ps_torus.size(), nullptr, m_floorPS.ReleaseAndGetAddressOf())
 	);
 
-	// テクスチャのロード 
+	// テクスチャのロード
 	DirectX::CreateWICTextureFromFile(
 		LibrarySingleton::GetInstance()
 		->GetDeviceResources()->GetD3DDevice(),
@@ -87,8 +91,6 @@ void FloorObject::Initialize()
 	);
 	*/
 
-	//		オブジェクトメッシュの生成
-	m_objectMesh = std::make_unique<ObjectMesh>();
 
 	//		初期化処理
 	m_objectMesh->Initialize(L"Resources/ModelMesh/Floor.obj");
@@ -96,23 +98,20 @@ void FloorObject::Initialize()
 	m_world *= DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0));
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0)), {0.0f, 0.0f, 0.0f});
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(rotation.x)), position);
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(0.0f, 0.0f, 0.0f);
+	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(position);
 
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Floor);
-
 }
 
 void FloorObject::Update()
 {
 }
 
-void FloorObject::Render(DrawMesh* drawMesh)
+void FloorObject::Render()
 {
-	UNREFERENCED_PARAMETER(drawMesh);
-
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	/*
@@ -148,7 +147,6 @@ void FloorObject::Render(DrawMesh* drawMesh)
 		});
 		*/
 
-
 	m_floorModel->Draw(context,
 		*LibrarySingleton::GetInstance()->GetCommonState(),
 		m_world, LibrarySingleton::GetInstance()->GetView(),
@@ -173,4 +171,5 @@ void FloorObject::Render(DrawMesh* drawMesh)
 
 void FloorObject::Finalize()
 {
+	m_floorModel.release();
 }

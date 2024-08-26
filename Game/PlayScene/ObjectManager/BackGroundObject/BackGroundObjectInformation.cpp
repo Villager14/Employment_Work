@@ -55,7 +55,7 @@ bool BackGroundObjectInformation::ChackNormalize(DirectX::SimpleMath::Vector3 no
 }
 
 /*
-*	メッシュが密集し背景オブジェクトが絶対に置けない場合を想定し２００回乱数試し
+*	メッシュが密集し背景オブジェクトが絶対に置けない場合を想定し100回乱数試し
 *	座標が決まらなかった場合処理を行わない
 */
 void BackGroundObjectInformation::RandomObjectPosition
@@ -85,8 +85,8 @@ void BackGroundObjectInformation::RandomObjectPosition
 			dot++;
 		}
 
-		//		もし200回以上になったらオブジェクトを置けないとみなす
-		if (dot > 200.0f)
+		//		もし100回以上になったらオブジェクトを置けないとみなす
+		if (dot > 100.0f)
 		{
 			break;
 		}
@@ -145,4 +145,11 @@ void BackGroundObjectInformation::ObjectCreateRotation()
 		{ DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(-10.0f, 10.0f)),
 		  DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(0.0f, 360.0f)),
 		  DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(-10.0f, 10.0f))}));
+}
+
+void BackGroundObjectInformation::Finalize()
+{
+	m_objectPosition.clear();
+	m_objectQuaternion.clear();
+	m_objectRotation.clear();
 }

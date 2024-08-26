@@ -38,6 +38,15 @@ public:
 
 	//		終了処理
 	void Finalize() override;
+
+private:
+
+	//		遷移速度
+	const float MOVE_SPEED = 2.0f;
+
+	//		最大時間
+	const float MAX_TIME = 4.0f;
+
 private:
 
 	//		リザルトマネージャー

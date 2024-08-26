@@ -19,19 +19,22 @@ class MenuInformation
 {
 public:
 	//		コンストラクタ
-	MenuInformation() 
-	:
-		m_aboveUI{nullptr},
-		m_standardShader{nullptr},
-		m_menuSelect{nullptr},
-		m_slider{nullptr},
+	MenuInformation()
+		:
+		m_aboveUI{ nullptr },
+		m_standardShader{ nullptr },
+		m_menuSelect{ nullptr },
+		m_slider{ nullptr },
 		m_frameWalkUI{ nullptr },
 		m_viewAngle(70.0f),
 		m_cameraSpeed(5.0f),
 		m_menuUseJudgement(false),
 		m_menuJudgement(false),
-		m_mouseModeChangeJdugement(true),
-		m_menuTransitionJudgement(false)
+		m_menuTransitionJudgement(false),
+		m_rangeUI(AboveUI::UIType::Empty),
+		m_slideUIType(AboveUI::UIType::Empty),
+		m_selectUI(MenuInformation::MenuType::Empty),
+		m_initializeProcessJudgement(true)
 	{}
 
 	//		デストラクタ
@@ -50,6 +53,17 @@ public:
 		GamePlaySelect,
 		Slide,
 		AudioTitle
+	};
+
+	enum MenuType
+	{
+		Start,
+		Audio,
+		Option,
+		GamePlay,
+		Close,
+
+		Empty,
 	};
 
 public:
@@ -98,7 +112,6 @@ public:
 
 	//		つまみの大きさ
 	const DirectX::SimpleMath::Vector2 KNOB_LENGTH = { 15.0f, 33.0f };
-
 private:
 
 	//		スタンダードシェーダー
@@ -116,6 +129,15 @@ private:
 	//		フレームワーク
 	FrameWalkUI* m_frameWalkUI;
 
+	//		選択UI
+	AboveUI::UIType m_rangeUI;
+
+	//		次の状態を設定する
+	MenuInformation::MenuType m_selectUI;
+
+	//		スライダーを使っているUIの種類
+	AboveUI::UIType m_slideUIType;
+
 	//		視野角
 	float m_viewAngle;
 
@@ -128,11 +150,11 @@ private:
 	//		メニューを使っているか
 	bool m_menuJudgement;
 
-	//		マウスのモードを変更するかどうか
-	bool m_mouseModeChangeJdugement;
-
 	//		メニューが遷移中かどうか
 	bool m_menuTransitionJudgement;
+
+	//		初期化処理をするかどうか
+	bool m_initializeProcessJudgement;
 
 public:
 
@@ -228,20 +250,6 @@ public:
 	void SetMenuJudgement(bool judgement) { m_menuJudgement = judgement; }
 
 	/*
-	*	マウスのモードを変更するかどうか受け取る
-	*
-	*	@returen true : 変更する　false 変更しない
-	*/
-	bool GetMouseModeJudgement() { return m_mouseModeChangeJdugement; }
-
-	/*
-	*	マウスのモードを変更するかどうか設定する
-	*
-	*	@param	(judgement)	true : 変更する　false 変更しない
-	*/
-	void SetMouseModeJudgement(bool judgement) { m_mouseModeChangeJdugement = judgement; }
-
-	/*
 	*	メニューの遷移状態かどうか受け取る
 	*
 	*	@returen true : 遷移状態開始　false 遷移状態終了
@@ -254,5 +262,61 @@ public:
 	*	@returen true : 遷移状態開始　false 遷移状態終了
 	*/
 	void SetMenuTransrationJudgement(bool judgement) { m_menuTransitionJudgement = judgement; }
+
+	/*
+	*	初期化処理を行うかどうか受け取る
+	*
+	*	@return true : 行う false : 行わない
+	*/
+	bool GetInitializeJudgement() { return m_initializeProcessJudgement; }
+
+	/*
+	*	メニューを使えるかどうか設定する
+	*
+	*	@param	(judgement)	true : 行う false : 行わない
+	*/
+	void SetInitializeJudgement(bool judgement) { m_initializeProcessJudgement = judgement; }
+
+	/*
+	*	選択UIを受け取る
+	* 
+	*	@return 選択UI
+	*/
+	AboveUI::UIType GetRangeUI() { return m_rangeUI; }
+
+	/*
+	*	選択UIを設定する
+	*
+	*	@param	(type)	タイプ
+	*/
+	void SetRangeUI(AboveUI::UIType type) { m_rangeUI = type; };
+
+	/*
+	*	次の状態を受け取る
+	*
+	*	@return 状態
+	*/
+	MenuInformation::MenuType GetSelectUI() { return m_selectUI; }
+
+	/*
+	*	次の状態を設定する
+	*
+	*	@param	(type)	状態
+	*/
+	void SetSelectUI(MenuInformation::MenuType type) { m_selectUI = type; };
+
+	/*
+	*	スライダー選択UIを受け取る
+	*
+	*	@return 選択UI
+	*/
+	AboveUI::UIType GetSliderSelectUI() { return m_slideUIType; }
+
+	/*
+	*	スライダー選択UIを設定する
+	*
+	*	@param	(type)	タイプ
+	*/
+	void SetSliderSelectUI(AboveUI::UIType type) { m_slideUIType = type; };
 
 };

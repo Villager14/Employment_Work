@@ -213,6 +213,11 @@ void PlayerJump::Jump()
 		return;
 	}
 
+	if (m_player->GetCollitionInformation()->GetCeilingJudgement())
+	{
+		m_elapsedTime = 1.0f;
+	}
+
 	//		ジャンプする時間
 	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * JUMP_SPEED;
 
@@ -268,7 +273,7 @@ void PlayerJump::ChangeStateJudgement()
 	}
 
 	//		ゴールをしているかどうか
-	if (m_player->GetGameManager()->GetGoalJudgement())
+	if (m_player->GetGameManager()->FlagJudgement(GameManager::GoalJudgement))
 	{
 		//		状態を切り替える（ゴール）
 		m_player->ChangeState(m_player->PlayerState::Goal);

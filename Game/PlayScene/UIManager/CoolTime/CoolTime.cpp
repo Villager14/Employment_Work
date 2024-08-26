@@ -17,33 +17,16 @@ CoolTime::CoolTime(UIManager* uiManager)
 	m_state(),
 	m_uiManager(uiManager)
 {
-}
-
-CoolTime::~CoolTime()
-{
-}
-
-void CoolTime::Initialize()
-{
 	//		回転シェーダーの生成
 	m_rotataionShader = std::make_unique<UIRenderManager>();
 
-		//		回転シェーダーの作製
+	//		回転シェーダーの作製
 	m_rotataionShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
 		L"Resources/Shader/CoolTime/CoolTimeVS.cso",
 		L"Resources/Shader/CoolTime/CoolTimeGS.cso",
 		L"Resources/Shader/CoolTime/CoolTimePS.cso",
 		buffer,
 		{ 270.0f, 0.0f }, { 0.6f, 0.6f });
-
-	//		ウィンドウサイズを設定する
-	circleBuffer.windowSize = DirectX::SimpleMath::Vector4(
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
-
-	//		回転量を設定する
-	circleBuffer.rotationMatrix = m_rotataionShader->GetRotationMatrix();
-
 
 	//		シェーダー描画マネージャーの生成
 	m_shader = std::make_unique<UIRenderManager>();
@@ -55,6 +38,21 @@ void CoolTime::Initialize()
 		L"Resources/Shader/Number/NumberPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 0.3f, 0.3f });
+}
+
+CoolTime::~CoolTime()
+{
+}
+
+void CoolTime::Initialize()
+{
+	//		ウィンドウサイズを設定する
+	circleBuffer.windowSize = DirectX::SimpleMath::Vector4(
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
+
+	//		回転量を設定する
+	circleBuffer.rotationMatrix = m_rotataionShader->GetRotationMatrix();
 
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(

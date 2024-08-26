@@ -65,7 +65,8 @@ void PlayerStart::Finalize()
 void PlayerStart::ChangeStateJudgement()
 {
 	//		カメラの演出が終わったら
-	if (m_player->GetGameManager()->GetGameStartJudgement())
+	//if (m_player->GetGameManager()->GetGameStartJudgement())
+	if (m_player->GetGameManager()->FlagJudgement(GameManager::GameStart))
 	{
 		//		状態を遷移する（待機状態）
 		m_player->ChangeState(m_player->PlayerState::Stay);

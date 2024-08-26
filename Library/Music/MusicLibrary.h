@@ -57,6 +57,14 @@ public:
 		Wire,
 	};
 
+public:
+
+	//		初期の効果音の大きさ
+	const float FIRST_SOUND_EFFECT_VOLUME = 0.1f;
+
+	//		初期のBGMの大きさ
+	const float FIRST_BMG_VOLUME = 0.1f;
+
 private:
 
 	//		オーディオエンジンBGM

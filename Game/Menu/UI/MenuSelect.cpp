@@ -13,14 +13,6 @@ MenuSelect::MenuSelect()
 	:
 	m_time(0.0f)
 {
-}
-
-MenuSelect::~MenuSelect()
-{
-}
-
-void MenuSelect::Initialize()
-{
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/Select/Select.png",
@@ -30,7 +22,14 @@ void MenuSelect::Initialize()
 		m_constBuffer,
 		{ 0.0f, 0.0f , }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
+}
 
+MenuSelect::~MenuSelect()
+{
+}
+
+void MenuSelect::Initialize()
+{
 	//		âÒì]çsóÒÇëóÇÈ
 	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
 

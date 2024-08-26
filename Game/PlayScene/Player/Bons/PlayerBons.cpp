@@ -9,19 +9,11 @@
 
 #include "PlayerBons.h"
 
-PlayerBons::PlayerBons()
+PlayerBons::PlayerBons(bool createHead)
 	:
 	rotation(0.0f),
 	m_elapsedTime(0.0f),
 	m_animationType{}
-{
-}
-
-PlayerBons::~PlayerBons()
-{
-}
-
-void PlayerBons::Initialize(bool createHead)
 {
 	float scale = 2.6f;
 
@@ -39,8 +31,15 @@ void PlayerBons::Initialize(bool createHead)
 	CrateBons(DirectX::SimpleMath::Vector3(0.3f, -0.2f, 0.0f) / 3.0f * scale, 1.0f, BonsType::RLegUp, BodyDown);
 	CrateBons(DirectX::SimpleMath::Vector3(0.0f, -1.15f, -0.1f) / 3.0f * scale, 1.0f, BonsType::RLegDown, RLegUp);
 	CrateBons(DirectX::SimpleMath::Vector3(0.0f, -1.3f, 0.0f) / 3.0f * scale, 1.0f, BonsType::RShoes, RLegDown);
-	if(createHead)CrateBons(DirectX::SimpleMath::Vector3(0.0f, 1.2f, 0.0f) / 3.0f * scale, 1.0f, BonsType::Head, Body);
+	if (createHead)CrateBons(DirectX::SimpleMath::Vector3(0.0f, 1.2f, 0.0f) / 3.0f * scale, 1.0f, BonsType::Head, Body);
+}
 
+PlayerBons::~PlayerBons()
+{
+}
+
+void PlayerBons::Initialize()
+{
 	//		初期のアニメーションの種類
 	m_animationType = AnimationType::Stay;
 }

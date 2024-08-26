@@ -11,14 +11,6 @@
 
 AboveUI::AboveUI()
 {
-}
-
-AboveUI::~AboveUI()
-{
-}
-
-void AboveUI::Initialize()
-{
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/Select/Audio.png",
@@ -54,9 +46,11 @@ void AboveUI::Initialize()
 	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
 		{ 480.0f, -100.0f }, { 1.0f, 1.0f }, UIType::MasterKnob);
 	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		{ 200.0f, 50.0f }, { 1.0f, 1.0f }, UIType::BGMKnob);
+		{ Library::Lerp(-81.0f, 480.0f,  MusicLibrary::GetInstance()->FIRST_BMG_VOLUME), 50.0f},
+		{1.0f, 1.0f}, UIType::BGMKnob);
 	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		{ 200.0f, 200.0f }, { 1.0f, 1.0f }, UIType::SoundEffectKnob);
+		{ Library::Lerp(-81.0f, 480.0f,  MusicLibrary::GetInstance()->FIRST_SOUND_EFFECT_VOLUME), 200.0f },
+		{ 1.0f, 1.0f }, UIType::SoundEffectKnob);
 	CreateUIInformation(L"Resources/Texture/Menu/GamePlay/CloseMenu.png",
 		{ 200.0f, -100.0f }, { 1.0f, 1.0f }, UIType::MenuClose);
 	CreateUIInformation(L"Resources/Texture/Menu/GamePlay/Exit.png",
@@ -69,7 +63,14 @@ void AboveUI::Initialize()
 		{ 90.0f, -10.0f }, { 1.0f, 1.0f }, UIType::Mouse);
 	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
 		{ 200.0f, 50.0f }, { 1.0f, 1.0f }, UIType::MouseKnob);
+}
 
+AboveUI::~AboveUI()
+{
+}
+
+void AboveUI::Initialize()
+{
 	//		âÒì]çsóÒÇëóÇÈ
 	m_constBuffer.rotationMatrix = DirectX::SimpleMath::Matrix::Identity;
 

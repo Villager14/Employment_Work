@@ -10,31 +10,59 @@
 
 #include "Library/Mesh/DrawMesh.h"
 
-class GoalObject
+#include "Library/Factory/IFactory.h"
+
+#include "Library/Factory/Factory.h"
+
+#include "Game/PlayScene/ObjectManager/ObjectManager.h"
+
+class GoalObject : public IFactory
 {
 public:
 
 	//		コンストラクタ
-	GoalObject();
+	GoalObject(ObjectManager* objectManager);
 
 	//		デストラクタ
 	~GoalObject();
 
-	//		初期化処理
-	void Initialize();
+	/*
+	*	初期化処理
+	*
+	*	@param	(position)	座標
+	*/
+	void Initialize(DirectX::SimpleMath::Vector3 position,
+		DirectX::SimpleMath::Vector3 rotation) override;
 
 	//		更新処理
-	void Update();
+	void Update() override;
 
 	/*
 	*	描画処理
 	* 
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render(DrawMesh* drawMesh);
+	void Render()override;
 
 	//		終了処理
-	void Finalize();
+	void Finalize() override;
+
+	/*
+	*	オブジェクトタイプを受け取る
+	*
+	*	@return　オブジェクトタイプ
+	*/
+	Factory::Object GetObjectType() override { return Factory::Goal; }
+
+
+	/*
+	*	オブジェクトメッシュを受け取る
+	*
+	*	@return メッシュの情報
+	*/
+	ObjectMesh* GetObjectMesh(int index) override {
+		UNREFERENCED_PARAMETER(index);
+		return m_objectMesh.get(); }
 
 private:
 
@@ -57,8 +85,9 @@ private:
 	DirectX::SimpleMath::Vector3 m_position;
 
 	//		回転量
-	float m_rotation;
+	DirectX::SimpleMath::Vector3 m_rotation;
 
+	ObjectManager* m_objectManager;
 public:
 
 	/*

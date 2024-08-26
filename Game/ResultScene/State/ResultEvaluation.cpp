@@ -22,6 +22,9 @@ ResultEvaluation::~ResultEvaluation()
 
 void ResultEvaluation::Initialize()
 {
+	m_time = 0.0f;
+
+	(*m_resultManager->GetInformation()->GetStandardShader()->GetUIInformation())[ResultInformation::EvaluationUI].scale = { 1, 0.0f };
 }
 
 void ResultEvaluation::Update()
@@ -33,17 +36,11 @@ void ResultEvaluation::Update()
 
 	float size = 0.0f;
 
-	if (m_time < 0.5f)
-	{
-		size = 4.0f * m_time * m_time * m_time;
-	}
-	else
-	{
-		size = 1.0f - pow(-2.0f * m_time + 2.0f, 3.0f) / 2.0f;
-	}
+	size = Easing(m_time);
 
 	//		•]‰¿
-	(*m_resultManager->GetStandardShader()->GetUIInformation())[ResultManager::EvaluationUI].scale = { 1, size };
+	(*m_resultManager->GetInformation()->GetStandardShader()->GetUIInformation())
+		[ResultInformation::EvaluationUI].scale = { 1.0f, size };
 
 
 	if (m_time >= 1.0f)
@@ -59,12 +56,24 @@ void ResultEvaluation::Update()
 void ResultEvaluation::Render()
 {
 	//		•]‰¿
-	m_resultManager->GetStandardShader()->Render(ResultManager::EvaluationUI);
+	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::EvaluationUI);
 
 	//		”Žš‚Ì•`‰æ
-	m_resultManager->GetRiseNumberShader()->Render(4.0f);
+	m_resultManager->GetInformation()->GetRiseNumber()->Render(4.0f);
 }
 
 void ResultEvaluation::Finalize()
 {
+}
+
+float ResultEvaluation::Easing(float time)
+{
+	if (time < 0.5f)
+	{
+		return 4.0f * time * time * time;
+	}
+	else
+	{
+		return 1.0f - pow(-2.0f * time + 2.0f, 3.0f) / 2.0f;
+	}
 }

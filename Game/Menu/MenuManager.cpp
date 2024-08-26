@@ -12,12 +12,20 @@
 MenuManager::MenuManager()
 	:
 	m_state(),
-	m_selectUI{},
 	m_type{},
-	m_rangeUI{ AboveUI::UIType::Empty },
-	m_slideUIType{AboveUI::UIType::Empty},
 	m_firstAudioMenuJudgement(true)
 {
+	//		状態の生成
+	m_menuStateInformation.insert({ MenuInformation::Start, std::make_unique<MenuStart>(this) });
+	m_menuStateInformation.insert({ MenuInformation::Audio, std::make_unique<AudioSetting>(this) });
+	m_menuStateInformation.insert({ MenuInformation::Option, std::make_unique<OptionSetting>(this) });
+	m_menuStateInformation.insert({ MenuInformation::GamePlay, std::make_unique<EndSetting>(this) });
+	m_menuStateInformation.insert({ MenuInformation::Close, std::make_unique<MenuClose>(this) });
+
+	//		UIを作成する
+	CreateUI();
+
+	m_commonProcess = std::make_unique<MenuCommonProcess>(m_information.get());
 }
 
 MenuManager::~MenuManager()
@@ -26,14 +34,8 @@ MenuManager::~MenuManager()
 
 void MenuManager::Initialize()
 {
-	//		状態の生成
-	m_menuStateInformation.insert({ Start, std::make_unique<MenuStart>(this) });
-	m_menuStateInformation.insert({ Audio, std::make_unique<AudioSetting>(this) });
-	m_menuStateInformation.insert({ Option, std::make_unique<OptionSetting>(this) });
-	m_menuStateInformation.insert({ GamePlay, std::make_unique<EndSetting>(this) });
-	m_menuStateInformation.insert({ Close, std::make_unique<MenuClose>(this) });
 
-	m_type = Start;
+	m_type = MenuInformation::Start;
 
 	//		初期の状態
 	m_state = m_menuStateInformation[m_type].get();
@@ -41,8 +43,8 @@ void MenuManager::Initialize()
 	//		初期化処理
 	m_state->Initialize();
 
-	//		UIを作成する
-	CreateUI();
+		//		マウスを相対位置にする
+	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_ABSOLUTE);
 }
 
 void MenuManager::Update()
@@ -61,15 +63,12 @@ void MenuManager::Update()
 	//		メニューを使用するかどうか
 	if (!m_information->GetMenuJudgement()) return;
 
-
-	//		マウスのモードを変更するかどうか
-	if (m_information->GetMouseModeJudgement())
+	//		初期化処理を行うかどうか
+	if (m_information->GetInitializeJudgement())
 	{
-		//		マウスを相対位置にする
-		DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_ABSOLUTE);
+		Initialize();
 
-		//		マウスのモードを変更できないようにする
-		m_information->SetMouseModeJudgement(false);
+		m_information->SetInitializeJudgement(false);
 	}
 
 	//		更新処理
@@ -78,8 +77,10 @@ void MenuManager::Update()
 	//		メニューモードを終了したとき
 	if (!m_information->GetMenuJudgement())
 	{
-		//		マウスのモードを変更できるようにする
-		m_information->SetMouseModeJudgement(true);
+		//		マウス相対モード
+		DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
+
+		Finalize();
 	}
 }
 
@@ -97,11 +98,12 @@ void MenuManager::Render()
 	LibrarySingleton::GetInstance()->DebugFont(L"MousePositionY",
 		static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().y), 0, 30);
 	LibrarySingleton::GetInstance()->DebugFont(L"HitJudgement",
-		BoxCollider(m_information->GAMEPLAY_TITLE_POSITION_MIN, m_information->GAMEPLAY_TITLE_POSITION_MAX), 0, 60);
+		m_commonProcess->BoxCollider(m_information->GAMEPLAY_TITLE_POSITION_MIN, m_information->GAMEPLAY_TITLE_POSITION_MAX), 0, 60);
 }
 
 void MenuManager::Finalize()
 {
+	m_information->SetInitializeJudgement(true);
 }
 
 void MenuManager::MenuBackRneder()
@@ -114,25 +116,6 @@ void MenuManager::MenuBackRneder()
 
 	//		バー２の描画
 	m_information->GetStandardShader()->Render(MenuInformation::UIType::Bar2);
-}
-
-bool MenuManager::BoxCollider(DirectX::SimpleMath::Vector2 min, DirectX::SimpleMath::Vector2 max)
-{
-	DirectX::SimpleMath::Vector2 mousePosition;
-
-	mousePosition.x = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().x);
-	mousePosition.y = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().y);
-
-	//		範囲内にマウスがあるかどうか
-	if (min.x <= mousePosition.x && max.x >= mousePosition.x &&
-		min.y <= mousePosition.y && max.y >= mousePosition.y)
-	{
-		//		範囲内
-		return true;
-	}
-
-	//		範囲外
-	return false;
 }
 
 void MenuManager::CreateUI()
@@ -198,11 +181,11 @@ void MenuManager::RoughMenuViwe(float transitionTime)
 void MenuManager::MenuSelectView()
 {
 	//		選択していない場合描画処理をしない
-	if (m_rangeUI != AboveUI::UIType::Empty)
-		m_information->GetMenuSelect()->Render((*m_information->GetAboveUI()->GetInformation())[m_rangeUI].position);
+	if (m_information->GetRangeUI() != AboveUI::UIType::Empty)
+		m_information->GetMenuSelect()->Render((*m_information->GetAboveUI()->GetInformation())[m_information->GetRangeUI()].position);
 }
 
-void MenuManager::ChangState(MenuType type)
+void MenuManager::ChangState(MenuInformation::MenuType type)
 {
 	//		同じタイプの場合処理をしない
 	if (m_type == type) return;
@@ -218,93 +201,6 @@ void MenuManager::ChangState(MenuType type)
 
 	//		初期化処理
 	m_state->Initialize();
-}
-
-bool MenuManager::MenuEscCloseProcess()
-{
-	//		ESCキーを押した場合
-	if (LibrarySingleton::GetInstance()->GetKeyboardStateTracker()
-		->IsKeyPressed(DirectX::Keyboard::Escape))
-	{
-		return true;
-	}
-
-	return false;
-}
-
-bool MenuManager::ButtonCollider(MenuType type)
-{
-	MenuType hitType = MenuType::Empty;
-
-	//		範囲内にいるかどうかのフラグ
-	bool hitJudgement = false;
-
-	//		Audioの大まかボタン内にいるか？
-	if (BoxCollider(m_information->AUDIO_TITLE_POSITION_MIN, m_information->AUDIO_TITLE_POSITION_MAX))
-	{
-		//		範囲内にいるUIをAudioにする
-		m_rangeUI = AboveUI::AudioSelect;
-
-		//		範囲内にいる
-		hitJudgement = true;
-
-		//		範囲にいるものが現在の状態でなければ処理をする
-		if (MenuType::Audio != type)
-			hitType = MenuType::Audio;
-	}
-	
-	//		Optionの大まかなボタン内にいるか？
-	if (BoxCollider(m_information->OPTION_TITLE_POSITION_MIN, m_information->OPTION_TITLE_POSITION_MAX))
-	{
-		//		範囲内にいるUIをOptionにする
-		m_rangeUI = AboveUI::OptionSelect;
-
-		//		範囲内にいる
-		hitJudgement = true;
-
-		//		範囲にいるものが現在の状態でなければ処理をする
-		if (MenuType::Option != type)
-			hitType = MenuType::Option;
-	}
-	
-	//		Backの大まかなボタンの中にいるか？
-	if (BoxCollider(m_information->GAMEPLAY_TITLE_POSITION_MIN, m_information->GAMEPLAY_TITLE_POSITION_MAX))
-	{
-		//		範囲内にいるUIをGamePlayにする
-		m_rangeUI = AboveUI::GamePlaySelect;
-
-		//		範囲内にいる
-		hitJudgement = true;
-
-		//		範囲にいるものが現在の状態でなければ処理をする
-		if (MenuType::GamePlay != type)
-			hitType = MenuType::GamePlay;
-	}
-
-	//		範囲内にいない場合
-	if (!hitJudgement)
-	{
-		//		選択していない状態にする
-		m_rangeUI = AboveUI::Empty;
-		
-		//		時間のリセット
-		m_information->GetMenuSelect()->TimeReset();
-	}
-
-	//		当たっていない場合これ以上処理をしない
-	if (hitType == Empty) return false;
-
-	//		範囲内でクリックした場合
-	if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
-		== DirectX::Mouse::ButtonStateTracker().PRESSED)
-	{
-		//		クリックした状態を代入する
-		m_selectUI = hitType;
-
-		return true;
-	}
-
-	return false;
 }
 
 bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, float* transitionTime3,
@@ -388,7 +284,7 @@ bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, flo
 			if (*transitionTime3 <= 0.0f)
 			{
 				//		シーンを切り替える
-				ChangState(MenuType::Close);
+				ChangState(MenuInformation::MenuType::Close);
 			}
 		}
 		else
@@ -396,7 +292,7 @@ bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, flo
 			if (*transitionTime2 <= 0.0f)
 			{
 				//		シーンを切り替える
-				ChangState(m_selectUI);
+				ChangState(m_information->GetSelectUI());
 			}
 		}
 
@@ -404,47 +300,4 @@ bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, flo
 	}
 
 	return false;
-}
-
-void MenuManager::SlideProcess(AboveUI::UIType type)
-{
-	//		現在の座標
-	DirectX::SimpleMath::Vector2 nowPosition = (*m_information->GetAboveUI()->GetInformation())[type].position;
-
-	//		中心座標
-	nowPosition += {  LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f,
-					  LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f };
-
-	DirectX::SimpleMath::Vector2 max = nowPosition + m_information->KNOB_LENGTH;
-	DirectX::SimpleMath::Vector2 min = nowPosition - m_information->KNOB_LENGTH;
-
-	if (BoxCollider(min, max))
-	{
-		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
-			== DirectX::Mouse::ButtonStateTracker().PRESSED)
-		{
-			m_slideUIType = type;
-		}
-	}
-	
-	if (m_slideUIType == type)
-	{
-		(*m_information->GetAboveUI()->GetInformation())[type].position.x = static_cast<float>
-			(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().x) - 640.0f;
-
-		(*m_information->GetAboveUI()->GetInformation())[type].position.x = Library::Clamp
-		((*m_information->GetAboveUI()->GetInformation())[type].position.x,
-			559 - 640.0f, 1120 - 640.0f);
-
-
-		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
-			== DirectX::Mouse::ButtonStateTracker().RELEASED)
-		{
-			//		効果音の場合のみ離したとき効果音を鳴らす
-			if (m_slideUIType == AboveUI::UIType::SoundEffectKnob)
-				MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
-
-			m_slideUIType = AboveUI::UIType::Empty;
-		}
-	}
 }

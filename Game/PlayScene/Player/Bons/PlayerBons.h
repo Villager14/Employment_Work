@@ -16,13 +16,13 @@ class PlayerBons
 public:
 
 	//		コンストラクタ
-	PlayerBons();
+	PlayerBons(bool createHead = false);
 
 	//		デストラクタ
 	~PlayerBons();
 
 	//		初期化
-	void Initialize(bool createHead);
+	void Initialize();
 
 	/*
 	*	ボーンの作成

@@ -22,9 +22,10 @@ ResultManager::ResultManager()
 	m_deathCount(0),
 	m_iState(),
 	m_rotation(0.0f),
-	m_changeScene(false),
-	m_state{}
+	m_state{},
+	m_menuUseJudgement(false)
 {
+	Generation();
 }
 
 ResultManager::~ResultManager()
@@ -37,20 +38,70 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	m_time = time;
 	m_deathCount = deathCount;
 
+
+	//		数字上昇シェーダーの初期化
+	m_riseNumber->Initialize(m_deathCount, m_time, m_score);
+
+	//		スクリーンエフェクトの初期化
+	m_screenEffectManager->Initialize();
+
+	//		プレイヤーのアニメーション初期化
+	m_playerAnimation->Initialize();
+
+	//		初期化
+	m_information->Initialize(m_shader.get(), m_riseNumber.get(),
+		m_fade.get(), m_backGroundMove.get(),
+		m_screenEffectManager.get(),
+		m_playerAnimation.get());
+
+	
+
+	//		初期状態を代入する
+	m_state = State::Start;
+
+	//		初期状態を設定する
+	m_iState = m_stateInformation[m_state].get();
+
+	//		状態を初期化する
+	m_iState->Initialize();
+}
+
+void ResultManager::Generation()
+{
+	//		フェード描画の作製
+	m_fade = std::make_unique<UIRenderManager>();
+
 	//		背景の生成
 	m_backGroundMove = std::make_unique<BackGroundMove>();
-
-	//		背景の初期化
-	m_backGroundMove->Initialize();
 
 	//		数字上昇シェーダーの生成
 	m_riseNumber = std::make_unique<RiseNumberShader>();
 
-	//		数字上昇シェーダーの初期化
-	m_riseNumber->Initialize(m_deathCount, m_time, m_score);
+	//		プレイヤーのアニメーションの作製
+	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Result);
+
+	//		スクリーンエフェクトマネージャーの作製
+	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
+
+	//		情報を生成する
+	m_information = std::make_unique<ResultInformation>();
+
+
+	//		背景の初期化
+	m_backGroundMove->Initialize();
+
+	//		スタンダードシェーダーの作製
+	CreateStandardShader();
+
+	//		状態を作成する
+	CreateState();
+
+	//--
+	//	フェード初期処理
+	//--
 	
-	//		フェード描画の作製
-	m_fade = std::make_unique<UIRenderManager>();
+	//		バッファ
+	ResultInformation::ConstBuffer buffer = m_information->GetBuffer();
 
 	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
 		L"Resources/Shader/Fade/FadeShaderVS.cso",
@@ -67,60 +118,41 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	//		回転量を設定する
 	buffer.rotationMatrix = m_fade->GetRotationMatrix();
 
-	//		スタンダードシェーダーの作製
-	CreateStandardShader();
-
-	//		状態を作成する
-	CreateState();
-
-	//		スクリーンエフェクトマネージャーの作製
-	m_screenEffectManager = std::make_unique<ScreenEffectManager>(nullptr);
-
-	//		スクリーンエフェクトの初期化
-	m_screenEffectManager->Initialize(ScreenEffectManager::ResultScene);
-
-	//		プレイヤーのアニメーションの作製
-	m_playerAnimation = std::make_unique<PlayerAnimation>();
-
-	//		プレイヤーのアニメーション初期化
-	m_playerAnimation->Initialize(true);
-
-	//		直立状態
-	m_playerAnimation->ChangeState(m_playerAnimation->Upright);
+	m_information->SetBuffer(buffer);
 }
 
 void ResultManager::Update()
 {
-
 	//		状態の更新
 	m_iState->Update();
 
 	//		プレイヤーの回転
-	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * PLAYER_ROTATION_SPEED;
+	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->PLAYER_ROTATION_SPEED;
 
 	//		プレイヤーのアニメーション
-	m_playerAnimation->Execute(0.0f, PLAYER_POSITION, { m_rotation, 0.0f }, PLAYER_HEIGHT);
+	m_information->GetAnimation()->Execute(0.0f, m_information->PLAYER_POSITION,
+		{m_rotation + 180.0f, 0.0f}, m_information->PLAYER_HEIGHT);
 }
 
 void ResultManager::Render()
 {
 	//		レンダーターゲットの変更
-	m_screenEffectManager->ChangeRenderTarget();
+	m_information->GetScreenEffect()->ChangeRenderTarget();
 
 	//		プレイヤーの描画(ワイヤー)
-	m_playerAnimation->Render(true);
+	m_information->GetAnimation()->Render();
 
 	//		レンダーターゲットを戻す
-	m_screenEffectManager->FirstRenderTarget();
+	m_information->GetScreenEffect()->FirstRenderTarget();
 
 	//		移動背景の描画
-	m_backGroundMove->Render();
+	m_information->GetBackGround()->Render();
 
 	//		背景の描画(UI)
-	m_shader->Render(ResultUIType::Back);
+	m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::Back);
 
 	//		レンダーターゲットの描画
-	m_screenEffectManager->Render();
+	m_information->GetScreenEffect()->Render();
 
 	//		状態の描画
 	m_iState->Render();
@@ -128,8 +160,12 @@ void ResultManager::Render()
 
 void ResultManager::Finalize()
 {
-}
+	m_information->GetRiseNumber();
 
+	m_information->Finalize();
+
+	m_rotation = 0.0f;
+}
 
 void ResultManager::CreateState()
 {
@@ -139,15 +175,6 @@ void ResultManager::CreateState()
 	m_stateInformation.insert({ State::Evaluation, std::make_unique<ResultEvaluation>(this) });
 	m_stateInformation.insert({ State::Stay, std::make_unique<ResultStay>(this) });
 	m_stateInformation.insert({ State::End, std::make_unique<ResultEnd>(this) });
-
-	//		初期状態を代入する
-	m_state = State::Start;
-
-	//		初期状態を設定する
-	m_iState = m_stateInformation[m_state].get();
-
-	//		状態を初期化する
-	m_iState->Initialize();
 }
 
 void ResultManager::AnimationSkip()
@@ -170,7 +197,7 @@ void ResultManager::AnimationSkip()
 void ResultManager::CreateStandardShader()
 {
 	//		リザルトUIマネージャーの生成
-	m_shader = std::make_unique<StandardShader<ResultManager::ResultUIType>>();
+	m_shader = std::make_unique<StandardShader<ResultInformation::ResultUIType>>();
 
 	//		初期化処理
 	m_shader->Initialize();
@@ -178,41 +205,41 @@ void ResultManager::CreateStandardShader()
 	//		背景画像
 	m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/ResultBack.png",
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f },
-		ResultManager::ResultUIType::Back);
+		ResultInformation::ResultUIType::Back);
 
 	//		スコアによって評価を変える
-	if (2000.0f > m_score)
+	if (m_information->SCORE_A > m_score)
 	{
 		//		A評価の生成
 		m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/ScoreA.png",
-			{ 350.0f, 150.0f }, { 0.0f, 0.0f },
-			ResultManager::ResultUIType::EvaluationUI);
+			m_information->SCORE_POSITION, { 0.0f, 0.0f },
+			ResultInformation::ResultUIType::EvaluationUI);
 	}
-	else if (1000.0f > m_score)
+	else if (m_information->SCORE_B > m_score)
 	{
 		//		B評価の生成
 		m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/ScoreB.png",
-			{ 350.0f, 150.0f }, { 0.0f, 0.0f },
-			ResultManager::ResultUIType::EvaluationUI);
+			m_information->SCORE_POSITION, { 0.0f, 0.0f },
+			ResultInformation::ResultUIType::EvaluationUI);
 	}
 	else
 	{
 		//		C評価の生成
 		m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/ScoreC.png",
-			{ 350.0f, 150.0f }, { 0.0f, 0.0f },
-			ResultManager::ResultUIType::EvaluationUI);
+			m_information->SCORE_POSITION, { 0.0f, 0.0f },
+			ResultInformation::ResultUIType::EvaluationUI);
 	}
 
 	//		次のシーン誘導の生成
 	m_shader->CreateUIInformation(L"Resources/Texture/UI/GameOver/button.png",
-		{ 0.0f, 280.0f }, { 1.0f, 1.0f },
-		ResultManager::ResultUIType::Button);
+		m_information->NEXT_SCENE, { 1.0f, 1.0f },
+		ResultInformation::ResultUIType::Button);
 }
 
 void ResultManager::BackGroundUpdate()
 {
 	//		背景の更新
-	m_backGroundMove->Update();
+	m_information->GetBackGround()->Update();
 }
 
 void ResultManager::ChangeState(State state)

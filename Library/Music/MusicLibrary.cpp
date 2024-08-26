@@ -13,13 +13,14 @@ std::unique_ptr<MusicLibrary> MusicLibrary::m_library = nullptr;
 
 MusicLibrary::MusicLibrary()
 	:
-	m_bgmVolume(0.5f),
-	m_maxVolume(0.5f),
-	m_soundEffectVolum(0.5f),
+	m_bgmVolume(0.0f),
+	m_maxVolume(FIRST_BMG_VOLUME),
+	m_soundEffectVolum(FIRST_SOUND_EFFECT_VOLUME),
 	m_mastarVolume(1.0f),
 	m_nowBGM(Empty)
 {
-
+	//m_bgmVolume = FIRST_BMG_VOLUME;
+	//m_soundEffectVolum = FIRST_SOUND_EFFECT_VOLUME;
 }
 
 MusicLibrary::~MusicLibrary()

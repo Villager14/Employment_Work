@@ -44,7 +44,7 @@ void AudioSetting::Update()
 		&m_transitionRoughTime, &m_startJudgement, m_endJudgement, m_menuCloseJudgement)) return;
 
 	//		ESCでメニューをとじる処理
-	if (m_menuManager->MenuEscCloseProcess())
+	if (m_menuManager->GetCommonProcess()->MenuEscCloseProcess())
 	{
 		//		メニューを閉じる状態にする
 		m_endJudgement = true;
@@ -52,7 +52,7 @@ void AudioSetting::Update()
 	}
 
 	//		大まかなメニューボタンの処理
-	if (m_menuManager->ButtonCollider(MenuManager::MenuType::Audio))
+	if (m_menuManager->GetCommonProcess()->ButtonCollider(MenuInformation::MenuType::Audio))
 	{
 		m_endJudgement = true;
 	}
@@ -117,9 +117,9 @@ void AudioSetting::SliderView(float transitionTime)
 
 void AudioSetting::SliderUpdate()
 {
-	m_menuManager->SlideProcess(AboveUI::UIType::MasterKnob);
-	m_menuManager->SlideProcess(AboveUI::UIType::BGMKnob);
-	m_menuManager->SlideProcess(AboveUI::UIType::SoundEffectKnob);
+	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::MasterKnob);
+	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::BGMKnob);
+	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::SoundEffectKnob);
 
 	//		マスターボリュームのスライダーの更新
 	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::MastarVolum].slideVal =

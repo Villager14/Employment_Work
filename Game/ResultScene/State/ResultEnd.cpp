@@ -24,6 +24,8 @@ void ResultEnd::Initialize()
 {
 	//		メニューを使えないようにする
 	m_resultManager->SetMenuUseJugement(false);
+
+	m_time = 1.0f;
 }
 
 void ResultEnd::Update()
@@ -38,23 +40,23 @@ void ResultEnd::Update()
 	if (m_time <= 0.0f)
 	{
 		//		タイトルシーンへ
-		m_resultManager->SetChangeSceneJudgement(true);
+		m_resultManager->GetInformation()->SetChangeSceneJudgement(true);
 	}
 }
 
 void ResultEnd::Render()
 {
 	//		評価
-	m_resultManager->GetStandardShader()->Render(ResultManager::EvaluationUI);
+	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::EvaluationUI);
 
 	//		遷移誘導画像
-	m_resultManager->GetStandardShader()->Render(ResultManager::Button);
+	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::Button);
 
 	//		数字の描画
-	m_resultManager->GetRiseNumberShader()->Render(4.0f);
+	m_resultManager->GetInformation()->GetRiseNumber()->Render(4.0f);
 
 	//		フェード処理
-	m_resultManager->FadeViewProcess(m_time);
+	m_resultManager->GetInformation()->FadeViewProcess(m_time);
 }
 
 void ResultEnd::Finalize()

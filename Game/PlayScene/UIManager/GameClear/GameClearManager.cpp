@@ -18,14 +18,6 @@ GameClearManager::GameClearManager(GameManager* gameManager, UIManager* uiManage
 	m_move(0.0f),
 	m_uiManager(uiManager)
 {
-}
-
-GameClearManager::~GameClearManager()
-{
-}
-
-void GameClearManager::Initialize()
-{
 	//		メッセージ描画シェーダーの生成
 	m_messageShader = std::make_unique<UIRenderManager>();
 
@@ -35,8 +27,16 @@ void GameClearManager::Initialize()
 		L"Resources/Shader/CenterShader/CenterShaderGS.cso",
 		L"Resources/Shader/CenterShader/CenterShaderPS.cso",
 		buffer,
-		{0.0f, 0.0f}, {1.0f, 1.0f}
+		{ 0.0f, 0.0f }, { 1.0f, 1.0f }
 	);
+}
+
+GameClearManager::~GameClearManager()
+{
+}
+
+void GameClearManager::Initialize()
+{
 
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
@@ -50,7 +50,7 @@ void GameClearManager::Initialize()
 void GameClearManager::Update()
 {
 	//		ゲームクリア状態ではないなら処理をしない
-	if (!m_gameManager->GetGoalJudgement()) return;
+	if (!m_gameManager->FlagJudgement(GameManager::GoalJudgement)) return;
 
 	if (m_scale < 1.0f)
 	{
@@ -103,6 +103,9 @@ void GameClearManager::Update()
 
 void GameClearManager::Render()
 {
+	//		ゲームクリア状態ではないなら処理をしない
+	if (!m_gameManager->FlagJudgement(GameManager::GoalJudgement)) return;
+
 	m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameClearBackGround);
 
 	m_messageShader->Render(buffer);
@@ -113,4 +116,7 @@ void GameClearManager::Render()
 
 void GameClearManager::Finalize()
 {
+	m_elapsedTime = 0.0f;
+	m_scale = 0.0f;
+	m_move = 0.0f;
 }

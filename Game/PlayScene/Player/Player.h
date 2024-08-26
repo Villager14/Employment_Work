@@ -19,7 +19,7 @@
 
 #include "PlayerInformation.h"
 
-#include "Bons/PlayerAnimation.h"
+#include "Library/Animation/AnimationManager.h"
 
 #include "State/PlayerStay.h"
 #include "State/PlayerWalk.h"
@@ -58,6 +58,9 @@ public:
 
 	//		初期化処理
 	void Initialize();
+
+	//		生成処理
+	void Generation();
 
 	//		更新処理
 	void Update(PlayerCameraInformation* cameraInformation);
@@ -127,7 +130,7 @@ private:
 	IPlayer* m_state;
 
 	//		プレイヤーのアニメーションの処理
-	std::unique_ptr<PlayerAnimation> m_playerAnimation;
+	std::unique_ptr<AnimationManager> m_playerAnimation;
 
 	//		当たり判定の情報
 	CollitionInformation* m_collitionInformation;
@@ -224,7 +227,7 @@ public:
 	* 
 	*	@return ポインタのインスタンス
 	*/
-	PlayerAnimation* GetAnimation() { return m_playerAnimation.get(); }
+	AnimationManager* GetAnimation() { return m_playerAnimation.get(); }
 
 	/*
 	*	ワイヤーの情報を設定する

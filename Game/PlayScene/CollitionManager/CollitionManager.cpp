@@ -9,8 +9,15 @@
 
 #include "CollitionManager.h"
 
-CollitionManager::CollitionManager()
+CollitionManager::CollitionManager(GameManager* gameManager)
+	:
+	m_gameManager(gameManager)
 {
+	//		メッシュの当たり判定の生成
+	m_meshCollition = std::make_unique<MeshCollitionManager>(gameManager);
+
+	//		当たり判定の情報
+	m_collitionInformation = std::make_unique<CollitionInformation>();
 }
 
 CollitionManager::~CollitionManager()
@@ -19,17 +26,12 @@ CollitionManager::~CollitionManager()
 
 void CollitionManager::Initialize()
 {
-	//		メッシュの当たり判定の生成
-	m_meshCollition = std::make_unique<MeshCollitionManager>();
-
 	//		初期化処理の
-	m_meshCollition->Initialize();
+	//m_meshCollition->Initialize();
 
 	//		弾の当たり判定の生成
-	m_bulletCollition = std::make_unique<BulletCollition>();
+	//m_bulletCollition = std::make_unique<BulletCollition>();
 
-	//		当たり判定の情報
-	m_collitionInformation = std::make_unique<CollitionInformation>();
 }
 
 void CollitionManager::Update(PlayerInformationCollition* playerInformationCollition,
@@ -50,7 +52,6 @@ void CollitionManager::Update(PlayerInformationCollition* playerInformationColli
 	//		依然の当たり判定を削除する
 	m_collitionInformation->Clear();
 
-
 	//		静的な当たり判定
 	for (int i = 0; i < m_objectMesh.size(); ++i)
 	{
@@ -63,6 +64,13 @@ void CollitionManager::Update(PlayerInformationCollition* playerInformationColli
 			//		床の当たり判定の情報を設定する
 			m_collitionInformation->FloorMeshInformation(m_meshCollition->GetMeshHitPoint(),
 				m_meshCollition->GetFloorNormalize(), m_playerPosition);
+
+			//		天井に当たっている場合
+			if (m_meshCollition->GetHeadHitJudgement())
+			{
+				//		当たっている
+				m_collitionInformation->SetCeilingJudgement(true);
+			}
 
 			//		壁の当たり判定情報を設定する
 			m_playerPosition = m_collitionInformation->WallMeshInformation(
@@ -85,5 +93,5 @@ void CollitionManager::Update(PlayerInformationCollition* playerInformationColli
 	}
 
 	//		弾の当たり判定
-	m_bulletCollition->Collition(playerInformationCollition->GetPlayerPosition(), playerInformationCollition->GetPlayerHeight(), m_bulletPosition);
+	//m_bulletCollition->Collition(playerInformationCollition->GetPlayerPosition(), playerInformationCollition->GetPlayerHeight(), m_bulletPosition);
 }

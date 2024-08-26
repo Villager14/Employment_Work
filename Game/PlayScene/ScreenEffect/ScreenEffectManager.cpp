@@ -10,23 +10,15 @@
 #include "ScreenEffectManager.h"
 
 
-ScreenEffectManager::ScreenEffectManager(GameManager* gameManager)
+ScreenEffectManager::ScreenEffectManager(Scene scene, GameManager* gameManager)
 	:
 	m_gameManager(gameManager),
 	m_shaderResouceView(),
 	m_scene(),
 	m_backColor()
 {
-}
-
-ScreenEffectManager::~ScreenEffectManager()
-{
-}
-
-void ScreenEffectManager::Initialize(Scene scene)
-{
 	CreateRenderTexture();
-	
+
 	m_scene = scene;
 
 	if (m_scene == Scene::PlayScene)
@@ -48,6 +40,14 @@ void ScreenEffectManager::Initialize(Scene scene)
 		//		îwåiÇÃêF
 		m_backColor = DirectX::Colors::Black;
 	}
+}
+
+ScreenEffectManager::~ScreenEffectManager()
+{
+}
+
+void ScreenEffectManager::Initialize()
+{
 }
 
 void ScreenEffectManager::Update(PlayerCameraInformation* playerCameraInformation)

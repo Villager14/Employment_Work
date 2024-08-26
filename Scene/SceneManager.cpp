@@ -37,7 +37,7 @@ void SceneManager::Initialize()
 	m_sceneInformation.insert({ SceneType::Result, std::make_unique<ResultScene>(this) });
 
 	//		初期のシーンタイプを設定する
-	m_sceneType = SceneType::Play;
+	m_sceneType = SceneType::Title;
 
 	//		シーンを設定する
 	m_scene = m_sceneInformation[m_sceneType].get();
@@ -53,13 +53,6 @@ void SceneManager::Update()
 
 	//		メニューマネージャーの更新
 	m_menuManager->Update();
-
-	//		プレイシーンの場合マウスを元に戻す
-	if (!m_menuManager->GetInformation()->GetMenuJudgement() && m_sceneType == SceneType::Play)
-	{
-		//		マウス相対モード
-		DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
-	}
 }
 
 void SceneManager::Render()

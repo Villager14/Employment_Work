@@ -199,6 +199,7 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h" />
     <ClInclude Include="Game\Menu\IMenu.h" />
+    <ClInclude Include="Game\Menu\MenuCommonProcess.h" />
     <ClInclude Include="Game\Menu\MenuInformation.h" />
     <ClInclude Include="Game\Menu\MenuInformationRead.h" />
     <ClInclude Include="Game\Menu\MenuManager.h" />
@@ -231,26 +232,12 @@
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObjectInformation.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\StayAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WalkAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallJumpAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\AnimationState\WireJumpAnimationState.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\BonInformation.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\IPlayerAnimationState.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\PlayerAnimation.h" />
     <ClInclude Include="Game\PlayScene\Player\Bons\PlayerBons.h" />
     <ClInclude Include="Game\PlayScene\Player\IPlayer.h" />
     <ClInclude Include="Game\PlayScene\Player\Player.h" />
@@ -288,6 +275,7 @@
     <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
     <ClInclude Include="Game\ResultScene\IResultManager.h" />
+    <ClInclude Include="Game\ResultScene\ResultInformation.h" />
     <ClInclude Include="Game\ResultScene\ResultManager.h" />
     <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h" />
     <ClInclude Include="Game\ResultScene\State\ResultEnd.h" />
@@ -302,9 +290,32 @@
     <ClInclude Include="Game\TitleScene\State\SelectPlayState.h" />
     <ClInclude Include="Game\TitleScene\State\SelectSettingState.h" />
     <ClInclude Include="Game\TitleScene\State\StartSceneState.h" />
+    <ClInclude Include="Game\TitleScene\TitleCommonProcess.h" />
+    <ClInclude Include="Game\TitleScene\TitleInformation.h" />
     <ClInclude Include="Game\TitleScene\TitleSelectManager.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
+    <ClInclude Include="Library\Animation\AnimationCommonProcess.h" />
+    <ClInclude Include="Library\Animation\AnimationInformation.h" />
+    <ClInclude Include="Library\Animation\AnimationManager.h" />
+    <ClInclude Include="Library\Animation\IAnimation.h" />
+    <ClInclude Include="Library\Animation\State\Player\AttackAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\CrouchingStayAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\CrouchingWalkAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\DashAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\DropDeadAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\FallAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\JumpAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\SlidingAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\StartAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\StayAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\UprightAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\WalkAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\WallJumpAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\WallWalkAnimationState.h" />
+    <ClInclude Include="Library\Animation\State\Player\WireJumpAnimationState.h" />
     <ClInclude Include="Library\Bones\ModelBons.h" />
+    <ClInclude Include="Library\Factory\Factory.h" />
+    <ClInclude Include="Library\Factory\IFactory.h" />
     <ClInclude Include="Library\Library.h" />
     <ClInclude Include="Library\LibrarySingleton.h" />
     <ClInclude Include="Library\Mesh\DrawMesh.h" />
@@ -342,6 +353,7 @@
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.cpp" />
+    <ClCompile Include="Game\Menu\MenuCommonProcess.cpp" />
     <ClCompile Include="Game\Menu\MenuManager.cpp" />
     <ClCompile Include="Game\Menu\State\AudioSetting.cpp" />
     <ClCompile Include="Game\Menu\State\EndSetting.cpp" />
@@ -371,23 +383,10 @@
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingStayAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\CrouchingWalkAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\DashAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\FallAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\JumpAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\SlidingAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StartAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\StayAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\UprightAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WalkAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallJumpAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WallWalkAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\AnimationState\WireJumpAnimationState.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\PlayerAnimation.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Player.cpp" />
     <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp" />
@@ -433,9 +432,28 @@
     <ClCompile Include="Game\TitleScene\State\SelectPlayState.cpp" />
     <ClCompile Include="Game\TitleScene\State\SelectSettingState.cpp" />
     <ClCompile Include="Game\TitleScene\State\StartSceneState.cpp" />
+    <ClCompile Include="Game\TitleScene\TitleCommonProcess.cpp" />
     <ClCompile Include="Game\TitleScene\TitleSelectManager.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
+    <ClCompile Include="Library\Animation\AnimationCommonProcess.cpp" />
+    <ClCompile Include="Library\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\AttackAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\CrouchingStayAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\CrouchingWalkAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\DashAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\DropDeadAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\FallAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\JumpAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\SlidingAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\StartAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\StayAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\UprightAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\WalkAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\WallJumpAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\WallWalkAnimationState.cpp" />
+    <ClCompile Include="Library\Animation\State\Player\WireJumpAnimationState.cpp" />
     <ClCompile Include="Library\Bones\ModelBons.cpp" />
+    <ClCompile Include="Library\Factory\Factory.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
     <ClCompile Include="Library\Mesh\DrawMesh.cpp" />
     <ClCompile Include="Library\Mesh\LeadMesh.cpp" />
@@ -512,6 +530,51 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\Body.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\BodyUnder.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\Head.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LArmAbove.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LArmUnder.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LHand.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LLeagAbove.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LLeagUnder.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\LShoes.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RArmAbove.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RArmUnder.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RHand.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RLeagAbove.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RLeagUnder.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Enemy\RShoes.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\Floor.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -519,6 +582,12 @@
     <MeshContentTask Include="FBX\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Grider\Grinder.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Grider\GrinderRotation.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

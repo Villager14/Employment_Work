@@ -87,6 +87,6 @@ void PlayerGoal::ChangeSceneJudgement()
 		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 	{
 		//		リザルトシーンへ
-		m_player->GetGameManager()->SetEndJudgement(true);
+		m_player->GetGameManager()->TrueFlag(GameManager::EndJudgement);
 	}
 }

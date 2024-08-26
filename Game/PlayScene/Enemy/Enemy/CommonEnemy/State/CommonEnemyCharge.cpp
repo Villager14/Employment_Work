@@ -46,7 +46,7 @@ void CommonEnemyCharge::Update()
 	if (m_chargeTime >= 1.0f)
 	{
 		//		ó‘Ô‚ð‘JˆÚ‚·‚é
-		m_commonEnemy->ChangeState(m_commonEnemy->GetAttack());
+		m_commonEnemy->ChangeState(CommonEnemy::State::Attack);
 	}
 }
 
@@ -59,11 +59,13 @@ void CommonEnemyCharge::Render()
 	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetPosition());
 
 	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
-	m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()
-		->GetDeviceResources()->GetD3DDeviceContext(),
-	*LibrarySingleton::GetInstance()->GetCommonState(),
-		world, LibrarySingleton::GetInstance()->GetView(),
-	LibrarySingleton::GetInstance()->GetProj());
+	//m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()
+	//	->GetDeviceResources()->GetD3DDeviceContext(),
+	//*LibrarySingleton::GetInstance()->GetCommonState(),
+	//	world, LibrarySingleton::GetInstance()->GetView(),
+	//LibrarySingleton::GetInstance()->GetProj());
+
+	m_commonEnemy->GetPlayerAnimation()->Render();
 }
 
 void CommonEnemyCharge::Finalize()

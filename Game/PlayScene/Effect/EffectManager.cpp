@@ -14,6 +14,8 @@ EffectManager::EffectManager(PlayerInformation* playerInformation)
 	:
 	m_playerInformation(playerInformation)
 {
+	//		ワイヤー使用時のエフェクトの生成
+	m_wireUseEffect = std::make_unique<WireUseEffect>(m_playerInformation);
 }
 
 EffectManager::~EffectManager()
@@ -22,11 +24,8 @@ EffectManager::~EffectManager()
 
 void EffectManager::Initialize()
 {
-	//		ワイヤー使用時のエフェクトの生成
-	m_wireUseEffect = std::make_unique<WireUseEffect>(m_playerInformation);
-
 	//		ワイヤー使用時のエフェクトの初期化
-	m_wireUseEffect->Initialize(m_wireInformation.size());
+	m_wireUseEffect->Initialize(static_cast<int>(m_wireInformation.size()));
 }
 
 void EffectManager::Update(PlayerCameraInformation* cameraInformation)
@@ -63,4 +62,5 @@ void EffectManager::Render()
 
 void EffectManager::Finalize()
 {
+	m_wireUseEffect->Finalize();
 }

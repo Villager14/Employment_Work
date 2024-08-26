@@ -92,8 +92,11 @@ void LeadMesh::CreateTrinangle(
 
 		for (int j = 0; j < 3; j++)
 		{
+			//		インデックスバッファの番号
+			int indexBuffer = i + j;
+
 			//		頂点インデックス
-			triangle.m_vertexIndex.push_back(vertexIndex[i + j]);
+			triangle.m_vertexIndex.push_back(vertexIndex[indexBuffer]);
 
 			//		頂点
 			triangle.m_vertex.push_back(vertex[triangle.m_vertexIndex[j]]);
@@ -216,7 +219,7 @@ void LeadMesh::AddObject()
 
 	triangle.push_back(m_copytriangle[0]);
 
-	m_object.insert({ m_object.size(), triangle });
+	m_object.insert({ static_cast<int>(m_object.size()), triangle });
 }
 
 void LeadMesh::ClearVertexIndex()

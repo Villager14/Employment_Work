@@ -82,6 +82,9 @@ void DrawMesh::StaticRender(ObjectMesh* objectMesh)
 void DrawMesh::DaynamicRender(ObjectMesh* objectMesh,
 							const DirectX::SimpleMath::Matrix& world)
 {
+	UNREFERENCED_PARAMETER(objectMesh);
+	UNREFERENCED_PARAMETER(world);
+
 	LibrarySingleton::GetInstance()->
 		GetVertexPositionColor()->Begin();
 

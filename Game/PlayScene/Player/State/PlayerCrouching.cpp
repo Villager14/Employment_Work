@@ -139,7 +139,7 @@ void PlayerCrouching::ChangeStateJudgement()
 	DirectX::Keyboard::State keyboardState = LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState();
 
 	//		ƒS[ƒ‹‚ð‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-	if (m_player->GetGameManager()->GetGoalJudgement())
+	if (m_player->GetGameManager()->FlagJudgement(GameManager::GoalJudgement))
 	{
 		//		ó‘Ô‚ðØ‚è‘Ö‚¦‚éiƒS[ƒ‹j
 		m_player->ChangeState(m_player->PlayerState::Goal);

@@ -39,6 +39,8 @@ public:
 	//		終了処理
 	void Finalize() override;
 
+	float Easing(float time);
+
 private:
 
 	//		リザルトマネージャー

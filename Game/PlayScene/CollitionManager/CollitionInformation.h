@@ -60,6 +60,8 @@ private:
 	//		•Ç•à‚«‚ÌÀ•W
 	std::vector<DirectX::SimpleMath::Vector3> m_wallWalkPosition;
 
+	//		“ª‚É“–‚½‚Á‚Ä‚¢‚é‚©
+	bool m_ceilingHitJudgement;
 public:
 
 	/*
@@ -101,4 +103,7 @@ public:
 	*/
 	const std::vector<DirectX::SimpleMath::Vector3>& GetWallWalkPlayerPosition() { return m_wallWalkPosition; }
 
+	bool GetCeilingJudgement() { return m_ceilingHitJudgement; }
+
+	void SetCeilingJudgement(bool judgement) { m_ceilingHitJudgement = judgement; }
 };
