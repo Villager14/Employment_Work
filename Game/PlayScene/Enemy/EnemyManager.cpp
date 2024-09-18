@@ -9,8 +9,12 @@
 
 #include "EnemyManager.h"
 
+#include "Enemy/EnemyInformation.h"
+
 EnemyManager::EnemyManager()
 {
+	//		エネミーの情報の読み込みの生成
+	m_enemyInformation = std::make_unique<LoadingEnemyInformation>();
 }
 
 EnemyManager::~EnemyManager()
@@ -19,15 +23,23 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Initialize()
 {
-	//		一般エネミーの生成
-	m_commonEnemy.push_back(std::make_unique<CommonEnemy>());
+	m_enemyInformation->Load(1);
 
-	//		一般エネミーの初期化処理
-	for (int i = 0, max = static_cast<int>(m_commonEnemy.size()); i < max; ++i)
+	/*
+	for (int i = 0, max = static_cast<int>(m_enemyInformation->GetInformation()->size());
+		i < max; ++i)
 	{
-		m_commonEnemy[i]->Initialize();
-	}
+		if ((*m_enemyInformation->GetInformation())[i].enemyType
+			 == EnemyInformation::NormalEnemy)
+		{
+			//		一般エネミーの生成
+			m_commonEnemy.push_back(std::make_unique<CommonEnemy>
+				((*m_enemyInformation->GetInformation())[i]));
 
+			m_commonEnemy[i]->Initialize();
+		}
+	}
+	*/
 	//		一般エネミーの弾のマネージャーの生成
 	m_commonEnemyBulletManager = std::make_unique<CommonEnemyBulletManager>();
 
@@ -44,13 +56,13 @@ void EnemyManager::Update(const float& timeSpeed,
 		m_commonEnemy[i]->Update(playerPosition, timeSpeed);
 
 		//		攻撃状態かどうか
-		if (m_commonEnemy[i]->GetAttackJudgement())
+		if (m_commonEnemy[i]->GetInformation()->GetAttackJudgement())
 		{
 			m_commonEnemyBulletManager->Firing(m_commonEnemy[i]->GetAttackPosition(),
-				m_commonEnemy[i]->GetAttackDirection());
+				m_commonEnemy[i]->GetInformation()->GetAttackDirection());
 
 			//		攻撃状態を終了する
-			m_commonEnemy[i]->SetAttackJudgement(false);
+			m_commonEnemy[i]->GetInformation()->SetAttackJudgement(false);
 		}
 	}
 

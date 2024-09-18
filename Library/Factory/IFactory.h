@@ -13,14 +13,15 @@
 
 #include "Library/Mesh/ObjectMesh.h"
 
+#include "Game/PlayScene/ObjectManager/ObjectInformation.h"
+
 #include "Factory.h"
 
 class IFactory
 {
 public:
 	//		‰Šú‰»ˆ—
-	virtual void Initialize(DirectX::SimpleMath::Vector3 position,
-							DirectX::SimpleMath::Vector3 rotation) = 0;
+	virtual void Initialize(ObjectInformation information) = 0;
 
 	//		XVˆ—
 	virtual void Update() = 0;

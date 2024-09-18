@@ -37,8 +37,10 @@ public:
 	* 
 	*	@param	(playerInformationCollition)	インスタンスのポインタ
 	*/
-	void Update(PlayerInformationCollition* playerInformationCollition,
-		GameManager* gameManager);
+	void Update(PlayerInformationCollition* playerInformationCollition);
+
+	void CollitionProcess(PlayerInformationCollition* playerInformationCollition,
+		float height, int index);
 
 private:
 

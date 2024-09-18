@@ -157,7 +157,7 @@ private:
 	GameManager* m_gameManager;
 
 	//		ワイヤーの情報
-	std::vector<WireObjectInformation*> m_wireInformation;
+	std::vector<WireObjectInformation> *m_wireInformation;
 
 	//		メニューを使えるかどうか
 	bool m_menuUseJudgement;
@@ -234,14 +234,14 @@ public:
 	* 
 	*	@param	(wireInformation)	ワイヤーの情報
 	*/
-	void SetWireInformation(std::vector<WireObjectInformation*> wireInformation) { m_wireInformation = wireInformation; }
+	void SetWireInformation(std::vector<WireObjectInformation>* wireInformation) { m_wireInformation = wireInformation; }
 
 	/*
 	*	ワイヤー情報を受け取る
 	* 
 	*	@return ワイヤーの情報
 	*/
-	std::vector<WireObjectInformation*> GetWireObjectInformation() { return m_wireInformation; }
+	std::vector<WireObjectInformation>* GetWireObjectInformation() { return m_wireInformation; }
 
 	/*
 	*	メニューを使うことができるかどうか受け取る

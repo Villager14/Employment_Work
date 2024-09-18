@@ -11,6 +11,7 @@
 
 #include "Scene/IScene.h"
 
+#include "SceneState/TutorialScene.h"
 #include "SceneState/PlayScene.h"
 #include "SceneState/TitleScene.h"
 #include "SceneState/ResultScene.h"
@@ -18,6 +19,7 @@
 class PlayScene;
 class TitleScene;
 class ResultScene;
+class TutorialScene;
 
 #include "Game/Menu/MenuManager.h"
 
@@ -49,6 +51,7 @@ public:
 		Title,
 		Play,
 		Result,
+		Tutorial,
 	};
 
 private:

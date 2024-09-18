@@ -30,7 +30,7 @@ GoalObject::~GoalObject()
 
 }
 
-void GoalObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector3 rotation)
+void GoalObject::Initialize(ObjectInformation information)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -44,9 +44,9 @@ void GoalObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::Simp
 		L"Resources/Models/Goal.cmo", *m_effect);
 
 
-	m_position = position;
+	m_position = information.position;
 
-	m_rotation = rotation;
+	m_rotation = information.rotation;
 
 	//		初期化処理
 	m_objectMesh->Initialize(L"Resources/ModelMesh/Goal.obj");

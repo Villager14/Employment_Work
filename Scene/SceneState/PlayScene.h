@@ -74,7 +74,7 @@ private:
 	std::unique_ptr<CollitionManager> m_collitionManager;
 
 	//		エネミーマネージャー
-	//std::unique_ptr<EnemyManager> m_enemyManager;
+	std::unique_ptr<EnemyManager> m_enemyManager;
 
 	//		UIマネージャー
 	std::unique_ptr<UIManager> m_uiManager;

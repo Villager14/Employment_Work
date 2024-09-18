@@ -33,6 +33,8 @@ void ClockManager::Initialize()
 
 	//		ŽžŒv‚Ì”Žš‚Ì‰Šú‰»
 	m_clockTime->Initialize();
+
+	m_elapsedTime = 0.0f;
 }
 
 void ClockManager::Update(GameManager* gameManager)

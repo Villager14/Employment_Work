@@ -7,37 +7,79 @@
 
 #pragma once
 
-#include "WireObjectInformation.h"
+#include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
-class WireObject
+#include "Library/Factory/IFactory.h"
+
+class WireObject : public IFactory
 {
 public:
 
 	//		コンストラクタ
-	WireObject();
+	WireObject(ObjectManager* objectManager);
 
 	//		デストラクタ
 	~WireObject();
 
-	//		初期化処理
-	void Initialize(DirectX::SimpleMath::Vector3 position, int number);
-
 	/*
-	*	更新処理
+	*	初期化処理
 	*
-	*	@param	(playerPosition)	プレイヤーの座標
+	*	@param	(position)	座標
 	*/
-	void Update(const DirectX::SimpleMath::Vector3& playerPosition);
+	void Initialize(ObjectInformation information) override;
+
+	//		更新処理
+	void Update() override;
 
 	/*
 	*	描画処理
-	* 
+	*
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render();
+	void Render() override;
 
 	//		終了処理
-	void Finalize();
+	void Finalize() override;
+
+	/*
+*	オブジェクトタイプを受け取る
+*
+*	@return　オブジェクトタイプ
+*/
+	Factory::Object GetObjectType() override { return Factory::Wire; }
+
+
+	/*
+	*	オブジェクトメッシュを受け取る
+	*
+	*	@return メッシュの情報
+	*/
+	ObjectMesh* GetObjectMesh(int index) override {
+		UNREFERENCED_PARAMETER(index);
+		return m_objectMesh.get();
+	}
+
+	//		デバックの描画
+	void DebugRender();
+
+	//		羽の描画
+	void WingRender();
+
+private:
+	//		羽座標1
+	DirectX::SimpleMath::Vector3 WING_POSITION_0 = { 4.0f, 5.0f, 3.6f };
+	//		羽座標2
+	DirectX::SimpleMath::Vector3 WING_POSITION_1 = { 4.2f, 5.0f, -3.0f };
+	//		羽座標3
+	DirectX::SimpleMath::Vector3 WING_POSITION_2 = { -4.0f, 5.0f, 3.6f };
+	//		羽座標4
+	DirectX::SimpleMath::Vector3 WING_POSITION_3 = { -4.2f, 5.0f, -3.0f };
+
+	//		ワイヤーの範囲
+	float WIRE_RANGE = 120.0f;
+
+	//		羽の回転速度
+	float WING_ROTATION_SPEED = 10.0f;
 
 private:
 
@@ -50,39 +92,24 @@ private:
 	//		羽オブジェクト
 	std::unique_ptr<DirectX::Model> m_wingModel;
 
+	//		オブジェクトのメッシュ
+	std::unique_ptr<ObjectMesh> m_objectMesh;
+
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
 
 	//		デバック用のワールド座標
 	DirectX::SimpleMath::Matrix m_debugWorld;
 	
-	//		範囲
-	float m_range;
-
 	//		回転
 	float m_rotation;
 
 	//		羽の座標
 	std::vector<DirectX::SimpleMath::Vector3> m_wingPosition;
 
-	//		情報
-	WireObjectInformation m_information;
+	//		オブジェクトマネージャー
+	ObjectManager* m_objectManager;
 
-public:
-
-	/*
-	*	ワイヤーオブジェクトが使用可能か？
-	* 
-	*	@return 使用可能か true : 使用可能 false : 使用不可能
-	*/
-	bool GetWireAvailableJudgement() { return m_information.m_usedJudgement; }
-
-	/*
-	*	座標を受け取る
-	* 
-	*	@return 座標
-	*/
-	const DirectX::SimpleMath::Vector3& GetPosition() { return m_information.position; }
-
-	WireObjectInformation* GetWireInformation() { return &m_information; }
+	//		番号
+	int m_number;
 };

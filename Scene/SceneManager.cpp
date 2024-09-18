@@ -35,9 +35,10 @@ void SceneManager::Initialize()
 	m_sceneInformation.insert({ SceneType::Title, std::make_unique<TitleScene>(this) });
 	m_sceneInformation.insert({ SceneType::Play, std::make_unique<PlayScene>(this) });
 	m_sceneInformation.insert({ SceneType::Result, std::make_unique<ResultScene>(this) });
+	m_sceneInformation.insert({ SceneType::Tutorial, std::make_unique<TutorialScene>(this) });
 
 	//		初期のシーンタイプを設定する
-	m_sceneType = SceneType::Title;
+	m_sceneType = SceneType::Play;
 
 	//		シーンを設定する
 	m_scene = m_sceneInformation[m_sceneType].get();

@@ -38,6 +38,8 @@ void ClockTime::Initialize()
 
 	//		‰ñ“]—Ê‚ðÝ’è‚·‚é
 	buffer.rotationMatrix = m_shader->GetRotationMatrix();
+
+	m_time = 0;
 }
 
 void ClockTime::Update(float elapsedTime)

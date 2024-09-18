@@ -41,9 +41,6 @@
     <Filter Include="Library\Mesh">
       <UniqueIdentifier>{00661865-1765-4070-b24a-a3fad4114c99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\CollitionManager">
-      <UniqueIdentifier>{f3794c50-8b7e-4c46-a144-2b0fd5947247}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\Enemy">
       <UniqueIdentifier>{a0b8719e-f655-431e-9b3c-40a96f6c903a}</UniqueIdentifier>
     </Filter>
@@ -170,9 +167,6 @@
     <Filter Include="Resorces\FBX\Player">
       <UniqueIdentifier>{24aadd23-d916-4d8e-a9cd-cb91e95d688f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\Player\Bons">
-      <UniqueIdentifier>{fdb6f5b6-eef6-4fdf-8d18-11e480cf0944}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\UIManager\GameClear">
       <UniqueIdentifier>{15776f83-2d7f-4841-aa96-48b0174c6d0c}</UniqueIdentifier>
     </Filter>
@@ -242,17 +236,32 @@
     <Filter Include="Library\Factory">
       <UniqueIdentifier>{2d4d2307-9d07-4822-a099-bd095eee23fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\FBX\Enemy">
-      <UniqueIdentifier>{f6157990-77b8-4430-9180-3e8d9b59b115}</UniqueIdentifier>
+    <Filter Include="Game\TutorialScene">
+      <UniqueIdentifier>{4b90eaa9-48e3-44fd-be6f-368454441137}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Animation">
+    <Filter Include="Game\TutorialScene\State">
+      <UniqueIdentifier>{1d94bf38-2197-4500-9584-4c7c9e82f077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\FBX\Tutorial">
+      <UniqueIdentifier>{955b70dd-89b8-45ca-882c-f3e9c0c968fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mesh\Animation">
       <UniqueIdentifier>{6b630f2b-f5cc-45dd-8ad7-a77accf22aed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Animation\State">
+    <Filter Include="Library\Mesh\Animation\State">
       <UniqueIdentifier>{8d3ea413-f93b-42fb-9167-2215ba6eb350}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Animation\State\Player">
+    <Filter Include="Library\Mesh\Animation\State\Player">
       <UniqueIdentifier>{67f9ac52-80f0-4018-99ec-13635674654e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mesh\Animation\State\Enemy">
+      <UniqueIdentifier>{82c07fef-9764-4425-8383-831a84fea4d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\CollitionManager">
+      <UniqueIdentifier>{f3794c50-8b7e-4c46-a144-2b0fd5947247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mesh\MeshType">
+      <UniqueIdentifier>{6c3dbe99-c6f8-4a7c-a5a8-bcbda3abc4ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -324,12 +333,6 @@
     <ClInclude Include="Common\DebugDraw.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Mesh\MeshCollitionFloor.h">
-      <Filter>Library\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Mesh\MeshCollitionWall.h">
-      <Filter>Library\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\Player\State\PlayerDash.h">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClInclude>
@@ -357,7 +360,7 @@
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.h">
       <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Bones\ModelBons.h">
+    <ClInclude Include="Library\Bones\ModelBones.h">
       <Filter>Library\Bones</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyAttack.h">
@@ -528,12 +531,6 @@
     <ClInclude Include="Game\PlayScene\Effect\Billboard\BillboardEffect.h">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\PlayerBons.h">
-      <Filter>Game\PlayScene\Player\Bons</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Player\Bons\BonInformation.h">
-      <Filter>Game\PlayScene\Player\Bons</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h">
       <Filter>Game\PlayScene\UIManager\GameClear</Filter>
     </ClInclude>
@@ -636,9 +633,6 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerFall.h">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Mesh\MeshCollitionHead.h">
-      <Filter>Library\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Library\Mesh\MeshCommonProcessing.h">
       <Filter>Library\Mesh</Filter>
     </ClInclude>
@@ -664,61 +658,112 @@
       <Filter>Library\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\AnimationManager.h">
-      <Filter>Library\Animation</Filter>
+      <Filter>Library\Mesh\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\IAnimation.h">
-      <Filter>Library\Animation</Filter>
+      <Filter>Library\Mesh\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\AnimationInformation.h">
-      <Filter>Library\Animation</Filter>
+      <Filter>Library\Mesh\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\AnimationCommonProcess.h">
-      <Filter>Library\Animation</Filter>
+      <Filter>Library\Mesh\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\WireJumpAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\AttackAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\CrouchingStayAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\CrouchingWalkAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\DashAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\DropDeadAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\FallAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\JumpAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\SlidingAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\StartAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\StayAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\UprightAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\WalkAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\WallJumpAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClInclude>
     <ClInclude Include="Library\Animation\State\Player\WallWalkAnimationState.h">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Bones\BonInformation.h">
+      <Filter>Library\Bones</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Enemy\HandGunStay.h">
+      <Filter>Library\Mesh\Animation\State\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Animation\State\Enemy\HandGunStyle.h">
+      <Filter>Library\Mesh\Animation\State\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyIntarface.h">
+      <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\EnemyInformation.h">
+      <Filter>Game\PlayScene\Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\LoadingEnemyInformation.h">
+      <Filter>Game\PlayScene\Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneState\TutorialScene.h">
+      <Filter>Scene\SceneState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\TutorialManager.h">
+      <Filter>Game\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\ITutorialManager.h">
+      <Filter>Game\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\State\TutorialWalkState.h">
+      <Filter>Game\TutorialScene\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\TutorialInformation.h">
+      <Filter>Game\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.h">
+      <Filter>Game\PlayScene\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\ObjectInformation.h">
+      <Filter>Game\PlayScene\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionFloor.h">
+      <Filter>Library\Mesh\MeshType</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionHead.h">
+      <Filter>Library\Mesh\MeshType</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshCollitionWall.h">
+      <Filter>Library\Mesh\MeshType</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mesh\MeshOrganization.h">
+      <Filter>Library\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -779,12 +824,6 @@
     <ClCompile Include="Common\DebugDraw.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Library\Mesh\MeshCollitionFloor.cpp">
-      <Filter>Library\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Mesh\MeshCollitionWall.cpp">
-      <Filter>Library\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDash.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
@@ -809,7 +848,7 @@
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.cpp">
       <Filter>Game\PlayScene\Enemy\Enemy\CommonEnemy\State</Filter>
     </ClCompile>
-    <ClCompile Include="Library\Bones\ModelBons.cpp">
+    <ClCompile Include="Library\Bones\ModelBones.cpp">
       <Filter>Library\Bones</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyAttack.cpp">
@@ -956,9 +995,6 @@
     <ClCompile Include="Game\PlayScene\Effect\Billboard\BillboardEffect.cpp">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp">
-      <Filter>Game\PlayScene\Player\Bons</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp">
       <Filter>Game\PlayScene\UIManager\GameClear</Filter>
     </ClCompile>
@@ -1043,9 +1079,6 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerFall.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp">
-      <Filter>Library\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Library\Mesh\MeshCommonProcessing.cpp">
       <Filter>Library\Mesh</Filter>
     </ClCompile>
@@ -1062,55 +1095,88 @@
       <Filter>Library\Factory</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\AnimationManager.cpp">
-      <Filter>Library\Animation</Filter>
+      <Filter>Library\Mesh\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\AnimationCommonProcess.cpp">
-      <Filter>Library\Animation</Filter>
+      <Filter>Library\Mesh\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\WireJumpAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\AttackAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\CrouchingStayAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\CrouchingWalkAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\DashAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\DropDeadAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\FallAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\JumpAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\SlidingAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\StartAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\StayAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\UprightAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\WalkAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\WallJumpAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
     </ClCompile>
     <ClCompile Include="Library\Animation\State\Player\WallWalkAnimationState.cpp">
-      <Filter>Library\Animation\State\Player</Filter>
+      <Filter>Library\Mesh\Animation\State\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Enemy\HandGunStay.cpp">
+      <Filter>Library\Mesh\Animation\State\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Animation\State\Enemy\HandGunStyle.cpp">
+      <Filter>Library\Mesh\Animation\State\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\LoadingEnemyInformation.cpp">
+      <Filter>Game\PlayScene\Enemy\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneState\TutorialScene.cpp">
+      <Filter>Scene\SceneState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TutorialScene\TutorialManager.cpp">
+      <Filter>Game\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TutorialScene\State\TutorialWalkState.cpp">
+      <Filter>Game\TutorialScene\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.cpp">
+      <Filter>Game\PlayScene\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionFloor.cpp">
+      <Filter>Library\Mesh\MeshType</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionHead.cpp">
+      <Filter>Library\Mesh\MeshType</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshCollitionWall.cpp">
+      <Filter>Library\Mesh\MeshType</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mesh\MeshOrganization.cpp">
+      <Filter>Library\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1271,50 +1337,14 @@
     <MeshContentTask Include="FBX\Grider\Grinder.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\Body.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
+    <MeshContentTask Include="FBX\Gun\HandGun.fbx">
+      <Filter>Resorces\FBX\Player</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\BodyUnder.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
+    <MeshContentTask Include="FBX\Tutorial\walk.fbx">
+      <Filter>Resorces\FBX\Tutorial</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\Head.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LArmAbove.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LArmUnder.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LHand.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LLeagAbove.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LLeagUnder.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LShoes.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RArmAbove.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RArmUnder.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RHand.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RLeagAbove.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RLeagUnder.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RShoes.fbx">
-      <Filter>Resorces\FBX\Enemy</Filter>
+    <MeshContentTask Include="FBX\Wall\WallObject.fbx">
+      <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>

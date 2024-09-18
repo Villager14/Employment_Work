@@ -226,7 +226,7 @@ void Player::ChangeWireState(int index)
 
 	m_state = m_stateInformation[m_playerState].get();
 
-	(*m_wireInformation[index]).m_actionJudgement = true;
+	(*m_wireInformation)[index].m_actionJudgement = true;
 
 	m_state->Initialize();
 }

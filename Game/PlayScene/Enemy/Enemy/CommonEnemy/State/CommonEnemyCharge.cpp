@@ -28,16 +28,19 @@ void CommonEnemyCharge::Initialize()
 
 void CommonEnemyCharge::Update()
 {
-	DirectX::SimpleMath::Vector3 velocity = m_commonEnemy->GetPlayerPosition() - m_commonEnemy->GetPosition();
+	DirectX::SimpleMath::Vector3 velocity = m_commonEnemy->GetInformation()->GetPlayerPosition()
+		- m_commonEnemy->GetInformation()->GetPosition();
 
 	DirectX::SimpleMath::Vector3 angleVelocity = DirectX::SimpleMath::Vector3
-	(sinf(m_commonEnemy->GetRotation()), 0.0f, cosf(m_commonEnemy->GetRotation()));
+	(sinf(m_commonEnemy->GetInformation()->GetRotation()),
+		0.0f,
+		cosf(m_commonEnemy->GetInformation()->GetRotation()));
 
 	DirectX::SimpleMath::Vector3 move = velocity - angleVelocity;
 
-	angleVelocity += move * 0.1f * m_commonEnemy->GetTimeSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+	angleVelocity += move * 0.1f * m_commonEnemy->GetInformation()->GetTimeSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
 
-	m_commonEnemy->SetRotation(atan2(angleVelocity.x, angleVelocity.z));
+	m_commonEnemy->GetInformation()->SetRotation(atan2(angleVelocity.x, angleVelocity.z));
 
 	//		チャージ時間
 	m_chargeTime += LibrarySingleton::GetInstance()->GetElpsedTime();
@@ -54,9 +57,9 @@ void CommonEnemyCharge::Render()
 {
 	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateScale(5.0f);
 
-	world *= DirectX::SimpleMath::Matrix::CreateRotationY(m_commonEnemy->GetRotation());
+	world *= DirectX::SimpleMath::Matrix::CreateRotationY(m_commonEnemy->GetInformation()->GetRotation());
 
-	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetPosition());
+	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetInformation()->GetPosition());
 
 	//		モデルの描画
 	//m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()

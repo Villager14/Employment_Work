@@ -153,7 +153,7 @@ void PlayerCameraManager::ViewAngleUpdate(PlayerInformation* playerInformation)
 
 	float viewAnge = Library::Lerp(m_information->GetViewAngle(), m_information->GetViewAngle() + 20.0f, move);
 
-	//		ビュー行列を作成する
+	//		proj行列を作成する
 	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView
 		(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /

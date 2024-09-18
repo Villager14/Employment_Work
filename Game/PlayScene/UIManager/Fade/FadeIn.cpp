@@ -43,6 +43,8 @@ void FadeIn::Initialize()
 	buffer.rotationMatrix = m_fadeRender->GetRotationMatrix();
 
 	m_time = 0.0f;
+
+	m_stayTime = 0.0f;
 }
 
 void FadeIn::Update(GameManager* gameManager)
@@ -119,7 +121,7 @@ void FadeIn::Update(GameManager* gameManager)
 
 void FadeIn::Render()
 {
-	buffer.time = { m_time, 0.0f, 0.0f, 0.0f };
+	buffer.time = { Library::Clamp(m_time, 0.0f, 1.0f) , 0.0f, 0.0f, 0.0f };
 
 	m_fadeRender->Render(buffer);
 }

@@ -14,12 +14,16 @@
 
 #include "Library/Animation/AnimationManager.h"
 
+#include "../EnemyInformation.h"
+
+#include "CommonEnemyIntarface.h"
+
 class CommonEnemy
 {
 public:
 
 	//		コンストラクタ
-	CommonEnemy();
+	CommonEnemy(EnemyInformation enemyInformation);
 
 	//		デストラクタ
 	~CommonEnemy();
@@ -29,12 +33,12 @@ public:
 
 	/*
 	*	更新処理
-	* 
+	*
 	*	@param	(playerPosition)	プレイヤーの座標
 	*	@param	(timeSpeed)			時間の速度
 	*/
 	void Update(const DirectX::SimpleMath::Vector3& playerPosition,
-				float timeSpeed);
+		float timeSpeed);
 
 	//		描画処理
 	void Render();
@@ -47,34 +51,16 @@ public:
 
 	enum State
 	{
-		Stay,
-		Vigilance,
-		Charge,
-		Attack,
+		Stay,		//		待機
+		Vigilance,	//		警戒
+		Charge,		//		チャージ
+		Attack,		//		攻撃
 	};
 
 private:
 
 	//		状態
 	ICommonEnemy* m_istate;
-
-	//		プレイヤーの座標
-	DirectX::SimpleMath::Vector3 m_playerPosition;
-
-	//		座標
-	DirectX::SimpleMath::Vector3 m_position;
-
-	//		角度
-	float m_rotation;
-
-	//		攻撃するかどうか
-	bool m_attackJudgement;
-
-	//		時間の速度
-	float m_timeSpeed;
-
-	//		攻撃する方向
-	DirectX::SimpleMath::Vector3 m_attakDirection;
 
 	//		状態の情報
 	std::unordered_map<State, std::unique_ptr<ICommonEnemy>> m_stateintarface;
@@ -84,6 +70,14 @@ private:
 	//		プレイヤーアニメーション
 	std::unique_ptr<AnimationManager> m_playerAnimation;
 
+	//		情報
+	std::unique_ptr<CommonEnemyIntarface> m_intarface;
+
+	//		視界に入っているかどうか
+	bool m_viewJudgement;
+
+	//		エネミーの情報
+	EnemyInformation m_enemyInformation;
 public:
 
 	/*
@@ -111,39 +105,19 @@ public:
 
 	/*
 	*	プレイヤーアニメーション
-	* 
+	*
 	*	@return プレイヤーアニメーション
 	*/
 	AnimationManager* GetPlayerAnimation() { return m_playerAnimation.get(); }
 
 	/*
-	*	プレイヤーの座標を受け取る
-	* 
-	*	@return 座標
-	*/
-	const DirectX::SimpleMath::Vector3& GetPlayerPosition() { return m_playerPosition; }
-
-	/*
-	*	座標を受け取る
+	*	攻撃座標を受け取る
 	*
 	*	@return 座標
 	*/
-	const DirectX::SimpleMath::Vector3& GetPosition() { return m_position; }
-
-	/*
-	*	座標を設定する
-	* 
-	*/
-	void SetPosition(const DirectX::SimpleMath::Vector3& position) { m_position = position; }
-
-	/*
-	*	攻撃座標を受け取る
-	* 
-	*	@return 座標
-	*/
-	DirectX::SimpleMath::Vector3 GetAttackPosition() 
+	DirectX::SimpleMath::Vector3 GetAttackPosition()
 	{
-		DirectX::SimpleMath::Vector3 attackPosition = m_position;
+		DirectX::SimpleMath::Vector3 attackPosition = m_intarface->GetPosition();
 
 		attackPosition.y += 5.0f;
 
@@ -151,51 +125,12 @@ public:
 	}
 
 	/*
-	*	角度を設定する
+	*	情報を受け取る
 	* 
-	*	@param	(rotation)	角度
+	*	@return インスタンスのポインタ
 	*/
-	void SetRotation(float rotation) { m_rotation = rotation; }
+	CommonEnemyIntarface* GetInformation() { return m_intarface.get(); }
 
-	/*
-	*	角度を受け取る
-	* 
-	*	@return 角度
-	*/
-	float GetRotation() { return m_rotation; }
 
-	/*
-	*	攻撃するかどうかを受け取る
-	* 
-	*	@return true : 攻撃する false : 攻撃しない
-	*/
-	bool GetAttackJudgement() { return m_attackJudgement; }
-
-	/*
-	*	攻撃するかどうか設定する
-	* 
-	*	@param	(judgement)	true : 攻撃する false : 攻撃しない
-	*/
-	void SetAttackJudgement(bool judgement) { m_attackJudgement = judgement; }
-
-	/*
-	*	攻撃する方向を設定する
-	* 
-	*	@param	(direction)	方向
-	*/
-	void SetAttackDirection(const DirectX::SimpleMath::Vector3& direction) { m_attakDirection = direction; }
-
-	/*
-	*	攻撃する方向を受け取る
-	* 
-	*	@return 方向
-	*/
-	const DirectX::SimpleMath::Vector3& GetAttackDirection() { return m_attakDirection; }
-
-	/*
-	*	時間の速度を受け取る
-	* 
-	*	@return 速度
-	*/
-	float GetTimeSpeed() { return m_timeSpeed; }
+	bool FieldOfVision();
 };

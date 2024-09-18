@@ -55,7 +55,10 @@ public:
 		Play,		//		プレイ
 		End,		//		終了
 		Setting,	//		設定
-		TitleRogo	//		タイトルロゴ
+		TitleRogo,	//		タイトルロゴ
+		Space,		//		スペース
+		W,			//		W
+		A,			//		A
 	};
 
 	//		状態
@@ -106,6 +109,34 @@ public:
 
 	//		上地点
 	const DirectX::SimpleMath::Vector2 UP_POINT = { 0.0f, 40.0f };
+
+	//		スペースのプレイ時座標
+	const DirectX::SimpleMath::Vector2 SPACE_PLAY = { 300.0f, 120.0f };
+
+	//		スペースのエンド時座標
+	const DirectX::SimpleMath::Vector2 SPACE_END = { 270.0f, 120.0f };
+
+	//		スペースの設定時座標
+	const DirectX::SimpleMath::Vector2 SPACE_SETTING = { 410.0f, 120.0f };
+
+	//		Wのプレイ時座標
+	const DirectX::SimpleMath::Vector2 W_PLAY = { 120.0f, 40.0f };
+
+	//		Wのエンド時座標
+	const DirectX::SimpleMath::Vector2 W_END = { 110.0f, 40.0f };
+
+	//		Wの設定時座標
+	const DirectX::SimpleMath::Vector2 W_SETTING = { 180.0f, 40.0f };
+
+	//		Aのプレイ時座標
+	const DirectX::SimpleMath::Vector2 A_PLAY = { 120.0f, 200.0f };
+
+	//		Aのエンド時座標
+	const DirectX::SimpleMath::Vector2 A_END = { 110.0f, 200.0f };
+
+	//		Aの設定時座標
+	const DirectX::SimpleMath::Vector2 A_SETTING = { 180.0f, 200.0f };
+
 
 	//		移動速度
 	const float MOVE_SPEED = 7.0f;

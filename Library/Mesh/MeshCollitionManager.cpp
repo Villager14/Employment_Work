@@ -116,8 +116,8 @@ void MeshCollitionManager::MeshHitPointClear()
 void MeshCollitionManager::DamageHitJudgement()
 {
 	//		ダメージオブジェクトに当たった場合
-	if (m_meshHitPoint.size() != 0 ||
-		m_wallHit.size() != 0 ||
+	if (m_meshHitPoint.size()	!= 0 ||
+		m_wallHit.size()		!= 0 ||
 		m_meshCollitionHead->GetHitJudgement())
 	{
 		//		死亡状態にする

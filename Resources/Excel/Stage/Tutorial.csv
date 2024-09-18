@@ -1,0 +1,6 @@
+ObjectName,ModelFilePath,CollitionFilePath,PosX,PozY,PosZ,RotX,RotY,RotZ
+0,Resources/Models/Floor.cmo,Resources/ModelMesh/Floor.obj,0,0,0,0,0,0
+1,Resources/Models/WallObject.cmo,Resources/ModelMesh/WallObject01.obj,0,0,0,0,0,0
+2,-1,-1,-580,17,350,0,90,0
+3,-1,-1,-380,30,349,0,0,0
+4,-1,-1,0,70,297,0,0,0

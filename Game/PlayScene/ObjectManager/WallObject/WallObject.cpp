@@ -25,7 +25,7 @@ WallObject::~WallObject()
 
 }
 
-void WallObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector3 rotation)
+void WallObject::Initialize(ObjectInformation information)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -34,9 +34,13 @@ void WallObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::Simp
 	//		画像の読み込み
 	m_effect->SetDirectory(L"Resources/Models");
 
+	std::wostringstream oss;
+
+	oss << Library::StringToWString(information.modelPath);
+
 	//		モデルの読み込み
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
-		L"Resources/Models/WallObject01.cmo", *m_effect);
+		oss.str().c_str(), *m_effect);
 
 	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
 		{
@@ -51,13 +55,16 @@ void WallObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::Simp
 			}
 		});
 
+	std::wostringstream oss2;
+
+	oss2 << Library::StringToWString(information.collitionPath);
 
 	//		初期化処理
-	m_objectMesh->Initialize(L"Resources/ModelMesh/WallObject01.obj");
+	m_objectMesh->Initialize(oss2.str().c_str());
 
-	m_world = DirectX::SimpleMath::Matrix::CreateRotationY(rotation.y);
+	m_world = DirectX::SimpleMath::Matrix::CreateRotationY(information.rotation.y);
 
-	m_move = position;
+	m_move = information.position;
 
 	//		静的オブジェクトにする
 	m_objectMesh->StaticProcess(m_world, m_move);

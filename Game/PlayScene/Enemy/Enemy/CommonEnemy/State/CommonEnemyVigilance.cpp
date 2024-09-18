@@ -24,46 +24,30 @@ CommonEnemyVigilance::~CommonEnemyVigilance()
 
 void CommonEnemyVigilance::Initialize()
 {
+	m_commonEnemy->GetPlayerAnimation()->ChangeState(AnimationManager::HandGunStyleA);
 }
 
 void CommonEnemyVigilance::Update()
 {
-	DirectX::SimpleMath::Vector3 velocity = m_commonEnemy->GetPlayerPosition() - m_commonEnemy->GetPosition();
+	DirectX::SimpleMath::Vector3 velocity = m_commonEnemy->GetInformation()->GetPlayerPosition() - m_commonEnemy->GetInformation()->GetPosition();
 	
 	DirectX::SimpleMath::Vector3 angleVelocity = DirectX::SimpleMath::Vector3
-	(sinf(m_commonEnemy->GetRotation()), 0.0f, cosf(m_commonEnemy->GetRotation()));
+	(sinf(m_commonEnemy->GetInformation()->GetRotation()), 0.0f, cosf(m_commonEnemy->GetInformation()->GetRotation()));
 
 	DirectX::SimpleMath::Vector3 move = velocity - angleVelocity;
 
-	angleVelocity += move * 0.1f * m_commonEnemy->GetTimeSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+	angleVelocity += move * 0.1f * m_commonEnemy->GetInformation()->GetTimeSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
 
-	m_commonEnemy->SetRotation(atan2(angleVelocity.x, angleVelocity.z));
+	m_commonEnemy->GetInformation()->SetRotation(atan2(angleVelocity.x, angleVelocity.z));
 
-	//		ƒN[ƒ‹ƒ^ƒCƒ€
-	m_coolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
-
-	if (m_coolTime >= 1.0f)
-	{
-		//		ó‘Ô‚ğ‘JˆÚ‚·‚é
-		m_commonEnemy->ChangeState(CommonEnemy::State::Charge);
-	}
+	m_commonEnemy->GetPlayerAnimation()->Execute(0.0f,
+		m_commonEnemy->GetInformation()->GetPosition(),
+		{ 0.0f, DirectX::XMConvertToDegrees(m_commonEnemy->GetInformation()->GetRotation()) },
+		4.4f);
 }
 
 void CommonEnemyVigilance::Render()
 {
-	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateScale(5.0f);
-
-	world *= DirectX::SimpleMath::Matrix::CreateRotationY(m_commonEnemy->GetRotation());
-
-	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetPosition());
-
-	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
-	//m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()
-	//	->GetDeviceResources()->GetD3DDeviceContext(),
-	//*LibrarySingleton::GetInstance()->GetCommonState(),
-	//	world, LibrarySingleton::GetInstance()->GetView(),
-	//LibrarySingleton::GetInstance()->GetProj());
-
 	m_commonEnemy->GetPlayerAnimation()->Render();
 }
 

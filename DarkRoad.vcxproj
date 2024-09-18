@@ -222,23 +222,26 @@
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemy.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBullet.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBulletManager.h" />
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyIntarface.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\ICommonEnemy.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyAttack.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyCharge.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyStay.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.h" />
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\EnemyInformation.h" />
+    <ClInclude Include="Game\PlayScene\Enemy\Enemy\LoadingEnemyInformation.h" />
     <ClInclude Include="Game\PlayScene\GameManager\GameManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\ObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObjectInformation.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\BonInformation.h" />
-    <ClInclude Include="Game\PlayScene\Player\Bons\PlayerBons.h" />
     <ClInclude Include="Game\PlayScene\Player\IPlayer.h" />
     <ClInclude Include="Game\PlayScene\Player\Player.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerCommonProcessing.h" />
@@ -294,10 +297,16 @@
     <ClInclude Include="Game\TitleScene\TitleInformation.h" />
     <ClInclude Include="Game\TitleScene\TitleSelectManager.h" />
     <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
+    <ClInclude Include="Game\TutorialScene\ITutorialManager.h" />
+    <ClInclude Include="Game\TutorialScene\State\TutorialWalkState.h" />
+    <ClInclude Include="Game\TutorialScene\TutorialInformation.h" />
+    <ClInclude Include="Game\TutorialScene\TutorialManager.h" />
     <ClInclude Include="Library\Animation\AnimationCommonProcess.h" />
     <ClInclude Include="Library\Animation\AnimationInformation.h" />
     <ClInclude Include="Library\Animation\AnimationManager.h" />
     <ClInclude Include="Library\Animation\IAnimation.h" />
+    <ClInclude Include="Library\Animation\State\Enemy\HandGunStay.h" />
+    <ClInclude Include="Library\Animation\State\Enemy\HandGunStyle.h" />
     <ClInclude Include="Library\Animation\State\Player\AttackAnimationState.h" />
     <ClInclude Include="Library\Animation\State\Player\CrouchingStayAnimationState.h" />
     <ClInclude Include="Library\Animation\State\Player\CrouchingWalkAnimationState.h" />
@@ -313,7 +322,8 @@
     <ClInclude Include="Library\Animation\State\Player\WallJumpAnimationState.h" />
     <ClInclude Include="Library\Animation\State\Player\WallWalkAnimationState.h" />
     <ClInclude Include="Library\Animation\State\Player\WireJumpAnimationState.h" />
-    <ClInclude Include="Library\Bones\ModelBons.h" />
+    <ClInclude Include="Library\Bones\BonInformation.h" />
+    <ClInclude Include="Library\Bones\ModelBones.h" />
     <ClInclude Include="Library\Factory\Factory.h" />
     <ClInclude Include="Library\Factory\IFactory.h" />
     <ClInclude Include="Library\Library.h" />
@@ -325,6 +335,7 @@
     <ClInclude Include="Library\Mesh\MeshCollitionManager.h" />
     <ClInclude Include="Library\Mesh\MeshCollitionWall.h" />
     <ClInclude Include="Library\Mesh\MeshCommonProcessing.h" />
+    <ClInclude Include="Library\Mesh\MeshOrganization.h" />
     <ClInclude Include="Library\Mesh\ObjectMesh.h" />
     <ClInclude Include="Library\Mesh\Triangle.h" />
     <ClInclude Include="Library\Music\MusicLibrary.h" />
@@ -337,6 +348,7 @@
     <ClInclude Include="Scene\SceneState\PlayScene.h" />
     <ClInclude Include="Scene\SceneState\ResultScene.h" />
     <ClInclude Include="Scene\SceneState\TitleScene.h" />
+    <ClInclude Include="Scene\SceneState\TutorialScene.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -378,16 +390,17 @@
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyCharge.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyStay.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\State\CommonEnemyVigilance.cpp" />
+    <ClCompile Include="Game\PlayScene\Enemy\Enemy\LoadingEnemyInformation.cpp" />
     <ClCompile Include="Game\PlayScene\GameManager\GameManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\FloorObject\FloorObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp" />
-    <ClCompile Include="Game\PlayScene\Player\Bons\PlayerBons.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Player.cpp" />
     <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerAttack.cpp" />
@@ -435,8 +448,12 @@
     <ClCompile Include="Game\TitleScene\TitleCommonProcess.cpp" />
     <ClCompile Include="Game\TitleScene\TitleSelectManager.cpp" />
     <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
+    <ClCompile Include="Game\TutorialScene\State\TutorialWalkState.cpp" />
+    <ClCompile Include="Game\TutorialScene\TutorialManager.cpp" />
     <ClCompile Include="Library\Animation\AnimationCommonProcess.cpp" />
     <ClCompile Include="Library\Animation\AnimationManager.cpp" />
+    <ClCompile Include="Library\Animation\State\Enemy\HandGunStay.cpp" />
+    <ClCompile Include="Library\Animation\State\Enemy\HandGunStyle.cpp" />
     <ClCompile Include="Library\Animation\State\Player\AttackAnimationState.cpp" />
     <ClCompile Include="Library\Animation\State\Player\CrouchingStayAnimationState.cpp" />
     <ClCompile Include="Library\Animation\State\Player\CrouchingWalkAnimationState.cpp" />
@@ -452,7 +469,7 @@
     <ClCompile Include="Library\Animation\State\Player\WallJumpAnimationState.cpp" />
     <ClCompile Include="Library\Animation\State\Player\WallWalkAnimationState.cpp" />
     <ClCompile Include="Library\Animation\State\Player\WireJumpAnimationState.cpp" />
-    <ClCompile Include="Library\Bones\ModelBons.cpp" />
+    <ClCompile Include="Library\Bones\ModelBones.cpp" />
     <ClCompile Include="Library\Factory\Factory.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
     <ClCompile Include="Library\Mesh\DrawMesh.cpp" />
@@ -462,6 +479,7 @@
     <ClCompile Include="Library\Mesh\MeshCollitionManager.cpp" />
     <ClCompile Include="Library\Mesh\MeshCollitionWall.cpp" />
     <ClCompile Include="Library\Mesh\MeshCommonProcessing.cpp" />
+    <ClCompile Include="Library\Mesh\MeshOrganization.cpp" />
     <ClCompile Include="Library\Mesh\ObjectMesh.cpp" />
     <ClCompile Include="Library\Music\MusicLibrary.cpp" />
     <ClCompile Include="Library\Shader\ConstBufferManager.cpp" />
@@ -477,6 +495,7 @@
     <ClCompile Include="Scene\SceneState\PlayScene.cpp" />
     <ClCompile Include="Scene\SceneState\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneState\TitleScene.cpp" />
+    <ClCompile Include="Scene\SceneState\TutorialScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -530,51 +549,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\Body.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\BodyUnder.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\Head.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LArmAbove.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LArmUnder.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LHand.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LLeagAbove.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LLeagUnder.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\LShoes.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RArmAbove.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RArmUnder.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RHand.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RLeagAbove.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RLeagUnder.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy\RShoes.fbx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </MeshContentTask>
     <MeshContentTask Include="FBX\Floor.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -587,6 +561,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Grider\GrinderRotation.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Gun\HandGun.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player.fbx">
@@ -653,9 +630,15 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Tutorial\walk.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\WallObject01.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Wall\WallObject.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Wire.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
