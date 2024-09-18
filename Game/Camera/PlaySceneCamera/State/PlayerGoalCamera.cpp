@@ -27,6 +27,10 @@ void PlayerGoalCamera::Initialize()
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
 
 	m_angle = m_playerCameraManager->GetInformation()->GetAngle();
+
+	m_elapsedTime = 0.0f;
+
+	m_downElapsedTime = 0.0f;
 }
 
 void PlayerGoalCamera::Update()

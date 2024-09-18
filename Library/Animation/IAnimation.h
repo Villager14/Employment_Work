@@ -9,7 +9,7 @@
 
 #include "pch.h"
 
-#include "Game/PlayScene/Player/Bons/BonInformation.h"
+#include "../Bones/BonInformation.h"
 
 class IAnimation
 {

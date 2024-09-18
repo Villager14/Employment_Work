@@ -12,7 +12,8 @@
 
 MeshCollitionHead::MeshCollitionHead(MeshCollitionManager* meshCollitionManager)
 	:
-	m_meshCollitionManager(meshCollitionManager)
+	m_meshCollitionManager(meshCollitionManager),
+	m_hitJudgement(false)
 {
 }
 

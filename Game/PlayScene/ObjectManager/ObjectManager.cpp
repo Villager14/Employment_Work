@@ -22,6 +22,9 @@ ObjectManager::ObjectManager(ShadowInformation* shadowInformation, GameManager* 
 
 	//		ファクトリー
 	m_factory = std::make_unique<Factory>(this);
+
+	//		オブジェクトの読み込みクラスの生成
+	m_loadObjectInformation = std::make_unique<LoadingObjectInformation>();
 }
 
 ObjectManager::~ObjectManager()
@@ -30,28 +33,23 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::Initialize()
 {
-	m_wireObjectPosition.push_back({ 0.0f, 70.0f, 297.0f });
+	//		ステージの読み込み
+	m_loadObjectInformation->Load(0);
 
-	for (int i = 0; i < m_wireObjectPosition.size(); ++i)
+	int wireNumber = 0;
+
+	for (int i = 0, max = static_cast<int>
+		(m_loadObjectInformation->GetObjectInformation().size());
+		i < max; ++i)
 	{
-		//		ワイヤーオブジェクトの生成
-		m_wireObject.push_back(std::make_unique<WireObject>());
+		//		ワイヤー情報オブジェクトの作製
+		CreateWireInformation(i, &wireNumber);
 
-		//		ワイヤーオブジェクトの初期化
-		m_wireObject[i]->Initialize(m_wireObjectPosition[i], i);
+		m_factoryObject.push_back(m_factory->CreateObject(
+			Factory::Object(m_loadObjectInformation->GetObjectInformation()[i].objectType),
+			m_loadObjectInformation->GetObjectInformation()[i]));
 
-		//		ワイヤーの情報を設定する
-		m_wireInformation.push_back(m_wireObject[i]->GetWireInformation());
 	}
-
-	//		グラインダーオブジェクト
-	m_factoryObject.push_back(m_factory->CreateObject(Factory::Grider, { -383.0f, 30.0f, 349.0f }, {0.0f, 0.0f, 0.0f}));
-	//		壁オブジェクト
-	m_factoryObject.push_back(m_factory->CreateObject(Factory::Wall, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }));
-	//		床オブジェクト
-	m_factoryObject.push_back(m_factory->CreateObject(Factory::Floor, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }));
-	//		ゴールオブジェクト
-	m_factoryObject.push_back(m_factory->CreateObject(Factory::Goal, { -580.0f, 17.0f, 350.0f }, { 0.0f, 90.0f, 0.0f }));
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
@@ -73,20 +71,11 @@ void ObjectManager::Initialize()
 
 	//		背景オブジェクトの初期化
 	m_backGroundObject->Initialize(m_objectMesh, m_wireObjectPosition);
-
 }
 
 void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 {
-	for (int i = 0; i < m_wireObject.size(); ++i)
-	{
-		//		カリングするかどうか
-		if (!Culling(m_wireObject[i]->GetPosition()))
-		{
-			//		ワイヤーオブジェクトの更新処理
-			m_wireObject[i]->Update(playerPosition);
-		}
-	}
+	m_playerPosition = playerPosition;
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
@@ -108,23 +97,11 @@ void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 		//		描画処理
 		m_factoryObject[i]->Render();
 	}
-
-	for (const auto& e : m_wireObject)
-	{
-		//		カリングするかどうか
-		if (!Culling(e->GetPosition()))
-		{
-			//		ワイヤーオブジェクトの処理
-			e->Render();
-		}
-	}
 }
 
 void ObjectManager::Finalize()
 {
 	m_objectMesh.clear();
-
-	m_wireObject.clear();
 
 	m_backGroundObject->Finalize();
 
@@ -151,4 +128,24 @@ bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position)
 	}
 
 	return false;
+}
+
+void ObjectManager::CreateWireInformation(int index, int *wireNumber)
+{
+	if (Factory::Object(m_loadObjectInformation->GetObjectInformation()[index].objectType)
+		== Factory::Object::Wire)
+	{
+		WireObjectInformation information;
+
+		//		番号
+		information.number = *wireNumber;
+		*wireNumber += 1;
+
+		//		座標
+		information.position =
+			m_loadObjectInformation->GetObjectInformation()[index].position;
+
+
+		m_wireInformation.push_back(information);
+	}
 }

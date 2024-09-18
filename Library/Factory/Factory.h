@@ -7,11 +7,9 @@
 
 #pragma once
 
-//#include "IFactory.h"
-
-//#include "Game/PlayScene/ObjectManager/ObjectManager.h"
-
 #include <unordered_map>
+
+#include "Game/PlayScene/ObjectManager/ObjectInformation.h"
 
 class IFactory;
 
@@ -28,19 +26,19 @@ public:
 
 	enum Object
 	{
-		None,
-		Grider,		//		破壊オブジェクト
+		Floor,		//		床オブジェクト
 		Wall,		//		壁オブジェクト
 		Goal,		//		ゴールオブジェクト
-		Floor,		//		床オブジェクト
+		Grider,		//		破壊オブジェクト
+		Wire,		//		ワイヤーオブジェクト
+		None,
 	};
 
 public:
 
 	std::unique_ptr<IFactory> CreateObject(Object type,
-		DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector3 rotation);
-	
+		ObjectInformation objectInformation);
+
 private:
 
 	//		オブジェクトマネージャー

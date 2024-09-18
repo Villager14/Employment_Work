@@ -34,13 +34,12 @@ GriderObject::~GriderObject()
 {
 }
 
-void GriderObject::Initialize(DirectX::SimpleMath::Vector3 position,
-	DirectX::SimpleMath::Vector3 rotation)
+void GriderObject::Initialize(ObjectInformation information)
 {
-	m_position = position;
+	m_position = information.position;
 
 	m_rotation = DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll
-	(rotation);
+	(information.rotation);
 
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton

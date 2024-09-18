@@ -11,6 +11,8 @@
 
 #include "Enemy/CommonEnemy/CommonEnemyBulletManager.h"
 
+#include "Enemy/LoadingEnemyInformation.h"
+
 class EnemyManager
 {
 public:
@@ -35,7 +37,6 @@ public:
 
 	//		描画処理
 	void Render();
-
 private:
 
 	//		一般エネミー
@@ -43,6 +44,9 @@ private:
 
 	//		一般エネミーの弾のマネージャー
 	std::unique_ptr<CommonEnemyBulletManager> m_commonEnemyBulletManager;
+
+	//		エネミーの情報の読み込み
+	std::unique_ptr<LoadingEnemyInformation> m_enemyInformation;
 
 public:
 

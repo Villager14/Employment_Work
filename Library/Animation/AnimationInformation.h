@@ -17,7 +17,8 @@ public:
 	AnimationInformation() :
 		m_wireJudgement(false),
 		m_landingTime(0.0f),
-		m_fallJudgement(false)
+		m_fallJudgement(false),
+		m_gunModelJudgement(false)
 	{};
 
 	//		デストラクタ
@@ -37,6 +38,8 @@ private:
 	//		着地時間
 	float m_landingTime;
 
+	//		銃モデル
+	bool m_gunModelJudgement;
 public:
 
 	/*
@@ -94,4 +97,18 @@ public:
 	*	@param	(time)	時間
 	*/
 	void SetLandingTime(float time) { m_landingTime = time; }
+
+	/*
+	*	銃のモデルを使うかどうか
+	* 
+	*	@return true : 使う false : 使わない
+	*/
+	bool GetGunModelJudgement() { return m_gunModelJudgement; }
+
+	/*
+	*	銃のモデルを使わないかどうか
+	* 
+	*	@param	(judgement)	true : 使う false : 使わない
+	*/
+	void SetGunModelJudgement(bool judgement) { m_gunModelJudgement = judgement; }
 };

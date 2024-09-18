@@ -55,11 +55,12 @@ void SelectEndState::UIMove()
 
 	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
 
+	//		ƒL[
+	float key = Library::Clamp(m_time, 0.0f, 1.0f);
+
 	//		ã‚ÉˆÚ“®
 	if (m_titleSelectManager->GetInformation()->GetDirection())
 	{
-		
-
 		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::UP,
 			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::End);
 
@@ -68,6 +69,26 @@ void SelectEndState::UIMove()
 
 		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::Back,
 			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::Setting);
+	
+		//		SpaceÀ•W‚Ì‘JˆÚ
+		(*m_titleSelectManager->GetInformation()->GetStandardShader()->GetUIInformation())
+			[TitleInformation::TitleUIType::Space].position =
+			DirectX::SimpleMath::Vector2::Lerp(m_titleSelectManager->GetInformation()->SPACE_END,
+				m_titleSelectManager->GetInformation()->SPACE_PLAY, key);
+	
+		/*
+		//		WÀ•W‚Ì‘JˆÚ
+		(*m_titleSelectManager->GetInformation()->GetStandardShader()->GetUIInformation())
+			[TitleInformation::TitleUIType::W].position =
+			DirectX::SimpleMath::Vector2::Lerp(m_titleSelectManager->GetInformation()->W_SETTING,
+				m_titleSelectManager->GetInformation()->W_END, key);
+
+		//		AÀ•W‚Ì‘JˆÚ
+		(*m_titleSelectManager->GetInformation()->GetStandardShader()->GetUIInformation())
+			[TitleInformation::TitleUIType::A].position =
+			DirectX::SimpleMath::Vector2::Lerp(m_titleSelectManager->GetInformation()->A_PLAY,
+				m_titleSelectManager->GetInformation()->A_SETTING, key);
+		*/
 	}
 	//		‰º‚ÉˆÚ“®
 	else
@@ -80,6 +101,26 @@ void SelectEndState::UIMove()
 
 		m_titleSelectManager->GetCommonProcess()->MoveProcess(m_titleSelectManager->GetInformation()->MoveDirection::Back,
 			m_titleSelectManager->GetInformation()->GetDirection(), m_time, TitleInformation::TitleUIType::Play);
+	
+		//		SpaceÀ•W‚Ì‘JˆÚ
+		(*m_titleSelectManager->GetInformation()->GetStandardShader()->GetUIInformation())
+			[TitleInformation::TitleUIType::Space].position =
+			DirectX::SimpleMath::Vector2::Lerp(m_titleSelectManager->GetInformation()->SPACE_END,
+				m_titleSelectManager->GetInformation()->SPACE_SETTING, key);
+	
+		/*
+		//		WÀ•W‚Ì‘JˆÚ
+		(*m_titleSelectManager->GetInformation()->GetStandardShader()->GetUIInformation())
+			[TitleInformation::TitleUIType::W].position =
+			DirectX::SimpleMath::Vector2::Lerp(m_titleSelectManager->GetInformation()->W_SETTING,
+				m_titleSelectManager->GetInformation()->W_PLAY, key);
+	
+		//		AÀ•W‚Ì‘JˆÚ
+		(*m_titleSelectManager->GetInformation()->GetStandardShader()->GetUIInformation())
+			[TitleInformation::TitleUIType::A].position =
+			DirectX::SimpleMath::Vector2::Lerp(m_titleSelectManager->GetInformation()->A_PLAY,
+				m_titleSelectManager->GetInformation()->A_END, key);
+				*/
 	}
 }
 

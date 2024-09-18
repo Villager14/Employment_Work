@@ -27,25 +27,22 @@ void CommonEnemyStay::Initialize()
 
 void CommonEnemyStay::Update()
 {
-	//		ó‘Ô‚ğ‘JˆÚ‚·‚é
-	m_commonEnemy->ChangeState(CommonEnemy::State::Vigilance);
+	//		ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌXV
+	m_commonEnemy->GetPlayerAnimation()->Execute(0.0f,
+		m_commonEnemy->GetInformation()->GetPosition(),
+		{ 0.0f, DirectX::XMConvertToDegrees(m_commonEnemy->GetInformation()->GetRotation()) },
+		4.4f);
+
+	//		‹–ì“à‚É“ü‚Á‚½ê‡
+	if (m_commonEnemy->FieldOfVision())
+	{
+		//		ó‘Ô‚ğ‘JˆÚ‚·‚é
+		m_commonEnemy->ChangeState(CommonEnemy::State::Vigilance);
+	}
 }
 
 void CommonEnemyStay::Render()
 {
-	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateScale(5.0f);
-
-	world *= DirectX::SimpleMath::Matrix::CreateRotationY(m_commonEnemy->GetRotation());
-
-	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetPosition());
-
-	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
-	//m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()
-	//	->GetDeviceResources()->GetD3DDeviceContext(),
-	//*LibrarySingleton::GetInstance()->GetCommonState(),
-	//	world, LibrarySingleton::GetInstance()->GetView(),
-	//LibrarySingleton::GetInstance()->GetProj());
-
 	m_commonEnemy->GetPlayerAnimation()->Render();
 }
 

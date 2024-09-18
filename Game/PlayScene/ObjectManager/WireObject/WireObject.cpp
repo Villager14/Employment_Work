@@ -10,13 +10,16 @@
 
 #include "WireObject.h"
 
+#include "Library/Factory/IFactory.h"
+
 #include <Effects.h>
 
-WireObject::WireObject()
+WireObject::WireObject(ObjectManager* objectManager)
 	:
 	m_wireModel{},
-	m_range(120.0f),
-	m_rotation(0.0f)
+	m_rotation(0.0f),
+	m_objectManager(objectManager),
+	m_number(0)
 {
 }
 
@@ -25,13 +28,16 @@ WireObject::~WireObject()
 
 }
 
-void WireObject::Initialize(DirectX::SimpleMath::Vector3 position, int number)
+void WireObject::Initialize(ObjectInformation information)
 {
-	m_information.number = number;
+	int size = static_cast<int>((*m_objectManager->GetUseWireInformation()).size());
+
+	if (size == 0) m_number = 0;
+	else m_number = size - 1;
 
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
-					::GetInstance()->GetEffectFactory();
+		::GetInstance()->GetEffectFactory();
 
 	//		画像の読み込み
 	m_effect->SetDirectory(L"Resources/Models");
@@ -72,43 +78,64 @@ void WireObject::Initialize(DirectX::SimpleMath::Vector3 position, int number)
 			}
 		});
 
-	//		
-	m_wingPosition.push_back({ 4.0f, 5.0f, 3.6f });
-	m_wingPosition.push_back({ 4.2f, 5.0f, -3.0f });
-	m_wingPosition.push_back({ -4.0f, 5.0f, 3.6f });
-	m_wingPosition.push_back({ -4.2f, 5.0f, -3.0f });
-
-
-	//		座標
-	//m_position = position;
-
-	m_information.position = position;
+	//		羽の座標
+	m_wingPosition.push_back(WING_POSITION_0);
+	m_wingPosition.push_back(WING_POSITION_1);
+	m_wingPosition.push_back(WING_POSITION_2);
+	m_wingPosition.push_back(WING_POSITION_3);
 
 	//		座標を設定する
-	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_information.position);
+	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 
 	//		デバックワールドの半径の大きさ
-	m_debugWorld = DirectX::SimpleMath::Matrix::CreateScale(m_range);
+	m_debugWorld = DirectX::SimpleMath::Matrix::CreateScale(WIRE_RANGE);
 
 	//		座標を設定する
-	m_debugWorld *= DirectX::SimpleMath::Matrix::CreateTranslation(m_information.position);
+	m_debugWorld *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 }
 
-void WireObject::Update(const DirectX::SimpleMath::Vector3& playerPosition)
+void WireObject::Update()
 {
 	//		プレイヤーとの距離が一定いないの場合
-	if ((playerPosition - m_information.position).Length() < m_range + 7.0f)
+	if ((m_objectManager->GetPlayerPosition()
+		- (*m_objectManager->GetUseWireInformation()
+		)[m_number].position).Length() < WIRE_RANGE + 7.0f)
 	{
 		//		使用可能
-		m_information.m_usedJudgement = true;
+		(*m_objectManager->GetUseWireInformation())
+			[m_number].m_usedJudgement = true;
 	}
 	//		使用不可能
-	else 		m_information.m_usedJudgement = false;
+	else (*m_objectManager->GetUseWireInformation())
+			[m_number].m_usedJudgement = false;
 
-	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
+	//		羽の回転量
+	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * WING_ROTATION_SPEED;
 }
 
 void WireObject::Render()
+{
+	//		デバックの描画
+	DebugRender();
+
+	//		カメラから見えないようにカリングする
+	//if (m_objectManager->Culling(m_objectManager->GetPlayerPosition())) return;
+
+	//		モデルの描画
+	m_wireModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
+		*LibrarySingleton::GetInstance()->GetCommonState(),
+		m_world, LibrarySingleton::GetInstance()->GetView(),
+		LibrarySingleton::GetInstance()->GetProj());
+
+	//		羽の描画
+	WingRender();
+}
+
+void WireObject::Finalize()
+{
+}
+
+void WireObject::DebugRender()
 {
 	//		デバック表示かどうか
 	if (LibrarySingleton::GetInstance()->GetDebugJudgement())
@@ -126,19 +153,16 @@ void WireObject::Render()
 				LibrarySingleton::GetInstance()->GetProj());
 		}
 	}
+}
 
-	//		モデルの描画
-	m_wireModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		m_world, LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj());
-
+void WireObject::WingRender()
+{
 	for (int i = 0; i < 4; ++i)
 	{
 		DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(m_rotation);
-		
+
 		world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_wingPosition[i]);
-		world *= DirectX::SimpleMath::Matrix::CreateTranslation({m_world._41, m_world._42, m_world._43});
+		world *= DirectX::SimpleMath::Matrix::CreateTranslation({ m_world._41, m_world._42, m_world._43 });
 
 		//		羽モデルの描画
 		m_wingModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
@@ -146,8 +170,4 @@ void WireObject::Render()
 			world, LibrarySingleton::GetInstance()->GetView(),
 			LibrarySingleton::GetInstance()->GetProj());
 	}
-}
-
-void WireObject::Finalize()
-{
 }

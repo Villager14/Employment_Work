@@ -50,13 +50,17 @@ AnimationManager::AnimationManager(CharactorType type)
 	}
 	else if (m_charaType == CharactorType::CommonEnemy)
 	{
-		m_animaInformation.insert({ AnimationState::Upright, std::make_unique<UprightAnimationState>(this) });
+		m_animaInformation.insert({ AnimationState::HandGunStayA, std::make_unique<HandGunStay>(this) });
+		m_animaInformation.insert({ AnimationState::HandGunStyleA, std::make_unique<HandGunStyle>(this) });
 
 		createHead = true;
+
+		//		銃を使う
+		m_information->SetGunModelJudgement(true);
 	}
 
 	//		ボーンの処理
-	m_bons = std::make_unique<PlayerBons>(createHead);
+	m_bons = std::make_unique<ModelBones>(createHead, m_information->GetGunModelJudgement());
 
 	//		モデルの作製
 	CreateModel(createHead);
@@ -85,7 +89,7 @@ void AnimationManager::Initialize()
 	//		敵（通常）
 	else if (m_charaType == CharactorType::CommonEnemy)
 	{
-		m_animationState = AnimationState::Dash;
+		m_animationState = AnimationState::HandGunStayA;
 
 		m_istate = m_animaInformation[m_animationState].get();
 	}
@@ -143,6 +147,7 @@ void AnimationManager::CreateModel(bool createHead)
 	LoadModel(L"Resources/Models/RLeagUnder.cmo", m_effect);
 	LoadModel(L"Resources/Models/RShoes.cmo", m_effect);
 	if (createHead) LoadModel(L"Resources/Models/Head.cmo", m_effect);
+	if (m_information->GetGunModelJudgement()) LoadModel(L"Resources/Models/HandGun.cmo", m_effect);
 }
 
 void AnimationManager::LoadModel(const wchar_t* path, DirectX::EffectFactory* effect)

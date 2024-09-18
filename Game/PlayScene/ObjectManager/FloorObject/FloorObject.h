@@ -32,8 +32,7 @@ public:
 	*
 	*	@param	(position)	À•W
 	*/
-	void Initialize(DirectX::SimpleMath::Vector3 position,
-		DirectX::SimpleMath::Vector3 rotation) override;
+	void Initialize(ObjectInformation information) override;
 
 	//		XVˆ—
 	void Update() override;

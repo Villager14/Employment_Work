@@ -129,11 +129,11 @@ void PlayerWire::Finalize()
 	//		アニメーション待機状態
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Stay);
 
-	std::vector<WireObjectInformation*> m_wireInformation = m_player->GetWireObjectInformation();
+	//std::vector<WireObjectInformation>* m_wireInformation = m_player->GetWireObjectInformation();
 
-	for (int i = 0; i < m_player->GetWireObjectInformation().size(); ++i)
+	for (int i = 0; i < (*m_player->GetWireObjectInformation()).size(); ++i)
 	{
-		m_player->GetWireObjectInformation()[i]->m_actionJudgement = false;
+		(*m_player->GetWireObjectInformation())[i].m_actionJudgement = false;
 	}
 }
 

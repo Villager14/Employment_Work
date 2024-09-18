@@ -54,9 +54,9 @@ private:
 	PlayerInformation* m_playerInformation;
 
 	//		ÉèÉCÉÑÅ[ÇÃèÓïÒ
-	std::vector<WireObjectInformation*> m_wireInformation;
+	std::vector<WireObjectInformation>* m_wireInformation;
 
 public:
 
-	void SetWireInformation(std::vector<WireObjectInformation*> wire) { m_wireInformation = wire; }
+	void SetWireInformation(std::vector<WireObjectInformation>* wire) { m_wireInformation = wire; }
 };

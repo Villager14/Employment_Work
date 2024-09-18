@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "Game/PlayScene/Player/Bons/PlayerBons.h"
+#include "../Bones/ModelBones.h"
 
-#include "Game/PlayScene/Player/Bons/BonInformation.h"
+#include "../Bones/BonInformation.h"
 
 class AnimationManager;
 

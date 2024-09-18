@@ -25,10 +25,10 @@ CommonEnemyAttack::~CommonEnemyAttack()
 void CommonEnemyAttack::Initialize()
 {
 	//		UŒ‚‚·‚é•ûŒü‚ðÝ’è‚·‚é
-	m_commonEnemy->SetAttackDirection(m_commonEnemy->GetPlayerPosition() - m_commonEnemy->GetPosition());
+	m_commonEnemy->GetInformation()->SetAttackDirection(m_commonEnemy->GetInformation()->GetPlayerPosition() - m_commonEnemy->GetInformation()->GetPosition());
 
 	//		UŒ‚ó‘Ô‚É‚·‚é
-	m_commonEnemy->SetAttackJudgement(true);
+	m_commonEnemy->GetInformation()->SetAttackJudgement(true);
 }
 
 void CommonEnemyAttack::Update()
@@ -59,9 +59,9 @@ void CommonEnemyAttack::Render()
 {
 	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateScale(5.0f);
 
-	world *= DirectX::SimpleMath::Matrix::CreateRotationY(m_commonEnemy->GetRotation());
+	world *= DirectX::SimpleMath::Matrix::CreateRotationY(m_commonEnemy->GetInformation()->GetRotation());
 
-	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetPosition());
+	world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_commonEnemy->GetInformation()->GetPosition());
 
 	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
 	//m_commonEnemy->GetModel()->Draw(LibrarySingleton::GetInstance()

@@ -58,7 +58,7 @@ void PlayScene::Initialize()
 	m_effectManager->Initialize();
 
 	//		エネミーマネージャーの初期化
-	//m_enemyManager->Initialize();
+	m_enemyManager->Initialize();
 
 	//		プレイシーン時のBGMを再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
@@ -104,7 +104,7 @@ void PlayScene::Generation()
 	m_objectManager = std::make_unique<ObjectManager>(m_shadow->GetInformation(), m_gameManager.get());
 
 	//		エネミーマネージャーの生成
-	//m_enemyManager = std::make_unique<EnemyManager>();
+	m_enemyManager = std::make_unique<EnemyManager>();
 }
 
 bool PlayScene::MenuInformation()
@@ -141,14 +141,11 @@ void PlayScene::Update()
 	//		メニューが使えるかどうか？
 	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
 
-	//		プレイヤーのワールド座標を受け取る
-	m_objectManager->SetPlayerWorld(m_player->GetInformation()->GetWorld());
-
 	//		オブジェクトマネージャーの更新処理
 	m_objectManager->Update(m_player->GetInformation()->GetPosition());
 
 	//		範囲内にあるワイヤーの座標を受け取る
-	m_player->GetInformation()->SetWirePosition(m_objectManager->GetWirePosition());
+	//m_player->GetInformation()->SetWirePosition(m_objectManager->GetWirePosition());
 
 	//		ワイヤーの情報を受け取る
 	m_player->SetWireInformation(m_objectManager->GetUseWireInformation());
@@ -164,7 +161,7 @@ void PlayScene::Update()
 	m_collitionManager->SetObjectMesh(m_objectManager->GetMesh());
 
 	//		当たり判定の更新処理
-	m_collitionManager->Update(m_player->GetPlayerInformationCollition(), m_gameManager.get());
+	m_collitionManager->Update(m_player->GetPlayerInformationCollition());
 
 	//		当たり判定の情報
 	m_player->SetCollitionInformation(m_collitionManager->GetCollitionInformation());
@@ -214,8 +211,8 @@ void PlayScene::Update()
 		m_sceneManager->ChangeScene(SceneManager::SceneType::Result);
 	}
 
-	//m_enemyManager->Update(m_gameManager->GetTime(),
-	//	m_player->GetInformation()->GetPosition());
+	m_enemyManager->Update(m_gameManager->GetTime(),
+		m_player->GetInformation()->GetPosition());
 }
 
 void PlayScene::Render()
@@ -237,7 +234,7 @@ void PlayScene::Render()
 	m_player->ModelRender();
 
 	//		エネミーマネージャーの描画
-	//m_enemyManager->Render();
+	m_enemyManager->Render();
 
 	//		デバック描画
 	m_player->DebugRender();

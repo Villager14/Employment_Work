@@ -45,6 +45,17 @@ void GameClearManager::Initialize()
 
 	//		‰ñ“]—Ê‚ðÝ’è‚·‚é
 	buffer.rotationMatrix = m_messageShader->GetRotationMatrix();
+
+	m_elapsedTime = 0.0f;
+	m_scale = 0.0f;
+	m_move = 0.0f;
+
+	(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUnder].scale = { 0.0f, 1.0f };
+	(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUp].scale = { 0.0f, 1.0f };
+	(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUnder].position = { 0.0f, 13.0f };
+	(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUp].position = { 0.0f, 13.0f };
+	(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBackGround].scale = { 1.0f, 0.0f };
+	buffer.time = { 0.0f, 0.0f, 0.0f, 0.0f };
 }
 
 void GameClearManager::Update()
@@ -69,8 +80,6 @@ void GameClearManager::Update()
 		{
 			move = 1.0f - pow(2.0f, -10.0f * m_scale);
 		}
-
-		
 
 		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUnder].scale = { move, 1.0f };
 		(*m_uiManager->GetStandardShader()->GetUIInformation())[UIManager::UIType::GameClearBarUp].scale = { move, 1.0f };

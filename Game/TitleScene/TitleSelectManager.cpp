@@ -133,6 +133,12 @@ void TitleSelectManager::Render()
 	//		背景の描画
 	m_backGroundMove->Render();
 
+	//		W
+	//m_standardShader->Render(TitleInformation::TitleUIType::W);
+
+	//		A
+	//m_standardShader->Render(TitleInformation::TitleUIType::A);
+
 	//		選択の描画
 	for (int i = 0, max = static_cast<int>((*m_information->GetDraowOder()).size()); i < max; ++i)
 	{
@@ -140,12 +146,14 @@ void TitleSelectManager::Render()
 		m_information->GetStandardShader()->Render((*m_information->GetDraowOder())[i]);
 	}
 
+	//		スペース
+	m_standardShader->Render(TitleInformation::TitleUIType::Space);
+
 	//		タイトルロゴの描画
 	m_standardShader->Render(TitleInformation::TitleUIType::TitleRogo);
 
 	//		描画処理
 	m_iState->Render();
-
 }
 
 void TitleSelectManager::Finalize()
@@ -160,8 +168,8 @@ void TitleSelectManager::InputKey()
 	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
 
 	//		WボタンORマウスホイール上で上に移動
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::W)|| 
-		m_information->GetScrollWheel() < DirectX::Mouse::Get().GetState().scrollWheelValue)
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::S)|| 
+		m_information->GetScrollWheel() > DirectX::Mouse::Get().GetState().scrollWheelValue)
 	{
 		//		もし移動処理をしている場合は処理をしない
 		if (!m_information->GetKeyInput())
@@ -179,8 +187,8 @@ void TitleSelectManager::InputKey()
 	}
 
 	//		SボタンORマウスホイールしたで下に移動
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::S) ||
-		m_information->GetScrollWheel() > DirectX::Mouse::Get().GetState().scrollWheelValue)
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::W) ||
+		m_information->GetScrollWheel() < DirectX::Mouse::Get().GetState().scrollWheelValue)
 	{
 		//		もし移動処理をしている場合は処理をしない
 		if (!m_information->GetKeyInput())
@@ -227,6 +235,24 @@ void TitleSelectManager::CreateStandardShader()
 		m_information->UNDER_POINT, { m_information->MIN_SCALE,
 		 m_information->MIN_SCALE },
 		TitleInformation::TitleUIType::Setting);
+
+	//		Spaceの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/Select/Space.png",
+		m_information->SPACE_PLAY, { m_information->MAX_SCALE,
+		m_information->MAX_SCALE },
+		TitleInformation::TitleUIType::Space);
+
+	//		Wの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/Select/W.png",
+		m_information->W_END, { m_information->MAX_SCALE,
+		m_information->MAX_SCALE },
+		TitleInformation::TitleUIType::W);
+
+	//		Aの生成
+	m_standardShader->CreateUIInformation(L"Resources/Texture/TitleScene/Select/A.png",
+		m_information->A_SETTING, { m_information->MAX_SCALE,
+		m_information->MAX_SCALE },
+		TitleInformation::TitleUIType::A);
 }
 
 void TitleSelectManager::ChangeState

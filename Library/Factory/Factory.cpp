@@ -21,21 +21,23 @@
 
 #include "Game/PlayScene/ObjectManager/FloorObject/FloorObject.h"
 
+#include "Game/PlayScene/ObjectManager/WireObject/WireObject.h"
+
 Factory::Factory(ObjectManager* objectManager)
 {
 	m_objectInformation[Object::Grider] = [objectManager] {return std::make_unique<GriderObject>(objectManager); };
 	m_objectInformation[Object::Wall] = [objectManager] {return std::make_unique<WallObject>(objectManager); };
 	m_objectInformation[Object::Goal] = [objectManager] {return std::make_unique<GoalObject>(objectManager); };
 	m_objectInformation[Object::Floor] = [objectManager] {return std::make_unique<FloorObject>(objectManager); };
+	m_objectInformation[Object::Wire] = [objectManager] {return std::make_unique<WireObject>(objectManager); };
 }
 
 Factory::~Factory()
 {
 }
 
-std::unique_ptr<IFactory> Factory::CreateObject(Object type, 
-	DirectX::SimpleMath::Vector3 position,
-	DirectX::SimpleMath::Vector3 rotation)
+std::unique_ptr<IFactory> Factory::CreateObject
+(Object type, ObjectInformation objectInformation)
 {
 	//		オブジェクトタイプがあるかどうか
 	auto it = m_objectInformation.find(type);
@@ -45,7 +47,7 @@ std::unique_ptr<IFactory> Factory::CreateObject(Object type,
 		std::unique_ptr<IFactory> factory = it->second();
 
 		//		初期化処理
-		factory->Initialize(position, rotation);
+		factory->Initialize(objectInformation);
 
 		return factory;
 	}

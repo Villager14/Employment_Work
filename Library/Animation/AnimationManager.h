@@ -8,7 +8,9 @@
 
 #pragma once
 
-#include "Game/PlayScene/Player/Bons/PlayerBons.h"
+#include "../Bones/BonInformation.h"
+
+#include "../Bones/ModelBones.h"
 
 #include "IAnimation.h"
 
@@ -32,6 +34,9 @@
 #include "State/Player/WallJumpAnimationState.h"
 #include "State/Player/WallWalkAnimationState.h"
 #include "State/Player/WireJumpAnimationState.h"
+
+#include "State/Enemy/HandGunStay.h"
+#include "State/Enemy/HandGunStyle.h"
 
 class AnimationManager
 {
@@ -62,6 +67,8 @@ public:
 		Fall,
 		Death,
 		Attack,
+		HandGunStayA,
+		HandGunStyleA,
 	};
 public:
 
@@ -105,7 +112,7 @@ public:
 private:
 
 	//		ボーン
-	std::unique_ptr<PlayerBons> m_bons;
+	std::unique_ptr<ModelBones> m_bons;
 
 	//		モデル
 	std::vector<std::unique_ptr<DirectX::Model>> m_model;
@@ -149,5 +156,5 @@ public:
 	* 
 	*	@return ボーン
 	*/
-	PlayerBons* GetBons() { return m_bons.get(); }
+	ModelBones* GetBons() { return m_bons.get(); }
 };

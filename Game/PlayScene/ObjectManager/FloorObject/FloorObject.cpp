@@ -15,6 +15,8 @@
 
 #include <WICTextureLoader.h>
 
+#include <SpriteFont.h>
+
 FloorObject::FloorObject(ObjectManager* objectManager)
 	:
 	m_floorModel{},
@@ -31,7 +33,7 @@ FloorObject::~FloorObject()
 
 }
 
-void FloorObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector3 rotation)
+void FloorObject::Initialize(ObjectInformation information)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -40,10 +42,14 @@ void FloorObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::Sim
 	//		画像の読み込み
 	m_effect->SetDirectory(L"Resources/Models");
 
+	std::wostringstream oss;
+
+	oss << Library::StringToWString(information.modelPath);
+
 	//		モデルの読み込み
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
-		L"Resources/Models/Floor.cmo", *m_effect);
-
+		oss.str().c_str(), *m_effect);
+	
 	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
 		{
 			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
@@ -57,50 +63,19 @@ void FloorObject::Initialize(DirectX::SimpleMath::Vector3 position, DirectX::Sim
 			}
 		});
 
-	/*
-	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
-		{
-			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
+	std::wostringstream oss2;
 
-			if (basicEffect)
-			{
-				basicEffect->SetLightingEnabled(false);
-				basicEffect->SetPerPixelLighting(false);
-				basicEffect->SetTextureEnabled(false);
-				basicEffect->SetVertexColorEnabled(false);
-				basicEffect->SetFogEnabled(false);
-			}
-
-		});
-
-	// ピクセルシェーダーの作成（トーラス用）
-	std::vector<uint8_t> ps_torus = DX::ReadData(L"Resources/Shader/Model/ModelPS.cso");
-	DX::ThrowIfFailed(
-		LibrarySingleton::GetInstance()->GetDeviceResources()
-		->GetD3DDevice()->CreatePixelShader(ps_torus.data(),
-		ps_torus.size(), nullptr, m_floorPS.ReleaseAndGetAddressOf())
-	);
-
-	// テクスチャのロード
-	DirectX::CreateWICTextureFromFile(
-		LibrarySingleton::GetInstance()
-		->GetDeviceResources()->GetD3DDevice(),
-		L"Resources/Textures/floor.png",
-		nullptr,
-		m_texture.GetAddressOf()
-	);
-	*/
-
+	oss2 << Library::StringToWString(information.collitionPath);
 
 	//		初期化処理
-	m_objectMesh->Initialize(L"Resources/ModelMesh/Floor.obj");
+	m_objectMesh->Initialize(oss2.str().c_str());
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0));
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(rotation.x)), position);
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(information.rotation.x)), information.position);
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(position);
+	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Floor);
