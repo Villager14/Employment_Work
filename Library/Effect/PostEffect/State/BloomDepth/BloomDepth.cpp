@@ -85,13 +85,13 @@ void BloomDepth::CreateDepth()
 
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
 
-	auto const width = size_t(std::max<LONG>(rect.right - rect.left, 1));
-	auto const height = size_t(std::max<LONG>(rect.bottom - rect.top, 1));
+	const auto width = size_t(std::max<LONG>(rect.right - rect.left, 1));
+	const auto height = size_t(std::max<LONG>(rect.bottom - rect.top, 1));
 
 	// 深度テクスチャの設定
 	D3D11_TEXTURE2D_DESC depthTextureDesc = {};
-	depthTextureDesc.Width = width; // テクスチャの幅
-	depthTextureDesc.Height = height; // テクスチャの高さ
+	depthTextureDesc.Width = static_cast<UINT>(width); // テクスチャの幅
+	depthTextureDesc.Height = static_cast<UINT>(height); // テクスチャの高さ
 	depthTextureDesc.MipLevels = 1;
 	depthTextureDesc.ArraySize = 1;
 	depthTextureDesc.Format = DXGI_FORMAT_R32_TYPELESS; // 深度フォーマット
@@ -104,7 +104,7 @@ void BloomDepth::CreateDepth()
 	if (FAILED(hr))
 	{
 		// エラーハンドリング
-		exit;
+		MessageBox(0, L"CreateTexture2D Failed", NULL, MB_OK);
 	}
 
 	// 深度ステンシルビューの作成
@@ -117,7 +117,7 @@ void BloomDepth::CreateDepth()
 	if (FAILED(hr))
 	{
 		// エラーハンドリング
-		exit;
+		MessageBox(0, L"CreateDepthStencilView Failed", NULL, MB_OK);
 	}
 
 	// シェーダーリソースビューの作成
@@ -131,62 +131,6 @@ void BloomDepth::CreateDepth()
 	if (FAILED(hr))
 	{
 		// エラーハンドリング
-		exit;
+		MessageBox(0, L"CreateShaderResourceView Failed", NULL, MB_OK);
 	}
-	/*
-	//		サイズ
-	RECT rect = { 0,0, static_cast<LONG>(LibrarySingleton::GetInstance()->GetScreenSize().x),
-				  static_cast<LONG>(LibrarySingleton::GetInstance()->GetScreenSize().y) };
-
-	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
-
-	auto const width = size_t(std::max<LONG>(rect.right - rect.left, 1));
-	auto const height = size_t(std::max<LONG>(rect.bottom - rect.top, 1));
-
-	// 深度テクスチャの設定
-	D3D11_TEXTURE2D_DESC depthTextureDesc = {};
-	depthTextureDesc.Width = width; // テクスチャの幅
-	depthTextureDesc.Height = height; // テクスチャの高さ
-	depthTextureDesc.MipLevels = 1;
-	depthTextureDesc.ArraySize = 1;
-	depthTextureDesc.Format = DXGI_FORMAT_R32_TYPELESS; // 深度フォーマット
-	depthTextureDesc.SampleDesc.Count = 1; // マルチサンプリングのカウント
-	depthTextureDesc.Usage = D3D11_USAGE_DEFAULT;
-	depthTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
-
-	// テクスチャを作成
-	HRESULT hr = device->CreateTexture2D(&depthTextureDesc, nullptr, &m_depthTexture);
-	if (FAILED(hr))
-	{
-		// エラーハンドリング
-		exit;
-	}
-
-	// 深度ステンシルビューの作成
-	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
-	dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
-	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	dsvDesc.Texture2D.MipSlice = 0;
-
-	hr = device->CreateDepthStencilView(m_depthTexture.Get(), &dsvDesc, &m_depthStencilView);
-	if (FAILED(hr))
-	{
-		// エラーハンドリング
-		exit;
-	}
-
-	// シェーダーリソースビューの作成
-	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-	srvDesc.Format = DXGI_FORMAT_R32_FLOAT;
-	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	srvDesc.Texture2D.MostDetailedMip = 0;
-	srvDesc.Texture2D.MipLevels = 1;
-
-	hr = device->CreateShaderResourceView(m_depthTexture.Get(), &srvDesc, &m_depthSRV);
-	if (FAILED(hr))
-	{
-		// エラーハンドリング
-		exit;
-	}
-	*/
 }

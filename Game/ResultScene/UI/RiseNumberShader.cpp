@@ -45,9 +45,9 @@ void RiseNumberShader::Generation()
 
 	//		シェーダーの生成
 	m_uiRenderManager->Create(L"Resources/Texture/ResultScene/nomber.png",
-		L"Resources/Shader/AboveNumber/AboveNumberVS.cso",
-		L"Resources/Shader/AboveNumber/AboveNumberGS.cso",
-		L"Resources/Shader/AboveNumber/AboveNumberPS.cso",
+		L"Resources/Shader/UI/AboveNumber/AboveNumberVS.cso",
+		L"Resources/Shader/UI/AboveNumber/AboveNumberGS.cso",
+		L"Resources/Shader/UI/AboveNumber/AboveNumberPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 

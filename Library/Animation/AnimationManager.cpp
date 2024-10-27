@@ -129,25 +129,40 @@ void AnimationManager::CreateModel(bool createHead)
 		::GetInstance()->GetEffectFactory();
 
 	//		‰æ‘œ‚Ì“Ç‚Ýž‚Ý
-	m_effect->SetDirectory(L"Resources/Models/CharaTexture/Player");
+	m_effect->SetDirectory(L"Resources/Models/Player");
 
 	//		ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	LoadModel(L"Resources/Models/Body.cmo", m_effect);
-	LoadModel(L"Resources/Models/BodyUnder.cmo", m_effect);
-	LoadModel(L"Resources/Models/LArmAbove.cmo", m_effect);
-	LoadModel(L"Resources/Models/LArmUnder.cmo", m_effect);
-	LoadModel(L"Resources/Models/LHand.cmo", m_effect);
-	LoadModel(L"Resources/Models/RArmAbove.cmo", m_effect);
-	LoadModel(L"Resources/Models/RArmUnder.cmo", m_effect);
-	LoadModel(L"Resources/Models/RHand.cmo", m_effect);
-	LoadModel(L"Resources/Models/LLeagAbove.cmo", m_effect);
-	LoadModel(L"Resources/Models/LLeagUnder.cmo", m_effect);
-	LoadModel(L"Resources/Models/LShoes.cmo", m_effect);
-	LoadModel(L"Resources/Models/RLeagAbove.cmo", m_effect);
-	LoadModel(L"Resources/Models/RLeagUnder.cmo", m_effect);
-	LoadModel(L"Resources/Models/RShoes.cmo", m_effect);
-	if (createHead) LoadModel(L"Resources/Models/Head.cmo", m_effect);
-	if (m_information->GetGunModelJudgement()) LoadModel(L"Resources/Models/HandGun.cmo", m_effect);
+	//LoadModel(L"Resources/Models/Body.cmo", m_effect);
+	//LoadModel(L"Resources/Models/BodyUnder.cmo", m_effect);
+	//LoadModel(L"Resources/Models/LArmAbove.cmo", m_effect);
+	//LoadModel(L"Resources/Models/LArmUnder.cmo", m_effect);
+	//LoadModel(L"Resources/Models/LHand.cmo", m_effect);
+	//LoadModel(L"Resources/Models/RArmAbove.cmo", m_effect);
+	//LoadModel(L"Resources/Models/RArmUnder.cmo", m_effect);
+	//LoadModel(L"Resources/Models/RHand.cmo", m_effect);
+	//LoadModel(L"Resources/Models/LLeagAbove.cmo", m_effect);
+	//LoadModel(L"Resources/Models/LLeagUnder.cmo", m_effect);
+	//LoadModel(L"Resources/Models/LShoes.cmo", m_effect);
+	//LoadModel(L"Resources/Models/RLeagAbove.cmo", m_effect);
+	//LoadModel(L"Resources/Models/RLeagUnder.cmo", m_effect);
+	//LoadModel(L"Resources/Models/RShoes.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/Body.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/BodyUnder.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/LArmAbove.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/LArmUnder.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/LHand.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/RArmAbove.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/RArmUnder.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/RHand.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/LLeagAbove.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/LLeagUnder.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/LShoes.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/RLeagAbove.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/RLeagUnder.cmo", m_effect);
+	LoadModel(L"Resources/Models/Player/RShoes.cmo", m_effect);
+
+	if (createHead) LoadModel(L"Resources/Models/Player/Head.cmo", m_effect);
+	if (m_information->GetGunModelJudgement()) LoadModel(L"Resources/Models/Player/HandGun.cmo", m_effect);
 }
 
 void AnimationManager::LoadModel(const wchar_t* path, DirectX::EffectFactory* effect)

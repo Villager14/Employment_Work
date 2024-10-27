@@ -21,9 +21,9 @@ FadeIn::FadeIn()
 	m_fadeRender = std::make_unique<UIRenderManager>();
 
 	m_fadeRender->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
-		L"Resources/Shader/Fade/FadeShaderVS.cso",
-		L"Resources/Shader/Fade/FadeShaderGS.cso",
-		L"Resources/Shader/Fade/FadeShaderPS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderGS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 }

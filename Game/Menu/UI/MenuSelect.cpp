@@ -16,9 +16,9 @@ MenuSelect::MenuSelect()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/Select/Select.png",
-		L"Resources/Shader/MenuSelect/MenuSelectVS.cso",
-		L"Resources/Shader/MenuSelect/MenuSelectGS.cso",
-		L"Resources/Shader/MenuSelect/MenuSelectPS.cso",
+		L"Resources/Shader/UI/MenuSelect/MenuSelectVS.cso",
+		L"Resources/Shader/UI/MenuSelect/MenuSelectGS.cso",
+		L"Resources/Shader/UI/MenuSelect/MenuSelectPS.cso",
 		m_constBuffer,
 		{ 0.0f, 0.0f , }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);

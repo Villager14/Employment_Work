@@ -61,7 +61,7 @@ public:
 	{
 		DirectX::SimpleMath::Vector4 windowSize;			//		画面スケール
 		DirectX::SimpleMath::Matrix  rotationMatrix;		//		回転量
-		float elasedTime;									//		経過時間
+		float elasedTime = 0.0f;							//		経過時間
 		DirectX::SimpleMath::Vector3 pad;
 		DirectX::SimpleMath::Vector4 color;					//		色
 	};

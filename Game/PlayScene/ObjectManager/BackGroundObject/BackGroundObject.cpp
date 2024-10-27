@@ -63,7 +63,7 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 
 	// ピクセルシェーダーの作成（トーラス用）
 	std::vector<uint8_t> ps_torus =
-		DX::ReadData(L"Resources/Shader/BillShader/BillShaderPS.cso");
+		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
 	DX::ThrowIfFailed(
 		device->CreatePixelShader(ps_torus.data(), ps_torus.size(),
 			nullptr, m_pixselShader.ReleaseAndGetAddressOf())
@@ -91,6 +91,8 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 	PostEffectFlag::Flag flag,
 	PostEffectObjectShader* objectShader)
 {
+	UNREFERENCED_PARAMETER(objectShader);
+
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	//		フラグがfalseの場合処理をしない	

@@ -70,16 +70,13 @@ void EffectRender::ObjectRender()
 
 void EffectRender::PostEffectRender()
 {
-	auto context = LibrarySingleton::GetInstance()->
-		GetDeviceResources()->GetD3DDeviceContext();
-
 	//		レンダーターゲットの変更
 	m_texture = m_postEffectManager->ChangeRenderTarget(m_transparencyRenderTexture.get(),
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetDepthStencilView());
 
 	//		テクスチャサイズの変更
-	m_transparencyRenderManager->SetTextureSize(LibrarySingleton::GetInstance()->GetScreenSize().x,
-		LibrarySingleton::GetInstance()->GetScreenSize().y);
+	m_transparencyRenderManager->SetTextureSize(static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+												static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().y));
 
 	//		テクスチャをセットする
 	m_transparencyRenderManager->SetTexture(m_alphaEffectTexture);

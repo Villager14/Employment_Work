@@ -69,16 +69,13 @@ void FogProcess::ObjectRender()
 
 void FogProcess::PostEffectRender()
 {
-	auto context = LibrarySingleton::GetInstance()->
-		GetDeviceResources()->GetD3DDeviceContext();
-
 	//		レンダーターゲットの変更
 	m_fogTexture = m_postEffectManager->ChangeRenderTarget(m_depthRenderTarget.get(),
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetDepthStencilView());
 
 	//		テクスチャサイズの変更
-	m_depthShaderView->SetTextureSize(LibrarySingleton::GetInstance()->GetScreenSize().x,
-		LibrarySingleton::GetInstance()->GetScreenSize().y);
+	m_depthShaderView->SetTextureSize(static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+									  static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().y));
 
 	//		テクスチャをセットする
 	m_depthShaderView->SetTexture(m_depthSRV);
@@ -129,15 +126,15 @@ void FogProcess::CreateDepth()
 
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
 
-	auto const width = size_t(std::max<LONG>(rect.right - rect.left, 1));
-	auto const height = size_t(std::max<LONG>(rect.bottom - rect.top, 1));
+	UINT width = size_t(std::max<LONG>(rect.right - rect.left, 1));
+	UINT height = size_t(std::max<LONG>(rect.bottom - rect.top, 1));
 
 	// 深度テクスチャの設定
 	D3D11_TEXTURE2D_DESC depthTextureDesc = {};
 	depthTextureDesc.Width = width; // テクスチャの幅
 	depthTextureDesc.Height = height; // テクスチャの高さ
-	depthTextureDesc.MipLevels = 1;
-	depthTextureDesc.ArraySize = 1;
+	depthTextureDesc.MipLevels = size_t(1);
+	depthTextureDesc.ArraySize = size_t(1);
 	depthTextureDesc.Format = DXGI_FORMAT_R32_TYPELESS; // 深度フォーマット
 	depthTextureDesc.SampleDesc.Count = 1; // マルチサンプリングのカウント
 	depthTextureDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -148,7 +145,7 @@ void FogProcess::CreateDepth()
 	if (FAILED(hr))
 	{
 		// エラーハンドリング
-		exit;
+		MessageBox(0, L"CreateTexture2D Failed", NULL, MB_OK);
 	}
 
 	// 深度ステンシルビューの作成
@@ -161,7 +158,7 @@ void FogProcess::CreateDepth()
 	if (FAILED(hr))
 	{
 		// エラーハンドリング
-		exit;
+		MessageBox(0, L"CreateDepthStencilView Failed", NULL, MB_OK);
 	}
 
 	// シェーダーリソースビューの作成
@@ -175,6 +172,6 @@ void FogProcess::CreateDepth()
 	if (FAILED(hr))
 	{
 		// エラーハンドリング
-		exit;
+		MessageBox(0, L"CreateShaderResourceView Failed", NULL, MB_OK);
 	}
 }

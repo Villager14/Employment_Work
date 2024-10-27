@@ -33,9 +33,9 @@ void FadePostEffect::Initialize()
 {
 	//		合成用
 	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/Fade/FadeShaderVS.cso",
-		L"Resources/Shader/Fade/FadeShaderGS.cso",
-		L"Resources/Shader/Fade/FadeShaderPS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderGS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderPS.cso",
 		m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
@@ -66,8 +66,8 @@ void FadePostEffect::ObjectRender()
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetDepthStencilView());
 
 	//		テクスチャサイズの変更
-	m_depthShaderView->SetTextureSize(LibrarySingleton::GetInstance()->GetScreenSize().x,
-		LibrarySingleton::GetInstance()->GetScreenSize().y);
+	m_depthShaderView->SetTextureSize(static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+									  static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().y));
 
 	//		テクスチャをセットする
 	m_depthShaderView->SetTexture(m_postEffectManager->GetShaderTexture());

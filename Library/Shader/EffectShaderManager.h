@@ -65,14 +65,14 @@ public:
 		const wchar_t* gsPath,
 		const wchar_t* psPath,
 		const ConstBuffer& obj,
-		DirectX::SimpleMath::Vector2 position,
+		DirectX::SimpleMath::Vector3 position,
 		DirectX::SimpleMath::Vector2 scale);
 
 	void CrateConstBuffer(const ConstBuffer& obj);
 
 	void Render(const ConstBuffer& obj);
 
-	void RenderProcedure(const ConstBuffer& obj);
+	void RenderProcedure();
 
 	ConstBuffer GetConstBuffer() { return m_constBuffer; }
 
@@ -103,6 +103,8 @@ private:
 	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColorTexture>> m_batch;
 
 	DirectX::SimpleMath::Vector3 m_position;
+
+	DirectX::SimpleMath::Vector2 m_scale;
 
 	ConstBuffer m_constBuffer;
 
@@ -166,9 +168,12 @@ inline void EffectShaderManager<ConstBuffer>::Create(
 		const wchar_t* gsPath,
 		const wchar_t* psPath,
 		const ConstBuffer& obj,
-		DirectX::SimpleMath::Vector2 position,
+		DirectX::SimpleMath::Vector3 position,
 		DirectX::SimpleMath::Vector2 scale)
 {
+	m_position = position;
+	m_scale = scale;
+
 		//		テクスチャの読み込み
 	LoadTexture(texpath);
 
@@ -182,6 +187,8 @@ inline void EffectShaderManager<ConstBuffer>::Create(
 template<typename ConstBuffer>
 inline void EffectShaderManager<ConstBuffer>::CrateConstBuffer(const ConstBuffer& obj)
 {
+	UNREFERENCED_PARAMETER(obj);
+
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
 
 	D3D11_BUFFER_DESC bd;
@@ -238,7 +245,7 @@ inline void EffectShaderManager<ConstBuffer>::Render(const ConstBuffer& obj)
 }
 
 template<typename ConstBuffer>
-inline void EffectShaderManager<ConstBuffer>::RenderProcedure(const ConstBuffer& obj)
+inline void EffectShaderManager<ConstBuffer>::RenderProcedure()
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 	auto state = LibrarySingleton::GetInstance()->GetCommonState();

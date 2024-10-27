@@ -22,9 +22,9 @@ CoolTime::CoolTime(UIManager* uiManager)
 
 	//		回転シェーダーの作製
 	m_rotataionShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
-		L"Resources/Shader/CoolTime/CoolTimeVS.cso",
-		L"Resources/Shader/CoolTime/CoolTimeGS.cso",
-		L"Resources/Shader/CoolTime/CoolTimePS.cso",
+		L"Resources/Shader/UI/CoolTime/CoolTimeVS.cso",
+		L"Resources/Shader/UI/CoolTime/CoolTimeGS.cso",
+		L"Resources/Shader/UI/CoolTime/CoolTimePS.cso",
 		buffer,
 		{ 270.0f, 0.0f }, { 0.6f, 0.6f });
 
@@ -33,9 +33,9 @@ CoolTime::CoolTime(UIManager* uiManager)
 
 	//		数字シェーダーの作製
 	m_shader->Create(L"Resources/Texture/UI/CoolTime/cooltimeNumber.png",
-		L"Resources/Shader/Number/NumberVS.cso",
-		L"Resources/Shader/Number/NumberGS.cso",
-		L"Resources/Shader/Number/NumberPS.cso",
+		L"Resources/Shader/UI/Number/NumberVS.cso",
+		L"Resources/Shader/UI/Number/NumberGS.cso",
+		L"Resources/Shader/UI/Number/NumberPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 0.3f, 0.3f });
 }

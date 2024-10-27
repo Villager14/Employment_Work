@@ -185,9 +185,9 @@ void WallObject::LoadModel(ObjectInformation information)
 
 	//		シェーダーの読み込み（ピクセルシェーダー）
 	m_objectShader->LoadShader(ObjectShaderManager::PixelShader,
-					L"Resources/Shader/Object/Wall/WallPS.cso");
+					L"Resources/Shader/Model/Wall/WallPS.cso");
 	m_objectShader->LoadShader(ObjectShaderManager::VertexShader,
-					L"Resources/Shader/Object/Wall/WallVS.cso");
+					L"Resources/Shader/Model/Wall/WallVS.cso");
 
 	//		コンストバッファの作製
 	m_objectShader->CreateConstBuffer(m_constBuffer);
