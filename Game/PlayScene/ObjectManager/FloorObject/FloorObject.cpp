@@ -102,7 +102,7 @@ void FloorObject::Initialize(ObjectInformation information)
 
 	// ピクセルシェーダーの作成（トーラス用）
 	std::vector<uint8_t> ps_torus =
-		DX::ReadData(L"Resources/Shader/BillShader/BillShaderPS.cso");
+		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
 	DX::ThrowIfFailed(
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
 		->CreatePixelShader(ps_torus.data(), ps_torus.size(),

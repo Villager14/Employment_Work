@@ -18,9 +18,9 @@ BackGroundMove::BackGroundMove()
 
 	//		シェーダーの生成
 	m_uiRenderManager->Create(L"Resources/Texture/TitleScene/TitleBack.png",
-		L"Resources/Shader/BackGroundMove/BackGroundMoveVS.cso",
-		L"Resources/Shader/BackGroundMove/BackGroundMoveGS.cso",
-		L"Resources/Shader/BackGroundMove/BackGroundMovePS.cso",
+		L"Resources/Shader/UI/BackGroundMove/BackGroundMoveVS.cso",
+		L"Resources/Shader/UI/BackGroundMove/BackGroundMoveGS.cso",
+		L"Resources/Shader/UI/BackGroundMove/BackGroundMovePS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 

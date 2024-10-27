@@ -23,9 +23,9 @@ GameClearManager::GameClearManager(GameManager* gameManager, UIManager* uiManage
 
 	//		メッセージの作成
 	m_messageShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
-		L"Resources/Shader/CenterShader/CenterShaderVS.cso",
-		L"Resources/Shader/CenterShader/CenterShaderGS.cso",
-		L"Resources/Shader/CenterShader/CenterShaderPS.cso",
+		L"Resources/Shader/UI/CenterShader/CenterShaderVS.cso",
+		L"Resources/Shader/UI/CenterShader/CenterShaderGS.cso",
+		L"Resources/Shader/UI/CenterShader/CenterShaderPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f }
 	);

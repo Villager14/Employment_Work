@@ -19,9 +19,9 @@ ClockTime::ClockTime()
 
 	//		数字シェーダーの作製
 	m_shader->Create(L"Resources/Texture/UI/Clock/ClockNumber.png",
-		L"Resources/Shader/Number/NumberVS.cso",
-		L"Resources/Shader/Number/NumberGS.cso",
-		L"Resources/Shader/Number/NumberPS.cso",
+		L"Resources/Shader/UI/Number/NumberVS.cso",
+		L"Resources/Shader/UI/Number/NumberGS.cso",
+		L"Resources/Shader/UI/Number/NumberPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 0.8f, 0.8f });
 }

@@ -13,8 +13,6 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
-#include "Game/PlayScene/Shadow/ShadowInformation.h"
-
 #include "Game/PlayScene/GameManager/GameManager.h"
 
 #include "PlayerInformation.h"
@@ -72,9 +70,6 @@ public:
 
 	//		アニメーションの更新
 	void AnimationUpdate();
-
-	//		描画処理
-	void Render(Shadow* hontai);
 
 	//		モデルの描画
 	void ModelRender(PostEffectFlag::Flag flag);
@@ -145,9 +140,6 @@ private:
 
 	//		プレイヤーの情報
 	std::unique_ptr<PlayerInformation> m_information;
-
-	//		プレイヤーモデル
-	std::unique_ptr<DirectX::Model> m_playerObject;
 
 	//		プレイヤーの共通処理
 	std::unique_ptr<PlayerCommonProcessing> m_commonProcessing;

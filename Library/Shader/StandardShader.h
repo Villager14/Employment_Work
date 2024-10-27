@@ -113,9 +113,9 @@ void StandardShader<UIType>::Initialize()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/TitleScene/TitleRogo.png",
-		L"Resources/Shader/UI/UIShaderVS.cso",
-		L"Resources/Shader/UI/UIShaderGS.cso",
-		L"Resources/Shader/UI/UIShaderPS.cso",
+		L"Resources/Shader/UI/UIShader/UIShaderVS.cso",
+		L"Resources/Shader/UI/UIShader/UIShaderGS.cso",
+		L"Resources/Shader/UI/UIShader/UIShaderPS.cso",
 		m_constBuffer,
 		{ 0.0f, 0.0f , }, { 1.0f,
 		1.0f },

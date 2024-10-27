@@ -22,9 +22,9 @@ void SpeedLine::Initialize()
 {
 	//		回転シェーダーの作製
 	m_shader->Create(L"Resources/Texture/UI/Speed/UISpeed.png",
-		L"Resources/Shader/SpeedLine/SpeedLineVS.cso",
-		L"Resources/Shader/SpeedLine/SpeedLineGS.cso",
-		L"Resources/Shader/SpeedLine/SpeedLinePS.cso",
+		L"Resources/Shader/UI/SpeedLine/SpeedLineVS.cso",
+		L"Resources/Shader/UI/SpeedLine/SpeedLineGS.cso",
+		L"Resources/Shader/UI/SpeedLine/SpeedLinePS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 

@@ -57,8 +57,8 @@ void GlitchNoise::ObjectRender()
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetDepthStencilView());
 
 	//		テクスチャサイズの変更
-	m_depthShaderView->SetTextureSize(LibrarySingleton::GetInstance()->GetScreenSize().x,
-		LibrarySingleton::GetInstance()->GetScreenSize().y);
+	m_depthShaderView->SetTextureSize(static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().x),
+		static_cast<int>(LibrarySingleton::GetInstance()->GetScreenSize().y));
 
 	//		テクスチャをセットする
 	m_depthShaderView->SetTexture(m_postEffectManager->GetShaderTexture());

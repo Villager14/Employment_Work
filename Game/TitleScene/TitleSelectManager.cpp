@@ -81,9 +81,9 @@ void TitleSelectManager::Generation()
 
 	//		フェードの作成
 	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
-		L"Resources/Shader/Fade/FadeShaderVS.cso",
-		L"Resources/Shader/Fade/FadeShaderGS.cso",
-		L"Resources/Shader/Fade/FadeShaderPS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderGS.cso",
+		L"Resources/Shader/UI/Fade/FadeShaderPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 

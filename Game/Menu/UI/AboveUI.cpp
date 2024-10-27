@@ -14,9 +14,9 @@ AboveUI::AboveUI()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/Select/Audio.png",
-		L"Resources/Shader/AboveUI/AboveUIVS.cso",
-		L"Resources/Shader/AboveUI/AboveUIGS.cso",
-		L"Resources/Shader/AboveUI/AboveUIPS.cso",
+		L"Resources/Shader/UI/AboveUI/AboveUIVS.cso",
+		L"Resources/Shader/UI/AboveUI/AboveUIGS.cso",
+		L"Resources/Shader/UI/AboveUI/AboveUIPS.cso",
 		m_constBuffer,
 		{ 0.0f, 0.0f , }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);

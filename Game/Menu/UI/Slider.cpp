@@ -14,9 +14,9 @@ Slider::Slider()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/Slide/Slide.png",
-		L"Resources/Shader/Slider/SliderVS.cso",
-		L"Resources/Shader/Slider/SliderGS.cso",
-		L"Resources/Shader/Slider/SliderPS.cso",
+		L"Resources/Shader/UI/Slider/SliderVS.cso",
+		L"Resources/Shader/UI/Slider/SliderGS.cso",
+		L"Resources/Shader/UI/Slider/SliderPS.cso",
 		m_constBuffer,
 		{ 200.0f, -100.0f }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);

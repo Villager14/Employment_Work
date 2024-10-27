@@ -20,7 +20,7 @@ ObjectManager::ObjectManager(ShadowInformation* shadowInformation, GameManager* 
 	m_drawMesh = std::make_unique<DrawMesh>();
 
 	//		背景オブジェクトの生成
-	m_backGroundObject = std::make_unique<BackGroundObject>(this);
+	//m_backGroundObject = std::make_unique<BackGroundObject>(this);
 
 	//		ファクトリー
 	m_factory = std::make_unique<Factory>(this);
@@ -78,7 +78,7 @@ void ObjectManager::Initialize()
 	}
 
 	//		背景オブジェクトの初期化
-	m_backGroundObject->Initialize(m_objectMesh, m_wireObjectPosition);
+	//m_backGroundObject->Initialize(m_objectMesh, m_wireObjectPosition);
 }
 
 void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
@@ -99,7 +99,7 @@ void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 	m_cameraVelocity = cameraVelocity;
 	m_cameraPosition = cameraPosition;
 
-	m_backGroundObject->Render(cameraVelocity, cameraPosition, flag, objectShader);
+	//m_backGroundObject->Render(cameraVelocity, cameraPosition, flag, objectShader);
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
@@ -112,7 +112,7 @@ void ObjectManager::Finalize()
 {
 	m_objectMesh.clear();
 
-	m_backGroundObject->Finalize();
+	//m_backGroundObject->Finalize();
 
 	m_factoryObject.clear();
 }

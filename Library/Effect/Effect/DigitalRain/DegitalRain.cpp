@@ -34,16 +34,14 @@ DegitalRain::~DegitalRain()
 }
 
 void DegitalRain::Initialzie()
-{
-	ID3D11DeviceContext1* context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
-	
+{	
 	m_effectShaderManager->Create(
 		L"Resources/Texture/TEST.png",
 		L"Resources/Shader/Effect/DegitalRain/DegitalRainVS.cso",
 		L"Resources/Shader/Effect/DegitalRain/DegitalRainGS.cso",
 		L"Resources/Shader/Effect/DegitalRain/DegitalRainPS.cso",
 		m_constBuffer,
-		{0.0f, 0.0f},
+		{0.0f, 0.0f, 0.0f},
 		{1.0f, 1.0f}
 	);
 
@@ -121,7 +119,7 @@ void DegitalRain::Render(PostEffectFlag::Flag flag)
 		return;
 	}
 
-	m_effectShaderManager->RenderProcedure(m_constBuffer);
+	m_effectShaderManager->RenderProcedure();
 
 	m_constBuffer = m_effectShaderManager->GetConstBuffer();
 
@@ -151,9 +149,9 @@ int DegitalRain::BinaryDigits(int number)
 	{
 		int val = number % 2;
 
-		number /= 2.0f;
+		number /= 2;
 
-		if (count == 0)answer += val;
+		if (count == 0) answer += val;
 		else
 		{
 			int powval = static_cast<int>(std::pow(10.0f, count));
@@ -252,8 +250,6 @@ void DegitalRain::GenerationPosition(int index)
 	val.Normalize();
 
 	val *= length;
-
-	float test = val.Length();
 
 	position += DirectX::SimpleMath::Vector3(velocity.x, 0.0f, velocity.y) * length;
 

@@ -75,19 +75,6 @@ void Player::Generation()
 	m_stateInformation.insert({ PlayerState::Goal, std::make_unique<PlayerGoal>(this) });
 	m_stateInformation.insert({ PlayerState::Fall, std::make_unique<PlayerFall>(this) });
 
-	//		エフェクトファクトリーを受け取る
-	DirectX::EffectFactory* m_effect = LibrarySingleton
-		::GetInstance()->GetEffectFactory();
-
-	//		画像の読み込み
-	m_effect->SetDirectory(L"Resources/Models");
-
-	//		モデルの読み込み
-	m_playerObject = DirectX::Model::CreateFromCMO
-	(LibrarySingleton::GetInstance()->GetDeviceResources()
-		->GetD3DDevice(),
-		L"Resources/Models/Player.cmo", *m_effect);
-
 	//		プレイヤーのアニメーションの生成
 	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Player);
 
@@ -149,28 +136,6 @@ void Player::MeshUpdate()
 void Player::AnimationUpdate()
 {
 	m_state->Animation();
-}
-
-void Player::Render(Shadow* hontai)
-{
-	DirectX::SimpleMath::Matrix world;
-
-	//		コンテキスト
-	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->
-		GetD3DDeviceContext();
-	/*
-	m_playerObject->Draw(
-		context,
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		world, hontai->GetDepthView(),
-		hontai->GetDpethProj(), 
-		false,
-		[&]
-		{
-			//context->VSSetShader(hontai->GetShadowVSShader().Get(), nullptr, 0);
-			//context->PSSetShader(hontai->GetShadowPSShader().Get(), nullptr, 0);
-		});
-		*/
 }
 
 void Player::ModelRender(PostEffectFlag::Flag flag)

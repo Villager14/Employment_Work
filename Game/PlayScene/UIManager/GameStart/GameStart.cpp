@@ -49,9 +49,9 @@ void GameStart::Initialize()
 
 	//		数字シェーダーの作製
 	m_numberRender->Create(L"Resources/Texture/UI/GameStart/number.png",
-		L"Resources/Shader/Number/NumberVS.cso",
-		L"Resources/Shader/Number/NumberGS.cso",
-		L"Resources/Shader/Number/NumberPS.cso",
+		L"Resources/Shader/UI/Number/NumberVS.cso",
+		L"Resources/Shader/UI/Number/NumberGS.cso",
+		L"Resources/Shader/UI/Number/NumberPS.cso",
 		m_constBuffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
@@ -245,7 +245,7 @@ bool GameStart::TimeLimitNumberRandom()
 		if (m_numberUpdateFrequency >= 0.7f)
 		{
 			//		本命の時間にする
-			m_number = m_limitTime;
+			m_number = static_cast<int>(m_limitTime);
 
 			//		これ以上処理をしない
 			m_limitJudgement = true;

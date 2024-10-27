@@ -37,7 +37,7 @@ std::vector<Triangle> MeshOrganization::CreateTrinangle
 (const std::vector<DirectX::SimpleMath::Vector3>& vertex,
 const std::vector<int> vertexIndex)
 {
-	for (int i = 0, max = vertexIndex.size(); i < max; ++i)
+	for (int i = 0, max = static_cast<int>(vertexIndex.size()); i < max; ++i)
 	{
 		Triangle triangle;
 

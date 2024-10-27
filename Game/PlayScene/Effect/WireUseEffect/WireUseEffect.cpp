@@ -90,6 +90,7 @@ void WireUseEffect::BillbordUpdate(PlayerCameraInformation* cameraInformation)
 void WireUseEffect::Render(DirectX::SimpleMath::Vector3 position, int index,
 	PostEffectFlag::Flag flag)
 {
+	UNREFERENCED_PARAMETER(flag);
 
 	m_billboardEffect->SetScale(m_wireStatas[index].scale);
 

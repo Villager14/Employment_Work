@@ -75,6 +75,9 @@ void GoalObject::Update()
 
 void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
 {
+	UNREFERENCED_PARAMETER(postEffectObjectShader);
+	UNREFERENCED_PARAMETER(flag);
+
 	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation.z));
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y));

@@ -125,32 +125,14 @@
     <Filter Include="Resorces\Shader\RedScreen">
       <UniqueIdentifier>{4bc15fab-610a-462d-abb0-a87c3a7be1bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\Shadow">
-      <UniqueIdentifier>{ec3db26c-73d1-41f4-a3f2-96af401e3f93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Shadow\Depth">
-      <UniqueIdentifier>{b59211f9-3b07-4201-8b2c-d12c7f8659a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Model">
-      <UniqueIdentifier>{202cb540-d483-4282-9f66-4599cfad2574}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\Billboard">
       <UniqueIdentifier>{0d83c077-e5df-4c1b-a2c1-4c762b2ce392}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\ConcentrationLine">
-      <UniqueIdentifier>{e2f096a8-123d-4e52-b2fd-d22f9ae66e99}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\FBX\Player">
       <UniqueIdentifier>{24aadd23-d916-4d8e-a9cd-cb91e95d688f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\UIManager\GameClear">
       <UniqueIdentifier>{15776f83-2d7f-4841-aa96-48b0174c6d0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\GlitchShader">
-      <UniqueIdentifier>{c309ca0e-5a4c-48c3-aef8-b31ef995771c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\CenterShader">
-      <UniqueIdentifier>{8c856f08-86e9-4fc1-ab8a-2465ca12c697}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\PlayerModelTexture">
       <UniqueIdentifier>{f930e44a-dfe8-4f84-9e19-d60abc3e3a4b}</UniqueIdentifier>
@@ -191,12 +173,6 @@
     <Filter Include="Game\Menu\UI">
       <UniqueIdentifier>{3c8508d3-2924-4dba-a66c-4cdf77711c36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\FrameWalk">
-      <UniqueIdentifier>{8ae1a69f-d672-4e80-9449-227e609501e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\BillShader">
-      <UniqueIdentifier>{cd3d6970-e1ce-49f7-a63e-7b2bf2d76e3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GriderObject">
       <UniqueIdentifier>{cb77693b-47e0-4122-97ad-6d0ee1bb3d48}</UniqueIdentifier>
     </Filter>
@@ -208,9 +184,6 @@
     </Filter>
     <Filter Include="Game\TutorialScene\State">
       <UniqueIdentifier>{1d94bf38-2197-4500-9584-4c7c9e82f077}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\FBX\Tutorial">
-      <UniqueIdentifier>{955b70dd-89b8-45ca-882c-f3e9c0c968fd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Library\Mesh\Animation">
       <UniqueIdentifier>{6b630f2b-f5cc-45dd-8ad7-a77accf22aed}</UniqueIdentifier>
@@ -229,12 +202,6 @@
     </Filter>
     <Filter Include="Library\Mesh\MeshType">
       <UniqueIdentifier>{6c3dbe99-c6f8-4a7c-a5a8-bcbda3abc4ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Object">
-      <UniqueIdentifier>{8dce9c33-33b1-4d03-ae3c-71c30651c96c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Object\Wall">
-      <UniqueIdentifier>{20203855-64aa-4e55-ada9-6a7b4d702efd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\UIManager\SpeedLine">
       <UniqueIdentifier>{5648a73e-396b-41b1-a849-9a9232f8ee01}</UniqueIdentifier>
@@ -272,9 +239,6 @@
     <Filter Include="Resorces\Shader\PostEffect\Bler\Expansion">
       <UniqueIdentifier>{3f880520-86a4-4866-9f54-9fa8cfcd06d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\Object\BackGround">
-      <UniqueIdentifier>{17014da9-48fc-43d6-ad38-ab5261507c41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\PostEffect\Bloom\Depth">
       <UniqueIdentifier>{8cbea3e2-3746-4400-891b-14fdc85fc0b3}</UniqueIdentifier>
     </Filter>
@@ -302,15 +266,6 @@
     <Filter Include="Resorces\Shader\UI\Slider">
       <UniqueIdentifier>{34fd825b-4916-483f-abbd-0c0f13be47f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\UI\SpeedScreen">
-      <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\UI\UI">
-      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\UI\TVOFF">
-      <UniqueIdentifier>{391f7b10-9737-405e-a805-0a17fcda48c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\UI\SpeedLine">
       <UniqueIdentifier>{975356b3-27b6-4ce4-b427-89d0bc5cef4e}</UniqueIdentifier>
     </Filter>
@@ -319,9 +274,6 @@
     </Filter>
     <Filter Include="Resorces\Shader\UI\MenuSelect">
       <UniqueIdentifier>{60b27914-eeb4-47e1-a89f-794833ca8d53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\UI\CoolTime">
-      <UniqueIdentifier>{bd721785-f296-41a3-a5cf-c7957e087000}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\UI\BackGroundMove">
       <UniqueIdentifier>{191501e3-b151-4f66-adc1-241aa89ff9ab}</UniqueIdentifier>
@@ -340,9 +292,6 @@
     </Filter>
     <Filter Include="Resorces\Shader\Effect\DegitalRain">
       <UniqueIdentifier>{9262387f-eb16-4d99-8951-a45d27aee322}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Effect\TEST">
-      <UniqueIdentifier>{1482911e-4338-40e5-b229-22dd52632ea9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\PostEffect\Transparency">
       <UniqueIdentifier>{224fc668-ded2-410e-99d6-4a2db09f65f8}</UniqueIdentifier>
@@ -397,6 +346,30 @@
     </Filter>
     <Filter Include="Game\PlayScene\UIManager\GameStart">
       <UniqueIdentifier>{43be1012-ee75-4ae6-833f-1bbf99f76a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\CoolTime">
+      <UniqueIdentifier>{f515a44a-363a-44a4-91e7-7e212770d4d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\UIShader">
+      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\SpeedScreen">
+      <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Model">
+      <UniqueIdentifier>{d7f25501-f381-4fa9-8f0e-65e9b866e1f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Model\BillShader">
+      <UniqueIdentifier>{cd3d6970-e1ce-49f7-a63e-7b2bf2d76e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Model\Wall">
+      <UniqueIdentifier>{20203855-64aa-4e55-ada9-6a7b4d702efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\CenterShader">
+      <UniqueIdentifier>{8c856f08-86e9-4fc1-ab8a-2465ca12c697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\FrameWalk">
+      <UniqueIdentifier>{8ae1a69f-d672-4e80-9449-227e609501e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1467,68 +1440,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\Shader\UI\UIShader.hlsli">
-      <Filter>Resorces\Shader\UI\UI</Filter>
-    </None>
-    <None Include="Resources\Shader\Number\Number.hlsli">
-      <Filter>Resorces\Shader\UI\Number</Filter>
-    </None>
-    <None Include="Resources\Shader\CoolTime\CoolTime.hlsli">
-      <Filter>Resorces\Shader\UI\CoolTime</Filter>
-    </None>
-    <None Include="Resources\Shader\Fade\FadeShader.hlsli">
-      <Filter>Resorces\Shader\UI\Fade</Filter>
-    </None>
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli">
       <Filter>Resorces\Shader\RedScreen</Filter>
     </None>
-    <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli">
-      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
-    </None>
-    <None Include="Resources\Shader\TVOFF\TVOFF.hlsli">
-      <Filter>Resorces\Shader\UI\TVOFF</Filter>
-    </None>
-    <None Include="Resources\Shader\AboveNumber\AboveNumber.hlsli">
-      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
-    </None>
     <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli">
-      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
     </None>
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli">
       <Filter>Resorces\Shader\Billboard</Filter>
     </None>
-    <None Include="Resources\Shader\ConcentrationLine\ConcentrationLine.hlsli">
-      <Filter>Resorces\Shader\ConcentrationLine</Filter>
-    </None>
-    <None Include="Resources\Shader\Shadow\Shawow.hlsli">
-      <Filter>Resorces\Shader\Shadow</Filter>
-    </None>
-    <None Include="Resources\Shader\GlitchShader\GlitchShader.hlsli">
-      <Filter>Resorces\Shader\GlitchShader</Filter>
-    </None>
-    <None Include="Resources\Shader\CenterShader\CenterShader.hlsli">
-      <Filter>Resorces\Shader\CenterShader</Filter>
-    </None>
     <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli">
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
-    </None>
-    <None Include="Resources\Shader\Slider\Slider.hlsli">
-      <Filter>Resorces\Shader\UI\Slider</Filter>
-    </None>
-    <None Include="Resources\Shader\AboveUI\AboveUI.hlsli">
-      <Filter>Resorces\Shader\UI\AboveUI</Filter>
-    </None>
-    <None Include="Resources\Shader\MenuSelect\MenuSelect.hlsli">
-      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
-    </None>
-    <None Include="Resources\Shader\FrameWalk\FrameWalk.hlsli">
-      <Filter>Resorces\Shader\FrameWalk</Filter>
-    </None>
-    <None Include="Resources\Shader\SpeedLine\SpeedLine.hlsli">
-      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
-    </None>
-    <None Include="Resources\Shader\Object\Wall\Wall.hlsli">
-      <Filter>Resorces\Shader\Object\Wall</Filter>
     </None>
     <None Include="Resources\Shader\PostEffect\Bloom\Luminance\Luminance.hlsli">
       <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
@@ -1545,9 +1467,6 @@
     <None Include="Resources\Shader\PostEffect\Bler\Expansion\Expansion.hlsli">
       <Filter>Resorces\Shader\PostEffect\Bler\Expansion</Filter>
     </None>
-    <None Include="Resources\Shader\Object\BackGround\BackGround.hlsli">
-      <Filter>Resorces\Shader\Object\BackGround</Filter>
-    </None>
     <None Include="Resources\Shader\PostEffect\Bloom\Depth\ShawowDepth.hlsli">
       <Filter>Resorces\Shader\PostEffect\Bloom\Depth</Filter>
     </None>
@@ -1559,9 +1478,6 @@
     </None>
     <None Include="Resources\Shader\Effect\DegitalRain\DegitalRain.hlsli">
       <Filter>Resorces\Shader\Effect\DegitalRain</Filter>
-    </None>
-    <None Include="Resources\Shader\Effect\TEST\TEST.hlsli">
-      <Filter>Resorces\Shader\Effect\TEST</Filter>
     </None>
     <None Include="Resources\Shader\PostEffect\Transparency\Transparency.hlsli">
       <Filter>Resorces\Shader\PostEffect\Transparency</Filter>
@@ -1575,27 +1491,48 @@
     <None Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoise.hlsli">
       <Filter>Resorces\Shader\PostEffect\GlitchNoise</Filter>
     </None>
+    <None Include="Resources\Shader\UI\UIShader\UIShader.hlsli">
+      <Filter>Resorces\Shader\UI\UIShader</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\SpeedLine\SpeedLine.hlsli">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\Slider\Slider.hlsli">
+      <Filter>Resorces\Shader\UI\Slider</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\Number\Number.hlsli">
+      <Filter>Resorces\Shader\UI\Number</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\CoolTime\CoolTime.hlsli">
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\MenuSelect\MenuSelect.hlsli">
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\Fade\FadeShader.hlsli">
+      <Filter>Resorces\Shader\UI\Fade</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\BackGroundMove\BackGroundMove.hlsli">
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\AboveUI\AboveUI.hlsli">
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\AboveNumber\AboveNumber.hlsli">
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
+    </None>
+    <None Include="Resources\Shader\Model\Wall\Wall.hlsli">
+      <Filter>Resorces\Shader\Model\Wall</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\CenterShader\CenterShader.hlsli">
+      <Filter>Resorces\Shader\UI\CenterShader</Filter>
+    </None>
+    <None Include="Resources\Shader\UI\FrameWalk\FrameWalk.hlsli">
+      <Filter>Resorces\Shader\UI\FrameWalk</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="FBX\Player.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Enemy.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\CommonBullet.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Wire.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="FBX\WireRange.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\WallObject01.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Background.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Drone\Drone.fbx">
@@ -1661,9 +1598,6 @@
     <MeshContentTask Include="FBX\Gun\HandGun.fbx">
       <Filter>Resorces\FBX\Player</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Tutorial\walk.fbx">
-      <Filter>Resorces\FBX\Tutorial</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="FBX\Wall\WallObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
@@ -1673,44 +1607,11 @@
     <MeshContentTask Include="FBX\Floor\Post.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Bill\Background.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shader\UI\UIShaderGS.hlsl">
-      <Filter>Resorces\Shader\UI\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\UI\UIShaderPS.hlsl">
-      <Filter>Resorces\Shader\UI\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\UI\UIShaderVS.hlsl">
-      <Filter>Resorces\Shader\UI\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Number\NumberGS.hlsl">
-      <Filter>Resorces\Shader\UI\Number</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Number\NumberPS.hlsl">
-      <Filter>Resorces\Shader\UI\Number</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Number\NumberVS.hlsl">
-      <Filter>Resorces\Shader\UI\Number</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\CoolTime\CoolTimeGS.hlsl">
-      <Filter>Resorces\Shader\UI\CoolTime</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\CoolTime\CoolTimePS.hlsl">
-      <Filter>Resorces\Shader\UI\CoolTime</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\CoolTime\CoolTimeVS.hlsl">
-      <Filter>Resorces\Shader\UI\CoolTime</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Fade\FadeShaderGS.hlsl">
-      <Filter>Resorces\Shader\UI\Fade</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Fade\FadeShaderPS.hlsl">
-      <Filter>Resorces\Shader\UI\Fade</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Fade\FadeShaderVS.hlsl">
-      <Filter>Resorces\Shader\UI\Fade</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
       <Filter>Resorces\Shader\RedScreen</Filter>
     </FxCompile>
@@ -1720,56 +1621,14 @@
     <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
       <Filter>Resorces\Shader\RedScreen</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\Shadow\ShadowPS.hlsl">
-      <Filter>Resorces\Shader\Shadow</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Shadow\ShadowVS.hlsl">
-      <Filter>Resorces\Shader\Shadow</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthPS.hlsl">
-      <Filter>Resorces\Shader\Shadow\Depth</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Shadow\Depth\ShadowDepthVS.hlsl">
-      <Filter>Resorces\Shader\Shadow\Depth</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveGS.hlsl">
-      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMovePS.hlsl">
-      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveVS.hlsl">
-      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\TVOFF\TVOFFGS.hlsl">
-      <Filter>Resorces\Shader\UI\TVOFF</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\TVOFF\TVOFFPS.hlsl">
-      <Filter>Resorces\Shader\UI\TVOFF</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\TVOFF\TVOFFVS.hlsl">
-      <Filter>Resorces\Shader\UI\TVOFF</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Model\ModelPS.hlsl">
-      <Filter>Resorces\Shader\Model</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberGS.hlsl">
-      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberPS.hlsl">
-      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberVS.hlsl">
-      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenGS.hlsl">
-      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenPS.hlsl">
-      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
-      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\SpeedScreen</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardGS.hlsl">
       <Filter>Resorces\Shader\Billboard</Filter>
@@ -1780,33 +1639,6 @@
     <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardVS.hlsl">
       <Filter>Resorces\Shader\Billboard</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLineGS.hlsl">
-      <Filter>Resorces\Shader\ConcentrationLine</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLinePS.hlsl">
-      <Filter>Resorces\Shader\ConcentrationLine</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\ConcentrationLine\ConcentrationLineVS.hlsl">
-      <Filter>Resorces\Shader\ConcentrationLine</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderGS.hlsl">
-      <Filter>Resorces\Shader\GlitchShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderPS.hlsl">
-      <Filter>Resorces\Shader\GlitchShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\GlitchShader\GlitchShaderVS.hlsl">
-      <Filter>Resorces\Shader\GlitchShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\CenterShader\CenterShaderGS.hlsl">
-      <Filter>Resorces\Shader\CenterShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\CenterShader\CenterShaderPS.hlsl">
-      <Filter>Resorces\Shader\CenterShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\CenterShader\CenterShaderVS.hlsl">
-      <Filter>Resorces\Shader\CenterShader</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureGS.hlsl">
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </FxCompile>
@@ -1815,60 +1647,6 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureVS.hlsl">
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Slider\SliderGS.hlsl">
-      <Filter>Resorces\Shader\UI\Slider</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Slider\SliderPS.hlsl">
-      <Filter>Resorces\Shader\UI\Slider</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Slider\SliderVS.hlsl">
-      <Filter>Resorces\Shader\UI\Slider</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\AboveUI\AboveUIGS.hlsl">
-      <Filter>Resorces\Shader\UI\AboveUI</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\AboveUI\AboveUIPS.hlsl">
-      <Filter>Resorces\Shader\UI\AboveUI</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\AboveUI\AboveUIVS.hlsl">
-      <Filter>Resorces\Shader\UI\AboveUI</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectGS.hlsl">
-      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectPS.hlsl">
-      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectVS.hlsl">
-      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkGS.hlsl">
-      <Filter>Resorces\Shader\FrameWalk</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkPS.hlsl">
-      <Filter>Resorces\Shader\FrameWalk</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkVS.hlsl">
-      <Filter>Resorces\Shader\FrameWalk</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\BillShader\BillShaderPS.hlsl">
-      <Filter>Resorces\Shader\BillShader</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Object\Wall\WallPS.hlsl">
-      <Filter>Resorces\Shader\Object\Wall</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedLine\SpeedLineGS.hlsl">
-      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedLine\SpeedLinePS.hlsl">
-      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedLine\SpeedLineVS.hlsl">
-      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Object\Wall\WallVS.hlsl">
-      <Filter>Resorces\Shader\Object\Wall</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\Bloom\Luminance\LuminancePS.hlsl">
       <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
@@ -1915,12 +1693,6 @@
     <FxCompile Include="Resources\Shader\PostEffect\Bler\Expansion\ExpansionVS.hlsl">
       <Filter>Resorces\Shader\PostEffect\Bler\Expansion</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\Shader\Object\BackGround\BackGroundPS.hlsl">
-      <Filter>Resorces\Shader\Object\BackGround</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Object\BackGround\BackGroundVS.hlsl">
-      <Filter>Resorces\Shader\Object\BackGround</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\Bloom\Depth\ShadowDepthPS.hlsl">
       <Filter>Resorces\Shader\PostEffect\Bloom\Depth</Filter>
     </FxCompile>
@@ -1956,12 +1728,6 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\Effect\DegitalRain\DegitalRainVS.hlsl">
       <Filter>Resorces\Shader\Effect\DegitalRain</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Effect\TEST\TESTPS.hlsl">
-      <Filter>Resorces\Shader\Effect\TEST</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\Effect\TEST\TESTVS.hlsl">
-      <Filter>Resorces\Shader\Effect\TEST</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\Transparency\TransparencyGS.hlsl">
       <Filter>Resorces\Shader\PostEffect\Transparency</Filter>
@@ -2001,6 +1767,123 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoiseVS.hlsl">
       <Filter>Resorces\Shader\PostEffect\GlitchNoise</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\UIShader\UIShaderGS.hlsl">
+      <Filter>Resorces\Shader\UI\UIShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\UIShader\UIShaderPS.hlsl">
+      <Filter>Resorces\Shader\UI\UIShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\UIShader\UIShaderVS.hlsl">
+      <Filter>Resorces\Shader\UI\UIShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\SpeedLine\SpeedLineGS.hlsl">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\SpeedLine\SpeedLinePS.hlsl">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\SpeedLine\SpeedLineVS.hlsl">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Slider\SliderVS.hlsl">
+      <Filter>Resorces\Shader\UI\Slider</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Slider\SliderGS.hlsl">
+      <Filter>Resorces\Shader\UI\Slider</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Slider\SliderPS.hlsl">
+      <Filter>Resorces\Shader\UI\Slider</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Number\NumberGS.hlsl">
+      <Filter>Resorces\Shader\UI\Number</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Number\NumberPS.hlsl">
+      <Filter>Resorces\Shader\UI\Number</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Number\NumberVS.hlsl">
+      <Filter>Resorces\Shader\UI\Number</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\CoolTime\CoolTimeGS.hlsl">
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\CoolTime\CoolTimePS.hlsl">
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\CoolTime\CoolTimeVS.hlsl">
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\MenuSelect\MenuSelectGS.hlsl">
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\MenuSelect\MenuSelectPS.hlsl">
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\MenuSelect\MenuSelectVS.hlsl">
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Fade\FadeShaderGS.hlsl">
+      <Filter>Resorces\Shader\UI\Fade</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Fade\FadeShaderPS.hlsl">
+      <Filter>Resorces\Shader\UI\Fade</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\Fade\FadeShaderVS.hlsl">
+      <Filter>Resorces\Shader\UI\Fade</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\BackGroundMove\BackGroundMoveGS.hlsl">
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\BackGroundMove\BackGroundMovePS.hlsl">
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\BackGroundMove\BackGroundMoveVS.hlsl">
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\AboveUI\AboveUIGS.hlsl">
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\AboveUI\AboveUIPS.hlsl">
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\AboveUI\AboveUIVS.hlsl">
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\AboveNumber\AboveNumberGS.hlsl">
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\AboveNumber\AboveNumberPS.hlsl">
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\AboveNumber\AboveNumberVS.hlsl">
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\BillShader\BillShaderPS.hlsl">
+      <Filter>Resorces\Shader\Model\BillShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\Wall\WallPS.hlsl">
+      <Filter>Resorces\Shader\Model\Wall</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\Wall\WallVS.hlsl">
+      <Filter>Resorces\Shader\Model\Wall</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\CenterShader\CenterShaderGS.hlsl">
+      <Filter>Resorces\Shader\UI\CenterShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\CenterShader\CenterShaderPS.hlsl">
+      <Filter>Resorces\Shader\UI\CenterShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\CenterShader\CenterShaderVS.hlsl">
+      <Filter>Resorces\Shader\UI\CenterShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FrameWalk\FrameWalkGS.hlsl">
+      <Filter>Resorces\Shader\UI\FrameWalk</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FrameWalk\FrameWalkPS.hlsl">
+      <Filter>Resorces\Shader\UI\FrameWalk</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FrameWalk\FrameWalkVS.hlsl">
+      <Filter>Resorces\Shader\UI\FrameWalk</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

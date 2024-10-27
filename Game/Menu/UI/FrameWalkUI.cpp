@@ -17,9 +17,9 @@ FrameWalkUI::FrameWalkUI()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	m_shader->Create(L"Resources/Texture/Menu/GamePlay/MenuFramework.png",
-		L"Resources/Shader/FrameWalk/FrameWalkVS.cso",
-		L"Resources/Shader/FrameWalk/FrameWalkGS.cso",
-		L"Resources/Shader/FrameWalk/FrameWalkPS.cso",
+		L"Resources/Shader/UI/FrameWalk/FrameWalkVS.cso",
+		L"Resources/Shader/UI/FrameWalk/FrameWalkGS.cso",
+		L"Resources/Shader/UI/FrameWalk/FrameWalkPS.cso",
 		m_constBuffer,
 		{ 200.0f, -100.0f }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);

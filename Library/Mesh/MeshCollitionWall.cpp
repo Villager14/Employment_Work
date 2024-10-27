@@ -326,7 +326,7 @@ float MeshCollitionWall::RayY(std::vector<DirectX::SimpleMath::Vector3> vertex,
 
 	for (int i = 0; i < vertex.size(); ++i)
 	{
-		float val = i + 1;
+		int val = i + 1;
 
 		if (i == 2)
 		{

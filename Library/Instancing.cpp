@@ -48,7 +48,7 @@ void Instancing::Initilaize(int count, const wchar_t* psPath, const wchar_t* vsP
 	{
 		//		入力アセンブラに行列情報
 		D3D11_INPUT_ELEMENT_DESC descf =
-		{ "MATRIX", i, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, i * 16, D3D11_INPUT_PER_INSTANCE_DATA, 1 };
+		{ "MATRIX", static_cast<UINT>(i), DXGI_FORMAT_R32G32B32A32_FLOAT, 1, static_cast<UINT>(i * 16), D3D11_INPUT_PER_INSTANCE_DATA, 1 };
 
 		INPUT_LAYOUT.push_back(descf);
 	}
@@ -77,7 +77,7 @@ void Instancing::Initilaize(int count, const wchar_t* psPath, const wchar_t* vsP
 	D3D11_BUFFER_DESC indexBufferDesc;
 	ZeroMemory(&indexBufferDesc, sizeof(indexBufferDesc));
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(UINT)* m_vertexIndex.size();
+	indexBufferDesc.ByteWidth = sizeof(UINT) * static_cast<UINT>(m_vertexIndex.size());
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 
@@ -182,7 +182,7 @@ void Instancing::Render()
 	context->PSSetShaderResources(0, 1, m_texture[0].GetAddressOf());
 
 	//		インスタンスを使用した描画
-	context->DrawIndexedInstanced(m_vertex.size(), m_count, 0, 0, 0);
+	context->DrawIndexedInstanced(static_cast<UINT>(m_vertex.size()), m_count, 0, 0, 0);
 	//context->DrawIndexedInstanced(m_vertex.size(), m_count, 0, 0, 0);
 
 	//		シェーダーを削除する
