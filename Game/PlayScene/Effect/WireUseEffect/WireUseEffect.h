@@ -13,6 +13,8 @@
 
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class WireUseEffect
 {
 public:
@@ -45,7 +47,8 @@ public:
 	*
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render(DirectX::SimpleMath::Vector3 position, int index);
+	void Render(DirectX::SimpleMath::Vector3 position, int index,
+		PostEffectFlag::Flag flag);
 
 	//		終了処理
 	void Finalize();
@@ -76,4 +79,7 @@ private:
 
 	//		ワイヤーのステータス
 	std::vector<WireStatas> m_wireStatas;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 };

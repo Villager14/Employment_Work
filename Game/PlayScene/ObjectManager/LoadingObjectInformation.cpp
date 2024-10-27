@@ -91,4 +91,7 @@ void LoadingObjectInformation::OrganizingInformation(int count,
 	else if (count == 6) objectInformation->rotation.x = std::stof(val);
 	else if (count == 7) objectInformation->rotation.y = std::stof(val);
 	else if (count == 8) objectInformation->rotation.z = std::stof(val);
+
+	//		エフェクトフラグ
+	else if (count == 9) objectInformation->effectFlag = std::stoi(val);
 }

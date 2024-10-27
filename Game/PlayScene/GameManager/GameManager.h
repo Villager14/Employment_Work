@@ -24,7 +24,7 @@ public:
 
 	enum Flag
 	{
-		None = 0b0000000,
+		None = 0b00000000,
 		GameStart			= 1 << 0,		//		ゲームを開始するか
 		DeathJudgement		= 1 << 1,		//		死亡しているか判断する
 		RevivalJudgement	= 1 << 2,		//		復活しているか判断する
@@ -33,7 +33,15 @@ public:
 		NextScene			= 1 << 5,		//		次のシーンに行くか判断する
 		DamageObjectHit		= 1 << 6,		//		ダメージオブジェクトに当たっているかどうか
 		FallDead			= 1 << 7,		//		落下死しているかどうか
+		DashJudgement		= 1 << 8,		//		ダッシュをしているかどうか
+		StartLimitView		= 1 << 9,		//		開始時のリミット描画
 	};
+
+public:
+
+	//		背景色
+	//const DirectX::XMVECTORF32 BACK_GROUND_COLOR = DirectX::Colors::Green;
+	const DirectX::XMVECTORF32 BACK_GROUND_COLOR = DirectX::Colors::Black;
 
 private:
 
@@ -49,6 +57,9 @@ private:
 	//		フラグ
 	int m_flag;
 
+	//		リミット時間
+	float m_limitTime;
+
 public:
 
 	/*
@@ -57,7 +68,7 @@ public:
 	*	@param	(flag)	確認したいフラグ
 	*	@return true : yes false : no
 	*/
-	 bool FlagJudgement(Flag flag);
+	bool FlagJudgement(Flag flag);
 
 	/*
 	*	フラグをOnにする
@@ -114,4 +125,18 @@ public:
 	*	@param	(speed) 速度
 	*/
 	void SetGameSpeed(float speed) { m_gameSpeed = speed; }
+
+	/*
+	*	リミットタイムを設定する
+	* 
+	*	@param	(time)	時間
+	*/
+	void SetLimitTime(float time) { m_limitTime = time; }
+
+	/*
+	*	リミットタイムを受け取る
+	* 
+	*	@return 時間
+	*/
+	float GetLimitTime() { return m_limitTime; }
 };

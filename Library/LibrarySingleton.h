@@ -13,6 +13,8 @@
 
 #include <random>
 
+#include "Game/PlayScene/UIManager/BinaryFile.h"
+
 class LibrarySingleton final
 {
 private:
@@ -34,6 +36,14 @@ public:
 
 	//		初期化処理
 	void Initialize();
+
+public:
+
+	//		描画距離（最大）
+	const float DRAWING_DISTANCE_MAX = 370.0f;
+
+	//		描画距離（最小）
+	const float DRAWING_DISTANCE_MIN = 0.1f;
 
 private:
 
@@ -162,6 +172,27 @@ public:
 	float Random(float min, float max);
 
 	/*
+	*	ピクセルシェーダーの作製
+	* 
+	*	@param	(path)	ファイルパス
+	*/
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> CreatePSShader(const wchar_t* path);
+
+	/*
+	*	頂点シェーダーの作成
+	* 
+	*	@param	(path)	ファイルパス
+	*/
+	BinaryFile CreateVSShader(const wchar_t* path, Microsoft::WRL::ComPtr<ID3D11VertexShader>* vsshader);
+
+	/*
+	*	ジオメトリシェーダーの作成
+	*
+	*	@param	(path)	ファイルパス
+	*/
+	Microsoft::WRL::ComPtr<ID3D11GeometryShader> CreateGSShader(const wchar_t* path);
+
+	/*
 	*	スクリーンのサイズを受け取る
 	*
 	*	@return サイズ
@@ -191,9 +222,7 @@ public:
 	{ return m_vertexPositionColor.get(); }
 
 	DirectX::PrimitiveBatch<DirectX::VertexPositionColorTexture >* GetVertexPositionColorTexture()
-	{
-		return m_vertexPositionColorTexture.get();
-	}
+	{ return m_vertexPositionColorTexture.get(); }
 
 
 	/*

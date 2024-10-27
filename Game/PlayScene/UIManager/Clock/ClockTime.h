@@ -20,7 +20,7 @@ public:
 	~ClockTime();
 
 	//		初期化処理
-	void Initialize();
+	void Initialize(float limitTime);
 
 	/*
 	*	更新処理
@@ -59,9 +59,6 @@ private:
 	//		秒(一の位)の座標
 	const DirectX::SimpleMath::Vector2 ONE_PLACE_SECONDS_POSITION = { 1180.0f, 560.0f };
 
-	//		最大描画時間(秒)
-	const int MAX_TIME = 5999;
-
 private:
 
 	//		数字のシェーダー
@@ -72,4 +69,7 @@ private:
 
 	//		コンストバッファ
 	ConstBuffer buffer;
+
+	//		リミット時間
+	float m_limitTime;
 };

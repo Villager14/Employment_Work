@@ -15,7 +15,11 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectInformation.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 #include "Factory.h"
+
+#include "Library/Effect/PostEffect/PostEffectObjectShader.h"
 
 class IFactory
 {
@@ -27,7 +31,8 @@ public:
 	virtual void Update() = 0;
 
 	//		描画処理
-	virtual void Render() = 0;
+	virtual void Render(PostEffectFlag::Flag flag,
+		PostEffectObjectShader* postEffectObjectShader) = 0;
 
 	//		終了処理
 	virtual void Finalize() = 0;
@@ -37,6 +42,13 @@ public:
 
 	//		オブジェクトメッシュを受け取る
 	virtual ObjectMesh* GetObjectMesh(int index) = 0;
+
+	/*
+	*	ポストエフェクトフラグ
+	*
+	*	@return インスタンスのポインタ
+	*/
+	virtual PostEffectFlag* GetPostEffectFlag() = 0;
 
 	//		デストラクタ
 	virtual ~IFactory() = default;

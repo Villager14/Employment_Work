@@ -117,6 +117,13 @@ public:
 	*/
 	void SetGrayJudgement(bool judgement) { m_grayJudgement = judgement; }
 
+	/*
+	*	テクスチャの読み込み
+	*
+	*	@param	(path)	ファイルパス
+	*/
+	void LoadTexture(const wchar_t* path);
+
 private:
 
 	void CreateShader();
@@ -128,7 +135,9 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
 	//		テクスチャハンドル
-	Microsoft::WRL::ComPtr<ID3D11Resource> m_res;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+
+	Microsoft::WRL::ComPtr<ID3D11Resource> m_resource;
 
 	//		頂点シェーダー
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;

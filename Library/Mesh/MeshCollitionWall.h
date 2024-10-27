@@ -70,6 +70,40 @@ public:
 	void WallWalkCollider(ObjectMesh* objectMesh,
 		const DirectX::SimpleMath::Vector3& playerPosition, int index);
 
+
+	/*
+	*	線分と点の最短点
+	* 
+	*	@param	(point)	点の位置
+	*	@param	(lineA)	線分の開始位置
+	*	@param	(lineB)	線分の終了位置
+	*	@param	(ans)	最短点
+	*	@return true : 最短点がある	false: ない
+	*/
+	bool LinePointHit(DirectX::SimpleMath::Vector3 point,
+											  DirectX::SimpleMath::Vector3 lineA,
+											  DirectX::SimpleMath::Vector3 lineB,
+											  DirectX::SimpleMath::Vector3 *ans);
+
+	/*
+	*	レイのｙ座標を作成する
+	* 
+	*	@param	(vertex)	メッシュの頂点（三角）
+	*	@param	(position)	プレイヤー座標
+	*	@return Y座標
+	*/
+	float RayY(std::vector<DirectX::SimpleMath::Vector3> vertex,
+			   DirectX::SimpleMath::Vector3 position, float height);
+
+	/*
+	*	垂点（2）
+	* 
+	*/
+	float PerpendicularPointSecond(float point1,
+								   float point2,
+								   float playerUnder,
+								   float playerHeight);
+
 private:
 
 	MeshCollitionManager* m_meshCollitionManager;
@@ -110,5 +144,4 @@ public:
 	*	@param	(position)	座標
 	*/
 	void SetPastPosition(DirectX::SimpleMath::Vector3 position) { m_pastPosition = position; }
-
 };

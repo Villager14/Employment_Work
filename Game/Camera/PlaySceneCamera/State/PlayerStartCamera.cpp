@@ -12,7 +12,8 @@
 PlayerStartCamera::PlayerStartCamera(PlayerCameraManager* playerCameraManager)
 	:
 	m_playerCameraManager(playerCameraManager),
-	m_time(0.0f)
+	m_time(0.0f),
+	m_firstViewJudgement(true)
 {
 }
 
@@ -72,6 +73,25 @@ void PlayerStartCamera::Update()
 
 	if (m_time >= 1.0f)
 	{
+		/*//		初手のアニメーションのスキップ
+		//		初期状態の場合
+		if (m_firstViewJudgement)
+		{
+			m_playerCameraManager->GetGameManager()->TrueFlag(GameManager::StartLimitView);
+
+			if (m_playerCameraManager->GetGameManager()->FlagJudgement(GameManager::GameStart))
+			{
+				m_firstViewJudgement = false;
+
+				//		スタンダードカメラにする
+				m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);
+			}
+
+			return;
+		}
+		//*/
+
+		//		スタンダードカメラにする
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);
 
 		//		ゲームスタートフラグをオンにする

@@ -25,13 +25,14 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	CreateProjaction();
+	//		リミットタイムを設定する
+	m_gameManager->SetLimitTime(90.0f);
 
 	//		ゲームマネージャーの初期化処理
 	m_gameManager->Initialize();
 
 	//		プレイヤーカメラマネージャーの初期化処理
-	m_playerCameraManager->Initialize();
+	m_playerCameraManager->Initialize(m_player->GetInformation());
 
 	//		カメラの情報を受け取る
 	m_player->SetCameraInformation(m_playerCameraManager->GetInformation());
@@ -49,7 +50,10 @@ void PlayScene::Initialize()
 	m_uiManager->Initialize();
 
 	//		スクリーンエフェクトマネージャーの初期化
-	m_screenEffectManager->Initialize();
+	//m_screenEffectManager->Initialize();
+
+	//		ポストエフェクトマネージャーの初期化
+	m_postEffectManager->Initialize(m_gameManager->BACK_GROUND_COLOR);
 
 	//		ワイヤーの情報を受け取る
 	m_effectManager->SetWireInformation(m_objectManager->GetUseWireInformation());
@@ -59,6 +63,9 @@ void PlayScene::Initialize()
 
 	//		エネミーマネージャーの初期化
 	m_enemyManager->Initialize();
+
+	//		リスポーンマネージャーの初期化
+	m_respawnManager->Initialize();
 
 	//		プレイシーン時のBGMを再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
@@ -85,11 +92,15 @@ void PlayScene::Generation()
 	m_player = std::make_unique<Player>(m_gameManager.get());
 
 	//		スクリーンエフェクトマネージャーの生成
-	m_screenEffectManager = std::make_unique<ScreenEffectManager>
-		(ScreenEffectManager::Scene::PlayScene, m_gameManager.get());
+	//m_screenEffectManager = std::make_unique<ScreenEffectManager>
+	//	(ScreenEffectManager::Scene::PlayScene, m_gameManager.get());
+
+	//		ポストエフェクトマネージャー
+	m_postEffectManager = std::make_unique<PostEffectManager>(m_gameManager.get(),
+															  m_sceneManager->GetMenuManager()->GetInformation());
 
 	//		エフェクトマネージャーの作製
-	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation());
+	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation(), m_playerCameraManager->GetInformation());
 
 	//		UIマネージャーの生成
 	m_uiManager = std::make_unique<UIManager>(m_player->GetInformation(), m_gameManager.get());
@@ -105,6 +116,9 @@ void PlayScene::Generation()
 
 	//		エネミーマネージャーの生成
 	m_enemyManager = std::make_unique<EnemyManager>();
+
+	//		リスポーンマネージャー
+	m_respawnManager = std::make_unique<RespawnManager>(m_gameManager.get());
 }
 
 bool PlayScene::MenuInformation()
@@ -125,7 +139,8 @@ bool PlayScene::MenuInformation()
 		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
 
 		//		グレイ
-		m_screenEffectManager->GrayScare(m_sceneManager->GetMenuManager()->GetInformation());
+		//m_screenEffectManager->GrayScare(m_sceneManager->GetMenuManager()->GetInformation());
+		m_postEffectManager->Update(PostEffectFlag::Flag::Color);
 
 		return true;
 	}
@@ -177,7 +192,7 @@ void PlayScene::Update()
 	else
 	{
 		//		カメラマネージャーの更新処理
-		m_playerCameraManager->Update(m_player->GetInformation());
+		m_playerCameraManager->Update();
 	}
 
 	//		プレイヤーにカメラの角度を送る
@@ -189,14 +204,25 @@ void PlayScene::Update()
 	//		UIマネージャーの更新
 	m_uiManager->Update();
 
-	//		スクリーンエフェクトの更新処理
-	m_screenEffectManager->Update(m_playerCameraManager->GetInformation());
+	//		ポストエフェクトの更新処理
+	for (int i = 1; i <= PostEffectFlag::Flag::Fade;)
+	{
+		m_postEffectManager->Update(PostEffectFlag::Flag(i));
+
+		i = i + i;
+	}
 
 	//		ゲームマネージャーの更新処理
 	m_gameManager->Update();
 
 	//		エフェクトマネージャーの描画
-	m_effectManager->Update(m_playerCameraManager->GetInformation());
+	m_effectManager->Update();
+
+	//		リスポーンポイントの更新処理
+	m_respawnManager->Update(m_player->GetInformation()->GetPosition());
+
+	//		リスポーン座標を設定する
+	m_player->GetInformation()->SetRespawnPosition(m_respawnManager->GetRespownPosition());
 
 	//		次のシーンに切り替えるかどうか
 	if (m_gameManager->FlagJudgement(GameManager::NextScene))
@@ -217,6 +243,7 @@ void PlayScene::Update()
 
 void PlayScene::Render()
 {
+	/*
 	//		レンダーターゲットの変更
 	//m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
 
@@ -224,11 +251,18 @@ void PlayScene::Render()
 	//m_player->Render(m_shadow.get());
 
 	//		レンダーターゲットの変更
-	m_screenEffectManager->ChangeRenderTarget();
+	//m_screenEffectManager->ChangeRenderTarget();
+
+	//		ポストエフェクトマネージャーの変更
+	m_postEffectManager->Render();
 
 	//		オブジェクトマネージャーの描画処理
 	m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
-							m_player->GetInformation()->GetPlayerHeight());
+							m_player->GetInformation()->GetPlayerHeight(),
+							PostEffectFlag::Flag::Normal);
+
+	//		リスポーンポイントのデバック描画
+	m_respawnManager->DebugRender();
 
 	//		プレイヤーのモデル描画
 	m_player->ModelRender();
@@ -240,19 +274,71 @@ void PlayScene::Render()
 	m_player->DebugRender();
 
 	//		エフェクトマネージャーの描画
-	m_effectManager->Render();
+	//m_effectManager->Render();
 
+	//		ポストエフェクトマネージャーのラスト描画
+	//m_postEffectManager->RastRender();
+
+	//		レンダーテクスチャの描画
+	//m_postEffectManager->RenderTextureView();
+	*/
+
+	for (int i = 1; i <= PostEffectFlag::Flag::Fade;)
+	{
+		//		ポストエフェクトマネージャーの変更
+		m_postEffectManager->Render(PostEffectFlag::Flag(i));
+
+		//		オブジェクトマネージャーの描画処理
+		m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
+			m_player->GetInformation()->GetPlayerHeight(),
+			PostEffectFlag::Flag(i), m_postEffectManager->GetPostObjectShader());
+
+		//		プレイヤーのモデル描画
+		m_player->ModelRender(PostEffectFlag::Flag(i));
+
+		//		エフェクトマネージャーの描画
+		m_effectManager->Render(PostEffectFlag::Flag(i));
+
+		if (PostEffectFlag::Flag(i) == PostEffectFlag::Flag::UI)
+		{
+			//		UIマネージャーの描画
+			m_uiManager->FrontRender();
+		}
+
+		if (PostEffectFlag::Flag(i) == PostEffectFlag::Flag::UIBack)
+		{
+			//		UIマネージャーの後描画
+			m_uiManager->BackRender();
+		}
+
+		//		ポストエフェクトマネージャーのラスト描画
+		m_postEffectManager->RastRender(PostEffectFlag::Flag(i));
+
+		i = i + i;
+	}
+
+	//		デバック描画
+	m_player->DebugRender();
+
+	//		レンダーテクスチャをリセットする
+	m_postEffectManager->ResetRenderTarget();
+
+	//		レンダーテクスチャの描画
+	m_postEffectManager->RenderTextureView();
+
+	/*
 	//		UIマネージャーの描画
-	m_uiManager->FrontRender();
+	//m_uiManager->FrontRender();
 
 	//		レンダーターゲットを基に戻す
-	m_screenEffectManager->FirstRenderTarget();
+	//m_screenEffectManager->FirstRenderTarget();
 
 	//		画面エフェクトの描画
-	m_screenEffectManager->Render();
+	//m_screenEffectManager->Render();
 
 	//		UIマネージャーの描画
-	m_uiManager->BackRender();
+	//m_uiManager->BackRender();
+	*/
 }
 
 void PlayScene::Finalize()
@@ -266,22 +352,4 @@ void PlayScene::Finalize()
 	m_uiManager->Finalize();
 
 	m_player->Finalize();
-}
-
-void PlayScene::CreateProjaction()
-{
-	/*
-	*	視野角90度
-	*		
-	*	近い距離0.1f
-	* 　遠い距離500.0f
-	*/
-	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
-		CreatePerspectiveFieldOfView
-		(DirectX::XMConvertToRadians(70.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
-			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 500.0f);
-
-	//		プロジェクション行列を設定する
-	LibrarySingleton::GetInstance()->SetProj(proj);
 }

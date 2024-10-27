@@ -13,10 +13,15 @@
 
 #include "Common/ReaData.h"
 
-BackGroundObject::BackGroundObject()
+BackGroundObject::BackGroundObject(ObjectManager* objectManager)
+	:
+	m_objectManager(objectManager)
 {
 	//		背景の情報を生成する
 	m_information = std::make_unique<BackGroundObjectInformation>();
+
+	//		ポストエフェクトフラグ
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
 }
 
 BackGroundObject::~BackGroundObject()
@@ -36,42 +41,14 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 	m_effect->SetDirectory(L"Resources/Models");
 
 	//		モデルの読み込み
-	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
+	m_backGroundModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Background.cmo", *m_effect);
 
-	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
+	
+	m_backGroundModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
-			/*
-			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
-
-			if (fog)
-			{
-				fog->SetFogEnabled(true);
-				fog->SetFogStart(100.0f);
-				fog->SetFogEnd(300.0f);
-				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
-			}
-
-			auto light = dynamic_cast<DirectX::IEffectLights*>(effect);
-
-			if (light)
-			{
-				light->SetAmbientLightColor(DirectX::SimpleMath::Vector3::Zero);
-				light->SetLightEnabled(0, false);
-				light->SetLightEnabled(1, false);
-				light->SetLightEnabled(2, false);
-			}
-
 			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
-
-			if (basicEffect)
-			{
-				basicEffect->SetEmissiveColor(DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
-			}
-			*/
-
-			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
-
+			
 			if (basicEffect)
 			{
 				basicEffect->SetLightingEnabled(true);
@@ -79,8 +56,8 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 				basicEffect->SetTextureEnabled(true);
 				basicEffect->SetVertexColorEnabled(false);
 			}
-
 		});
+	//*/
 
 	m_information->Create(mesh, wirePosition);
 
@@ -92,23 +69,17 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 			nullptr, m_pixselShader.ReleaseAndGetAddressOf())
 	);
 
-	UNREFERENCED_PARAMETER(m_constBuffer);
+	//		ブルームを掛けるようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
 
-	ConstBuffer buffer = {};
+	//		通常描画時にも描画するようにするを
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
 
-	//		シェーダにデータを渡すためのコンスタントバッファ生成
-	D3D11_BUFFER_DESC bd;
-	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(buffer);
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	bd.CPUAccessFlags = 0;
+	//		ブルームの深度描画は描画しない
+	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::BloomDepth);
 
-	LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
-		->CreateBuffer(&bd, nullptr, &m_buffer);
-
-	m_constBuffer.fogLength = {100.0f, 300.0f, 0.0f,0.0f};
-	m_constBuffer.fogColor = DirectX::Colors::MediumSeaGreen;
+	//		フォグの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
 }
 
 void BackGroundObject::Update()
@@ -116,9 +87,18 @@ void BackGroundObject::Update()
 }
 
 void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
-	DirectX::SimpleMath::Vector3 cameraPosition)
+	DirectX::SimpleMath::Vector3 cameraPosition,
+	PostEffectFlag::Flag flag,
+	PostEffectObjectShader* objectShader)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+
+	//		フラグがfalseの場合処理をしない	
+	if ((flag & m_postEffectFlag->GetFlag()) == 0)
+	{
+		return;
+	}
+
 
 	for (int i = 0, max = static_cast<int>(m_information->GetObjectPosition().size()); i < max; ++i)
 	{
@@ -133,23 +113,14 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 		world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_information->GetObjectPosition()[i]);
 
 		//		モデルの描画
-		m_floorModel->Draw(context,
+		m_backGroundModel->Draw(context,
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			world, LibrarySingleton::GetInstance()->GetView(),
 			LibrarySingleton::GetInstance()->GetProj(), false, [&]() {
 
-				m_constBuffer.cameraPosition = { cameraPosition.x, cameraPosition.y, cameraPosition.z, 0.0f };
-
-				//		受け渡し用バッファ
-				context->UpdateSubresource(m_buffer.Get(), 0, NULL, &m_constBuffer, 0, 0);
-
-				//		定数バッファの設定
-				ID3D11Buffer* cbuff[] = { m_buffer.Get()};
-
-				context->PSSetConstantBuffers(0, 1, cbuff);
-
 				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
 			});
+
 	}
 }
 
@@ -164,38 +135,30 @@ bool BackGroundObject::Culling(int index,
 {
 	if ((DirectX::SimpleMath::Vector3(m_information->GetObjectPosition()[index].x,
 		0.0f, m_information->GetObjectPosition()[index].z) -
-		DirectX::SimpleMath::Vector3(cameraPosition.x, 0.0f, cameraPosition.z)).Length() > 400.0f)
+		DirectX::SimpleMath::Vector3(cameraPosition.x, 0.0f, cameraPosition.z)).Length() > 500.0f)
 	{
 		return false;
 	}
 
-	//		カメラからのオブジェクトの距離
+	//		カメラからのオブジェクトの方向
 	DirectX::SimpleMath::Vector3 objectVelocityUnder =
 		m_information->GetObjectPosition()[index] - cameraPosition;
+
+	//		Y軸は気にしないようにする
+	objectVelocityUnder.y = 0.0f;
+
+	DirectX::SimpleMath::Vector3 cameraDirection = cameraVelocity;
+
+	cameraDirection.y = 0.0f;
 
 	//		正規化処理
 	objectVelocityUnder.Normalize();
 
-	//		オブジェクトの座標
-	DirectX::SimpleMath::Vector3 velocity = m_information->GetObjectPosition()[index];
-
-	//		オブジェクトの上部の座標
-	velocity += DirectX::SimpleMath::Vector3::Transform({0.0f, 1.0f, 0.0f},
-		m_information->GetObjectQuaternion()[index]) * 400.0f;
-
-	//		カメラからのオブジェクトの距離上部
-	DirectX::SimpleMath::Vector3 objectVelocityTop =
-		velocity - cameraPosition;
-
-	//		正規化処理
-	objectVelocityTop.Normalize();
-
-	//		内積が０より小さい場合処理をしない
-	if (cameraVelocity.Dot(objectVelocityUnder) < 0.0f &&
-		cameraVelocity.Dot(objectVelocityTop) < 0.0f)
+	if (cameraDirection.Dot(objectVelocityUnder) < -0.2f)
 	{
 		return false;
 	}
+
 
 	return true;
 }

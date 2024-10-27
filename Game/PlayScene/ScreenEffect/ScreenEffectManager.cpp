@@ -9,7 +9,6 @@
 
 #include "ScreenEffectManager.h"
 
-
 ScreenEffectManager::ScreenEffectManager(Scene scene, GameManager* gameManager)
 	:
 	m_gameManager(gameManager),

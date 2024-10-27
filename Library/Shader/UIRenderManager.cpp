@@ -20,21 +20,33 @@ const std::vector<D3D11_INPUT_ELEMENT_DESC> UIRenderManager::INPUT_LAYOUT =
 };
 
 UIRenderManager::UIRenderManager()
+	:
+	m_textureWidth(0),
+	m_textureHeight(0),
+	m_centerPoint(CENTER_POINT::MIDDLE_CENTER)
 {
+	m_sample = LibrarySingleton::GetInstance()->GetCommonState()->LinearWrap();
 }
 
 UIRenderManager::~UIRenderManager()
 {
 }
 
-void UIRenderManager::LoadTexture(const wchar_t* path)
+void UIRenderManager::LoadTexture(const wchar_t* path, int index)
 {
+	if (m_texture.size() <= index)
+	{
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> tex;
+
+		m_texture.push_back(tex);
+	}
+
 	//		画像ファイルの読み込み
 	DirectX::CreateWICTextureFromFile(
 		LibrarySingleton::GetInstance()->GetDeviceResources()
 		->GetD3DDevice(),
 		path, m_resource.ReleaseAndGetAddressOf(),
-		m_texture.ReleaseAndGetAddressOf());
+		m_texture[index].ReleaseAndGetAddressOf());
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
 
@@ -56,10 +68,10 @@ void UIRenderManager::LoadShader(
 {
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
 
-	//		コンパイルされたシェーダファイルを読み込み
-	BinaryFile VSData = BinaryFile::LoadFile(vsPath);
-	BinaryFile GSData = BinaryFile::LoadFile(gsPath);
-	BinaryFile PSData = BinaryFile::LoadFile(psPath);
+	m_pixelShader = LibrarySingleton::GetInstance()->CreatePSShader(psPath);
+	m_geometryShader = LibrarySingleton::GetInstance()->CreateGSShader(gsPath);
+	BinaryFile VSData = LibrarySingleton::GetInstance()->CreateVSShader(vsPath, &m_vertexShader);
+
 
 	//		インプットレイアウトの作製
 	device->CreateInputLayout(
@@ -67,29 +79,6 @@ void UIRenderManager::LoadShader(
 		static_cast<UINT>(INPUT_LAYOUT.size()),
 		VSData.GetData(), VSData.GetSize(),
 		m_inputLayout.GetAddressOf());
-
-	//		頂点シェーダ作成
-	if (FAILED(device->CreateVertexShader(VSData.GetData(), VSData.GetSize(), NULL, m_vertexShader.ReleaseAndGetAddressOf())))
-	{
-		//		エラー
-		MessageBox(0, L"CreateVertexShader Failed", NULL, MB_OK);
-		return;
-	}
-
-	//		ジオメトリックシェーダ作成
-	if (FAILED(device->CreateGeometryShader(GSData.GetData(), GSData.GetSize(), NULL, m_geometoryShaer.ReleaseAndGetAddressOf())))
-	{
-		MessageBox(0, L"CreateGeometryShader failed", NULL, MB_OK);
-
-		return;
-	}
-
-	//		ピクセルシェーダ作成
-	if (FAILED(device->CreatePixelShader(PSData.GetData(), PSData.GetSize(), NULL, m_pixelShader.ReleaseAndGetAddressOf())))
-	{
-		MessageBox(0, L"CreatePixelShader Failde", NULL, MB_OK);
-		return;
-	}
 }
 
 /*

@@ -116,8 +116,6 @@ void BillboardEffect::Render(DirectX::SimpleMath::Vector3 position)
 	context->VSSetShader(nullptr, nullptr, 0);
 	context->GSSetShader(nullptr, nullptr, 0);
 	context->PSSetShader(nullptr, nullptr, 0);
-
-
 }
 
 void BillboardEffect::CreateBillboard(DirectX::SimpleMath::Vector3 target, DirectX::SimpleMath::Vector3 eye, DirectX::SimpleMath::Vector3 up)
@@ -137,35 +135,15 @@ void BillboardEffect::CreateShader()
 {
 	auto device = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice();
 
-	//		コンパイルされたシェーダーファイルを読み込む
-	BinaryFile VSData = BinaryFile::LoadFile(L"Resources/Shader/EffectBillboard/EffectBillboardVS.cso");
-	BinaryFile GSData = BinaryFile::LoadFile(L"Resources/Shader/EffectBillboard/EffectBillboardGS.cso");
-	BinaryFile PSData = BinaryFile::LoadFile(L"Resources/Shader/EffectBillboard/EffectBillboardPS.cso");
+	 m_pixelShader = LibrarySingleton::GetInstance()->CreatePSShader(L"Resources/Shader/EffectBillboard/EffectBillboardPS.cso");
+	 m_geometryShader = LibrarySingleton::GetInstance()->CreateGSShader(L"Resources/Shader/EffectBillboard/EffectBillboardGS.cso");
+	 BinaryFile VSData = LibrarySingleton::GetInstance()->CreateVSShader(L"Resources/Shader/EffectBillboard/EffectBillboardVS.cso", &m_vertexShader);
 
 	device->CreateInputLayout(&INPUT_LAYOUT[0],
 		static_cast<UINT>(INPUT_LAYOUT.size()),
 		VSData.GetData(), VSData.GetSize(),
 		m_inputLayout.GetAddressOf()
 	);
-
-	if (FAILED(device->CreateVertexShader(VSData.GetData(), VSData.GetSize(), NULL, m_vertexShader.ReleaseAndGetAddressOf())))
-	{
-		MessageBox(0, L"CreateVertexShader Failed.", NULL, MB_OK);
-		return;
-	}
-
-	// ジオメトリシェーダ作成
-	if (FAILED(device->CreateGeometryShader(GSData.GetData(), GSData.GetSize(), NULL, m_geometryShader.ReleaseAndGetAddressOf())))
-	{
-		MessageBox(0, L"CreateGeometryShader Failed.", NULL, MB_OK);
-		return;
-	}
-	// ピクセルシェーダ作成
-	if (FAILED(device->CreatePixelShader(PSData.GetData(), PSData.GetSize(), NULL, m_pixelShader.ReleaseAndGetAddressOf())))
-	{
-		MessageBox(0, L"CreatePixelShader Failed.", NULL, MB_OK);
-		return;
-	}
 
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));

@@ -16,6 +16,8 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class GoalObject : public IFactory
 {
 public:
@@ -41,7 +43,7 @@ public:
 	* 
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render()override;
+	void Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)override;
 
 	//		終了処理
 	void Finalize() override;
@@ -62,6 +64,16 @@ public:
 	ObjectMesh* GetObjectMesh(int index) override {
 		UNREFERENCED_PARAMETER(index);
 		return m_objectMesh.get(); }
+
+	/*
+	*	ポストエフェクトフラグ
+	*
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectFlag* GetPostEffectFlag() override
+	{
+		return m_postEffectFlag.get();
+	}
 
 private:
 
@@ -87,6 +99,9 @@ private:
 	DirectX::SimpleMath::Vector3 m_rotation;
 
 	ObjectManager* m_objectManager;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 public:
 
 	/*

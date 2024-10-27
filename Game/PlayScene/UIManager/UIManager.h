@@ -19,6 +19,8 @@ class ClockManager;
 class CoolTime;
 class GameOverManager;
 class GameClearManager;
+class SpeedLine;
+class GameStart;
 
 class UIManager
 {
@@ -61,6 +63,8 @@ public:
 		GameClearBarUnder,		//		ゲームクリアのバー
 		GameClearBarUp,			//		ゲームクリアのバー		
 		GameClearBackGround,	//		ゲームクリアの背景
+		GameStartTimeLimit,		//		ゲームスタートタイムリミット
+		GameStartTimeTen		//		ゲームスタートタイムリミットの点
 	}; 
 
 private:
@@ -75,6 +79,12 @@ private:
 		
 	//		ゲームオーバー
 	std::unique_ptr<GameOverManager> m_gameOver;
+
+	//		スピードライン
+	std::unique_ptr<SpeedLine> m_speedLine;
+
+	//		ゲームスタート
+	std::unique_ptr<GameStart> m_gameStart;
 
 	//		プレイヤーの情報を受け取る
 	PlayerInformation* m_playerInformation;
@@ -97,4 +107,10 @@ public:
 	*/
 	StandardShader<UIType>* GetStandardShader() { return m_standardShader.get(); }
 
+	/*
+	*	ゲームマネージャーを受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	GameManager* GetGameManager() { return m_gameManager; }
 };

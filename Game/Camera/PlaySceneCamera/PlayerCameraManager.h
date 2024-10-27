@@ -44,14 +44,14 @@ public:
 	~PlayerCameraManager();
 
 	//		初期化処理
-	void Initialize();
+	void Initialize(PlayerInformation* playerInformation);
 
 	/*
 	*	更新処理
 	* 
 	*	@param	(playerPosition)	プレイヤーの座標
 	*/
-	void Update(PlayerInformation* playerInformation);
+	void Update();
 
 	//		終了処理
 	void Finalize();

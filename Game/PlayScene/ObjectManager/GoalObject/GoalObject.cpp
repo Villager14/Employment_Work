@@ -23,6 +23,9 @@ GoalObject::GoalObject(ObjectManager* objectManager)
 {
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
+
+	//		ポストエフェクトフラグを生成する
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
 }
 
 GoalObject::~GoalObject()
@@ -60,6 +63,9 @@ void GoalObject::Initialize(ObjectInformation information)
 
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Goal);
+
+	//		通常描画をするようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
 }
 
 void GoalObject::Update()
@@ -67,7 +73,7 @@ void GoalObject::Update()
 	m_rotation.z += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
 }
 
-void GoalObject::Render()
+void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
 {
 	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation.z));
 

@@ -17,6 +17,8 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class FloorObject : public IFactory
 {
 public:
@@ -42,7 +44,7 @@ public:
 	* 
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render() override;
+	void Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader) override;
 
 	//		終了処理
 	void Finalize() override;
@@ -63,6 +65,14 @@ public:
 	ObjectMesh* GetObjectMesh(int index) override { 
 		UNREFERENCED_PARAMETER(index);
 		return m_objectMesh.get(); }
+
+	/*
+	*	ポストエフェクトフラグ
+	*
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectFlag* GetPostEffectFlag() override
+	{ return m_postEffectFlag.get(); }
 
 private:
 
@@ -85,6 +95,13 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
 	ObjectManager* m_objectManager;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
+
+	//		ピクセルシェーダー
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixselShader;
+
 public:
 
 	/*

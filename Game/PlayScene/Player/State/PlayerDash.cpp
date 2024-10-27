@@ -54,6 +54,9 @@ void PlayerDash::Initialize()
 
 	//		ダッシュ効果音効果音の再生
 	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::Dash);
+
+	//		ゲームマネージャーのダッシュフラグをONにする
+	m_player->GetGameManager()->TrueFlag(GameManager::DashJudgement);
 }
 
 void PlayerDash::Update()
@@ -121,6 +124,9 @@ void PlayerDash::Finalize()
 
 	//		カメラを停止を終了する
 	m_player->GetInformation()->SetCameraStop(false);
+
+	//		ゲームマネージャーのダッシュフラグをOFFにする
+	m_player->GetGameManager()->FalseFlag(GameManager::DashJudgement);
 }
 
 void PlayerDash::MoveProcessing()

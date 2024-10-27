@@ -14,7 +14,8 @@ GameManager::GameManager()
 	m_time(0.0f),
 	m_deathCount(0),
 	m_gameSpeed(1.0f),
-	m_flag(0)
+	m_flag(0),
+	m_limitTime(0.0f)
 {
 }
 

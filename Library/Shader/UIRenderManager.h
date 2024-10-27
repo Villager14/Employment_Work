@@ -49,7 +49,7 @@ public:
 	* 
 	*	@param	(path)	ファイルパス
 	*/
-	void LoadTexture(const wchar_t* path);
+	void LoadTexture(const wchar_t* path, int index = 0);
 
 	/*
 	*	シェーダーを作成する
@@ -89,8 +89,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
 	//		テクスチャハンドル
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
-
+	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_texture;
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> m_resource;
 
@@ -101,7 +100,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
 
 	//		ジオメトリックシェーダー
-	Microsoft::WRL::ComPtr<ID3D11GeometryShader> m_geometoryShaer;
+	Microsoft::WRL::ComPtr<ID3D11GeometryShader> m_geometryShader;
 
 	//		テクスチャ横サイズ
 	int m_textureWidth;
@@ -123,6 +122,8 @@ private:
 	//		コンストバッファマネージャー
 	std::unique_ptr<ConstBufferManager> m_constBufferManager;
 
+	//		サンプラー
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_sample;
 public:
 
 	/*
@@ -158,11 +159,23 @@ public:
 	*/
 	void SetCenterPoint(CENTER_POINT centerPoint) { m_centerPoint = centerPoint; }
 
+	void SetSampler(ID3D11SamplerState* sampler) { m_sample = sampler; }
+
 	ConstBufferManager* GetConstBufferManager() { return m_constBufferManager.get(); }
 
-	void SetTexture(Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture) { m_texture = texture; };
+	void SetTexture(Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture, int index = 0) 
+	{ 
+		if (m_texture.size() <= index)
+		{
+			m_texture.push_back(texture);
+		}
+		else
+		{
+			m_texture[index] = texture;
+		}
+	};
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetTexture() { return m_texture; }
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetTexture(int index = 0) { return m_texture[index]; }
 
 	DirectX::SimpleMath::Vector2 GetTextureSize() 
 	{ return { static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight) }; }
@@ -215,6 +228,8 @@ inline void UIRenderManager::Render(const UIType& obj)
 	//		画像用サンプラーの登録
 	ID3D11SamplerState* sampler[1] = { commonState->LinearWrap() };
 	context->PSSetSamplers(0, 1, sampler);
+	//ID3D11SamplerState* sampler[1] = { m_sample.Get()};
+	//context->PSSetSamplers(0, 1, sampler);
 
 	//		半透明描画指定
 	ID3D11BlendState* blendestate = commonState->NonPremultiplied();
@@ -230,11 +245,15 @@ inline void UIRenderManager::Render(const UIType& obj)
 
 	//		シェーダをセットする
 	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
-	context->GSSetShader(m_geometoryShaer.Get(), nullptr, 0);
+	context->GSSetShader(m_geometryShader.Get(), nullptr, 0);
 	context->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
-	//		ピクセルシェーダにテクスチャを登録する
-	context->PSSetShaderResources(0, 1, m_texture.GetAddressOf());
+	for (int i = 0, max = static_cast<int>(m_texture.size());
+		 i < max; ++i)
+	{
+		//		ピクセルシェーダにテクスチャを登録する
+		context->PSSetShaderResources(i, 1, m_texture[i].GetAddressOf());
+	}
 
 	//		インプットレイアウトの登録
 	context->IASetInputLayout(m_inputLayout.Get());

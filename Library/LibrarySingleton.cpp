@@ -9,6 +9,7 @@
 
 #include "LibrarySingleton.h"
 
+
 std::unique_ptr<LibrarySingleton> LibrarySingleton::m_library = nullptr;
 
 LibrarySingleton::LibrarySingleton()
@@ -70,4 +71,63 @@ float LibrarySingleton::Random(float min, float max)
 	std::uniform_real_distribution<> dist(min, max);
 
 	return static_cast<float>(dist(engine));
+}
+
+Microsoft::WRL::ComPtr<ID3D11PixelShader> LibrarySingleton::CreatePSShader(const wchar_t* path)
+{
+		BinaryFile PSData = BinaryFile::LoadFile(path);
+
+		Microsoft::WRL::ComPtr<ID3D11PixelShader> pixselShsder;
+
+		//		ピクセルシェーダ作成
+		if (FAILED(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+			->CreatePixelShader(PSData.GetData(), PSData.GetSize(), NULL,
+				pixselShsder.ReleaseAndGetAddressOf())))
+		{
+			MessageBox(0, L"CreatePixelShader Failed", NULL, MB_OK);
+
+			return nullptr;
+		}
+
+		return pixselShsder;
+}
+
+BinaryFile LibrarySingleton::CreateVSShader(const wchar_t* path, Microsoft::WRL::ComPtr<ID3D11VertexShader>* vsshader)
+{
+	BinaryFile VSData = BinaryFile::LoadFile(path);
+
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertexShader;
+
+	//		ピクセルシェーダ作成
+	if (FAILED(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+		->CreateVertexShader(VSData.GetData(), VSData.GetSize(), NULL,
+			vertexShader.ReleaseAndGetAddressOf())))
+	{
+		MessageBox(0, L"CreateVertexShader Failed", NULL, MB_OK);
+
+		return VSData;
+	}
+
+	*vsshader = vertexShader.Get();
+
+	return VSData;
+}
+
+Microsoft::WRL::ComPtr<ID3D11GeometryShader> LibrarySingleton::CreateGSShader(const wchar_t* path)
+{
+	BinaryFile GSData = BinaryFile::LoadFile(path);
+
+	Microsoft::WRL::ComPtr<ID3D11GeometryShader> geometoryShader;
+
+	//		ピクセルシェーダ作成
+	if (FAILED(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+		->CreateGeometryShader(GSData.GetData(), GSData.GetSize(), NULL,
+			geometoryShader.ReleaseAndGetAddressOf())))
+	{
+		MessageBox(0, L"CreateGeometryShader Failed", NULL, MB_OK);
+
+		return nullptr;
+	}
+
+	return geometoryShader;
 }

@@ -21,6 +21,12 @@ WireUseEffect::WireUseEffect(PlayerInformation* playerInformation)
 
 	//		ビルボードの作製
 	m_billboardEffect->Create();
+
+	//		ポストエフェクトフラグを生成する
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
+
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 WireUseEffect::~WireUseEffect()
@@ -81,7 +87,8 @@ void WireUseEffect::BillbordUpdate(PlayerCameraInformation* cameraInformation)
 	}
 }
 
-void WireUseEffect::Render(DirectX::SimpleMath::Vector3 position, int index)
+void WireUseEffect::Render(DirectX::SimpleMath::Vector3 position, int index,
+	PostEffectFlag::Flag flag)
 {
 
 	m_billboardEffect->SetScale(m_wireStatas[index].scale);

@@ -23,7 +23,13 @@ PlayerStart::~PlayerStart()
 
 void PlayerStart::Initialize()
 {
-	m_player->GetInformation()->SetPlayerHeight({ 0.0f, m_player->GetInformation()->GetStandingHeight(), 0.0f});
+	//		リスポーン座標を受け取る
+	m_player->GetInformation()->SetPosition(m_player->GetInformation()->GetRespawnPosition());
+
+	m_player->GetInformation()->SetPlayerHeight({
+		m_player->GetInformation()->GetPosition().x,
+		m_player->GetInformation()->GetPosition().y + m_player->GetInformation()->GetStandingHeight(),
+		m_player->GetInformation()->GetPosition().z});
 
 	//		アニメーションスタート
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->Start);
@@ -65,7 +71,6 @@ void PlayerStart::Finalize()
 void PlayerStart::ChangeStateJudgement()
 {
 	//		カメラの演出が終わったら
-	//if (m_player->GetGameManager()->GetGameStartJudgement())
 	if (m_player->GetGameManager()->FlagJudgement(GameManager::GameStart))
 	{
 		//		状態を遷移する（待機状態）

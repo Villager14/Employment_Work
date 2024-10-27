@@ -37,4 +37,7 @@ private:
 
 	//		ŠÔ
 	float m_time;
+
+	//		‰Šú•`‰æ
+	bool m_firstViewJudgement;
 };

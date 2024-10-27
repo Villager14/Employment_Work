@@ -9,6 +9,8 @@
 
 #include "ObjectManager.h"
 
+#include "BackGroundObject/BackGroundObject.h"
+
 ObjectManager::ObjectManager(ShadowInformation* shadowInformation, GameManager* gameManager)
 	:
 	m_shadowInformation(shadowInformation),
@@ -18,13 +20,19 @@ ObjectManager::ObjectManager(ShadowInformation* shadowInformation, GameManager* 
 	m_drawMesh = std::make_unique<DrawMesh>();
 
 	//		背景オブジェクトの生成
-	m_backGroundObject = std::make_unique<BackGroundObject>();
+	m_backGroundObject = std::make_unique<BackGroundObject>(this);
 
 	//		ファクトリー
 	m_factory = std::make_unique<Factory>(this);
 
 	//		オブジェクトの読み込みクラスの生成
 	m_loadObjectInformation = std::make_unique<LoadingObjectInformation>();
+
+	//		ライトの方向
+	m_lightDirection = { 1.0f, -1.0f, -1.0f };
+
+	//		正規化
+	m_lightDirection.Normalize();
 }
 
 ObjectManager::~ObjectManager()
@@ -85,17 +93,18 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 }
 
 void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
-	DirectX::SimpleMath::Vector3 cameraPosition)
+	DirectX::SimpleMath::Vector3 cameraPosition,
+	PostEffectFlag::Flag flag, PostEffectObjectShader* objectShader)
 {
 	m_cameraVelocity = cameraVelocity;
 	m_cameraPosition = cameraPosition;
 
-	m_backGroundObject->Render(cameraVelocity, cameraPosition);
+	m_backGroundObject->Render(cameraVelocity, cameraPosition, flag, objectShader);
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
 		//		描画処理
-		m_factoryObject[i]->Render();
+		m_factoryObject[i]->Render(flag, objectShader);
 	}
 }
 
@@ -144,7 +153,6 @@ void ObjectManager::CreateWireInformation(int index, int *wireNumber)
 		//		座標
 		information.position =
 			m_loadObjectInformation->GetObjectInformation()[index].position;
-
 
 		m_wireInformation.push_back(information);
 	}

@@ -33,4 +33,6 @@ struct ObjectInformation
 
 	//		“–‚½‚è”»’èƒpƒX
 	std::string collitionPath;
+
+	int effectFlag;
 };

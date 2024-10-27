@@ -44,7 +44,7 @@ void TutorialManager::Initialize()
 	m_player->Initialize();
 
 	//		プレイヤーカメラマネージャーの初期化処理
-	m_cameraManager->Initialize();
+	m_cameraManager->Initialize(m_player->GetInformation());
 
 	//		カメラの情報を受け取る
 	m_player->SetCameraInformation(m_cameraManager->GetInformation());
@@ -77,7 +77,7 @@ void TutorialManager::Update()
 	m_player->Update(m_cameraManager->GetInformation());
 
 	//		カメラの更新処理
-	m_cameraManager->Update(m_player->GetInformation());
+	m_cameraManager->Update();
 
 	//		プレイヤーにカメラの角度を送る
 	m_player->GetInformation()->SetCameraAngle(m_cameraManager->GetInformation()->GetAngle());
@@ -102,11 +102,12 @@ void TutorialManager::Update()
 void TutorialManager::Render()
 {
 	//		オブジェクトマネージャーの描画処理
-	m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
-		m_player->GetInformation()->GetPlayerHeight());
+	//m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
+	//	m_player->GetInformation()->GetPlayerHeight(),
+	//	);
 
 	//		モデルの描画
-	m_player->ModelRender();
+	//m_player->ModelRender();
 
 	//		デバック描画
 	m_player->DebugRender();

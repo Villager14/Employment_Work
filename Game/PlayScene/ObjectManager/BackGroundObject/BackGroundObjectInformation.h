@@ -71,10 +71,10 @@ public:
 private:
 	
 	//		Œš•¨‚ª‘¶İ‚µ‚È‚¢‹——£
-	const float NOT_EXSIT_LENGTH = 50.0f;
+	const float NOT_EXSIT_LENGTH = 200.0f;
 
 	//		Œš•¨‚ª‘¶İ‚·‚éÅ‘å‹——£
-	const float MAX_LENGTH = 300.0f;
+	const float MAX_LENGTH = 380.0f;
 
 private:
 
