@@ -13,7 +13,8 @@
 #include "CoolTime/CoolTime.h"
 #include "Game/PlayScene/UIManager/GameOver/GameOverManager.h"
 #include "Game/PlayScene/UIManager/GameClear/GameClearManager.h"
-
+#include "Game/PlayScene/UIManager/SpeedLine/SpeedLine.h"
+#include "Game/PlayScene/UIManager/GameStart/GameStart.h"
 
 UIManager::UIManager(PlayerInformation* playerInformation,
 					 GameManager* gameManager)
@@ -42,8 +43,14 @@ void UIManager::Initialize()
 	//		ゲームオーバーの初期化
 	m_gameOver->Initialize();
 
+	//		初期化処理
+	m_speedLine->Initialize();
+
 	//		ゲームクリアマネージャーの初期化
 	m_clearManager->Initialize();
+
+	//		ゲームスタートの初期化
+	m_gameStart->Initialize();
 }
 
 void UIManager::Generation()
@@ -63,6 +70,12 @@ void UIManager::Generation()
 	//		ゲームクリアマネージャーの生成
 	m_clearManager = std::make_unique<GameClearManager>(m_gameManager, this);
 
+	//		ゲームスタートの生成
+	m_gameStart = std::make_unique<GameStart>(m_gameManager, this);
+
+	//		スピードラインの生成
+	m_speedLine = std::make_unique<SpeedLine>(this);
+
 	//		スタンダードシェーダーの作製
 	m_standardShader = std::make_unique<StandardShader<UIType>>();
 
@@ -75,6 +88,9 @@ void UIManager::Generation()
 
 void UIManager::Update()
 {
+	//		速度の更新処理
+	m_speedLine->Update();
+
 	//		時間の更新
 	m_clockManager->Update(m_gameManager);
 
@@ -82,10 +98,16 @@ void UIManager::Update()
 	m_coolTime->Update(m_playerInformation);
 
 	//		フェードの更新
-	m_fadeIn->Update(m_gameManager);
+	//m_fadeIn->Update(m_gameManager);
 
 	//		ゲームオーバーの更新
 	m_gameOver->Update();
+
+	//		ゲームクリアマネージャーの更新
+	m_clearManager->Update();
+
+	//		ゲームスタートマネージャーの更新
+	m_gameStart->Update();
 }
 
 void UIManager::Finalize()
@@ -95,6 +117,9 @@ void UIManager::Finalize()
 
 void UIManager::FrontRender()
 {
+	//		スピードラインの描画
+	m_speedLine->Render();
+
 	//		時計の描画
 	m_clockManager->Render();
 
@@ -113,11 +138,8 @@ void UIManager::BackRender()
 	//		ゲームーバーの描画
 	m_gameOver->Render();
 
-	//		ゲームクリアマネージャーの更新
-	m_clearManager->Update();
-
-	//		フェードインの描画
-	m_fadeIn->Render();
+	//		ゲームスタートの描画
+	m_gameStart->Render();
 }
 
 void UIManager::CreateStandardUITexture()
@@ -132,5 +154,6 @@ void UIManager::CreateStandardUITexture()
 	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png", { 0.0f, 13.0f }, { 0.0f, 1.0f }, UIType::GameClearBarUp);
 	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png", { 0.0f, -13.0f }, { 0.0f, 1.0f }, UIType::GameClearBarUnder);
 	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png", { 0.0f, 0.0f }, { 1.0f, 0.0f }, UIType::GameClearBackGround);
-
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameStart/TimeLimit.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeLimit);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameStart/Ten.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeTen);
 }

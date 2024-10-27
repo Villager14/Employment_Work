@@ -122,18 +122,6 @@
     <Filter Include="Resorces\Shader">
       <UniqueIdentifier>{05f01641-4dd8-422f-99e2-2cbbd4243778}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\UI">
-      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Number">
-      <UniqueIdentifier>{ced588ef-36f4-469d-833c-2dfe5148894d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\CoolTime">
-      <UniqueIdentifier>{bd721785-f296-41a3-a5cf-c7957e087000}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\Fade">
-      <UniqueIdentifier>{852490bb-f066-438b-a6b7-cacfaa5a7836}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\RedScreen">
       <UniqueIdentifier>{4bc15fab-610a-462d-abb0-a87c3a7be1bf}</UniqueIdentifier>
     </Filter>
@@ -143,20 +131,8 @@
     <Filter Include="Resorces\Shader\Shadow\Depth">
       <UniqueIdentifier>{b59211f9-3b07-4201-8b2c-d12c7f8659a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\BackGroundMove">
-      <UniqueIdentifier>{191501e3-b151-4f66-adc1-241aa89ff9ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\TVOFF">
-      <UniqueIdentifier>{391f7b10-9737-405e-a805-0a17fcda48c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\Model">
       <UniqueIdentifier>{202cb540-d483-4282-9f66-4599cfad2574}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\AboveNumber">
-      <UniqueIdentifier>{fa5492a5-65d0-440b-befb-cdab0e35b5cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\SpeedScreen">
-      <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\Billboard">
       <UniqueIdentifier>{0d83c077-e5df-4c1b-a2c1-4c762b2ce392}</UniqueIdentifier>
@@ -188,9 +164,6 @@
     <Filter Include="Game\Menu\State">
       <UniqueIdentifier>{3b837777-bd01-4574-b8a1-b44e4307fe1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\Slider">
-      <UniqueIdentifier>{34fd825b-4916-483f-abbd-0c0f13be47f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Library\Shader">
       <UniqueIdentifier>{2de7bf5e-06bc-405f-b05a-f1a4a4be0bc4}</UniqueIdentifier>
     </Filter>
@@ -206,9 +179,6 @@
     <Filter Include="Game\ResultManager\ScreenEffect">
       <UniqueIdentifier>{df773b49-5e02-46ca-98fd-3342b0f6292e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\AboveUI">
-      <UniqueIdentifier>{9df10f37-241f-447c-bb16-5bd364348c54}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\TitleScene">
       <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
     </Filter>
@@ -220,9 +190,6 @@
     </Filter>
     <Filter Include="Game\Menu\UI">
       <UniqueIdentifier>{3c8508d3-2924-4dba-a66c-4cdf77711c36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\MenuSelect">
-      <UniqueIdentifier>{60b27914-eeb4-47e1-a89f-794833ca8d53}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\FrameWalk">
       <UniqueIdentifier>{8ae1a69f-d672-4e80-9449-227e609501e8}</UniqueIdentifier>
@@ -262,6 +229,174 @@
     </Filter>
     <Filter Include="Library\Mesh\MeshType">
       <UniqueIdentifier>{6c3dbe99-c6f8-4a7c-a5a8-bcbda3abc4ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Object">
+      <UniqueIdentifier>{8dce9c33-33b1-4d03-ae3c-71c30651c96c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Object\Wall">
+      <UniqueIdentifier>{20203855-64aa-4e55-ada9-6a7b4d702efd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\SpeedLine">
+      <UniqueIdentifier>{5648a73e-396b-41b1-a849-9a9232f8ee01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect">
+      <UniqueIdentifier>{8ecfd551-be4b-4501-b655-d211518a83c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect">
+      <UniqueIdentifier>{5abede6e-d38d-4a58-aa38-d7e7c6f3d56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect">
+      <UniqueIdentifier>{d889fd5c-2d9a-4b93-8ea3-f929354d5752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bloom">
+      <UniqueIdentifier>{8c1fb583-9565-4d68-a448-2c3a2feb054b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bloom\Luminance">
+      <UniqueIdentifier>{eeff76f2-24a4-4069-b2fa-5f67dd50680f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bloom\Synthetic">
+      <UniqueIdentifier>{975ca190-2a40-4104-afad-f5f3abc2f707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bler">
+      <UniqueIdentifier>{fbc41952-bf61-4d16-ae82-fc81ba3a4884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Respawn">
+      <UniqueIdentifier>{788675c9-8338-4825-bcaa-e552b80c30b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bler\Side">
+      <UniqueIdentifier>{120d2b6e-30ca-4af2-bbb2-fe0132ecd6e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bler\Warp">
+      <UniqueIdentifier>{33a26282-744d-4186-ba14-56f5b7cb4a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bler\Expansion">
+      <UniqueIdentifier>{3f880520-86a4-4866-9f54-9fa8cfcd06d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Object\BackGround">
+      <UniqueIdentifier>{17014da9-48fc-43d6-ad38-ab5261507c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bloom\Depth">
+      <UniqueIdentifier>{8cbea3e2-3746-4400-891b-14fdc85fc0b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Fog">
+      <UniqueIdentifier>{668cf38d-bc8e-4e91-9b6c-9db2d3c48d7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Fog\Depth">
+      <UniqueIdentifier>{07577140-432b-4d1b-a767-e26b7291256b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bloom\BloomUnaffectedObject">
+      <UniqueIdentifier>{efa32f91-977e-4bd9-952f-bb3e277b7368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Bloom\BloomUnaffectedDepth">
+      <UniqueIdentifier>{5909338c-7f24-4aac-bfe3-4ebf778b0fba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\Effect">
+      <UniqueIdentifier>{5fc45fc0-1759-4838-afed-ab334da0afb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\Effect\DegitalRain">
+      <UniqueIdentifier>{2b38562e-6b8d-48d5-bfdf-94fcbcf6f50e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI">
+      <UniqueIdentifier>{fa5e4c07-5ba9-410f-9d22-b54b6cac4f79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\Slider">
+      <UniqueIdentifier>{34fd825b-4916-483f-abbd-0c0f13be47f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\SpeedScreen">
+      <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\UI">
+      <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\TVOFF">
+      <UniqueIdentifier>{391f7b10-9737-405e-a805-0a17fcda48c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\SpeedLine">
+      <UniqueIdentifier>{975356b3-27b6-4ce4-b427-89d0bc5cef4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\Number">
+      <UniqueIdentifier>{ced588ef-36f4-469d-833c-2dfe5148894d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\MenuSelect">
+      <UniqueIdentifier>{60b27914-eeb4-47e1-a89f-794833ca8d53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\CoolTime">
+      <UniqueIdentifier>{bd721785-f296-41a3-a5cf-c7957e087000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\BackGroundMove">
+      <UniqueIdentifier>{191501e3-b151-4f66-adc1-241aa89ff9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\AboveNumber">
+      <UniqueIdentifier>{fa5492a5-65d0-440b-befb-cdab0e35b5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\AboveUI">
+      <UniqueIdentifier>{9df10f37-241f-447c-bb16-5bd364348c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\Fade">
+      <UniqueIdentifier>{852490bb-f066-438b-a6b7-cacfaa5a7836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Effect">
+      <UniqueIdentifier>{5b82f712-0080-4b9f-99fb-eb391be1a720}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Effect\DegitalRain">
+      <UniqueIdentifier>{9262387f-eb16-4d99-8951-a45d27aee322}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Effect\TEST">
+      <UniqueIdentifier>{1482911e-4338-40e5-b229-22dd52632ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Transparency">
+      <UniqueIdentifier>{224fc668-ded2-410e-99d6-4a2db09f65f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Transparency\TransparencyObject">
+      <UniqueIdentifier>{2e2b18c6-e371-4dd9-a2c8-f18d1796082e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\Transparency\Depth">
+      <UniqueIdentifier>{cae9df08-5e24-418a-86f2-21d468b49462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State">
+      <UniqueIdentifier>{f5ef5b26-c9aa-4dcf-a51f-d723d51e8a91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\UIRender">
+      <UniqueIdentifier>{87223837-0da9-4e08-88cc-59d388043396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\Bloom">
+      <UniqueIdentifier>{990a6f6e-3bcb-4417-a876-635f046b8087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\BloomDepth">
+      <UniqueIdentifier>{2b531761-3454-4723-affb-a2ea447072df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\Fog">
+      <UniqueIdentifier>{b3cce43e-206c-4d98-9ac5-bd3870ff125d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\Bler">
+      <UniqueIdentifier>{cfdc2b76-925c-441f-a748-50cf6f5d12c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\Effect">
+      <UniqueIdentifier>{980a6a29-2231-4327-8f2f-8fb31008b464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\EffectDepth">
+      <UniqueIdentifier>{c42482fe-5025-4c01-abde-0156b32e8220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\Normal">
+      <UniqueIdentifier>{ac33b260-57ce-49a4-81b6-170649a69ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\ScreenColor">
+      <UniqueIdentifier>{52079cd0-6ab3-4539-9363-2fa0d1bfb704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\ScreenColor">
+      <UniqueIdentifier>{8fb6fc18-d5b7-4acb-b25d-3d755d1ba069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\FadePostEffect">
+      <UniqueIdentifier>{84cf5ff5-af26-4c03-8da4-e407628b966d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Effect\PostEffect\State\GlitchNoise">
+      <UniqueIdentifier>{f61ea9fa-4f8d-4c4f-b3fc-43b412bdc037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\GlitchNoise">
+      <UniqueIdentifier>{4123a89e-e675-462d-97f5-0742770e80e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\GameStart">
+      <UniqueIdentifier>{43be1012-ee75-4ae6-833f-1bbf99f76a7f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -765,6 +900,81 @@
     <ClInclude Include="Library\Mesh\MeshOrganization.h">
       <Filter>Library\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="Library\Shader\ObjectShaderManager.h">
+      <Filter>Library\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\SpeedLine\SpeedLine.h">
+      <Filter>Game\PlayScene\UIManager\SpeedLine</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\PostEffectManager.h">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Respawn\RespawnManager.h">
+      <Filter>Game\PlayScene\Respawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Respawn\RespawnPointRead.h">
+      <Filter>Game\PlayScene\Respawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Instancing.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\PostEffectCommonProcess.h">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\PostEffectFlag.h">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\PostEffectObjectShader.h">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRain.h">
+      <Filter>Library\Effect\Effect\DegitalRain</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRainParameter.h">
+      <Filter>Game\PlayScene\Effect\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Shader\EffectShaderManager.h">
+      <Filter>Library\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\IPostEffect.h">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\Bler\Bler.h">
+      <Filter>Library\Effect\PostEffect\State\Bler</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\Bloom\Bloom.h">
+      <Filter>Library\Effect\PostEffect\State\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\BloomDepth\BloomDepth.h">
+      <Filter>Library\Effect\PostEffect\State\BloomDepth</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\Fog\FogProcess.h">
+      <Filter>Library\Effect\PostEffect\State\Fog</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\Effect\EffectRender.h">
+      <Filter>Library\Effect\PostEffect\State\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\EffectDepth\EffectDepthRender.h">
+      <Filter>Library\Effect\PostEffect\State\EffectDepth</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\UIRender\UIRender.h">
+      <Filter>Library\Effect\PostEffect\State\UIRender</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\Normal\NormalRender.h">
+      <Filter>Library\Effect\PostEffect\State\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\ScreenColor\ScreenColor.h">
+      <Filter>Library\Effect\PostEffect\State\ScreenColor</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\Fade\FadePostEffect.h">
+      <Filter>Library\Effect\PostEffect\State\FadePostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Effect\PostEffect\State\GlitchNoise\GlitchNoise.h">
+      <Filter>Library\Effect\PostEffect\State\GlitchNoise</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\GameStart\GameStart.h">
+      <Filter>Game\PlayScene\UIManager\GameStart</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -1178,6 +1388,69 @@
     <ClCompile Include="Library\Mesh\MeshOrganization.cpp">
       <Filter>Library\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Library\Shader\ObjectShaderManager.cpp">
+      <Filter>Library\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\SpeedLine\SpeedLine.cpp">
+      <Filter>Game\PlayScene\UIManager\SpeedLine</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\PostEffectManager.cpp">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Respawn\RespawnManager.cpp">
+      <Filter>Game\PlayScene\Respawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Respawn\RespawnPointRead.cpp">
+      <Filter>Game\PlayScene\Respawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Instancing.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\PostEffectCommonProcess.cpp">
+      <Filter>Library\Effect\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\Effect\DigitalRain\DegitalRain.cpp">
+      <Filter>Library\Effect\Effect\DegitalRain</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Shader\EffectShaderManager.cpp">
+      <Filter>Library\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\Bler\Bler.cpp">
+      <Filter>Library\Effect\PostEffect\State\Bler</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\Bloom\Bloom.cpp">
+      <Filter>Library\Effect\PostEffect\State\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\BloomDepth\BloomDepth.cpp">
+      <Filter>Library\Effect\PostEffect\State\BloomDepth</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\Fog\FogProcess.cpp">
+      <Filter>Library\Effect\PostEffect\State\Fog</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\Effect\EffectRender.cpp">
+      <Filter>Library\Effect\PostEffect\State\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\EffectDepth\EffectDepthRender.cpp">
+      <Filter>Library\Effect\PostEffect\State\EffectDepth</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\UIRender\UIRender.cpp">
+      <Filter>Library\Effect\PostEffect\State\UIRender</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\Normal\NormalRender.cpp">
+      <Filter>Library\Effect\PostEffect\State\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\ScreenColor\ScreenColor.cpp">
+      <Filter>Library\Effect\PostEffect\State\ScreenColor</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\Fade\FadePostEffect.cpp">
+      <Filter>Library\Effect\PostEffect\State\FadePostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Effect\PostEffect\State\GlitchNoise\GlitchNoise.cpp">
+      <Filter>Library\Effect\PostEffect\State\GlitchNoise</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\GameStart\GameStart.cpp">
+      <Filter>Game\PlayScene\UIManager\GameStart</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1195,31 +1468,31 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Shader\UI\UIShader.hlsli">
-      <Filter>Resorces\Shader\UI</Filter>
+      <Filter>Resorces\Shader\UI\UI</Filter>
     </None>
     <None Include="Resources\Shader\Number\Number.hlsli">
-      <Filter>Resorces\Shader\Number</Filter>
+      <Filter>Resorces\Shader\UI\Number</Filter>
     </None>
     <None Include="Resources\Shader\CoolTime\CoolTime.hlsli">
-      <Filter>Resorces\Shader\CoolTime</Filter>
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
     </None>
     <None Include="Resources\Shader\Fade\FadeShader.hlsli">
-      <Filter>Resorces\Shader\Fade</Filter>
+      <Filter>Resorces\Shader\UI\Fade</Filter>
     </None>
     <None Include="Resources\Shader\RedScreen\RedScreen.hlsli">
       <Filter>Resorces\Shader\RedScreen</Filter>
     </None>
     <None Include="Resources\Shader\BackGroundMove\BackGroundMove.hlsli">
-      <Filter>Resorces\Shader\BackGroundMove</Filter>
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
     </None>
     <None Include="Resources\Shader\TVOFF\TVOFF.hlsli">
-      <Filter>Resorces\Shader\TVOFF</Filter>
+      <Filter>Resorces\Shader\UI\TVOFF</Filter>
     </None>
     <None Include="Resources\Shader\AboveNumber\AboveNumber.hlsli">
-      <Filter>Resorces\Shader\AboveNumber</Filter>
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
     </None>
     <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
     </None>
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli">
       <Filter>Resorces\Shader\Billboard</Filter>
@@ -1240,22 +1513,70 @@
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </None>
     <None Include="Resources\Shader\Slider\Slider.hlsli">
-      <Filter>Resorces\Shader\Slider</Filter>
+      <Filter>Resorces\Shader\UI\Slider</Filter>
     </None>
     <None Include="Resources\Shader\AboveUI\AboveUI.hlsli">
-      <Filter>Resorces\Shader\AboveUI</Filter>
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
     </None>
     <None Include="Resources\Shader\MenuSelect\MenuSelect.hlsli">
-      <Filter>Resorces\Shader\MenuSelect</Filter>
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
     </None>
     <None Include="Resources\Shader\FrameWalk\FrameWalk.hlsli">
       <Filter>Resorces\Shader\FrameWalk</Filter>
     </None>
+    <None Include="Resources\Shader\SpeedLine\SpeedLine.hlsli">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </None>
+    <None Include="Resources\Shader\Object\Wall\Wall.hlsli">
+      <Filter>Resorces\Shader\Object\Wall</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bloom\Luminance\Luminance.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bloom\Synthetic\Synthetic.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Synthetic</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bler\SideBler\SideBler.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bler\Side</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bler\WarpBler\WarpBler.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bler\Warp</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bler\Expansion\Expansion.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bler\Expansion</Filter>
+    </None>
+    <None Include="Resources\Shader\Object\BackGround\BackGround.hlsli">
+      <Filter>Resorces\Shader\Object\BackGround</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bloom\Depth\ShawowDepth.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Depth</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Fog\Depth\FogDepth.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Fog\Depth</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Bloom\BloomUnaffectedDepth\BloomUnaffectedDepth.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Bloom\BloomUnaffectedDepth</Filter>
+    </None>
+    <None Include="Resources\Shader\Effect\DegitalRain\DegitalRain.hlsli">
+      <Filter>Resorces\Shader\Effect\DegitalRain</Filter>
+    </None>
+    <None Include="Resources\Shader\Effect\TEST\TEST.hlsli">
+      <Filter>Resorces\Shader\Effect\TEST</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Transparency\Transparency.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Transparency</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\Transparency\Depth\TransparencyDepth.hlsli">
+      <Filter>Resorces\Shader\PostEffect\Transparency\Depth</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\ScreenColor\ScreenColor.hlsli">
+      <Filter>Resorces\Shader\PostEffect\ScreenColor</Filter>
+    </None>
+    <None Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoise.hlsli">
+      <Filter>Resorces\Shader\PostEffect\GlitchNoise</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="FBX\Floor.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="FBX\Player.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
@@ -1346,43 +1667,49 @@
     <MeshContentTask Include="FBX\Wall\WallObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Floor\Floor.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Floor\Post.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shader\UI\UIShaderGS.hlsl">
-      <Filter>Resorces\Shader\UI</Filter>
+      <Filter>Resorces\Shader\UI\UI</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\UIShaderPS.hlsl">
-      <Filter>Resorces\Shader\UI</Filter>
+      <Filter>Resorces\Shader\UI\UI</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\UIShaderVS.hlsl">
-      <Filter>Resorces\Shader\UI</Filter>
+      <Filter>Resorces\Shader\UI\UI</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Number\NumberGS.hlsl">
-      <Filter>Resorces\Shader\Number</Filter>
+      <Filter>Resorces\Shader\UI\Number</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Number\NumberPS.hlsl">
-      <Filter>Resorces\Shader\Number</Filter>
+      <Filter>Resorces\Shader\UI\Number</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Number\NumberVS.hlsl">
-      <Filter>Resorces\Shader\Number</Filter>
+      <Filter>Resorces\Shader\UI\Number</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\CoolTime\CoolTimeGS.hlsl">
-      <Filter>Resorces\Shader\CoolTime</Filter>
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\CoolTime\CoolTimePS.hlsl">
-      <Filter>Resorces\Shader\CoolTime</Filter>
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\CoolTime\CoolTimeVS.hlsl">
-      <Filter>Resorces\Shader\CoolTime</Filter>
+      <Filter>Resorces\Shader\UI\CoolTime</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Fade\FadeShaderGS.hlsl">
-      <Filter>Resorces\Shader\Fade</Filter>
+      <Filter>Resorces\Shader\UI\Fade</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Fade\FadeShaderPS.hlsl">
-      <Filter>Resorces\Shader\Fade</Filter>
+      <Filter>Resorces\Shader\UI\Fade</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Fade\FadeShaderVS.hlsl">
-      <Filter>Resorces\Shader\Fade</Filter>
+      <Filter>Resorces\Shader\UI\Fade</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
       <Filter>Resorces\Shader\RedScreen</Filter>
@@ -1406,43 +1733,43 @@
       <Filter>Resorces\Shader\Shadow\Depth</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveGS.hlsl">
-      <Filter>Resorces\Shader\BackGroundMove</Filter>
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMovePS.hlsl">
-      <Filter>Resorces\Shader\BackGroundMove</Filter>
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\BackGroundMove\BackGroundMoveVS.hlsl">
-      <Filter>Resorces\Shader\BackGroundMove</Filter>
+      <Filter>Resorces\Shader\UI\BackGroundMove</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\TVOFF\TVOFFGS.hlsl">
-      <Filter>Resorces\Shader\TVOFF</Filter>
+      <Filter>Resorces\Shader\UI\TVOFF</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\TVOFF\TVOFFPS.hlsl">
-      <Filter>Resorces\Shader\TVOFF</Filter>
+      <Filter>Resorces\Shader\UI\TVOFF</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\TVOFF\TVOFFVS.hlsl">
-      <Filter>Resorces\Shader\TVOFF</Filter>
+      <Filter>Resorces\Shader\UI\TVOFF</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Model\ModelPS.hlsl">
       <Filter>Resorces\Shader\Model</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberGS.hlsl">
-      <Filter>Resorces\Shader\AboveNumber</Filter>
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberPS.hlsl">
-      <Filter>Resorces\Shader\AboveNumber</Filter>
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveNumber\AboveNumberVS.hlsl">
-      <Filter>Resorces\Shader\AboveNumber</Filter>
+      <Filter>Resorces\Shader\UI\AboveNumber</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenGS.hlsl">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenPS.hlsl">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
+      <Filter>Resorces\Shader\UI\SpeedScreen</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardGS.hlsl">
       <Filter>Resorces\Shader\Billboard</Filter>
@@ -1490,31 +1817,31 @@
       <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Slider\SliderGS.hlsl">
-      <Filter>Resorces\Shader\Slider</Filter>
+      <Filter>Resorces\Shader\UI\Slider</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Slider\SliderPS.hlsl">
-      <Filter>Resorces\Shader\Slider</Filter>
+      <Filter>Resorces\Shader\UI\Slider</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Slider\SliderVS.hlsl">
-      <Filter>Resorces\Shader\Slider</Filter>
+      <Filter>Resorces\Shader\UI\Slider</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveUI\AboveUIGS.hlsl">
-      <Filter>Resorces\Shader\AboveUI</Filter>
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveUI\AboveUIPS.hlsl">
-      <Filter>Resorces\Shader\AboveUI</Filter>
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\AboveUI\AboveUIVS.hlsl">
-      <Filter>Resorces\Shader\AboveUI</Filter>
+      <Filter>Resorces\Shader\UI\AboveUI</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectGS.hlsl">
-      <Filter>Resorces\Shader\MenuSelect</Filter>
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectPS.hlsl">
-      <Filter>Resorces\Shader\MenuSelect</Filter>
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\MenuSelect\MenuSelectVS.hlsl">
-      <Filter>Resorces\Shader\MenuSelect</Filter>
+      <Filter>Resorces\Shader\UI\MenuSelect</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\FrameWalk\FrameWalkGS.hlsl">
       <Filter>Resorces\Shader\FrameWalk</Filter>
@@ -1527,6 +1854,153 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\BillShader\BillShaderPS.hlsl">
       <Filter>Resorces\Shader\BillShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object\Wall\WallPS.hlsl">
+      <Filter>Resorces\Shader\Object\Wall</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedLine\SpeedLineGS.hlsl">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedLine\SpeedLinePS.hlsl">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\SpeedLine\SpeedLineVS.hlsl">
+      <Filter>Resorces\Shader\UI\SpeedLine</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object\Wall\WallVS.hlsl">
+      <Filter>Resorces\Shader\Object\Wall</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Luminance\LuminancePS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Luminance\LuminanceVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Luminance\LuminanceGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Synthetic\SyntheticGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Synthetic</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Synthetic\SyntheticPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Synthetic</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Synthetic\SyntheticVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Synthetic</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\SideBler\SideBlerGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Side</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\SideBler\SideBlerPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Side</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\SideBler\SideBlerVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Side</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\WarpBler\WarpBlerVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Warp</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\WarpBler\WarpBlerGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Warp</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\WarpBler\WarpBlerPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Warp</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\Expansion\ExpansionGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Expansion</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\Expansion\ExpansionPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Expansion</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bler\Expansion\ExpansionVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bler\Expansion</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object\BackGround\BackGroundPS.hlsl">
+      <Filter>Resorces\Shader\Object\BackGround</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Object\BackGround\BackGroundVS.hlsl">
+      <Filter>Resorces\Shader\Object\BackGround</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Depth\ShadowDepthPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\Depth\ShadowDepthVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Fog\Depth\FogDepthGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Fog\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Fog\Depth\FogDepthPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Fog\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Fog\Depth\FogDepthVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Fog\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\BloomUnaffectedObject\BloomunaffectedObject.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\BloomUnaffectedObject</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\BloomUnaffectedDepth\BloomUnaffectedDepthGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\BloomUnaffectedDepth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\BloomUnaffectedDepth\BloomUnaffectedDepthPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\BloomUnaffectedDepth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Bloom\BloomUnaffectedDepth\BloomUnaffectedDepthVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Bloom\BloomUnaffectedDepth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\DegitalRain\DegitalRainGS.hlsl">
+      <Filter>Resorces\Shader\Effect\DegitalRain</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\DegitalRain\DegitalRainPS.hlsl">
+      <Filter>Resorces\Shader\Effect\DegitalRain</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\DegitalRain\DegitalRainVS.hlsl">
+      <Filter>Resorces\Shader\Effect\DegitalRain</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\TEST\TESTPS.hlsl">
+      <Filter>Resorces\Shader\Effect\TEST</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\TEST\TESTVS.hlsl">
+      <Filter>Resorces\Shader\Effect\TEST</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\TransparencyGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\TransparencyPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\TransparencyVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\TransparencyObject\TransparencyObject.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency\TransparencyObject</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\Depth\TransparencyDepthGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\Depth\TransparencyDepthPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\Transparency\Depth\TransparencyDepthVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\Transparency\Depth</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenColor\ScreenColorVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\ScreenColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenColor\ScreenColorGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\ScreenColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenColor\ScreenColorPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\ScreenColor</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoiseGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\GlitchNoise</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoisePS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\GlitchNoise</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoiseVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\GlitchNoise</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

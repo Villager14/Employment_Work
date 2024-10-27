@@ -211,6 +211,9 @@ private:
 	//		移動するワイヤーの座標
 	DirectX::SimpleMath::Vector3 m_wireMovePosition;
 
+	//		リスポーン座標
+	DirectX::SimpleMath::Vector3 m_respawnPosition;
+
 	//		ダッシュのクールタイム
 	float m_dashCoolTime;
 
@@ -463,6 +466,20 @@ public:
 	*	@param	(wirePosition)	座標
 	*/
 	void SetWireMovePosition(const DirectX::SimpleMath::Vector3& wirePosition) { m_wireMovePosition = wirePosition; }
+
+	/*
+	*	リスポーン座標を受け取る
+	* 
+	*	@return 座標
+	*/
+	DirectX::SimpleMath::Vector3 GetRespawnPosition() { return m_respawnPosition; }
+
+	/*
+	*	リスポーン座標を設定する
+	* 
+	*	@param	(position)	座標
+	*/
+	void SetRespawnPosition(DirectX::SimpleMath::Vector3 position) { m_respawnPosition = position; }
 
 	/*
 	*	ダッシュをするかどうか判断する

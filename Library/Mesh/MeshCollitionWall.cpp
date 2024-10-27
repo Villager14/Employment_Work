@@ -76,20 +76,19 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 		//		レイの開始地点
 		m_rayStart = m_playerPosition;
 
-		m_rayStart.y = std::min(vertex[0].y, std::min(vertex[1].y, vertex[2].y));
+		//		テスト
+		m_rayStart.y = RayY(vertex, m_playerPosition, height);
 
-		m_rayStart.y += 0.01f;
+		//m_rayStart.y = std::min(vertex[0].y, std::min(vertex[1].y, vertex[2].y));
+
+		//m_rayStart.y += 0.01f;
+
+		//m_rayStart.y += 0.5f;
 
 		if (m_rayStart.y > m_playerPosition.y + height)
 		{
 			continue;
 		}
-
-		//if (m_rayStart.y > m_playerPosition.y + 7.0f)
-		//{
-		//	continue;
-		//}
-
 
 		m_rayEnd = m_rayStart;
 
@@ -228,7 +227,9 @@ std::vector<DirectX::SimpleMath::Vector3>& MeshCollitionWall::WallWalk
 	return m_hitpp;
 }
 
-void MeshCollitionWall::WallWalkCollider(ObjectMesh* objectMesh, const DirectX::SimpleMath::Vector3& playerPosition, int index)
+void MeshCollitionWall::WallWalkCollider(ObjectMesh* objectMesh,
+										const DirectX::SimpleMath::Vector3& playerPosition,
+										int index)
 {
 	//		この値から法線を作成する
 	m_meshCollitionManager->GetWallWalkNormalize();
@@ -287,3 +288,116 @@ void MeshCollitionWall::WallWalkCollider(ObjectMesh* objectMesh, const DirectX::
 		}
 	}
 }
+
+bool MeshCollitionWall::LinePointHit(
+	DirectX::SimpleMath::Vector3 point,
+	DirectX::SimpleMath::Vector3 lineA,
+	DirectX::SimpleMath::Vector3 lineB,
+	DirectX::SimpleMath::Vector3* ans)
+{
+	DirectX::SimpleMath::Vector3 lineAB = lineB - lineA;
+	DirectX::SimpleMath::Vector3 linePA = point - lineA;
+
+	float t = linePA.Dot(lineAB) / lineAB.LengthSquared();
+
+	//		線の向きの外に行った場合処理をしない
+	if (t < 0.0f || t > 1.0f)
+	{
+		return false;
+	}
+
+	*ans = lineA + t * lineAB;
+
+	return true;
+}
+
+float MeshCollitionWall::RayY(std::vector<DirectX::SimpleMath::Vector3> vertex,
+							  DirectX::SimpleMath::Vector3 position,
+							  float height)
+{
+	std::vector<DirectX::SimpleMath::Vector3> hitLine;
+	std::vector<DirectX::SimpleMath::Vector3> centerDirection;
+
+	DirectX::SimpleMath::Vector3 point = position;
+
+	DirectX::SimpleMath::Vector3 ans;
+
+	DirectX::SimpleMath::Vector3 center = (vertex[0] + vertex[1] + vertex[2]) / 3.0f;
+
+	for (int i = 0; i < vertex.size(); ++i)
+	{
+		float val = i + 1;
+
+		if (i == 2)
+		{
+			val = 0;
+		}
+
+		if (LinePointHit(point, vertex[i], vertex[val], &ans))
+		{
+			DirectX::SimpleMath::Vector3 direction = center - ans;
+
+			direction.Normalize();
+
+			centerDirection.push_back(direction);
+
+			hitLine.push_back(ans);
+		}
+	}
+	
+	if (hitLine.size() == 2)
+	{
+		return PerpendicularPointSecond(hitLine[0].y,
+										hitLine[1].y,
+										position.y,
+										position.y + height);
+	}
+
+	if (hitLine.size() == 1)
+	{
+		return hitLine[0].y;
+	}
+
+	return position.y;
+}
+
+float MeshCollitionWall::PerpendicularPointSecond(
+									float point1,
+									float point2,
+									float playerUnder,
+									float playerHeight)
+{
+	//		オブジェクト(上) > プレイヤ(上)
+	if (std::max(point1, point2) > playerHeight)
+	{
+		//		オブジェクト(下) < プレイヤ(下)
+		if (std::min(point1, point2) < playerUnder)
+		{
+			//		プレイヤの中心の高さ
+			return (playerUnder + playerHeight) / 2.0f;
+		}
+		//		オブジェクト(下) > プレイヤ(下)
+		else
+		{
+			//		オブジェクト(下)とプレイヤ(上)の中心の高さ
+			return (std::min(point1, point2) + playerHeight) / 2.0f;
+		}
+	}
+	//		オブジェクト(上) < プレイヤ(上)
+	else
+	{
+		//		オブジェクト(下) < プレイヤ(下)
+		if (std::min(point1, point2) < playerUnder)
+		{
+			//		オブジェクト(上)とプレイヤ(下)の中心の高さ
+			return (std::max(point1, point2) + playerUnder) / 2.0f;
+		}
+		//		オブジェクト(下) > プレイヤ(下)
+		else
+		{
+			//		オブジェクトの中心高さ
+			return (point1 + point2) / 2.0f;
+		}
+	}
+}
+

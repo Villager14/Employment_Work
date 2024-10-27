@@ -76,6 +76,7 @@ void RenderTexture::SizeResources(size_t width, size_t height)
 
     m_width = m_height = 0;
 
+    /*
     // Create a render target
     CD3D11_TEXTURE2D_DESC renderTargetDesc(
         m_format,
@@ -88,6 +89,24 @@ void RenderTexture::SizeResources(size_t width, size_t height)
         0,
         1
     );
+    */
+    
+    //*
+
+    // Create a render target
+    CD3D11_TEXTURE2D_DESC renderTargetDesc(
+        m_format,
+        static_cast<UINT>(width),
+        static_cast<UINT>(height),
+        1, // The render target view has only one texture.
+        1, // Use a single mipmap level.
+        D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE,
+        D3D11_USAGE_DEFAULT,
+        0,
+        1
+    );
+    //*/
+
 
     ThrowIfFailed(m_device->CreateTexture2D(
         &renderTargetDesc,

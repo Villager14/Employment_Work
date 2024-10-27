@@ -47,7 +47,8 @@ inline void ConstBufferManager::CreateConstBuffer(const UIType& obj)
 template<typename UIType>
 inline void ConstBufferManager::UpdateBuffer(const UIType& data)
 {
-	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()
+				   ->GetD3DDeviceContext();
 
 	context->UpdateSubresource(m_buffer.Get(), 0, NULL, &data, 0, 0);
 }

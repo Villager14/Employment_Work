@@ -27,12 +27,11 @@ ClockManager::~ClockManager()
 
 void ClockManager::Initialize()
 {
-
 	//		ŽžŒv‚Ì”wŒi‚Ì‰Šú‰»
 	m_clockBackGround->Initialize();
 
 	//		ŽžŒv‚Ì”Žš‚Ì‰Šú‰»
-	m_clockTime->Initialize();
+	m_clockTime->Initialize(m_uiManager->GetGameManager()->GetLimitTime());
 
 	m_elapsedTime = 0.0f;
 }

@@ -51,45 +51,6 @@ float4 blur(float2 uv)
 	return output;
 }
 
-//		サイトのシェーダーを参考(https://scrapbox.io/sayachang/%E3%81%8B%E3%82%93%E3%81%9F%E3%82%93%E3%82%A8%E3%83%95%E3%82%A7%E3%82%AF%E3%83%88%E5%8A%A0%E5%B7%A5%E3%82%B7%E3%82%A7%E3%83%BC%E3%83%80%E3%83%BC)
-float4 ConcentrationLine(float2 tex)
-{
-	float2 uv = 2 * tex - 1;
-
-	float r = length(uv);
-	r = 0.7 * r - 0.7;
-
-	float cosval = lerp(20.0f, 50.0f, (sin(concentrationLineTime.x) + 1.0f) / 2.0f);
-	float sinval = lerp(50.0f, 20.0f, (sin(concentrationLineTime.x) + 1.0f) / 2.0f);
-
-	float a = atan2(uv.y, uv.x);
-	a = abs(cos(50 * a + concentrationLineTime.x) + sin(20 * a + concentrationLineTime.x));
-
-	float d = a - r;
-	//float n = smoothstep(0.1, concentrationLineTime.y, saturate(d));
-
-	float n = smoothstep(0.1, 0.3f, saturate(d));
-
-	float alpha = smoothstep(0.0, 1.0f, saturate(d));
-
-	return float4(n, n, n, alpha);
-}
-
-float4 MotionBler(float2 texcoord)
-{
-	float4 color = float4(0.0f, 0.0f, 0.0f, 0.0f);
-
-	for (int i = -10; i <= 10; ++i) {
-		float2 offset = float2(motionVector.x, motionVector.y) * (i / 10.0f) * blurStrength.x;
-
-		color += tex.Sample(samLinear, texcoord + offset);
-	}
-
-	color /= 21.0f; // サンプル数で割る
-
-	return color;
-}
-
 float4 main(PS_INPUT input) : SV_TARGET
 {
 	//		色情報を受け取る
@@ -114,12 +75,8 @@ float4 main(PS_INPUT input) : SV_TARGET
 	output.g = lerp(output.g, gray, grayStrength.x);
 	output.b = lerp(output.b, gray, grayStrength.x);
 
-
-	//output = MotionBler(input.tex);
 	
 	float alpha = 1.0f;
-
-	//output *= ConcentrationLine(input.tex);
 
 	return output;
 }

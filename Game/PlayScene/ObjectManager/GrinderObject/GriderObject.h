@@ -19,6 +19,8 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class GriderObject : public IFactory
 {
 public:
@@ -44,7 +46,7 @@ public:
 	*
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render() override;
+	void Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader) override;
 
 	//		終了処理
 	void Finalize() override;
@@ -71,6 +73,15 @@ public:
 	*/
 	ObjectMesh* GetObjectMesh(int index) override { return m_objectMesh[index].get(); }
 
+	/*
+	*	ポストエフェクトフラグ
+	*
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectFlag* GetPostEffectFlag() override
+	{
+		return m_postEffectFlag.get();
+	}
 private:
 
 	//		破砕オブジェクトモデル（回転）
@@ -103,5 +114,7 @@ private:
 	DirectX::SimpleMath::Vector3 m_position;
 
 	ObjectManager* m_objectManager;
-public:
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 };

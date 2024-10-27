@@ -11,7 +11,8 @@
 
 ClockTime::ClockTime()
 	:
-	m_time(0)
+	m_time(0),
+	m_limitTime(0.0f)
 {
 	//		シェーダー描画マネージャーの生成
 	m_shader = std::make_unique<UIRenderManager>();
@@ -29,8 +30,10 @@ ClockTime::~ClockTime()
 {
 }
 
-void ClockTime::Initialize()
+void ClockTime::Initialize(float limitTime)
 {
+	m_limitTime = limitTime;
+
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
@@ -44,13 +47,7 @@ void ClockTime::Initialize()
 
 void ClockTime::Update(float elapsedTime)
 {
-	m_time = static_cast<int>(elapsedTime);
-
-	//		最大時間
-	if (m_time > MAX_TIME)
-	{
-		m_time = MAX_TIME;
-	}
+	m_time = static_cast<int>(m_limitTime - elapsedTime);
 }
 
 void ClockTime::Render()

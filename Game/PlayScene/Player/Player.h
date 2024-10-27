@@ -46,6 +46,8 @@
 
 #include "PlayerCommonProcessing.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class Player
 {
 public:
@@ -75,7 +77,7 @@ public:
 	void Render(Shadow* hontai);
 
 	//		モデルの描画
-	void ModelRender();
+	void ModelRender(PostEffectFlag::Flag flag);
 
 	//		デバック描画
 	void DebugRender();
@@ -161,6 +163,9 @@ private:
 
 	//		メニューを使えるかどうか
 	bool m_menuUseJudgement;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 
 public:
 

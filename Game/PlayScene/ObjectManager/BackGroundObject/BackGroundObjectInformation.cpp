@@ -22,7 +22,8 @@ void BackGroundObjectInformation::Create(std::vector<ObjectMesh*> mesh,
 {
 	for (int i = 0, max = static_cast<int>(mesh.size()); i < max; ++i)
 	{
-		for (int j = 0; j < mesh[i]->GetObjectMesh().size(); ++j)
+		for (int j = 0, size = static_cast<int>(mesh[i]->GetObjectMesh().size());
+			j < size; ++j)
 		{
 			float maxX = mesh[i]->GetMeshCenter()[j].x + mesh[i]->GetMesnLength()[j] + MAX_LENGTH;
 			float maxZ = mesh[i]->GetMeshCenter()[j].z + mesh[i]->GetMesnLength()[j] + MAX_LENGTH;
@@ -65,14 +66,14 @@ void BackGroundObjectInformation::RandomObjectPosition
 {
 	int dot = 0;
 
-	for (int j = 0; j < 20; ++j)
+	for (int j = 0; j < 30; ++j)
 	{
 		DirectX::SimpleMath::Vector3 randomPosition = DirectX::SimpleMath::Vector3(LibrarySingleton::GetInstance()->Random(minX, maxX),
 			0.0f, LibrarySingleton::GetInstance()->Random(minZ, maxZ));
 
 		if (ObjectMeshLength(randomPosition, mesh, wirePosition))
 		{
-			randomPosition.y = LibrarySingleton::GetInstance()->Random(-200.0f, -150.0f);
+			randomPosition.y = LibrarySingleton::GetInstance()->Random(-500.0f, -400.0f);
 
 			m_objectPosition.push_back(randomPosition);
 

@@ -95,6 +95,16 @@ public:
 	*	@return key UIの種類 val　UIの情報
 	*/
 	std::unordered_map<UIType, UIInformation>* GetUIInformation() { return &m_shaderInformation; };
+
+	/*
+	*	テクスチャの情報を更新する
+	* 
+	*	@param	(type)		変更するUIの種類
+	*	@param	(texture)	テクスチャ
+	*	@param	(size)		サイズ
+	*/
+	void ChangeTexture(UIType type, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture,
+					   DirectX::SimpleMath::Vector2 size);
 };
 
 template<typename UIType>
@@ -145,4 +155,13 @@ void StandardShader<UIType>::Render(UIType type)
 		static_cast<int>(m_shaderInformation[type].textureSize.y));
 
 	m_shader->Render(m_constBuffer);
+}
+
+template<typename UIType>
+inline void StandardShader<UIType>::ChangeTexture(UIType type,
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture,
+	DirectX::SimpleMath::Vector2 size)
+{
+	m_shaderInformation[type].texture = texture;
+	m_shaderInformation[type].textureSize = size;
 }

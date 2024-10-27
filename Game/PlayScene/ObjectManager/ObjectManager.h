@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "BackGroundObject/BackGroundObject.h"
-
 #include "Library/Mesh/ObjectMesh.h"
 
 #include "Library/Mesh/DrawMesh.h"
@@ -26,6 +24,12 @@
 #include "LoadingObjectInformation.h"
 
 #include "ObjectInformation.h"
+
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
+#include "Library/Effect/PostEffect/PostEffectObjectShader.h"
+
+class BackGroundObject;
 
 class ObjectManager
 {
@@ -53,7 +57,9 @@ public:
 	* 
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render(DirectX::SimpleMath::Vector3 cameraVelocity, DirectX::SimpleMath::Vector3 cameraPosition);
+	void Render(DirectX::SimpleMath::Vector3 cameraVelocity,
+				DirectX::SimpleMath::Vector3 cameraPosition,
+				PostEffectFlag::Flag flag, PostEffectObjectShader* objectShader);
 
 	//		終了処理
 	void Finalize();
@@ -120,6 +126,13 @@ private:
 	//		プレイヤーの座標
 	DirectX::SimpleMath::Vector3 m_playerPosition;
 
+/// <summary>
+///			シェーダー系
+/// </summary>
+
+	//		ライトの方向
+	DirectX::SimpleMath::Vector3 m_lightDirection;
+
 public:
 
 
@@ -156,4 +169,11 @@ public:
 	* 
 	*/
 	GameManager* GetGameManager() { return m_gameManager; }
+
+	/*
+	*	ライトの方向を受け取る
+	* 
+	*	@return 方向
+	*/
+	DirectX::SimpleMath::Vector3 GetLightDirection() { return m_lightDirection; }
 };

@@ -57,6 +57,9 @@ void PlayerWire::Initialize()
 
 	//		ダッシュ効果音効果音の再生
 	MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::Wire);
+
+	//		ゲームマネージャーのダッシュフラグをONにする
+	m_player->GetGameManager()->TrueFlag(GameManager::DashJudgement);
 }
 
 void PlayerWire::Update()
@@ -135,6 +138,9 @@ void PlayerWire::Finalize()
 	{
 		(*m_player->GetWireObjectInformation())[i].m_actionJudgement = false;
 	}
+
+	//		ゲームマネージャーのダッシュフラグをOFFにする
+	m_player->GetGameManager()->FalseFlag(GameManager::DashJudgement);
 }
 
 void PlayerWire::MoveProcessing()

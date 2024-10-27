@@ -19,7 +19,6 @@ const std::vector<D3D11_INPUT_ELEMENT_DESC> RedScreen::INPUT_LAYOUT =
 
 RedScreen::RedScreen()
 	:
-	m_res(nullptr),
 	m_rotationMatrix(DirectX::SimpleMath::Matrix::Identity),
 	m_time(0.0f),
 	concentrationLineTime(0.0f),
@@ -43,6 +42,8 @@ void RedScreen::Create(
 {
 	m_position = position;
 	m_baseScale = m_scale = scale;
+
+	LoadTexture(L"Resources/Texture/UI/Speed/UISpeed.png");
 
 	//		シェーダーの作製
 	CreateShader();
@@ -169,6 +170,7 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 
 	//		ピクセルシェーダにテクスチャを登録する
 	context->PSSetShaderResources(0, 1, &shaderResouceView);
+	context->PSSetShaderResources(1, 1, &m_texture);
 
 	//		インプットレイアウトの登録
 	context->IASetInputLayout(m_inputLayout.Get());
@@ -182,6 +184,24 @@ void RedScreen::Render(ID3D11ShaderResourceView* shaderResouceView)
 	context->VSSetShader(nullptr, nullptr, 0);
 	context->GSSetShader(nullptr, nullptr, 0);
 	context->PSSetShader(nullptr, nullptr, 0);
+}
+
+void RedScreen::LoadTexture(const wchar_t* path)
+{
+	//		画像ファイルの読み込み
+	DirectX::CreateWICTextureFromFile(
+		LibrarySingleton::GetInstance()->GetDeviceResources()
+		->GetD3DDevice(),
+		path, m_resource.ReleaseAndGetAddressOf(),
+		m_texture.ReleaseAndGetAddressOf());
+
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+
+	//		テクスチャ化
+	DX::ThrowIfFailed(m_resource.As(&texture));
+
+	D3D11_TEXTURE2D_DESC desc;
+	texture->GetDesc(&desc);
 }
 
 //		シェーダーの読み込み

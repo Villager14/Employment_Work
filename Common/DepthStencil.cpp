@@ -55,8 +55,8 @@ void DepthStencil::SizeResources(size_t width, size_t height)
 		throw std::out_of_range("Invalid width / height");
 	}
 
-	//if (!m_device)
-	//	return;
+	if (!m_device)
+		return;
 
 	m_width = m_height = 0;
 
@@ -65,16 +65,16 @@ void DepthStencil::SizeResources(size_t width, size_t height)
 		static_cast<UINT>(width),
 		static_cast<UINT>(height),
 		1, 1,
-		D3D11_BIND_DEPTH_STENCIL
+		D3D11_BIND_DEPTH_STENCIL 
 	);
 
 	DX::ThrowIfFailed(LibrarySingleton::GetInstance()
 		->GetDeviceResources()->GetD3DDevice()
 		->CreateTexture2D(
-		&depthStencilDesc,
-		nullptr,
-		m_texture2D.ReleaseAndGetAddressOf()
-	));
+			&depthStencilDesc,
+			nullptr,
+			m_texture2D.ReleaseAndGetAddressOf()
+		));
 
 	DX::ThrowIfFailed(LibrarySingleton::GetInstance()
 		->GetDeviceResources()->GetD3DDevice()

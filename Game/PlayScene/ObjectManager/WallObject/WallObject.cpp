@@ -14,10 +14,14 @@
 WallObject::WallObject(ObjectManager* objectManager)
 	:
 	m_floorModel{},
-	m_objectManager(objectManager)
+	m_objectManager(objectManager),
+	m_time(0.0f)
 {
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
+
+	//		ポストエフェクトフラグを生成する
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
 }
 
 WallObject::~WallObject()
@@ -26,6 +30,121 @@ WallObject::~WallObject()
 }
 
 void WallObject::Initialize(ObjectInformation information)
+{
+	LoadModel(information);
+
+	std::wostringstream oss2;
+
+	oss2 << Library::StringToWString(information.collitionPath);
+
+	//		初期化処理
+	m_objectMesh->Initialize(oss2.str().c_str());
+
+	//		Y軸の回転
+	m_world = DirectX::SimpleMath::Matrix::CreateRotationY
+				(DirectX::XMConvertToRadians(information.rotation.y));
+
+	//		静的オブジェクトにする
+	m_objectMesh->StaticProcess(m_world, information.position);
+
+	//		座標
+	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
+
+	//		オブジェクトタイプの設定（壁）
+	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Wall);
+
+	m_constBuffer.lightDirection = { m_objectManager->GetLightDirection().x,
+									 m_objectManager->GetLightDirection().y,
+									 m_objectManager->GetLightDirection().z, 0.0f };
+
+	if (information.effectFlag)
+	{
+		//		通常描画をするようにする
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+		//		ブルームを掛けるようにする
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
+
+		//		ブルームの深度描画は描画しない
+		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::BloomDepth);
+
+		//		フォグの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+		//		アルファの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	}
+	else
+	{
+		//		通常描画をするようにする
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+		//		ブルームを掛けるようにする
+		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
+
+		//		ブルームの深度描画は描画しない
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
+
+		//		フォグの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+		//		アルファの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	}
+}
+
+void WallObject::Update()
+{
+	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	if (m_time > 5.0f)
+	{
+		m_time = 0.0f;
+	}
+
+	m_constBuffer.Time = { m_time, 0.0f, 0.0f, 0.0f };
+
+	m_objectShader->UpdateBuffer(m_constBuffer);
+}
+
+void WallObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
+{
+	//		フラグがfalseの場合処理をしない	
+	if ((flag & m_postEffectFlag->GetFlag()) == 0)
+	{
+		return;
+	}
+
+	auto common = LibrarySingleton::GetInstance()->GetCommonState();
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+
+	//		モデルの描画
+	m_floorModel->Draw(context, *common,
+		m_world, LibrarySingleton::GetInstance()->GetView(),
+		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
+
+			//		ポストエフェクト時
+			if (flag & PostEffectFlag::Flag::Alpha)
+			{
+				// ポストエフェクト時のシェーダー設定
+				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+			}
+			else
+			{
+				m_objectShader->SetShader(context);
+			}
+		});
+
+	//		メッシュの描画
+	//drawMesh->StaticRender(m_objectMesh.get());
+}
+
+void WallObject::Finalize()
+{
+	m_floorModel.release();
+}
+
+void WallObject::LoadModel(ObjectInformation information)
 {
 	//		エフェクトファクトリーを受け取る
 	DirectX::EffectFactory* m_effect = LibrarySingleton
@@ -42,56 +161,35 @@ void WallObject::Initialize(ObjectInformation information)
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		oss.str().c_str(), *m_effect);
 
-	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
+	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
-			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 
-			if (fog)
+			if (basicEffect)
 			{
-				fog->SetFogEnabled(true);
-				fog->SetFogStart(200.0f);
-				fog->SetFogEnd(350.0f);
-				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+				basicEffect->SetLightingEnabled(true);
+				basicEffect->SetPerPixelLighting(true);
+				basicEffect->SetTextureEnabled(true);
+				basicEffect->SetVertexColorEnabled(false);
 			}
 		});
 
-	std::wostringstream oss2;
+	//		オブジェクトシェーダーマネージャーの生成
+	m_objectShader = std::make_unique<ObjectShaderManager>();
 
-	oss2 << Library::StringToWString(information.collitionPath);
+	//		テクスチャの読み込み
+	m_objectShader->LoadTexture(L"FBX/Wall/WallTexture.png");
+	m_objectShader->LoadTexture(L"FBX/Wall/wallFantom.png");
+	m_objectShader->LoadTexture(L"FBX/Wall/wallSpray.png");
+	m_objectShader->LoadTexture(L"FBX/Wall/NormalMap.png");
 
-	//		初期化処理
-	m_objectMesh->Initialize(oss2.str().c_str());
+	//		シェーダーの読み込み（ピクセルシェーダー）
+	m_objectShader->LoadShader(ObjectShaderManager::PixelShader,
+					L"Resources/Shader/Object/Wall/WallPS.cso");
+	m_objectShader->LoadShader(ObjectShaderManager::VertexShader,
+					L"Resources/Shader/Object/Wall/WallVS.cso");
 
-	m_world = DirectX::SimpleMath::Matrix::CreateRotationY(information.rotation.y);
+	//		コンストバッファの作製
+	m_objectShader->CreateConstBuffer(m_constBuffer);
 
-	m_move = information.position;
-
-	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(m_world, m_move);
-
-	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_move);
-
-	//		オブジェクトタイプの設定（壁）
-	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Wall);
-}
-
-void WallObject::Update()
-{
-}
-
-void WallObject::Render()
-{
-	//		モデルの描画
-	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		m_world, LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj());
-
-	//		メッシュの描画
-	//drawMesh->StaticRender(m_objectMesh.get());
-}
-
-void WallObject::Finalize()
-{
-	m_floorModel.release();
 }

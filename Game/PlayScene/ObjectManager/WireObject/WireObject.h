@@ -11,6 +11,8 @@
 
 #include "Library/Factory/IFactory.h"
 
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class WireObject : public IFactory
 {
 public:
@@ -36,7 +38,7 @@ public:
 	*
 	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
 	*/
-	void Render() override;
+	void Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader) override;
 
 	//		終了処理
 	void Finalize() override;
@@ -59,11 +61,21 @@ public:
 		return m_objectMesh.get();
 	}
 
+	/*
+	*	ポストエフェクトフラグ
+	*
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectFlag* GetPostEffectFlag() override
+	{
+		return m_postEffectFlag.get();
+	}
+
 	//		デバックの描画
 	void DebugRender();
 
 	//		羽の描画
-	void WingRender();
+	void WingRender(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader);
 
 private:
 	//		羽座標1
@@ -112,4 +124,7 @@ private:
 
 	//		番号
 	int m_number;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 };

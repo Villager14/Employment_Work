@@ -15,12 +15,16 @@
 
 #include "Game/PlayScene/ObjectManager/WireObject/WireObjectInformation.h"
 
+#include "Library/Effect/Effect/DigitalRain/DegitalRain.h"
+
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class EffectManager
 {
 public:
 
 	//		コンストラクタ
-	EffectManager(PlayerInformation* playerInformation);
+	EffectManager(PlayerInformation* playerInformation, PlayerCameraInformation* cameraInformation);
 
 	//		デストラクタ
 	~EffectManager();
@@ -33,14 +37,14 @@ public:
 	*
 	*	@param	(playerPosition)	プレイヤーの座標
 	*/
-	void Update(PlayerCameraInformation* cameraInformation);
+	void Update();
 
 	/*
 	*	描画処理
 	*
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render();
+	void Render(PostEffectFlag::Flag flag);
 
 	//		終了処理
 	void Finalize();
@@ -56,7 +60,17 @@ private:
 	//		ワイヤーの情報
 	std::vector<WireObjectInformation>* m_wireInformation;
 
+	//		デジタル雨
+	std::unique_ptr<DegitalRain> m_degitalRain;
+
+	//		カメラの情報
+	PlayerCameraInformation* m_cameraInformation;
 public:
 
 	void SetWireInformation(std::vector<WireObjectInformation>* wire) { m_wireInformation = wire; }
+
+	//		カメラの情報
+	PlayerCameraInformation* GetCameraInformation() { return m_cameraInformation; }
+
+	PlayerInformation* GetPlayerInformation() { return m_playerInformation; }
 };

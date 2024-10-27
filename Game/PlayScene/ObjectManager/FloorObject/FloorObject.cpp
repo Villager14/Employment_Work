@@ -25,7 +25,8 @@ FloorObject::FloorObject(ObjectManager* objectManager)
 	//		オブジェクトメッシュの生成
 	m_objectMesh = std::make_unique<ObjectMesh>();
 
-
+	//		ポストエフェクトフラグを生成する
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
 }
 
 FloorObject::~FloorObject()
@@ -50,16 +51,17 @@ void FloorObject::Initialize(ObjectInformation information)
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		oss.str().c_str(), *m_effect);
 	
-	m_floorModel->UpdateEffects([](DirectX::IEffect* effect)
+	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
-			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 
-			if (fog)
+			if (basicEffect)
 			{
-				fog->SetFogEnabled(true);
-				fog->SetFogStart(200.0f);
-				fog->SetFogEnd(350.0f);
-				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+				basicEffect->SetLightingEnabled(true);
+				basicEffect->SetPerPixelLighting(true);
+				basicEffect->SetTextureEnabled(true);
+				basicEffect->SetVertexColorEnabled(false);
+				//basicEffect->SetFogEnabled(false);
 			}
 		});
 
@@ -70,75 +72,115 @@ void FloorObject::Initialize(ObjectInformation information)
 	//		初期化処理
 	m_objectMesh->Initialize(oss2.str().c_str());
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0));
+	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(information.rotation.y));
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(information.rotation.x)), information.position);
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(information.rotation.y)), information.position);
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Floor);
+
+	/*
+	//		通常描画をするようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+	//		ブルームを掛けるようにする
+	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
+
+	//		ブルームの深度描画は描画しない
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
+
+	//		フォグの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+	//		アルファの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	*/
+
+
+	// ピクセルシェーダーの作成（トーラス用）
+	std::vector<uint8_t> ps_torus =
+		DX::ReadData(L"Resources/Shader/BillShader/BillShaderPS.cso");
+	DX::ThrowIfFailed(
+		LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+		->CreatePixelShader(ps_torus.data(), ps_torus.size(),
+			nullptr, m_pixselShader.ReleaseAndGetAddressOf())
+	);
+
+
+	if (information.effectFlag)
+	{
+		//		アルファの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+
+		//		ブルームを掛けるようにする
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
+
+		//		通常描画時にも描画するようにするを
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+		//		ブルームの深度描画は描画しない
+		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::BloomDepth);
+
+		//		フォグの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+	}
+	else
+	{
+		//		通常描画をするようにする
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+		//		ブルームを掛けるようにする
+		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
+
+		//		ブルームの深度描画は描画しない
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
+
+		//		フォグの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+		//		アルファの処理の場合描画する
+		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	}
 }
 
 void FloorObject::Update()
 {
 }
 
-void FloorObject::Render()
+void FloorObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
 {
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+	auto common = LibrarySingleton::GetInstance()->GetCommonState();
 
-	/*
-	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		m_world, LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
-
-			////		定数バッファの設定
-			//ID3D11Buffer* cbuff[] = { m_shadowInformation->GetConstBufferShadow().Get(),
-			//						m_shadowInformation->GetConstBufferDepth().Get()};
-
-			//
-			//context->VSSetConstantBuffers(1, 1, cbuff);
-			//context->PSSetConstantBuffers(1, 2, cbuff);
-			//
-			////		シェーダーリソースビューを受け取る
-			//auto srv = m_shadowInformation->GetRenderTexture()->GetShaderResourceView();
-
-			////		作成したシャドウマップをリソースとして設定する
-			//context->PSSetShaderResources(1, 1, &srv);
-
-			////		テクスチャサンプラーの設定
-			//ID3D11SamplerState* samplers[] = 
-			//{ LibrarySingleton::GetInstance()->GetCommonState()->PointWrap(),
-			//m_shadowInformation->GetShadowMapSampler().Get() };
-			//context->PSSetSamplers(0, 2, samplers);
-
-			////		シェーダーの設定
-			//context->VSSetShader(m_shadowInformation->GetShadowVS().Get(), nullptr, 0);
-			//context->PSSetShader(m_shadowInformation->GetShadowPS().Get(), nullptr, 0);
-
-		});
-		*/
+	//		フラグがfalseの場合処理をしない	
+	if ((flag & m_postEffectFlag->GetFlag()) == 0)
+	{
+		return;
+	}
 
 	m_floorModel->Draw(context,
-		*LibrarySingleton::GetInstance()->GetCommonState(),
+		*common,
 		m_world, LibrarySingleton::GetInstance()->GetView(),
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
-			//ID3D11SamplerState* samplers[] = {LibrarySingleton::GetInstance()->GetCommonState()->PointWrap()};
+			//		ポストエフェクト時
+			if (flag & PostEffectFlag::Flag::Alpha)
+			{
+				// ポストエフェクト時のシェーダー設定
+				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+			}
 
-			//context->PSSetSamplers(0, 1, samplers);
-
-			//ID3D11SamplerState* samplesrs[1] = { common->PointWrap() };
-			//context->PSSetSamplers(0, 1, samplesrs);
-
-			//// オリジナルピクセルシェーダーの設定
-			//context->PSSetShader(m_floorPS.Get(), nullptr, 0);
-
+			//		ポストエフェクト時
+			if (flag & PostEffectFlag::Flag::Bloom)
+			{
+				// ポストエフェクト時のシェーダー設定
+				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
+			}
 		});
-
 
 	//		メッシュの描画
 	//drawMesh->StaticRender(m_objectMesh.get());

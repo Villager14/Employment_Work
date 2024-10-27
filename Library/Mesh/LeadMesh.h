@@ -31,11 +31,25 @@ public:
 	std::vector<Triangle>
 		Lead(const wchar_t* filePath);
 
+	//		情報の削除
+	void Clear();
+
 private:
 
 	//		メッシュの整理クラス	
 	std::unique_ptr<MeshOrganization> m_origanization;
 
+	//		三角メッシュの情報
+	std::vector<Triangle> m_triangle;
+
+	//		頂点の数
+	int m_vertexCount;
+
+	//		頂点
+	std::vector<DirectX::SimpleMath::Vector3> m_vertex;
+
+	//		頂点インデックス
+	std::vector<int> m_vertexIndex;
 public:
 
 	/*
@@ -55,4 +69,19 @@ public:
 	*/
 	std::vector<DirectX::SimpleMath::Vector3> GetMeshCenter() { return m_origanization->GetMeshCenter(); }
 
+	/*
+	*	頂点の数
+	* 
+	*	@return 数
+	*/
+	int GetVertexCount() { return m_vertexCount; }
+
+	/*
+	*	頂点を受け取る
+	* 
+	*	@return 頂点
+	*/
+	std::vector<DirectX::SimpleMath::Vector3> GetVertex() { return m_vertex; }
+
+	std::vector<int> GetVertexIndex() { return m_vertexIndex; }
 };

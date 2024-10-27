@@ -21,6 +21,8 @@ WireObject::WireObject(ObjectManager* objectManager)
 	m_objectManager(objectManager),
 	m_number(0)
 {
+	//		ポストエフェクトフラグを生成する
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
 }
 
 WireObject::~WireObject()
@@ -46,16 +48,16 @@ void WireObject::Initialize(ObjectInformation information)
 	m_wireModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Drone.cmo", *m_effect);
 
-	m_wireModel->UpdateEffects([](DirectX::IEffect* effect)
+	m_wireModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
-			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 
-			if (fog)
+			if (basicEffect)
 			{
-				fog->SetFogEnabled(true);
-				fog->SetFogStart(200.0f);
-				fog->SetFogEnd(350.0f);
-				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+				basicEffect->SetLightingEnabled(true);
+				basicEffect->SetPerPixelLighting(true);
+				basicEffect->SetTextureEnabled(true);
+				basicEffect->SetVertexColorEnabled(false);
 			}
 		});
 
@@ -67,14 +69,14 @@ void WireObject::Initialize(ObjectInformation information)
 
 	m_wingModel->UpdateEffects([](DirectX::IEffect* effect)
 		{
-			auto fog = dynamic_cast<DirectX::IEffectFog*>(effect);
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 
-			if (fog)
+			if (basicEffect)
 			{
-				fog->SetFogEnabled(true);
-				fog->SetFogStart(100.0f);
-				fog->SetFogEnd(300.0f);
-				fog->SetFogColor(DirectX::Colors::MediumSeaGreen);
+				basicEffect->SetLightingEnabled(true);
+				basicEffect->SetPerPixelLighting(true);
+				basicEffect->SetTextureEnabled(true);
+				basicEffect->SetVertexColorEnabled(false);
 			}
 		});
 
@@ -92,6 +94,22 @@ void WireObject::Initialize(ObjectInformation information)
 
 	//		座標を設定する
 	m_debugWorld *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
+
+	//		通常描画をするようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+	//		ブルームを掛けるようにする
+	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
+
+	//		ブルームの深度描画は描画しない
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
+
+	//		フォグの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+	//		アルファの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+
 }
 
 void WireObject::Update()
@@ -113,22 +131,35 @@ void WireObject::Update()
 	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * WING_ROTATION_SPEED;
 }
 
-void WireObject::Render()
+void WireObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
 {
 	//		デバックの描画
 	DebugRender();
 
-	//		カメラから見えないようにカリングする
-	//if (m_objectManager->Culling(m_objectManager->GetPlayerPosition())) return;
+	//		フラグがfalseの場合処理をしない	
+	if ((flag & m_postEffectFlag->GetFlag()) == 0)
+	{
+		return;
+	}
+
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	//		モデルの描画
-	m_wireModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
+	m_wireModel->Draw(context,
 		*LibrarySingleton::GetInstance()->GetCommonState(),
 		m_world, LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj());
+		LibrarySingleton::GetInstance()->GetProj(), false, [&]
+		{
+			//		ポストエフェクト時
+			if (flag & PostEffectFlag::Flag::Bloom || flag & PostEffectFlag::Flag::Alpha)
+			{
+				// ポストエフェクト時のシェーダー設定
+				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+			}
+		});
 
 	//		羽の描画
-	WingRender();
+	WingRender(flag, postEffectObjectShader);
 }
 
 void WireObject::Finalize()
@@ -155,8 +186,10 @@ void WireObject::DebugRender()
 	}
 }
 
-void WireObject::WingRender()
+void WireObject::WingRender(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
 {
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+
 	for (int i = 0; i < 4; ++i)
 	{
 		DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(m_rotation);
@@ -168,6 +201,14 @@ void WireObject::WingRender()
 		m_wingModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			world, LibrarySingleton::GetInstance()->GetView(),
-			LibrarySingleton::GetInstance()->GetProj());
+			LibrarySingleton::GetInstance()->GetProj(), false, [&]
+			{
+				//		ポストエフェクト時
+				if (flag & PostEffectFlag::Flag::Bloom)
+				{
+					// ポストエフェクト時のシェーダー設定
+					context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+				}
+			});
 	}
 }

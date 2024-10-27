@@ -34,19 +34,19 @@ PlayerCameraManager::~PlayerCameraManager()
 {
 }
 
-void PlayerCameraManager::Initialize()
+void PlayerCameraManager::Initialize(PlayerInformation* playerInformation)
 {
+	m_playerInformation = playerInformation;
+
 	/*
 	*	視野角70度
-	*
-	*	近い距離0.1f
-	* 　遠い距離500.0f
 	*/
 	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
 		CreatePerspectiveFieldOfView
 		(DirectX::XMConvertToRadians(m_information->GetViewAngle()), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 360.0f);
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MIN,
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MAX);
 
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
@@ -62,12 +62,13 @@ void PlayerCameraManager::Initialize()
 
 	//		初期化処理
 	m_state->Initialize();
+
+	//		一度更新をしておく(Effectの為)
+	m_state->Update();
 }
 
-void PlayerCameraManager::Update(PlayerInformation* playerInformation)
+void PlayerCameraManager::Update()
 {
-	m_playerInformation = playerInformation;
-
 	//		カメラの更新処理
 	m_state->Update();
 
@@ -137,7 +138,8 @@ void PlayerCameraManager::ViewingAngle()
 		CreatePerspectiveFieldOfView
 		(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 360.0f);
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MIN,
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MAX);
 
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
@@ -158,7 +160,8 @@ void PlayerCameraManager::ViewAngleUpdate(PlayerInformation* playerInformation)
 		CreatePerspectiveFieldOfView
 		(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /
 			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 360.0f);
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MIN,
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MAX);
 
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);

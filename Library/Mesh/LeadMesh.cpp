@@ -16,6 +16,8 @@
 #include <algorithm>
 
 LeadMesh::LeadMesh()
+	:
+	m_vertexCount(0)
 {
 	//		メッシュの整理クラスの生成
 	m_origanization = std::make_unique<MeshOrganization>();
@@ -28,6 +30,9 @@ LeadMesh::~LeadMesh()
 std::vector<Triangle> LeadMesh::Lead
 							(const wchar_t* filePath)
 {
+	//		配列をリセット
+	m_triangle.clear();
+
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> vertex;
 
@@ -51,6 +56,12 @@ std::vector<Triangle> LeadMesh::Lead
 
 			//		頂点を受け取る
 			vertex.push_back(val);
+
+			//		頂点を受け取る
+			m_vertex.push_back(val);
+
+			//		頂点の数を増やす
+			m_vertexCount++;
 		}
 
 		//		インデックスの場合
@@ -65,6 +76,10 @@ std::vector<Triangle> LeadMesh::Lead
 				vertexIndex.push_back(a - 1);
 				vertexIndex.push_back(b - 1);
 				vertexIndex.push_back(c - 1);
+
+				m_vertexIndex.push_back(a - 1);
+				m_vertexIndex.push_back(b - 1);
+				m_vertexIndex.push_back(c - 1);
 			}
 		}
 	}
@@ -72,9 +87,15 @@ std::vector<Triangle> LeadMesh::Lead
 	//		ファイルを閉じる
 	ifs.close();
 
-	std::vector<Triangle> triangle;
+	m_triangle = m_origanization->Organization(vertex, vertexIndex);
 
-	triangle = m_origanization->Organization(vertex, vertexIndex);
+	return std::move(m_triangle);
+}
 
-	return std::move(triangle);
+void LeadMesh::Clear()
+{
+	m_triangle.clear();
+	m_vertex.clear();
+	m_origanization.reset();
+	m_vertexIndex.clear();
 }

@@ -9,12 +9,20 @@
 
 #include "Library/Mesh/ObjectMesh.h"
 
+#include "Game/PlayScene/ObjectManager/ObjectManager.h"
+
+#include "Library/Instancing.h"
+
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
+#include "Library/Effect/PostEffect/PostEffectObjectShader.h"
+
 class BackGroundObject
 {
 public:
 
 	//		コンストラクタ
-	BackGroundObject();
+	BackGroundObject(ObjectManager* objectManager);
 
 	//		デストラクタ
 	~BackGroundObject();
@@ -28,7 +36,9 @@ public:
 
 	//		描画オブジェクト
 	void Render(DirectX::SimpleMath::Vector3 cameraVelocity,
-				DirectX::SimpleMath::Vector3 cameraPosition);
+				DirectX::SimpleMath::Vector3 cameraPosition,
+				PostEffectFlag::Flag flag,
+				PostEffectObjectShader* objectShader);
 
 	//		終了処理
 	void Finalize();
@@ -42,17 +52,9 @@ public:
 	bool Culling(int index, DirectX::SimpleMath::Vector3 cameraVelocity,
 		DirectX::SimpleMath::Vector3 cameraPosition);
 
-	struct ConstBuffer
-	{
-		DirectX::SimpleMath::Vector4 fogColor;        //      フォグの色
-		DirectX::SimpleMath::Vector4 fogLength;       //      フォグの変化距離
-		DirectX::SimpleMath::Vector4 cameraPosition;  //      カメラの座標
-	};
-
 private:
 
-	//		床モデル
-	std::unique_ptr<DirectX::Model> m_floorModel;
+	std::unique_ptr<DirectX::Model> m_backGroundModel;
 
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
@@ -63,11 +65,24 @@ private:
 	//		ピクセルシェーダー
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixselShader;
 
-	ConstBuffer m_constBuffer;
-
 	//		バッファー
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_buffer;
 
+	//		ゲームマネージャー
+	ObjectManager* m_objectManager;
+
+	//		インスタンシング描画
+	std::unique_ptr<Instancing> m_instancing;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
+
 public:
 
+	/*
+	*	ポストエフェクトフラグ
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectFlag* GetPostEffectFlag() { return m_postEffectFlag.get(); }
 };

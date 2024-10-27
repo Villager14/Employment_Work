@@ -15,8 +15,12 @@
 #include "Game/PlayScene/Player/Player.h"
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 #include "Game/PlayScene/CollitionManager/CollitionManager.h"
-#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
+//#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
+#include "Library/Effect/PostEffect/PostEffectManager.h"
 #include "Game/PlayScene/Effect/EffectManager.h"
+#include "Game/PlayScene/Respawn/RespawnManager.h"
+
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
 
 #include "../SceneManager.h"
 
@@ -49,9 +53,6 @@ public:
 	//		終了処理
 	void Finalize() override;
 
-	//		プロジェクション行列の作製
-	void CreateProjaction();
-
 	void Generation();
 
 	//		メニューの情報
@@ -80,8 +81,10 @@ private:
 	std::unique_ptr<UIManager> m_uiManager;
 
 	//		スクリーンエフェクトマネージャー
-	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
-
+	//std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
+	
+	//		ポストエフェクトマネージャー
+	std::unique_ptr<PostEffectManager> m_postEffectManager;
 	//		ゲームマネージャー
 	std::unique_ptr<GameManager> m_gameManager;
 
@@ -90,6 +93,9 @@ private:
 
 	//		エフェクトマネージャー
 	std::unique_ptr<EffectManager> m_effectManager;
+
+	//		リスポーンマネージャー
+	std::unique_ptr<RespawnManager> m_respawnManager;
 
 	bool m_menuCloseJugement;
 };

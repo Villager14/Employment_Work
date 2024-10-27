@@ -17,6 +17,10 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
+#include "Library/Shader/ObjectShaderManager.h"
+
+#include "Library/Effect/PostEffect/PostEffectFlag.h"
+
 class WallObject : public IFactory
 {
 public:
@@ -37,12 +41,8 @@ public:
 	//		更新処理
 	void Update() override;
 
-	/*
-	*	描画処理
-	* 
-	*	@param	(drawMesh)	メッシュ描画のインスタンスのポインタ
-	*/
-	void Render()override ;
+	//	描画処理
+	void Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)override ;
 
 	//		終了処理
 	void Finalize() override;
@@ -65,6 +65,27 @@ public:
 		return m_objectMesh.get(); }
 
 
+	//		モデルの描画
+	void LoadModel(ObjectInformation information);
+
+	/*
+	*	ポストエフェクトフラグ
+	*
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectFlag* GetPostEffectFlag() override
+	{
+		return m_postEffectFlag.get();
+	}
+public:
+
+	//		コンストバッファ
+	struct ConstBuffer
+	{
+		DirectX::SimpleMath::Vector4 Time;				//		時間
+		DirectX::SimpleMath::Vector4 lightDirection;	//		ライトの方向
+	};
+
 private:
 
 	//		床モデル
@@ -76,9 +97,21 @@ private:
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
 
-	DirectX::SimpleMath::Vector3 m_move;
-
+	//		オブジェクトマネージャーのインスタンスのポインタ
 	ObjectManager* m_objectManager;
+
+	//		コンストバッファ
+	ConstBuffer m_constBuffer;
+
+	//		オブジェクトシェーダー
+	std::unique_ptr<ObjectShaderManager> m_objectShader;
+
+	//		時間
+	float m_time;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
+
 public:
 
 	/*
