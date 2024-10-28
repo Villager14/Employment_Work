@@ -39,6 +39,10 @@ public:
 	*/
 	void StaticProcess(const DirectX::SimpleMath::Matrix& world,
 					  const DirectX::SimpleMath::Vector3& move);
+
+	//		I—¹ˆ—
+	void Finalize();
+
 public:
 
 	enum class ObjectType

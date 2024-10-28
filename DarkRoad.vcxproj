@@ -268,8 +268,6 @@
     <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
-    <ClInclude Include="Game\PlayScene\Shadow\Shadow.h" />
-    <ClInclude Include="Game\PlayScene\Shadow\ShadowInformation.h" />
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h" />
@@ -448,8 +446,6 @@
     <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
-    <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp" />
-    <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp" />
@@ -577,6 +573,7 @@
     <None Include="Resources\Shader\UI\BackGroundMove\BackGroundMove.hlsli" />
     <None Include="Resources\Shader\UI\CenterShader\CenterShader.hlsli" />
     <None Include="Resources\Shader\UI\CoolTime\CoolTime.hlsli" />
+    <None Include="Resources\Shader\UI\FadeShader\FadeUI.hlsli" />
     <None Include="Resources\Shader\UI\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\UI\FrameWalk\FrameWalk.hlsli" />
     <None Include="Resources\Shader\UI\MenuSelect\MenuSelect.hlsli" />
@@ -605,7 +602,7 @@
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Grider\Grinder.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -1181,6 +1178,26 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/CoolTime\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/CoolTime\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/FadeShader\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/FadeShader\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/FadeShader\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/FadeShader\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/FadeShader\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/FadeShader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\Fade\FadeShaderGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

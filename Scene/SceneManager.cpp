@@ -9,12 +9,12 @@
 
 #include "SceneManager.h"
 
-
 SceneManager::SceneManager()
 	:
 	m_scene{},
 	m_deathCount(0),
 	m_clearTime(0),
+	m_maxTime(0),
 	m_sceneType{}
 {
 }
@@ -38,7 +38,7 @@ void SceneManager::Initialize()
 	m_sceneInformation.insert({ SceneType::Tutorial, std::make_unique<TutorialScene>(this) });
 
 	//		初期のシーンタイプを設定する
-	m_sceneType = SceneType::Result;
+	m_sceneType = SceneType::Title;
 
 	//		シーンを設定する
 	m_scene = m_sceneInformation[m_sceneType].get();

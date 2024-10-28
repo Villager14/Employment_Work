@@ -15,7 +15,8 @@ PlayerCameraManager::PlayerCameraManager(GameManager* gameManager)
 	m_playerInformation{},
 	m_gameManager(gameManager),
 	m_cameraType{},
-	m_nowViewAngle(70.0f)
+	m_nowViewAngle(70.0f),
+	m_startDirection(0.0f)
 {
 	//		ƒJƒƒ‰‚Ìî•ñ‚ğ
 	m_information = std::make_unique<PlayerCameraInformation>();
@@ -77,6 +78,9 @@ void PlayerCameraManager::Update()
 
 void PlayerCameraManager::Finalize()
 {
+	m_nowViewAngle = 70.0f;
+	m_startDirection = 0.0f;
+	m_information->Finalize();
 }
 
 void PlayerCameraManager::CameraMove()

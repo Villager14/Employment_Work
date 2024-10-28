@@ -41,16 +41,6 @@ public:
 	//		終了処理
 	void Finalize() override;
 
-	/*
-	*	スコアの作成をする　
-	* 
-	*	@param	(count)	回数
-	*	@param	(score)	スコア
-	* 
-	*	@return 最終スコア
-	*/
-	float ScoreCalculation(int count, float score);
-
 	//		プロジェクション行列を作成
 	void CreateProj();
 

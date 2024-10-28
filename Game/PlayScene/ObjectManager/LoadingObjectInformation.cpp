@@ -95,3 +95,8 @@ void LoadingObjectInformation::OrganizingInformation(int count,
 	//		エフェクトフラグ
 	else if (count == 9) objectInformation->effectFlag = std::stoi(val);
 }
+
+void LoadingObjectInformation::Finalize()
+{
+	m_objectInformation.clear();
+}

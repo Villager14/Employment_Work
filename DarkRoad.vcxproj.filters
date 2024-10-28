@@ -95,9 +95,6 @@
     <Filter Include="Game\PlayScene\ObjectManager\BackGround">
       <UniqueIdentifier>{89346af3-c05f-4eb9-8bd3-a5f8e3df1b2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\Shadow">
-      <UniqueIdentifier>{6dc21f19-5928-4d97-b181-2a3a8991bbc5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GoalObject">
       <UniqueIdentifier>{3fc37252-63e8-4008-86c5-3f13c00004ae}</UniqueIdentifier>
     </Filter>
@@ -371,6 +368,9 @@
     <Filter Include="Resorces\Shader\UI\FrameWalk">
       <UniqueIdentifier>{8ae1a69f-d672-4e80-9449-227e609501e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resorces\Shader\UI\FadeShader">
+      <UniqueIdentifier>{f2523ad1-57d1-41eb-a682-eec5a14cd5c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -581,12 +581,6 @@
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Shadow\Shadow.h">
-      <Filter>Game\PlayScene\Shadow</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Shadow\ShadowInformation.h">
-      <Filter>Game\PlayScene\Shadow</Filter>
     </ClInclude>
     <ClInclude Include="Common\DepthStencil.h">
       <Filter>Common</Filter>
@@ -1127,14 +1121,8 @@
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\Shadow\Shadow.cpp">
-      <Filter>Game\PlayScene\Shadow</Filter>
-    </ClCompile>
     <ClCompile Include="Common\DepthStencil.cpp">
       <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Shadow\ShadowInformation.cpp">
-      <Filter>Game\PlayScene\Shadow</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneState\TitleScene.cpp">
       <Filter>Scene\SceneState</Filter>
@@ -1530,6 +1518,9 @@
     <None Include="Resources\Shader\UI\FrameWalk\FrameWalk.hlsli">
       <Filter>Resorces\Shader\UI\FrameWalk</Filter>
     </None>
+    <None Include="Resources\Shader\UI\FadeShader\FadeUI.hlsli">
+      <Filter>Resorces\Shader\UI\FadeShader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\WireRange.fbx">
@@ -1884,6 +1875,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\FrameWalk\FrameWalkVS.hlsl">
       <Filter>Resorces\Shader\UI\FrameWalk</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIGS.hlsl">
+      <Filter>Resorces\Shader\UI\FadeShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIPS.hlsl">
+      <Filter>Resorces\Shader\UI\FadeShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIVS.hlsl">
+      <Filter>Resorces\Shader\UI\FadeShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

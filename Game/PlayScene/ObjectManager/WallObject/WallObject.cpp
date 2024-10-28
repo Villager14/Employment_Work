@@ -141,7 +141,8 @@ void WallObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 void WallObject::Finalize()
 {
-	m_floorModel.release();
+	m_floorModel.reset();
+	m_objectMesh->Finalize();
 }
 
 void WallObject::LoadModel(ObjectInformation information)

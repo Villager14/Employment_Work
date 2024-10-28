@@ -12,7 +12,8 @@
 RespawnManager::RespawnManager(GameManager* gameManager)
 	:
 	m_gameManager(gameManager),
-	m_respownIndex(0)
+	m_respownIndex(0),
+	m_direction(0.0f)
 {
 	//		リスポーン座標読み込みを生成する
 	m_respawnPointRead = std::make_unique<RespawnPointRead>();
@@ -69,6 +70,9 @@ void RespawnManager::CollitionProcess(DirectX::SimpleMath::Vector3 playerPositio
 
 		//		リスポーンインデックスを更新する
 		m_respownIndex = index;
+
+		//		方向
+		m_direction = m_respawnPointRead->GetDirection()[index];
 	}
 }
 

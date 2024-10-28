@@ -23,7 +23,7 @@ bool MenuCommonProcess::MenuEscCloseProcess()
 {
 	//		ESCƒL[‚ð‰Ÿ‚µ‚½ê‡
 	if (LibrarySingleton::GetInstance()->GetKeyboardStateTracker()
-		->IsKeyPressed(DirectX::Keyboard::Escape))
+		->IsKeyPressed(DirectX::Keyboard::Tab))
 	{
 		return true;
 	}

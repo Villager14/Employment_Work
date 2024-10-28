@@ -85,7 +85,7 @@ public:
 	const DirectX::SimpleMath::Vector2 NEXT_SCENE = { 0.0f, 280.0f };
 
 	//		スコアA
-	const float SCORE_A = 2000.0f;
+	const float SCORE_A = 1500.0f;
 
 	//		スコアB
 	const float SCORE_B = 1000.0f;

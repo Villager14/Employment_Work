@@ -84,23 +84,18 @@ void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
-	for (const auto& it : m_floorModel->meshes)
-	{
-		auto mesh = it.get();
-
-		mesh->PrepareForRendering(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
-			*LibrarySingleton::GetInstance()->GetCommonState(), true);
-
-		mesh->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()
-			->GetD3DDeviceContext(),
-			m_world, LibrarySingleton::GetInstance()->GetView(),
-			LibrarySingleton::GetInstance()->GetProj());
-	}
+	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()
+		->GetD3DDeviceContext(),
+		*LibrarySingleton::GetInstance()->GetCommonState(),
+		m_world,
+		LibrarySingleton::GetInstance()->GetView(),
+		LibrarySingleton::GetInstance()->GetProj());
 
 	//drawMesh->StaticRender(m_objectMesh.get());
 }
 
 void GoalObject::Finalize()
 {
-	m_floorModel.release();
+	m_floorModel.reset();
+	m_objectMesh->Finalize();
 }

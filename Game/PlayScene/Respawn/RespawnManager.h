@@ -62,6 +62,9 @@ private:
 	//		デバック用のワールド座標
 	DirectX::SimpleMath::Matrix m_respownRengeWorld;
 
+	//		方向
+	float m_direction;
+
 public:
 
 	/*
@@ -70,4 +73,11 @@ public:
 	*	@return 座標
 	*/
 	DirectX::SimpleMath::Vector3 GetRespownPosition() { return m_respawnPosition; }
+	
+	/*
+	*	リスポーン方向を受け取る
+	* 
+	*	@return 角度
+	*/
+	float GetRespownDirection() { return m_direction; }
 };

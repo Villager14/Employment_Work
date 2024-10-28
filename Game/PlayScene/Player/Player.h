@@ -36,8 +36,6 @@
 
 #include "State/PlayerAttack.h"
 
-#include "Game/PlayScene/Shadow/Shadow.h"
-
 #include "../ObjectManager/WireObject/WireObjectInformation.h"
 
 #include <unordered_map>

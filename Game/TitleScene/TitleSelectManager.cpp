@@ -81,9 +81,9 @@ void TitleSelectManager::Generation()
 
 	//		ƒtƒF[ƒh‚Ìì¬
 	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
-		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
-		L"Resources/Shader/UI/Fade/FadeShaderGS.cso",
-		L"Resources/Shader/UI/Fade/FadeShaderPS.cso",
+		L"Resources/Shader/UI/FadeShader/FadeUIVS.cso",
+		L"Resources/Shader/UI/FadeShader/FadeUIGS.cso",
+		L"Resources/Shader/UI/FadeShader/FadeUIPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
@@ -132,12 +132,6 @@ void TitleSelectManager::Render()
 {
 	//		”wŒi‚Ì•`‰æ
 	m_backGroundMove->Render();
-
-	//		W
-	//m_standardShader->Render(TitleInformation::TitleUIType::W);
-
-	//		A
-	//m_standardShader->Render(TitleInformation::TitleUIType::A);
 
 	//		‘I‘ð‚Ì•`‰æ
 	for (int i = 0, max = static_cast<int>((*m_information->GetDraowOder()).size()); i < max; ++i)

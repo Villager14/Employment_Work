@@ -43,16 +43,6 @@ void Player::Initialize()
 
 	//		立っている高さを入れておく
 	m_information->SetPlayerHeight(DirectX::SimpleMath::Vector3(0.0f, m_information->GetStandingHeight(), 0.0f));
-
-	/*
-	//		プレイヤーの攻撃の生成
-	m_playerAttack = std::make_unique<PlayerAttack>(this);
-
-	//		プレイヤーの攻撃の初期化
-	m_playerAttack->Initialize();
-	*/
-
-	//m_information->SetPosition({ 0.0f, 500.0f, 0.0f });
 }
 
 void Player::Generation()
@@ -166,10 +156,19 @@ void Player::DebugRender()
 
 void Player::Finalize()
 {
+	m_information->Finalize();
+
+	m_playerAnimation->Finalize();
 }
 
 void Player::DeathJudgement()
 {
+	if (m_gameManager->FlagJudgement(GameManager::TimeLimitJudgement))
+	{
+		//		死亡状態に切り替える
+		ChangeState(PlayerState::Death);
+	}
+
 	//		簡易死亡判定
 	if (m_information->GetPosition().y < -150.0f)
 	{

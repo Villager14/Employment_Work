@@ -21,8 +21,6 @@
 
 #include "../PlayScene/ObjectManager/ObjectManager.h"
 
-#include "../PlayScene/Shadow/Shadow.h"
-
 #include "Game/PlayScene/CollitionManager/CollitionManager.h"
 
 class SceneManager;
@@ -89,9 +87,6 @@ private:
 
 	//		オブジェクトマネージャー
 	std::unique_ptr<ObjectManager> m_objectManager;
-
-	//		影
-	std::unique_ptr<Shadow> m_shadow;
 
 	//		当たり判定オブジェクト
 	std::unique_ptr<CollitionManager> m_collitionManager;

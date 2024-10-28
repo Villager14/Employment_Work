@@ -208,6 +208,8 @@ void PlayerWire::ChangeStateJudgement()
 
 		acceleation.Normalize();
 
+		if (m_player->GetCollitionInformation()->GetMeshWallNormalize().size() == 0) return;
+
 		float dot = m_player->GetCollitionInformation()->GetMeshWallNormalize()[0].Dot(acceleation);
 
 		//		プレイヤーが一定の角度を向いている場合処理をする

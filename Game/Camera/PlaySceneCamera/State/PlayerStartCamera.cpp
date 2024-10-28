@@ -40,7 +40,7 @@ void PlayerStartCamera::Update()
 
 	//		デグリーからラジアンへ行列にする
 	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::
-		CreateRotationY(DirectX::XMConvertToRadians(0.0f));
+		CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetStartDirection()));
 	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::
 		CreateRotationX(DirectX::XMConvertToRadians(Library::Lerp(-40.0f, 0.0f, move)));
 
@@ -73,7 +73,6 @@ void PlayerStartCamera::Update()
 
 	if (m_time >= 1.0f)
 	{
-		/*//		初手のアニメーションのスキップ
 		//		初期状態の場合
 		if (m_firstViewJudgement)
 		{
@@ -89,7 +88,6 @@ void PlayerStartCamera::Update()
 
 			return;
 		}
-		//*/
 
 		//		スタンダードカメラにする
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);
@@ -102,4 +100,6 @@ void PlayerStartCamera::Update()
 void PlayerStartCamera::Finalize()
 {
 	m_time = 0.0f;
+
+	m_playerCameraManager->GetInformation()->SetAngle({ m_playerCameraManager->GetStartDirection(), 0.0f});
 }

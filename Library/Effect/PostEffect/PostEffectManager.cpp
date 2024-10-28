@@ -105,6 +105,14 @@ void PostEffectManager::RastRender(PostEffectFlag::Flag flag)
 
 void PostEffectManager::Finalize()
 {
+	//		ブラーの終了処理
+	m_bler->Finalize();
+
+	//		終了処理
+	for (auto& e : m_postEffectProcess)
+	{
+		e.second->Filanize();
+	}
 }
 
 void PostEffectManager::CreateSampler()

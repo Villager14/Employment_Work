@@ -9,18 +9,20 @@
 
 #include "Library/Shader/UIRenderManager.h"
 
+#include "Game/PlayScene/GameManager/GameManager.h"
+
 class ClockTime
 {
 public:
 
 	//		コンストラクタ
-	ClockTime();
+	ClockTime(GameManager* gameManager);
 
 	//		デストラクタ
 	~ClockTime();
 
 	//		初期化処理
-	void Initialize(float limitTime);
+	void Initialize();
 
 	/*
 	*	更新処理
@@ -72,4 +74,6 @@ private:
 
 	//		リミット時間
 	float m_limitTime;
+
+	GameManager* m_gameManager;
 };

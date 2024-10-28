@@ -77,4 +77,8 @@ void EffectManager::Render(PostEffectFlag::Flag flag)
 void EffectManager::Finalize()
 {
 	m_wireUseEffect->Finalize();
+
+	m_wireInformation->clear();
+
+	m_degitalRain->Finalize();
 }

@@ -20,24 +20,9 @@ CoolTime::CoolTime(UIManager* uiManager)
 	//		回転シェーダーの生成
 	m_rotataionShader = std::make_unique<UIRenderManager>();
 
-	//		回転シェーダーの作製
-	m_rotataionShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
-		L"Resources/Shader/UI/CoolTime/CoolTimeVS.cso",
-		L"Resources/Shader/UI/CoolTime/CoolTimeGS.cso",
-		L"Resources/Shader/UI/CoolTime/CoolTimePS.cso",
-		buffer,
-		{ 270.0f, 0.0f }, { 0.6f, 0.6f });
-
 	//		シェーダー描画マネージャーの生成
 	m_shader = std::make_unique<UIRenderManager>();
 
-	//		数字シェーダーの作製
-	m_shader->Create(L"Resources/Texture/UI/CoolTime/cooltimeNumber.png",
-		L"Resources/Shader/UI/Number/NumberVS.cso",
-		L"Resources/Shader/UI/Number/NumberGS.cso",
-		L"Resources/Shader/UI/Number/NumberPS.cso",
-		buffer,
-		{ 0.0f, 0.0f }, { 0.3f, 0.3f });
 }
 
 CoolTime::~CoolTime()
@@ -46,6 +31,22 @@ CoolTime::~CoolTime()
 
 void CoolTime::Initialize()
 {
+	//		回転シェーダーの作製
+	m_rotataionShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
+		L"Resources/Shader/UI/CoolTime/CoolTimeVS.cso",
+		L"Resources/Shader/UI/CoolTime/CoolTimeGS.cso",
+		L"Resources/Shader/UI/CoolTime/CoolTimePS.cso",
+		buffer,
+		{ 270.0f, 0.0f }, { 0.6f, 0.6f });
+
+	//		数字シェーダーの作製
+	m_shader->Create(L"Resources/Texture/UI/CoolTime/cooltimeNumber.png",
+		L"Resources/Shader/UI/Number/NumberVS.cso",
+		L"Resources/Shader/UI/Number/NumberGS.cso",
+		L"Resources/Shader/UI/Number/NumberPS.cso",
+		buffer,
+		{ 0.0f, 0.0f }, { 0.3f, 0.3f });
+
 	//		ウィンドウサイズを設定する
 	circleBuffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
@@ -146,6 +147,10 @@ void CoolTime::Render()
 
 void CoolTime::Finalize()
 {
+	m_angle = 360.0f;
+	m_time = 0.0f;
+	m_coolTimeJudgement = false;
+	m_ratio = 100.0f;
 }
 
 void CoolTime::NumberView()

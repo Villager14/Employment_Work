@@ -25,11 +25,11 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
-	//		リミットタイムを設定する
-	m_gameManager->SetLimitTime(90.0f);
-
 	//		ゲームマネージャーの初期化処理
 	m_gameManager->Initialize();
+
+	//		リミットタイムを設定する
+	m_gameManager->SetLimitTime(90.0f);
 
 	//		プレイヤーカメラマネージャーの初期化処理
 	m_playerCameraManager->Initialize(m_player->GetInformation());
@@ -40,17 +40,11 @@ void PlayScene::Initialize()
 	//		プレイヤーの初期化処理
 	m_player->Initialize();
 
-	//		影の初期化
-	//m_shadow->Initialize();
-
 	//		オブジェクトマネージャーの初期化処理
 	m_objectManager->Initialize();
 
 	//		UIマネージャーの初期化
 	m_uiManager->Initialize();
-
-	//		スクリーンエフェクトマネージャーの初期化
-	//m_screenEffectManager->Initialize();
 
 	//		ポストエフェクトマネージャーの初期化
 	m_postEffectManager->Initialize(m_gameManager->BACK_GROUND_COLOR);
@@ -60,9 +54,6 @@ void PlayScene::Initialize()
 
 	//		エフェクトマネージャーの初期化
 	m_effectManager->Initialize();
-
-	//		エネミーマネージャーの初期化
-	m_enemyManager->Initialize();
 
 	//		リスポーンマネージャーの初期化
 	m_respawnManager->Initialize();
@@ -91,10 +82,6 @@ void PlayScene::Generation()
 	//		プレイヤーの生成
 	m_player = std::make_unique<Player>(m_gameManager.get());
 
-	//		スクリーンエフェクトマネージャーの生成
-	//m_screenEffectManager = std::make_unique<ScreenEffectManager>
-	//	(ScreenEffectManager::Scene::PlayScene, m_gameManager.get());
-
 	//		ポストエフェクトマネージャー
 	m_postEffectManager = std::make_unique<PostEffectManager>(m_gameManager.get(),
 															  m_sceneManager->GetMenuManager()->GetInformation());
@@ -108,14 +95,8 @@ void PlayScene::Generation()
 	//		当たり判定マネージャーの生成
 	m_collitionManager = std::make_unique<CollitionManager>(m_gameManager.get());
 
-	//		影の生成
-	m_shadow = std::make_unique<Shadow>();
-
 	//		オブジェクトマネージャーの生成
-	m_objectManager = std::make_unique<ObjectManager>(m_shadow->GetInformation(), m_gameManager.get());
-
-	//		エネミーマネージャーの生成
-	m_enemyManager = std::make_unique<EnemyManager>();
+	m_objectManager = std::make_unique<ObjectManager>(m_gameManager.get());
 
 	//		リスポーンマネージャー
 	m_respawnManager = std::make_unique<RespawnManager>(m_gameManager.get());
@@ -150,6 +131,12 @@ bool PlayScene::MenuInformation()
 
 void PlayScene::Update()
 {
+	//		Pを押すとリザルトになる
+	if (LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState().IsKeyDown(DirectX::Keyboard::P))
+	{
+		m_sceneManager->ChangeScene(SceneManager::Result);
+	}
+
 	//		メニューを開いているかどうか
 	if (MenuInformation()) return;
 
@@ -159,12 +146,8 @@ void PlayScene::Update()
 	//		オブジェクトマネージャーの更新処理
 	m_objectManager->Update(m_player->GetInformation()->GetPosition());
 
-	//		範囲内にあるワイヤーの座標を受け取る
-	//m_player->GetInformation()->SetWirePosition(m_objectManager->GetWirePosition());
-
 	//		ワイヤーの情報を受け取る
 	m_player->SetWireInformation(m_objectManager->GetUseWireInformation());
-
 
 	//		視線ベクトルを設定する
 	m_player->GetInformation()->SetViewVelocity(m_playerCameraManager->GetInformation()->GetViewVelocity());
@@ -224,65 +207,19 @@ void PlayScene::Update()
 	//		リスポーン座標を設定する
 	m_player->GetInformation()->SetRespawnPosition(m_respawnManager->GetRespownPosition());
 
+	//		リスポーン時の回転量を受け取る
+	m_playerCameraManager->SetStartDirection(m_respawnManager->GetRespownDirection());
+
 	//		次のシーンに切り替えるかどうか
 	if (m_gameManager->FlagJudgement(GameManager::NextScene))
 	{
-		//		クリアタイムを受け取る
-		m_sceneManager->SetClearTime(static_cast<int>(m_gameManager->GetTime()));
-
-		//		死亡回数を受け取る
-		m_sceneManager->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));
-
 		//		次のシーンに切り替える（リザルトシーン）
 		m_sceneManager->ChangeScene(SceneManager::SceneType::Result);
 	}
-
-	m_enemyManager->Update(m_gameManager->GetTime(),
-		m_player->GetInformation()->GetPosition());
 }
 
 void PlayScene::Render()
 {
-	/*
-	//		レンダーターゲットの変更
-	//m_shadow->ChangeRenderTarget(m_player->GetInformation()->GetPosition());
-
-	//		プレイヤーの描画処理
-	//m_player->Render(m_shadow.get());
-
-	//		レンダーターゲットの変更
-	//m_screenEffectManager->ChangeRenderTarget();
-
-	//		ポストエフェクトマネージャーの変更
-	m_postEffectManager->Render();
-
-	//		オブジェクトマネージャーの描画処理
-	m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
-							m_player->GetInformation()->GetPlayerHeight(),
-							PostEffectFlag::Flag::Normal);
-
-	//		リスポーンポイントのデバック描画
-	m_respawnManager->DebugRender();
-
-	//		プレイヤーのモデル描画
-	m_player->ModelRender();
-
-	//		エネミーマネージャーの描画
-	m_enemyManager->Render();
-
-	//		デバック描画
-	m_player->DebugRender();
-
-	//		エフェクトマネージャーの描画
-	//m_effectManager->Render();
-
-	//		ポストエフェクトマネージャーのラスト描画
-	//m_postEffectManager->RastRender();
-
-	//		レンダーテクスチャの描画
-	//m_postEffectManager->RenderTextureView();
-	*/
-
 	for (int i = 1; i <= PostEffectFlag::Flag::Fade;)
 	{
 		//		ポストエフェクトマネージャーの変更
@@ -325,31 +262,38 @@ void PlayScene::Render()
 
 	//		レンダーテクスチャの描画
 	m_postEffectManager->RenderTextureView();
-
-	/*
-	//		UIマネージャーの描画
-	//m_uiManager->FrontRender();
-
-	//		レンダーターゲットを基に戻す
-	//m_screenEffectManager->FirstRenderTarget();
-
-	//		画面エフェクトの描画
-	//m_screenEffectManager->Render();
-
-	//		UIマネージャーの描画
-	//m_uiManager->BackRender();
-	*/
 }
 
 void PlayScene::Finalize()
 {
-	m_objectManager->Finalize();
+	//		クリアタイムを受け取る
+	m_sceneManager->SetClearTime(static_cast<int>(m_gameManager->GetTime()));
 
-	m_effectManager->Finalize();
+	//		死亡回数を受け取る
+	m_sceneManager->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));
 
+
+	m_sceneManager->SetMaxTime(static_cast<int>(m_gameManager->GetLimitTime()));
+
+	//		ゲームマネージャーの終了処理
 	m_gameManager->Finalize();
 
+	//		カメラの終了処理
+	m_playerCameraManager->Finalize();
+
+	//		プレイヤの終了処理
+	m_player->Finalize();
+
+	//		ポストエフェクトマネージャー
+	m_postEffectManager->Finalize();
+
+	//		エフェクトマネージャー
+	m_effectManager->Finalize();
+	
+	//		UIマネージャーの終了処理
 	m_uiManager->Finalize();
 
-	m_player->Finalize();
+	m_objectManager->Finalize();
+
+
 }

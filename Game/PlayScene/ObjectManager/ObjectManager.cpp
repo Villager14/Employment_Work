@@ -11,16 +11,15 @@
 
 #include "BackGroundObject/BackGroundObject.h"
 
-ObjectManager::ObjectManager(ShadowInformation* shadowInformation, GameManager* gameManager)
+ObjectManager::ObjectManager(GameManager* gameManager)
 	:
-	m_shadowInformation(shadowInformation),
 	m_gameManager(gameManager)
 {
 	//		メッシュの描画を生成する
 	m_drawMesh = std::make_unique<DrawMesh>();
 
 	//		背景オブジェクトの生成
-	//m_backGroundObject = std::make_unique<BackGroundObject>(this);
+	m_backGroundObject = std::make_unique<BackGroundObject>(this);
 
 	//		ファクトリー
 	m_factory = std::make_unique<Factory>(this);
@@ -78,7 +77,7 @@ void ObjectManager::Initialize()
 	}
 
 	//		背景オブジェクトの初期化
-	//m_backGroundObject->Initialize(m_objectMesh, m_wireObjectPosition);
+	m_backGroundObject->Initialize(m_objectMesh, m_wireObjectPosition);
 }
 
 void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
@@ -99,7 +98,7 @@ void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 	m_cameraVelocity = cameraVelocity;
 	m_cameraPosition = cameraPosition;
 
-	//m_backGroundObject->Render(cameraVelocity, cameraPosition, flag, objectShader);
+	m_backGroundObject->Render(cameraVelocity, cameraPosition, flag, objectShader);
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
@@ -110,11 +109,20 @@ void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 
 void ObjectManager::Finalize()
 {
-	m_objectMesh.clear();
+	m_backGroundObject->Finalize();
 
-	//m_backGroundObject->Finalize();
+	for (int i = 0; i < m_factoryObject.size(); ++i)
+	{
+		m_factoryObject[i]->Finalize();
+	}
+
+	m_objectMesh.clear();
+	m_objectMesh.shrink_to_fit();
 
 	m_factoryObject.clear();
+	m_factoryObject.shrink_to_fit();
+
+	m_loadObjectInformation->Finalize();
 }
 
 bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position)
@@ -153,6 +161,8 @@ void ObjectManager::CreateWireInformation(int index, int *wireNumber)
 		//		座標
 		information.position =
 			m_loadObjectInformation->GetObjectInformation()[index].position;
+
+		m_wireObjectPosition.push_back(m_loadObjectInformation->GetObjectInformation()[index].position);
 
 		m_wireInformation.push_back(information);
 	}

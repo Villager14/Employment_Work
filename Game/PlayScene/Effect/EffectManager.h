@@ -65,6 +65,7 @@ private:
 
 	//		ƒJƒƒ‰‚Ìî•ñ
 	PlayerCameraInformation* m_cameraInformation;
+
 public:
 
 	void SetWireInformation(std::vector<WireObjectInformation>* wire) { m_wireInformation = wire; }
