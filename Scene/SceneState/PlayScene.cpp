@@ -29,7 +29,7 @@ void PlayScene::Initialize()
 	m_gameManager->Initialize();
 
 	//		リミットタイムを設定する
-	m_gameManager->SetLimitTime(90.0f);
+	m_gameManager->SetLimitTime(5.0f);
 
 	//		プレイヤーカメラマネージャーの初期化処理
 	m_playerCameraManager->Initialize(m_player->GetInformation());
