@@ -11,8 +11,6 @@
 
 #include "Library/Mesh/DrawMesh.h"
 
-#include "Game/PlayScene/Shadow/ShadowInformation.h"
-
 #include "WireObject/WireObjectInformation.h"
 
 #include "../GameManager/GameManager.h"
@@ -36,8 +34,7 @@ class ObjectManager
 public:
 
 	//		コンストラクタ
-	ObjectManager(ShadowInformation* shadowInformation,
-		GameManager* gameManager);
+	ObjectManager(GameManager* gameManager);
 
 	//		デストラクタ
 	~ObjectManager();
@@ -89,13 +86,7 @@ private:
 
 	//		メッシュを描画する
 	std::unique_ptr<DrawMesh> m_drawMesh;
-
-	//		ワイヤーの座標
-	//std::vector<DirectX::SimpleMath::Vector3> m_wirePosition;
-
-	//		影情報
-	ShadowInformation* m_shadowInformation;
-
+	 
 	//		カメラ視線ベクトル
 	DirectX::SimpleMath::Vector3 m_cameraVelocity;
 
@@ -149,13 +140,6 @@ public:
 	*	@return オブジェクトメッシュのインスタンスのポインタ
 	*/
 	std::vector<ObjectMesh*> GetMesh() { return m_objectMesh; }
-
-	/*
-	*	ワイヤーの座標を受け取る
-	*
-	*	@return 座標
-	*/
-	//const std::vector<DirectX::SimpleMath::Vector3>& GetWirePosition() { return m_wirePosition; }
 
 	/*
 	*	ワイヤーオブジェクトの情報を受け取る

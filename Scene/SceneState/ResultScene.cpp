@@ -26,13 +26,28 @@ void ResultScene::Initialize()
 {
 	float time = static_cast<float>(m_sceneManager->GetClearTime());
 
-	time = 5999 - time;
+	float deth = static_cast<float>(m_sceneManager->GetDeathCount());
 
-	time *= 1.5f;
+	float maxTime = static_cast<float>(m_sceneManager->GetMaxTime());
+	
+	float score = 0.0f;
 
-	//		スコアの計算をする
-	m_score = ScoreCalculation(m_sceneManager->GetDeathCount(), time);
+	if (deth == 0)
+	{
+		score = 1000.0f;
+	}
+	else if (deth < 3)
+	{
+		score = 700.0f;
+	}
+	else
+	{
+		score = 400.0f;
+	}
 
+	score *=  1.0f - time / maxTime + 1.0f;
+
+	m_score = score;
 
 	//		リザルトマネージャーの初期化
 	m_resultManager->Initialize(static_cast<int>(m_score), m_sceneManager->GetClearTime(),
@@ -78,19 +93,6 @@ void ResultScene::Finalize()
 	m_resultManager->Finalize();
 
 	m_score = 0.0f;
-}
-
-float ResultScene::ScoreCalculation(int count, float score)
-{
-	//		０の場合値をもどす
-	if (count == 0) return score;
-
-	score = ScoreCalculation(count - 1, score);
-
-	//	 Score * -3%
-	score *= 0.97f;
-
-	return score;
 }
 
 void ResultScene::CreateProj()

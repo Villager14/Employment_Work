@@ -74,3 +74,10 @@ void ObjectMesh::StaticProcess(const DirectX::SimpleMath::Matrix& world, const D
 	}
 }
 
+void ObjectMesh::Finalize()
+{
+	m_objectMesh.clear();
+	m_meshLength.clear();
+	m_meshCenter.clear();
+}
+

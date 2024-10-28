@@ -68,6 +68,9 @@ private:
 	//        死亡カウント
 	int m_deathCount;
 
+	//		最大タイム
+	int m_maxTime;
+
 	//		シーンの情報
 	std::unordered_map<SceneType, std::unique_ptr<IScene>> m_sceneInformation;
 
@@ -105,6 +108,10 @@ public:
 	*    @return 回数
 	*/
 	int GetDeathCount() { return m_deathCount; }
+	
+	void SetMaxTime(int time) { m_maxTime = time; }
+
+	int GetMaxTime() { return m_maxTime; }
 
 	/*
 	*	メニューマネージャーを受け取る

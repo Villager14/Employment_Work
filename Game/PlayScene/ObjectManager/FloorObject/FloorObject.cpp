@@ -188,5 +188,6 @@ void FloorObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* post
 
 void FloorObject::Finalize()
 {
-	m_floorModel.release();
+	m_floorModel.reset();
+	m_objectMesh->Finalize();
 }

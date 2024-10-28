@@ -239,8 +239,6 @@ void DegitalRain::GenerationPosition(int index)
 
 	float length = LibrarySingleton::GetInstance()->Random(MIN_LENGTH, MAX_LENGTH);
 
-	//length = 50.0f;
-
 	DirectX::SimpleMath::Vector3 position = m_effectManager->GetPlayerInformation()->GetPlayerHeight();
 
 	position.y += LibrarySingleton::GetInstance()->Random(-5.0f, 40.0f);
@@ -274,6 +272,13 @@ void DegitalRain::Billbord(DirectX::SimpleMath::Vector3 eye, DirectX::SimpleMath
 	billboard = rot * billboard;
 
 	m_parameta[index].billbord = billboard;
+}
+
+void DegitalRain::Finalize()
+{
+	m_parameta.clear();
+	
+	m_time = 0.0f;
 }
 
 

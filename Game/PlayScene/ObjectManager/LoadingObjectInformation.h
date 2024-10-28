@@ -26,7 +26,7 @@ public:
 	//		情報の整理
 	void OrganizingInformation(int count, std::string val, ObjectInformation* objectInformation);
 
-
+	void Finalize();
 private:
 
 	//		オブジェクトの情報

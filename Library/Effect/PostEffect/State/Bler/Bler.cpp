@@ -47,43 +47,21 @@ Bler::~Bler()
 
 void Bler::Initialize()
 {
+	//		シェーダーの作製
+	CreateShader();
+
+	//		深度ステンシルの作製
 	RECT rect = { 0,0,
-		  static_cast<long>(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f),
-		  static_cast<long>(LibrarySingleton::GetInstance()->GetScreenSize().y) };
+	  static_cast<long>(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f),
+	  static_cast<long>(LibrarySingleton::GetInstance()->GetScreenSize().y) };
 	m_sideDepthStancil->SetDevice(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice());
 	m_sideDepthStancil->SetWindow(rect);
 
 	rect = { 0,0,
 		  static_cast<long>(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f),
 		  static_cast<long>(LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f) };
-
 	m_warpDepthStancil->SetDevice(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice());
 	m_warpDepthStancil->SetWindow(rect);
-
-
-	//		横ぼかしシェーダーを作成する
-	m_sideBler->Create(L"Resources/Texture/Test.jpg",
-		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerVS.cso",
-		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerGS.cso",
-		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerPS.cso",
-		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
-		CENTER_POINT::MIDDLE_CENTER);
-
-	//		縦ぼかしシェーダーを制作する
-	m_warpBler->Create(L"Resources/Texture/Test.jpg",
-		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerVS.cso",
-		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerGS.cso",
-		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerPS.cso",
-		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
-		CENTER_POINT::MIDDLE_CENTER);
-
-	//		合成シェーダーを制作する
-	m_expansionBler->Create(L"Resources/Texture/Test.jpg",
-		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionVS.cso",
-		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionGS.cso",
-		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionPS.cso",
-		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
-		CENTER_POINT::MIDDLE_CENTER);
 
 	//		ウィンドウサイズを設定する
 	m_sideConstBuffer.windowSize = DirectX::SimpleMath::Vector4(
@@ -120,7 +98,6 @@ ID3D11ShaderResourceView* Bler::Render(ID3D11ShaderResourceView* texture)
 
 	m_warpBler->Render(m_sideConstBuffer);
 
-
 	//		拡大テクスチャ
 	m_expansionTexture = m_postEffectManager->ChangeRenderTarget(m_expansionRenderTexture.get(),
 		LibrarySingleton::GetInstance()
@@ -136,4 +113,35 @@ ID3D11ShaderResourceView* Bler::Render(ID3D11ShaderResourceView* texture)
 	m_expansionBler->Render(m_sideConstBuffer);
 
 	return m_expansionTexture;
+}
+
+void Bler::CreateShader()
+{
+	//		横ぼかしシェーダーを作成する
+	m_sideBler->Create(L"Resources/Texture/Test.jpg",
+		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerVS.cso",
+		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerGS.cso",
+		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerPS.cso",
+		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+		CENTER_POINT::MIDDLE_CENTER);
+
+	//		縦ぼかしシェーダーを制作する
+	m_warpBler->Create(L"Resources/Texture/Test.jpg",
+		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerVS.cso",
+		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerGS.cso",
+		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerPS.cso",
+		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+		CENTER_POINT::MIDDLE_CENTER);
+
+	//		合成シェーダーを制作する
+	m_expansionBler->Create(L"Resources/Texture/Test.jpg",
+		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionVS.cso",
+		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionGS.cso",
+		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionPS.cso",
+		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+		CENTER_POINT::MIDDLE_CENTER);
+}
+
+void Bler::Finalize()
+{
 }

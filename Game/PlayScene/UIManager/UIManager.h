@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "Fade/FadeIn.h"
-
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
 #include "Game/PlayScene/GameManager/GameManager.h"
@@ -75,7 +73,7 @@ private:
 	std::unique_ptr<CoolTime> m_coolTime;
 
 	//		フェード
-	std::unique_ptr<FadeIn> m_fadeIn;
+	//std::unique_ptr<FadeIn> m_fadeIn;
 		
 	//		ゲームオーバー
 	std::unique_ptr<GameOverManager> m_gameOver;

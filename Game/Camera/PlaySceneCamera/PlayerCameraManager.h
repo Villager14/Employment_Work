@@ -102,6 +102,9 @@ private:
 	//		現在の視野角
 	float m_nowViewAngle;
 
+	//		開始時の方法
+	float m_startDirection;
+
 public:
 	/*
 	*	カメラの状態の切り替え
@@ -131,4 +134,18 @@ public:
 	*	@return プレイヤーの情報
 	*/
 	PlayerInformation* GetPlayerInformationCamera() { return m_playerInformation; }
+
+	/*
+	*	開始時の方法を設定する
+	* 
+	*	@param	(direction)	角度
+	*/
+	void SetStartDirection(float direction) { m_startDirection = direction; }
+
+	/*
+	*	開始時の方向を受け取る
+	* 
+	*	@return 角度
+	*/
+	float GetStartDirection() { return m_startDirection; }
 };

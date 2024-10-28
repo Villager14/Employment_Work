@@ -38,11 +38,20 @@ void GameOverManager::Update()
 
 	//		経過時間
 	m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
-
 }
 
 void GameOverManager::Render()
 {
+	//		タイムリミット
+	if (m_gameManager->FlagJudgement(GameManager::TimeLimitJudgement))
+	{
+		m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameOver);
+
+		m_uiManager->GetStandardShader()->Render(UIManager::UIType::NextInduction);
+
+		return;
+	}
+
 	//		ゲームオーバー状態ではないなら処理をしない
 	if (!m_gameManager->FlagJudgement(GameManager::DeathJudgement)) return;
 	

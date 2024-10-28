@@ -93,7 +93,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_mouse.Update(mouseState);
 
     //      デバック表示するかしないかを切り替える
-    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Tab))
+    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Q))
     {
         LibrarySingleton::GetInstance()->ChangeDebugView();
     }
@@ -102,7 +102,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_sceneManager->Update();
 
     //      ゲームを終了する
-    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Q))
+    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
     {
         PostQuitMessage(0);
     }

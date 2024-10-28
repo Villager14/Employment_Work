@@ -132,20 +132,6 @@ void AnimationManager::CreateModel(bool createHead)
 	m_effect->SetDirectory(L"Resources/Models/Player");
 
 	//		ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	//LoadModel(L"Resources/Models/Body.cmo", m_effect);
-	//LoadModel(L"Resources/Models/BodyUnder.cmo", m_effect);
-	//LoadModel(L"Resources/Models/LArmAbove.cmo", m_effect);
-	//LoadModel(L"Resources/Models/LArmUnder.cmo", m_effect);
-	//LoadModel(L"Resources/Models/LHand.cmo", m_effect);
-	//LoadModel(L"Resources/Models/RArmAbove.cmo", m_effect);
-	//LoadModel(L"Resources/Models/RArmUnder.cmo", m_effect);
-	//LoadModel(L"Resources/Models/RHand.cmo", m_effect);
-	//LoadModel(L"Resources/Models/LLeagAbove.cmo", m_effect);
-	//LoadModel(L"Resources/Models/LLeagUnder.cmo", m_effect);
-	//LoadModel(L"Resources/Models/LShoes.cmo", m_effect);
-	//LoadModel(L"Resources/Models/RLeagAbove.cmo", m_effect);
-	//LoadModel(L"Resources/Models/RLeagUnder.cmo", m_effect);
-	//LoadModel(L"Resources/Models/RShoes.cmo", m_effect);
 	LoadModel(L"Resources/Models/Player/Body.cmo", m_effect);
 	LoadModel(L"Resources/Models/Player/BodyUnder.cmo", m_effect);
 	LoadModel(L"Resources/Models/Player/LArmAbove.cmo", m_effect);
@@ -202,4 +188,8 @@ void AnimationManager::ChangeState(AnimationState State)
 
 	//		V‚µ‚¢ó‘Ô‚Ì‰Šú‰»ˆ—
 	m_istate->Initialize();
+}
+
+void AnimationManager::Finalize()
+{
 }

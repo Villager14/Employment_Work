@@ -92,9 +92,6 @@ private:
 	PostEffectManager* m_postEffectManager;
 
 	//		シェーダーリソース
-	//ID3D11ShaderResourceView* m_depthNormalTexture;
-
-	//		シェーダーリソース
 	ID3D11ShaderResourceView* m_sceneTexture;
 
 	//		輝度テクスチャ

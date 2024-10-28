@@ -11,8 +11,6 @@
 
 #include "Library/Mesh/DrawMesh.h"
 
-#include "Game/PlayScene/Shadow/ShadowInformation.h"
-
 #include "Library/Factory/IFactory.h"
 
 #include "Library/Factory/Factory.h"
@@ -100,9 +98,6 @@ private:
 	DirectX::SimpleMath::Quaternion m_rotation;
 
 	float m_rog;
-
-	//		影情報
-	ShadowInformation* m_shadowInformation;
 
 	//		ピクセルシェーダー
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_floorPS;

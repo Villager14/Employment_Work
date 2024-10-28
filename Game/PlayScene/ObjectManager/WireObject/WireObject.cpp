@@ -164,6 +164,9 @@ void WireObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 void WireObject::Finalize()
 {
+	m_wingPosition.clear();
+	m_wireRangeModel.reset();
+	m_wingModel.reset();
 }
 
 void WireObject::DebugRender()

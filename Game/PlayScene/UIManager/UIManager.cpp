@@ -37,9 +37,6 @@ void UIManager::Initialize()
 	//		クールタイムの初期化
 	m_coolTime->Initialize();
 
-	//		フェードインの初期化
-	m_fadeIn->Initialize();
-
 	//		ゲームオーバーの初期化
 	m_gameOver->Initialize();
 
@@ -55,9 +52,6 @@ void UIManager::Initialize()
 
 void UIManager::Generation()
 {
-	//		フェードインの生成
-	m_fadeIn = std::make_unique<FadeIn>();
-
 	//		クールタイムの生成
 	m_coolTime = std::make_unique<CoolTime>(this);
 
@@ -97,9 +91,6 @@ void UIManager::Update()
 	//		ダッシュクールタイムの更新
 	m_coolTime->Update(m_playerInformation);
 
-	//		フェードの更新
-	//m_fadeIn->Update(m_gameManager);
-
 	//		ゲームオーバーの更新
 	m_gameOver->Update();
 
@@ -112,6 +103,8 @@ void UIManager::Update()
 
 void UIManager::Finalize()
 {
+	m_coolTime->Finalize();
+
 	m_clearManager->Finalize();
 }
 

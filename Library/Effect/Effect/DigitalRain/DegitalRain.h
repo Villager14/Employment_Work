@@ -7,7 +7,6 @@
 
 #pragma once
 
-
 #include "Library/Shader/EffectShaderManager.h"
 
 #include "DegitalRainParameter.h"
@@ -54,6 +53,9 @@ public:
 	void Billbord(DirectX::SimpleMath::Vector3 eye,
 		DirectX::SimpleMath::Vector3 up, int index);
 
+	//		終了処理
+	void Finalize();
+
 private:
 
 	struct  ConstBuffer
@@ -81,7 +83,6 @@ private:
 
 	//		エフェクトシェーダーマネージャー
 	std::unique_ptr<EffectShaderManager<ConstBuffer>> m_effectShaderManager;
-
 
 	//		パラメーター
 	std::vector<DegitalRainParameter> m_parameta;

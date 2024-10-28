@@ -83,6 +83,10 @@ void FadePostEffect::PostEffectRender()
 
 void FadePostEffect::Filanize()
 {
+	m_fadeStayTime = 0.0f;
+	m_fadeinResetJudgement = true;
+	m_fadeoutResetJudgement = false;
+	m_firstJudgement = true;
 }
 
 void FadePostEffect::Fade()
@@ -132,7 +136,7 @@ void FadePostEffect::Fade()
 			MusicLibrary::GetInstance()->SceneLerpVolume(m_fadeTime);
 		}
 
-		if (m_fadeTime > 1.0f)
+		if (m_fadeTime >= 1.0f)
 		{
 			m_fadeinResetJudgement = false;
 		}
@@ -147,6 +151,15 @@ void FadePostEffect::Fade()
 
 		if (m_fadeTime <= 0.0f)
 		{
+			//		タイムリミット
+			if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::TimeLimitJudgement))
+			{
+				//		次のシーンに切り替える
+				m_postEffectManager->GetGameManager()->TrueFlag(GameManager::NextScene);
+
+				return;
+			}
+
 			m_fadeoutResetJudgement = false;
 
 			//		復活状態を終了

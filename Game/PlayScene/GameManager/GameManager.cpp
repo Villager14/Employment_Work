@@ -26,9 +26,10 @@ GameManager::~GameManager()
 void GameManager::Initialize()
 {
 	m_flag = Flag::None;
-
 	m_time = 0.0f;
 	m_deathCount = 0;
+	m_gameSpeed = 0.0f;
+	m_limitTime = 0.0f;
 }
 
 void GameManager::Update()
@@ -52,6 +53,10 @@ void GameManager::Update()
 void GameManager::Finalize()
 {
 	m_flag = Flag::None;
+	m_time = 0.0f;
+	m_deathCount = 0;
+	m_gameSpeed = 0.0f;
+	m_limitTime = 0.0f;
 }
 
 bool GameManager::FlagJudgement(Flag flag)

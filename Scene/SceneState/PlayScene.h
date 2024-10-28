@@ -9,7 +9,6 @@
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 #include "Game/PlayScene/UIManager/UIManager.h"
-#include "Game/PlayScene/Shadow/Shadow.h"
 #include "Game/PlayScene/Enemy/EnemyManager.h"
 #include "Game/Camera/PlaySceneCamera/PlayerCameraManager.h"
 #include "Game/PlayScene/Player/Player.h"
@@ -87,9 +86,6 @@ private:
 	std::unique_ptr<PostEffectManager> m_postEffectManager;
 	//		ゲームマネージャー
 	std::unique_ptr<GameManager> m_gameManager;
-
-	//		影の描画
-	std::unique_ptr<Shadow> m_shadow;
 
 	//		エフェクトマネージャー
 	std::unique_ptr<EffectManager> m_effectManager;

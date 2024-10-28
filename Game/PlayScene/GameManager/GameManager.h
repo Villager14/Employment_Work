@@ -35,12 +35,12 @@ public:
 		FallDead			= 1 << 7,		//		落下死しているかどうか
 		DashJudgement		= 1 << 8,		//		ダッシュをしているかどうか
 		StartLimitView		= 1 << 9,		//		開始時のリミット描画
+		TimeLimitJudgement  = 1 << 10,		//		タイムリミットかどうか
 	};
 
 public:
 
 	//		背景色
-	//const DirectX::XMVECTORF32 BACK_GROUND_COLOR = DirectX::Colors::Green;
 	const DirectX::XMVECTORF32 BACK_GROUND_COLOR = DirectX::Colors::Black;
 
 private:

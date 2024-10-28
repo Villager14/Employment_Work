@@ -70,6 +70,7 @@ public:
 		HandGunStayA,
 		HandGunStyleA,
 	};
+
 public:
 
 	//		コンストラクタ
@@ -108,6 +109,9 @@ public:
 	*	@param	(IState)
 	*/
 	void ChangeState(AnimationState State);
+
+	//		終了処理
+	void Finalize();
 
 private:
 

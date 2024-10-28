@@ -39,6 +39,7 @@ public:
 	{
 		m_position = { 0.0f, 0.0f, 0.0f };
 		m_planPosition = { 0.0f, 0 ,0.0f };
+		m_playerHeight = { 0.0f, 5.0f, 0.0f };
 		m_heightTime = 0.0f;
 		m_fallTime = 0.0f;
 		m_gravity = 0.0f;
@@ -53,6 +54,35 @@ public:
 		m_wireUseJudgement = false;
 		m_playerHeadShakingJudgement = false;
 		m_acceleration = { 0.0f, 0.0f, 0.0f };
+	}
+
+	void Finalize()
+	{
+		m_position = { 0.0f, 0.0f, 0.0f };
+		m_planPosition = { 0.0f, 0 ,0.0f };
+		m_playerHeight = { 0.0f, STANDING_HEIGHT, 0.0f };
+		m_cameraAngle = DirectX::SimpleMath::Vector2::Zero;
+		m_world = DirectX::SimpleMath::Matrix::Identity;
+		m_direction = DirectX::SimpleMath::Vector3::Zero;
+		m_viewVelocity = DirectX::SimpleMath::Vector3::Zero;
+		m_wireMovePosition = DirectX::SimpleMath::Vector3::Zero;
+		m_respawnPosition = DirectX::SimpleMath::Vector3::Zero;
+		m_wallWalkNormalize = DirectX::SimpleMath::Vector3::Zero;
+		m_acceleration = DirectX::SimpleMath::Vector3::Zero;
+		m_wirePosition.clear();
+		m_heightTime = 0.0f;
+		m_fallTime = 0.0f;
+		m_gravity = 0.0f;
+		m_meshHitJudgement = false;
+		m_timeSpeed = 1.0f;
+		m_dashJudgement = true;
+		m_dashCoolTime = 0.0f;
+		m_jumpJudgement = true;
+		m_respownJudgement = false;
+		m_headWallMove = 0.0f;
+		m_stopCamera = false;
+		m_wireUseJudgement = false;
+		m_playerHeadShakingJudgement = false;
 	}
 
 private:

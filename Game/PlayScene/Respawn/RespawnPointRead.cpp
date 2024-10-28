@@ -12,6 +12,8 @@
 #include "RespawnPointRead.h"
 
 RespawnPointRead::RespawnPointRead()
+	:
+	m_direction{}
 {
 }
 
@@ -54,15 +56,18 @@ void RespawnPointRead::ReadProcess(int stageNumber)
 		//		’·‚³
 		float length = 0.0f;
 
+		float direction = 0.0f;
+
 		while (std::getline(ss, value, ','))
 		{
-			SetParameter(value, index, &position, &length);
+			SetParameter(value, index, &position, &length, &direction);
 
 			index++;
 		}
 
 		m_position.push_back(position);
 		m_length.push_back(length);
+		m_direction.push_back(direction);
 	}
 
 	//		ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
@@ -70,10 +75,12 @@ void RespawnPointRead::ReadProcess(int stageNumber)
 
 }
 
-void RespawnPointRead::SetParameter(std::string val, int index, DirectX::SimpleMath::Vector3* position, float *length)
+void RespawnPointRead::SetParameter(std::string val, int index,
+	DirectX::SimpleMath::Vector3* position, float *length, float* direction)
 {
 	if (index == 0)			position->x = std::stof(val);
 	else if (index == 1)	position->y = std::stof(val);
 	else if (index == 2)	position->z = std::stof(val);
-	else if (index == 1)	*length		= std::stof(val);
+	else if (index == 3)	*length		= std::stof(val);
+	else if (index == 4)	*direction	= std::stof(val);
 }

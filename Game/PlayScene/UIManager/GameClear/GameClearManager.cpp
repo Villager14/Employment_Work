@@ -20,15 +20,6 @@ GameClearManager::GameClearManager(GameManager* gameManager, UIManager* uiManage
 {
 	//		メッセージ描画シェーダーの生成
 	m_messageShader = std::make_unique<UIRenderManager>();
-
-	//		メッセージの作成
-	m_messageShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
-		L"Resources/Shader/UI/CenterShader/CenterShaderVS.cso",
-		L"Resources/Shader/UI/CenterShader/CenterShaderGS.cso",
-		L"Resources/Shader/UI/CenterShader/CenterShaderPS.cso",
-		buffer,
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f }
-	);
 }
 
 GameClearManager::~GameClearManager()
@@ -37,6 +28,14 @@ GameClearManager::~GameClearManager()
 
 void GameClearManager::Initialize()
 {
+	//		メッセージの作成
+	m_messageShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
+		L"Resources/Shader/UI/CenterShader/CenterShaderVS.cso",
+		L"Resources/Shader/UI/CenterShader/CenterShaderGS.cso",
+		L"Resources/Shader/UI/CenterShader/CenterShaderPS.cso",
+		buffer,
+		{ 0.0f, 0.0f }, { 1.0f, 1.0f }
+	);
 
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(

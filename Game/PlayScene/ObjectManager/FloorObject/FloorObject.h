@@ -85,9 +85,6 @@ private:
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
 
-	//		影情報
-	ShadowInformation* m_shadowInformation;
-
 	//		ピクセルシェーダー
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_floorPS;
 

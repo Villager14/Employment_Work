@@ -239,6 +239,13 @@ bool PlayerCommonProcessing::WireActionJudgement()
 	//		ワイヤーを使用できない状態にする
 	m_player->GetInformation()->SetWireJudgement(false);
 
+	//		ワイヤーオブジェクトがない場合
+	if (m_player->GetWireObjectInformation()->size() == 0)
+	{
+		//		処理をしない
+		return false;
+	}
+
 	for (int i = 0, max = static_cast<int>((*m_player->GetWireObjectInformation()).size()); i < max; ++i)
 	{
 

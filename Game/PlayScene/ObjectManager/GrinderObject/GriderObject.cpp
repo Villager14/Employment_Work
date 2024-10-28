@@ -18,8 +18,7 @@
 GriderObject::GriderObject(ObjectManager* objectManager)
 	:
 	m_rog(0.0f),
-	m_objectManager(objectManager),
-	m_shadowInformation()
+	m_objectManager(objectManager)
 {
 	//		オブジェクトメッシュの生成
 	//m_objectMesh = ;
@@ -159,8 +158,13 @@ void GriderObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* pos
 
 void GriderObject::Finalize()
 {
-	m_griderRotationObject.release();
-	m_griderObject.release();
+	m_griderRotationObject.reset();
+	m_griderObject.reset();
+	
+	for (int i = 0; i < m_objectMesh.size(); ++i)
+	{
+		m_objectMesh[i]->Finalize();
+	}
 }
 
 void GriderObject::CreateObjectMesh()

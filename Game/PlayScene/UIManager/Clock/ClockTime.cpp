@@ -9,10 +9,11 @@
 
 #include "ClockTime.h"
 
-ClockTime::ClockTime()
+ClockTime::ClockTime(GameManager* gameManager)
 	:
 	m_time(0),
-	m_limitTime(0.0f)
+	m_limitTime(0.0f),
+	m_gameManager(gameManager)
 {
 	//		シェーダー描画マネージャーの生成
 	m_shader = std::make_unique<UIRenderManager>();
@@ -30,10 +31,8 @@ ClockTime::~ClockTime()
 {
 }
 
-void ClockTime::Initialize(float limitTime)
+void ClockTime::Initialize()
 {
-	m_limitTime = limitTime;
-
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
@@ -43,11 +42,19 @@ void ClockTime::Initialize(float limitTime)
 	buffer.rotationMatrix = m_shader->GetRotationMatrix();
 
 	m_time = 0;
+
+	m_limitTime = m_gameManager->GetLimitTime();
 }
 
 void ClockTime::Update(float elapsedTime)
 {
 	m_time = static_cast<int>(m_limitTime - elapsedTime);
+
+	if (m_time <= 0.0f)
+	{
+		//		時間切れ
+		m_gameManager->TrueFlag(GameManager::Flag::TimeLimitJudgement);
+	}
 }
 
 void ClockTime::Render()

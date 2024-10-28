@@ -101,7 +101,6 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 		return;
 	}
 
-
 	for (int i = 0, max = static_cast<int>(m_information->GetObjectPosition().size()); i < max; ++i)
 	{
 		//		ƒJƒŠƒ“ƒO‚Ìˆ—

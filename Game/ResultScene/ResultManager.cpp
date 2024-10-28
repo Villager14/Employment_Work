@@ -54,8 +54,6 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 		m_screenEffectManager.get(),
 		m_playerAnimation.get());
 
-	
-
 	//		‰Šúó‘Ô‚ð‘ã“ü‚·‚é
 	m_state = State::Start;
 
@@ -104,9 +102,9 @@ void ResultManager::Generation()
 	ResultInformation::ConstBuffer buffer = m_information->GetBuffer();
 
 	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
-		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
-		L"Resources/Shader/UI/Fade/FadeShaderGS.cso",
-		L"Resources/Shader/UI/Fade/FadeShaderPS.cso",
+		L"Resources/Shader/UI/FadeShader/FadeUIVS.cso",
+		L"Resources/Shader/UI/FadeShader/FadeUIGS.cso",
+		L"Resources/Shader/UI/FadeShader/FadeUIPS.cso",
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 

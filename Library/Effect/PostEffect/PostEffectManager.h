@@ -99,32 +99,6 @@ private:
 	//		ポストエフェクト
 	std::unordered_map<PostEffectFlag::Flag, std::unique_ptr<IPostEffect>> m_postEffectProcess;
 
-	/*
-	//		ブルームの処理
-	std::unique_ptr<Bloom> m_bloom;
-
-	//		ブラーの処理
-	std::unique_ptr<Bler> m_bler;
-
-	//		ブルーム深度処理
-	std::unique_ptr<BloomDepth> m_bloomDepth;
-
-	//		フォグの処理
-	std::unique_ptr<FogProcess> m_fogProcess;
-
-	//		透明処理
-	std::unique_ptr<Transparency> m_alpha;
-
-	//		UI描画処理
-	std::unique_ptr<UIRender> m_uiRender;
-
-	//		UI後処理
-	std::unique_ptr<UIRender> m_uiBackRender;
-
-	//		透明深度処理
-	std::unique_ptr<TransparencyDepth> m_transparencyDepth;
-	*/
-
 	//		背景色
 	DirectX::XMVECTORF32 m_backColor;
 

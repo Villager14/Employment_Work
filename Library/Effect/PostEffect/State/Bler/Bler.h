@@ -37,6 +37,12 @@ public:
 	*/
 	ID3D11ShaderResourceView* Render(ID3D11ShaderResourceView* texture);
 
+	//		シェーダーの作製をする
+	void CreateShader();
+
+	//		終了処理
+	void Finalize();
+
 public:
 
 	//		コンストバッファ

@@ -128,11 +128,8 @@ void TutorialManager::Generation()
 	//		カメラマネージャーを生成する
 	m_cameraManager = std::make_unique<PlayerCameraManager>(m_gameManager.get());
 
-	//		影の生成
-	m_shadow = std::make_unique<Shadow>();
-
 	//		オブジェクトマネージャー
-	m_objectManager = std::make_unique<ObjectManager>(m_shadow->GetInformation(), m_gameManager.get());
+	m_objectManager = std::make_unique<ObjectManager>(m_gameManager.get());
 
 	//		当たり判定マネージャーの生成
 	m_collitionManager = std::make_unique<CollitionManager>(m_gameManager.get());

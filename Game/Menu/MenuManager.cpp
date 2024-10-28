@@ -55,7 +55,7 @@ void MenuManager::Update()
 	//		キーボードの取得
 	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
 
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Escape))
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::Tab))
 	{
 		m_information->SetMenuJudgement(true);
 	}

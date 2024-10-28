@@ -87,12 +87,16 @@ void ScreenColor::PostEffectRender()
 
 void ScreenColor::Filanize()
 {
+	m_elapsedTime = 0.0f;
+
+	m_menuOpenJudgement = 0.0f;
 }
 
 bool ScreenColor::RedScreen()
 {
 	//		Ž€–S‚µ‚½ê‡
-	if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::DeathJudgement))
+	if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::DeathJudgement) ||
+		m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::TimeLimitJudgement))
 	{
 		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 

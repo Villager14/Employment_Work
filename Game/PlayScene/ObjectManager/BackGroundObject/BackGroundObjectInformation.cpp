@@ -66,7 +66,7 @@ void BackGroundObjectInformation::RandomObjectPosition
 {
 	int dot = 0;
 
-	for (int j = 0; j < 30; ++j)
+	for (int j = 0; j < 20; ++j)
 	{
 		DirectX::SimpleMath::Vector3 randomPosition = DirectX::SimpleMath::Vector3(LibrarySingleton::GetInstance()->Random(minX, maxX),
 			0.0f, LibrarySingleton::GetInstance()->Random(minZ, maxZ));
@@ -86,8 +86,8 @@ void BackGroundObjectInformation::RandomObjectPosition
 			dot++;
 		}
 
-		//		もし100回以上になったらオブジェクトを置けないとみなす
-		if (dot > 100.0f)
+		//		もし10回以上になったらオブジェクトを置けないとみなす
+		if (dot > 10)
 		{
 			break;
 		}
@@ -114,7 +114,7 @@ bool BackGroundObjectInformation::ObjectMeshLength(DirectX::SimpleMath::Vector3 
 		(wirePosition.size()); i < max; ++i)
 	{
 		if ((DirectX::SimpleMath::Vector3(wirePosition[i].x, 0.0f, wirePosition[i].z)
-			- randomPosition).Length() < 100.0f)
+			- randomPosition).Length() < 150.0f)
 		{
 			return false;
 		}
@@ -125,7 +125,7 @@ bool BackGroundObjectInformation::ObjectMeshLength(DirectX::SimpleMath::Vector3 
 	{
 		//		距離が一定内の場合処理をしない
 		if ((DirectX::SimpleMath::Vector3(m_objectPosition[i].x , 0.0f, m_objectPosition[i].z)
-			- randomPosition).Length() < 100.0f)
+			- randomPosition).Length() < 150.0f)
 		{
 			return false;
 		}
@@ -143,9 +143,9 @@ void BackGroundObjectInformation::ObjectCreateRotation()
 	));
 
 	m_objectQuaternion.push_back(DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(
-		{ DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(-10.0f, 10.0f)),
+		{ DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(-5.0f, 5.0f)),
 		  DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(0.0f, 360.0f)),
-		  DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(-10.0f, 10.0f))}));
+		  DirectX::XMConvertToRadians(LibrarySingleton::GetInstance()->Random(-5.0f, 5.0f))}));
 }
 
 void BackGroundObjectInformation::Finalize()
@@ -153,4 +153,8 @@ void BackGroundObjectInformation::Finalize()
 	m_objectPosition.clear();
 	m_objectQuaternion.clear();
 	m_objectRotation.clear();
+	m_objectPosition.shrink_to_fit();
+	m_objectQuaternion.shrink_to_fit();
+	m_objectRotation.shrink_to_fit();
 }
+

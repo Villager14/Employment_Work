@@ -30,6 +30,19 @@ public:
 		m_mouseSpeed = 5.0f;
 		m_angle = { 0.0f, 0.0f };
 	}
+
+	void Finalize()
+	{
+		m_angleMin = 0.0f;
+		m_viewAngle = 70.0f;
+		m_mouseSpeed = 5.0f;
+		m_angle = { 0.0f, 0.0f };
+		m_viewVelocity = DirectX::SimpleMath::Vector3::Zero;
+		m_up = DirectX::SimpleMath::Vector3::Zero;
+		m_target = DirectX::SimpleMath::Vector3::Zero;
+		m_eye = DirectX::SimpleMath::Vector3::Zero;
+		m_cameraMove = DirectX::SimpleMath::Vector2::Zero;
+	}
 private:
 
 	//		ç≈ëÂäpìxY

@@ -29,6 +29,8 @@ Bloom::Bloom(PostEffectManager* postEffectManager)
 	//		輝度シェーダーを生成する
 	m_luminanceShader = std::make_unique<UIRenderManager>();
 	m_syntheticShader = std::make_unique<UIRenderManager>();
+
+	CreateDepth();
 }
 
 Bloom::~Bloom()
@@ -37,7 +39,7 @@ Bloom::~Bloom()
 
 void Bloom::Initialize()
 {
-	CreateDepth();
+	
 
 	//		ウィンドウサイズを設定する
 	m_luminanceConstBuffer.windowSize = DirectX::SimpleMath::Vector4(
