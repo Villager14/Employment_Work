@@ -37,6 +37,10 @@ public:
 	//		終了処理
 	void Finalize() override;
 
+	void CreateView();
+
+	void CreateProj();
+
 private:
 	//		シーンマネージャーのインスタンスのポインタ
 	SceneManager* m_sceneManager;

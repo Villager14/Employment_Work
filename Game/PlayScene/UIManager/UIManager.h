@@ -19,6 +19,7 @@ class GameOverManager;
 class GameClearManager;
 class SpeedLine;
 class GameStart;
+class CountDown;
 
 class UIManager
 {
@@ -72,8 +73,8 @@ private:
 	//		クールタイム
 	std::unique_ptr<CoolTime> m_coolTime;
 
-	//		フェード
-	//std::unique_ptr<FadeIn> m_fadeIn;
+	//		カウントダウン
+	std::unique_ptr<CountDown> m_countDonw;
 		
 	//		ゲームオーバー
 	std::unique_ptr<GameOverManager> m_gameOver;
@@ -111,4 +112,11 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	GameManager* GetGameManager() { return m_gameManager; }
+
+	/*
+	*	プレイヤーの情報を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	PlayerInformation* GetPlayerInformation() { return  m_playerInformation; }
 };

@@ -33,6 +33,9 @@ void PlayerGoal::Initialize()
 
 	//		メニューを使えないようにする
 	m_player->SetMenuUiseJudgement(false);
+
+	//		加速度が０になる
+	m_player->GetInformation()->SetAcceleration(DirectX::SimpleMath::Vector3::Zero);
 }
 
 void PlayerGoal::Update()

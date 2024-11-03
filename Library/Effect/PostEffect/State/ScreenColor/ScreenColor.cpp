@@ -17,8 +17,6 @@ ScreenColor::ScreenColor(PostEffectManager* postEffectManager)
 	m_elapsedTime(0.0f),
 	m_menuOpenJudgement(false)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-
 	//		深度シェーダー描画
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 }
@@ -29,6 +27,8 @@ ScreenColor::~ScreenColor()
 
 void ScreenColor::Initialize()
 {
+	CreateRenderTarget();
+
 	//		合成用
 	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
 		L"Resources/Shader/PostEffect/ScreenColor/ScreenColorVS.cso",
@@ -87,6 +87,8 @@ void ScreenColor::PostEffectRender()
 
 void ScreenColor::Filanize()
 {
+	m_renderTexture.reset();
+
 	m_elapsedTime = 0.0f;
 
 	m_menuOpenJudgement = 0.0f;
@@ -155,4 +157,9 @@ bool ScreenColor::GrayScreen()
 	if (m_menuOpenJudgement) return true;
 
 	return false;
+}
+
+void ScreenColor::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

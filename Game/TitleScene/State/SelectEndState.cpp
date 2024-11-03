@@ -21,6 +21,7 @@ SelectEndState::~SelectEndState()
 
 void SelectEndState::Initialize()
 {
+	m_titleSelectManager->GetAnimation()->ChangeState(AnimationManager::Upright);
 }
 
 void SelectEndState::Update()

@@ -35,6 +35,8 @@ void ResultStay::Update()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
 		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 	{
+		MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
+
 		//		ó‘Ô‚ğØ‚è‘Ö‚¦‚é(”šˆÚ“®ó‘Ô)
 		m_resultManager->ChangeState(ResultManager::State::End);
 	}

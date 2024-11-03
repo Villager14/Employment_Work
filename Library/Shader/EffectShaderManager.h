@@ -38,6 +38,10 @@ public:
 	*/
 	void LoadTexture(const wchar_t* path);
 
+	void ChangeTexture(ID3D11ShaderResourceView* texture, int index);
+
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetLoadTexture(const wchar_t* path);
+
 	//		シェーダーの作製
 	void CreateShader(
 		const wchar_t* vsPath,
@@ -111,6 +115,8 @@ private:
 public:
 
 	void SetPosition(DirectX::SimpleMath::Vector3 position) { m_position = position; }
+
+	DirectX::SimpleMath::Matrix GetBillbord() { return m_billboard; }
 };
 
 template<typename ConstBuffer>
@@ -123,6 +129,24 @@ inline void EffectShaderManager<ConstBuffer>::LoadTexture(const wchar_t* path)
 		path, nullptr, texture.ReleaseAndGetAddressOf());
 
 	m_texture.push_back(texture);
+}
+
+template<typename ConstBuffer>
+inline void EffectShaderManager<ConstBuffer>::ChangeTexture(ID3D11ShaderResourceView* texture, int index)
+{
+	m_texture[index] = texture;
+}
+
+template<typename ConstBuffer>
+inline Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> EffectShaderManager<ConstBuffer>::GetLoadTexture(const wchar_t* path)
+{
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture;
+	DirectX::CreateWICTextureFromFile(
+		LibrarySingleton::GetInstance()
+		->GetDeviceResources()->GetD3DDevice(),
+		path, nullptr, texture.ReleaseAndGetAddressOf());
+
+	return texture;
 }
 
 template<typename ConstBuffer>
@@ -229,7 +253,7 @@ inline void EffectShaderManager<ConstBuffer>::Render(const ConstBuffer& obj)
 
 	v.position = m_position;
 	v.color = { 1,1,1,1 };
-	v.textureCoordinate = DirectX::XMFLOAT2(1.0f, 0.0f);
+	v.textureCoordinate = DirectX::XMFLOAT2(m_scale.x, m_scale.y);
 
 	m_vertices = v;
 
@@ -256,7 +280,7 @@ inline void EffectShaderManager<ConstBuffer>::RenderProcedure()
 	context->PSSetSamplers(0, 1, samPler);
 
 	//半透明描画指定
-	ID3D11BlendState* blendstate = state->AlphaBlend();
+	ID3D11BlendState* blendstate = state->NonPremultiplied();
 
 	// 透明判定処理
 	context->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);

@@ -61,7 +61,6 @@ void FloorObject::Initialize(ObjectInformation information)
 				basicEffect->SetPerPixelLighting(true);
 				basicEffect->SetTextureEnabled(true);
 				basicEffect->SetVertexColorEnabled(false);
-				//basicEffect->SetFogEnabled(false);
 			}
 		});
 
@@ -82,25 +81,7 @@ void FloorObject::Initialize(ObjectInformation information)
 	//		オブジェクトのタイプを設定（床）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Floor);
 
-	/*
-	//		通常描画をするようにする
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
-
-	//		ブルームを掛けるようにする
-	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
-
-	//		ブルームの深度描画は描画しない
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
-
-	//		フォグの処理の場合描画する
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
-
-	//		アルファの処理の場合描画する
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
-	*/
-
-
-	// ピクセルシェーダーの作成（トーラス用）
+	// ピクセルシェーダーの作成
 	std::vector<uint8_t> ps_torus =
 		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
 	DX::ThrowIfFailed(

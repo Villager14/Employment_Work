@@ -54,4 +54,8 @@ private:
 
 	//		Œo‰ßŽžŠÔ
 	float m_elapsedTime;
+
+public:
+
+	float GetElapsedTime() { return m_elapsedTime; }
 };

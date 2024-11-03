@@ -22,6 +22,7 @@ SelectSettingState::~SelectSettingState()
 
 void SelectSettingState::Initialize()
 {
+	m_titleSelectManager->GetAnimation()->ChangeState(AnimationManager::Sliding);
 }
 
 void SelectSettingState::Update()
@@ -140,6 +141,8 @@ void SelectSettingState::ChangeSceneProcess()
 		if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
 			button.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 		{
+			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
+
 			//		ƒƒjƒ…[‚ğŠJ‚­
 			m_titleSelectManager->GetMenuInformation()->SetMenuJudgement(true);
 		}

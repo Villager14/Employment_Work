@@ -17,9 +17,6 @@ EffectRender::EffectRender(PostEffectManager* postEffectManager)
 	:
 	m_postEffectManager(postEffectManager)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_transparencyRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-
 	//		深度シェーダー描画
 	m_transparencyRenderManager = std::make_unique<UIRenderManager>();
 }
@@ -30,6 +27,9 @@ EffectRender::~EffectRender()
 
 void EffectRender::Initialize()
 {
+	//		レンダーターゲットの作製
+	CreateRenderTarget();
+
 	//		合成用
 	m_transparencyRenderManager->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
 		L"Resources/Shader/PostEffect/Transparency/TransparencyVS.cso",
@@ -92,6 +92,8 @@ void EffectRender::PostEffectRender()
 
 void EffectRender::Filanize()
 {
+	m_renderTexture.reset();
+	m_transparencyRenderTexture.reset();
 }
 
 void EffectRender::LoadShader(const wchar_t* vsPath, const wchar_t* psPath)
@@ -119,4 +121,10 @@ void EffectRender::SetObjectShader(PostEffectObjectShader* shader)
 {
 	shader->SetPixselShader(m_pixselShader.Get());
 	shader->SetVertexShader(m_vertexShader.Get());
+}
+
+void EffectRender::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_transparencyRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

@@ -3,8 +3,9 @@
 * @brief	プレイヤーモデルのテクスチャ化
 * @author	Morita
 * @date		2024/06/28
-* 
-*/#include "pch.h"
+*/
+
+#include "pch.h"
 
 #include "PlayerModelTexture.h"
 #include "Game/PlayScene/UIManager/BinaryFile.h"

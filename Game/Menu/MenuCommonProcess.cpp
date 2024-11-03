@@ -119,6 +119,8 @@ bool MenuCommonProcess::ButtonCollider(MenuInformation::MenuType type)
 		//		クリックした状態を代入する
 		m_information->SetSelectUI(hitType);
 
+		MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
+
 		return true;
 	}
 
@@ -168,4 +170,17 @@ void MenuCommonProcess::SlideProcess(AboveUI::UIType type)
 		}
 	}
 
+}
+
+void MenuCommonProcess::MousePointa()
+{
+	DirectX::SimpleMath::Vector2 mousePosition;
+
+	mousePosition.x = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().x) - LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f;
+	mousePosition.y = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().y) - LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f;
+
+	(*m_information->GetStandardShader()->GetUIInformation())[MenuInformation::UIType::MousePointa].position = mousePosition;
+
+	//		マウスポインタの描画
+	m_information->GetStandardShader()->Render(MenuInformation::UIType::MousePointa);
 }

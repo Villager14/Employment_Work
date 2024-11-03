@@ -15,6 +15,7 @@
 #include "Game/PlayScene/UIManager/GameClear/GameClearManager.h"
 #include "Game/PlayScene/UIManager/SpeedLine/SpeedLine.h"
 #include "Game/PlayScene/UIManager/GameStart/GameStart.h"
+#include "Game/PlayScene/UIManager/CountDown/CountDown.h"
 
 UIManager::UIManager(PlayerInformation* playerInformation,
 					 GameManager* gameManager)
@@ -31,6 +32,15 @@ UIManager::~UIManager()
 
 void UIManager::Initialize()
 {
+	//		スタンダードシェーダーの作製
+	m_standardShader = std::make_unique<StandardShader<UIType>>();
+
+	//		スタンダードシェーダーの初期化
+	m_standardShader->Initialize();
+
+	//		UIテクスチャの作製
+	CreateStandardUITexture();
+
 	//		時計の背景の初期化
 	m_clockManager->Initialize();
 
@@ -48,6 +58,9 @@ void UIManager::Initialize()
 
 	//		ゲームスタートの初期化
 	m_gameStart->Initialize();
+
+	//		カウントダウンの初期化処理
+	m_countDonw->Initialize();
 }
 
 void UIManager::Generation()
@@ -70,14 +83,8 @@ void UIManager::Generation()
 	//		スピードラインの生成
 	m_speedLine = std::make_unique<SpeedLine>(this);
 
-	//		スタンダードシェーダーの作製
-	m_standardShader = std::make_unique<StandardShader<UIType>>();
-
-	//		スタンダードシェーダーの初期化
-	m_standardShader->Initialize();
-
-	//		UIテクスチャの作製
-	CreateStandardUITexture();
+	//		カウントダウンの生成
+	m_countDonw = std::make_unique<CountDown>();
 }
 
 void UIManager::Update()
@@ -99,6 +106,9 @@ void UIManager::Update()
 
 	//		ゲームスタートマネージャーの更新
 	m_gameStart->Update();
+
+	//		カウントダウンの更新処理
+	m_countDonw->Update(m_gameManager->GetLimitTime() - m_clockManager->GetElapsedTime());
 }
 
 void UIManager::Finalize()
@@ -106,6 +116,12 @@ void UIManager::Finalize()
 	m_coolTime->Finalize();
 
 	m_clearManager->Finalize();
+
+	m_gameStart->Finalize();
+
+	m_standardShader.release();
+
+	m_countDonw->Finalize();
 }
 
 void UIManager::FrontRender()
@@ -128,6 +144,9 @@ void UIManager::FrontRender()
 
 void UIManager::BackRender()
 {
+	//		カウントダウン
+	m_countDonw->Render();
+
 	//		ゲームーバーの描画
 	m_gameOver->Render();
 

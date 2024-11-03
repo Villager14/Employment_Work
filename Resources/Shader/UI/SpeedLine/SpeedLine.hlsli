@@ -3,6 +3,10 @@ cbuffer ConstBuffer : register(b0)
 	float4 windowSize;
 	float4x4 rotationMatrix;
 	float4 time;
+	float backTime;
+	float3 pad;
+	float alphaPower;
+	float4 pad2;
 }
 
 struct VS_INPUT

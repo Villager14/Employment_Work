@@ -26,12 +26,6 @@ ObjectManager::ObjectManager(GameManager* gameManager)
 
 	//		オブジェクトの読み込みクラスの生成
 	m_loadObjectInformation = std::make_unique<LoadingObjectInformation>();
-
-	//		ライトの方向
-	m_lightDirection = { 1.0f, -1.0f, -1.0f };
-
-	//		正規化
-	m_lightDirection.Normalize();
 }
 
 ObjectManager::~ObjectManager()
@@ -91,14 +85,14 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 	}
 }
 
-void ObjectManager::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
+void ObjectManager::Render(PlayerCameraInformation* cameraInformation,
 	DirectX::SimpleMath::Vector3 cameraPosition,
 	PostEffectFlag::Flag flag, PostEffectObjectShader* objectShader)
 {
-	m_cameraVelocity = cameraVelocity;
+	m_cameraInformation = cameraInformation;
 	m_cameraPosition = cameraPosition;
 
-	m_backGroundObject->Render(cameraVelocity, cameraPosition, flag, objectShader);
+	m_backGroundObject->Render(flag, objectShader);
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
@@ -125,26 +119,36 @@ void ObjectManager::Finalize()
 	m_loadObjectInformation->Finalize();
 }
 
-bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position)
+bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position, float length)
 {
-	//		カリングの処理!!!!!
-	
-	//		距離が400以上の場合カリングする
-	if ((position - m_cameraPosition).Length() >= 400.0f)
+	//		Y軸を気にせず距離がlength以上の場合消す
+	if ((DirectX::SimpleMath::Vector3(position.x, 0.0f, position.z) -
+		DirectX::SimpleMath::Vector3(m_cameraPosition.x, 0.0f, m_cameraPosition.z)).Length() > length)
 	{
-		return true;
+		return false;
 	}
 
-	//		プレイヤーの方向を作成する
-	DirectX::SimpleMath::Vector3 objectVelocity =  position - m_cameraPosition;
+	//		カメラからのオブジェクトの方向
+	DirectX::SimpleMath::Vector3 objectVelocityUnder =
+		position - m_cameraPosition;
 
-	//		法線が０より小さい場合カリングする
-	if (m_cameraVelocity.Dot(objectVelocity) < 0.0f)
+	//		Y軸は気にしないようにする
+	objectVelocityUnder.y = 0.0f;
+
+	DirectX::SimpleMath::Vector3 cameraDirection = m_cameraInformation->GetViewVelocity();
+
+	cameraDirection.y = 0.0f;
+
+	//		正規化処理
+	objectVelocityUnder.Normalize();
+
+	//		内積の値が-0.2より小さい場合消す
+	if (cameraDirection.Dot(objectVelocityUnder) < -0.2f)
 	{
-		return true;
+		return false;
 	}
 
-	return false;
+	return true;
 }
 
 void ObjectManager::CreateWireInformation(int index, int *wireNumber)

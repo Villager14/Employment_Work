@@ -35,7 +35,8 @@ public:
 	{
 		Back,			//		UI背景
 		Button,			//		ボタンヒント
-		EvaluationUI	//		評価
+		EvaluationUI,	//		評価
+		PlayerBack,		//		プレイヤの背景
 	};
 
 	//		コンストバッファ

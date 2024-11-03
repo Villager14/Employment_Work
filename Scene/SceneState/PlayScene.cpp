@@ -29,7 +29,7 @@ void PlayScene::Initialize()
 	m_gameManager->Initialize();
 
 	//		リミットタイムを設定する
-	m_gameManager->SetLimitTime(5.0f);
+	m_gameManager->SetLimitTime(90.0f);
 
 	//		プレイヤーカメラマネージャーの初期化処理
 	m_playerCameraManager->Initialize(m_player->GetInformation());
@@ -226,7 +226,7 @@ void PlayScene::Render()
 		m_postEffectManager->Render(PostEffectFlag::Flag(i));
 
 		//		オブジェクトマネージャーの描画処理
-		m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
+		m_objectManager->Render(m_player->GetCameraInformation(),
 			m_player->GetInformation()->GetPlayerHeight(),
 			PostEffectFlag::Flag(i), m_postEffectManager->GetPostObjectShader());
 

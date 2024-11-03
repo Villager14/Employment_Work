@@ -39,5 +39,4 @@ float4 main(PS_INPUT input) : SV_TARGET
 	float viewObjectVal = lerp(1.0f, 0.0f, DepthView(input.tex));
 
 	return lerp(output2, Light(input.tex), ceil(viewObjectVal - output3.r));
-
 }

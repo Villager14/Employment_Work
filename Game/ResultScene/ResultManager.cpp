@@ -84,7 +84,6 @@ void ResultManager::Generation()
 	//		情報を生成する
 	m_information = std::make_unique<ResultInformation>();
 
-
 	//		背景の初期化
 	m_backGroundMove->Initialize();
 
@@ -128,7 +127,7 @@ void ResultManager::Update()
 	m_rotation += LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->PLAYER_ROTATION_SPEED;
 
 	//		プレイヤーのアニメーション
-	m_information->GetAnimation()->Execute(0.0f, m_information->PLAYER_POSITION,
+	m_information->GetAnimation()->Execute(0.0f, {3.9f, 1.1f, 8.0f},
 		{m_rotation + 180.0f, 0.0f}, m_information->PLAYER_HEIGHT);
 }
 
@@ -148,6 +147,9 @@ void ResultManager::Render()
 
 	//		背景の描画(UI)
 	m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::Back);
+
+	//		プレイヤの背景
+	m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::PlayerBack);
 
 	//		レンダーターゲットの描画
 	m_information->GetScreenEffect()->Render();
@@ -232,6 +234,11 @@ void ResultManager::CreateStandardShader()
 	m_shader->CreateUIInformation(L"Resources/Texture/UI/GameOver/button.png",
 		m_information->NEXT_SCENE, { 1.0f, 1.0f },
 		ResultInformation::ResultUIType::Button);
+
+	//		プレイヤの背景の生成
+	m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/PlayerBack.png",
+		{-300.0f, -100.0f}, {1.0f, 1.0f},
+		ResultInformation::ResultUIType::PlayerBack);
 }
 
 void ResultManager::BackGroundUpdate()

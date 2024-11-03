@@ -77,6 +77,9 @@ void AudioSetting::Render()
 
 	//		スライダーの描画
 	SliderView(m_menuManager->EasingIcon(m_transitionSettingUITime));
+
+	//		マウスポインタの描画
+	m_menuManager->GetCommonProcess()->MousePointa();
 }
 
 void AudioSetting::Finalize()

@@ -21,6 +21,9 @@ EffectManager::EffectManager(PlayerInformation* playerInformation,
 
 	//		デジタル雨の生成
 	m_degitalRain = std::make_unique<DegitalRain>(this);
+
+	//m_signboardEffect = std::make_unique<SignboardEffect>(this);
+
 }
 
 EffectManager::~EffectManager()
@@ -34,6 +37,9 @@ void EffectManager::Initialize()
 
 	//		デジタル雨の初期化処理
 	m_degitalRain->Initialzie();
+
+	//		看板の初期化処理
+	//m_signboardEffect->Initialzie();
 }
 
 void EffectManager::Update()
@@ -70,8 +76,11 @@ void EffectManager::Render(PostEffectFlag::Flag flag)
 		m_wireUseEffect->Render((*m_wireInformation)[i].position, i, flag);
 	}
 
+	//m_signboardEffect->Render(flag);
+
 	//		デジタル雨の描画
 	m_degitalRain->Render(flag);
+
 }
 
 void EffectManager::Finalize()

@@ -9,8 +9,6 @@
 
 #include "Common/RenderTexture.h"
 
-#include "FailureScreen/RedScreen.h"
-
 #include "Game/ResultScene/ScreenEffect/PlayerModelTexture.h"
 
 #include "Game/PlayScene/GameManager/GameManager.h"
@@ -58,9 +56,6 @@ public:
 	//		初期のレンダーターゲットにする
 	void FirstRenderTarget();
 
-	//		グレイスケール
-	void GrayScare(MenuInformation* menuInformation);
-
 private:
 
 	//		現在のシーン
@@ -77,9 +72,6 @@ private:
 
 	//		シェーダーリソース
 	ID3D11ShaderResourceView* m_shaderResouceView;
-
-	//		赤いスクリーン
-	std::unique_ptr<RedScreen> m_redScreen;
 
 	//		プレイヤーモデルテクスチャ
 	std::unique_ptr<PlayerModelTexture> m_playerModelTexture;

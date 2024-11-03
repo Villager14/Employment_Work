@@ -119,6 +119,12 @@ void GriderObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* pos
 		return;
 	}
 
+	//		ƒJƒŠƒ“ƒOˆ—
+	if (!m_objectManager->Culling(m_position, 500.0f))
+	{
+		return;
+	}
+
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	m_griderObject->Draw(context,

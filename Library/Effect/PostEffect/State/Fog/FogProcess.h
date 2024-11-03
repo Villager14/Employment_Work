@@ -62,6 +62,8 @@ public:
 	//		深度作成
 	void CreateDepth();
 
+	//		レンダーターゲットを作成する
+	void CreateRenderTarget();
 public:
 	struct FogShaderConstBuffer
 	{

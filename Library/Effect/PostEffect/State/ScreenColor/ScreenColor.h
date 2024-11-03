@@ -56,6 +56,9 @@ public:
 	//		グレー画面
 	bool GrayScreen();
 
+	//		レンダーターゲットを作成する
+	void CreateRenderTarget();
+
 public:
 	struct ConstBuffer
 	{

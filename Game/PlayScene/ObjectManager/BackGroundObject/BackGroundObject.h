@@ -35,22 +35,11 @@ public:
 	void Update();
 
 	//		描画オブジェクト
-	void Render(DirectX::SimpleMath::Vector3 cameraVelocity,
-				DirectX::SimpleMath::Vector3 cameraPosition,
-				PostEffectFlag::Flag flag,
+	void Render(PostEffectFlag::Flag flag,
 				PostEffectObjectShader* objectShader);
 
 	//		終了処理
 	void Finalize();
-
-	/*
-	*	カリングの処理
-	* 
-	*	@param	(index)	要素数
-	*	@return true : 描画する false : 描画しない
-	*/
-	bool Culling(int index, DirectX::SimpleMath::Vector3 cameraVelocity,
-		DirectX::SimpleMath::Vector3 cameraPosition);
 
 private:
 

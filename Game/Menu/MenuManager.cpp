@@ -9,6 +9,8 @@
 
 #include "MenuManager.h"
 
+#include <Windows.h>
+
 MenuManager::MenuManager()
 	:
 	m_state(),
@@ -57,6 +59,8 @@ void MenuManager::Update()
 
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Tab))
 	{
+		ShowCursor(FALSE);
+
 		m_information->SetMenuJudgement(true);
 	}
 
@@ -132,6 +136,8 @@ void MenuManager::CreateUI()
 		{ 0.0f, -13.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::Bar2);
 	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png",
 		{ 0.0f, 0.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::BackGround);
+	m_standardShader->CreateUIInformation(L"Resources/Texture/Menu/Title/mousePointa.png",
+		{ 0.0f, 0.0f }, { 1.0f, 1.0f }, MenuInformation::UIType::MousePointa);
 
 	//		è„è∏UIÇÃê∂ê¨
 	m_aboveUI = std::make_unique<AboveUI>();

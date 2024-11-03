@@ -19,6 +19,8 @@
 
 #include "Library/Effect/PostEffect/PostEffectFlag.h"
 
+#include "Library/Effect/Effect/Signboard/SignboardEffect.h"
+
 class EffectManager
 {
 public:
@@ -65,6 +67,9 @@ private:
 
 	//		ƒJƒƒ‰‚Ìî•ñ
 	PlayerCameraInformation* m_cameraInformation;
+
+	//		ŠÅ”Â
+	std::unique_ptr<SignboardEffect> m_signboardEffect;
 
 public:
 

@@ -27,6 +27,8 @@
 
 #include "Library/Effect/PostEffect/PostEffectObjectShader.h"
 
+#include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
+
 class BackGroundObject;
 
 class ObjectManager
@@ -54,7 +56,7 @@ public:
 	* 
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render(DirectX::SimpleMath::Vector3 cameraVelocity,
+	void Render(PlayerCameraInformation* cameraInformation,
 				DirectX::SimpleMath::Vector3 cameraPosition,
 				PostEffectFlag::Flag flag, PostEffectObjectShader* objectShader);
 
@@ -67,7 +69,7 @@ public:
 	*	@param	(position)	オブジェクトの座標
 	*	@return true カリングする false : カリングしない
 	*/
-	bool Culling(DirectX::SimpleMath::Vector3 position);
+	bool Culling(DirectX::SimpleMath::Vector3 position, float length);
 
 	/*
 	*	ワイヤーの情報オブジェクトを作成する
@@ -88,7 +90,7 @@ private:
 	std::unique_ptr<DrawMesh> m_drawMesh;
 	 
 	//		カメラ視線ベクトル
-	DirectX::SimpleMath::Vector3 m_cameraVelocity;
+	PlayerCameraInformation* m_cameraInformation;
 
 	//		カメラの座標
 	DirectX::SimpleMath::Vector3 m_cameraPosition;
@@ -116,13 +118,6 @@ private:
 
 	//		プレイヤーの座標
 	DirectX::SimpleMath::Vector3 m_playerPosition;
-
-/// <summary>
-///			シェーダー系
-/// </summary>
-
-	//		ライトの方向
-	DirectX::SimpleMath::Vector3 m_lightDirection;
 
 public:
 
@@ -154,10 +149,5 @@ public:
 	*/
 	GameManager* GetGameManager() { return m_gameManager; }
 
-	/*
-	*	ライトの方向を受け取る
-	* 
-	*	@return 方向
-	*/
-	DirectX::SimpleMath::Vector3 GetLightDirection() { return m_lightDirection; }
+	PlayerCameraInformation* GetCameraInformation() { return m_cameraInformation; }
 };
