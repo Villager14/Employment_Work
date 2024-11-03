@@ -19,13 +19,6 @@ Bloom::Bloom(PostEffectManager* postEffectManager)
 	:
 	m_postEffectManager(postEffectManager)
 {
-	//		レンダーテクスチャの作製
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_luminanceRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_gradationRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_syntheticRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_rastRenderTexutre = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-
 	//		輝度シェーダーを生成する
 	m_luminanceShader = std::make_unique<UIRenderManager>();
 	m_syntheticShader = std::make_unique<UIRenderManager>();
@@ -39,7 +32,7 @@ Bloom::~Bloom()
 
 void Bloom::Initialize()
 {
-	
+	CreateRenderTarget();
 
 	//		ウィンドウサイズを設定する
 	m_luminanceConstBuffer.windowSize = DirectX::SimpleMath::Vector4(
@@ -142,6 +135,12 @@ void Bloom::PostEffectRender()
 
 void Bloom::Filanize()
 {
+	//		レンダーテクスチャの作製
+	m_renderTexture.reset();
+	m_luminanceRenderTexture.reset();
+	m_gradationRenderTexture.reset();
+	m_syntheticRenderTexture.reset();
+	m_rastRenderTexutre.reset();
 }
 
 void Bloom::CreateDepth()
@@ -200,4 +199,14 @@ void Bloom::CreateDepth()
 		// エラーハンドリング
 		MessageBox(0, L"CreateShaderResourceView Failed", NULL, MB_OK);
 	}
+}
+
+void Bloom::CreateRenderTarget()
+{
+	//		レンダーテクスチャの作製
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_luminanceRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_gradationRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_syntheticRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_rastRenderTexutre = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

@@ -51,6 +51,7 @@ public:
 		Wall,
 		Goal,
 		DamageObject,
+		SignboardObject,
 		Null
 	};
 

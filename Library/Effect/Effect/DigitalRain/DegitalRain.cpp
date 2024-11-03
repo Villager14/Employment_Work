@@ -123,12 +123,11 @@ void DegitalRain::Render(PostEffectFlag::Flag flag)
 
 	m_constBuffer = m_effectShaderManager->GetConstBuffer();
 
-
 	for (int i = 0; i < m_parameta.size(); ++i)
 	{
 		m_constBuffer.matWorld = m_parameta[i].billbord.Transpose();
-		DirectX::SimpleMath::Matrix world;
-		m_constBuffer.matWorld = m_parameta[i].billbord.Transpose();
+		//DirectX::SimpleMath::Matrix world;
+		//m_constBuffer.matWorld = m_parameta[i].billbord.Transpose();
 
 		//m_constBuffer.number = { static_cast<float>(m_parameta[i].number), 0.0f, 0.0f, 0.0f };
 		m_constBuffer.number = m_parameta[i].number;

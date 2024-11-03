@@ -53,6 +53,9 @@ public:
 	//		フェードの処理
 	void Fade();
 
+	//		レンダーターゲットの作製
+	void CreateRenderTarget();
+
 public:
 	//		コンストバッファ
 	struct ConstBuffer

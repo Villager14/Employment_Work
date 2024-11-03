@@ -13,12 +13,7 @@ BloomDepth::BloomDepth(PostEffectManager* postEffectManager)
 	:
 	m_postEffectManager(postEffectManager)
 {
-	//		レンダーテクスチャの作製
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_depthRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-
 	m_depthShaderView = std::make_unique<UIRenderManager>();
-
 }
 
 BloomDepth::~BloomDepth()
@@ -27,6 +22,8 @@ BloomDepth::~BloomDepth()
 
 void BloomDepth::Initialize()
 {
+	CreateRenderTarget();
+
 	CreateDepth();
 
 	//		合成用
@@ -75,6 +72,8 @@ void BloomDepth::PostEffectRender()
 
 void BloomDepth::Filanize()
 {
+	m_renderTexture.reset();
+	m_depthRenderTexture.reset();
 }
 
 void BloomDepth::CreateDepth()
@@ -133,4 +132,11 @@ void BloomDepth::CreateDepth()
 		// エラーハンドリング
 		MessageBox(0, L"CreateShaderResourceView Failed", NULL, MB_OK);
 	}
+}
+
+void BloomDepth::CreateRenderTarget()
+{
+	//		レンダーテクスチャの作製
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_depthRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

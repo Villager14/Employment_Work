@@ -10,3 +10,11 @@ ObjectName,ModelFilePath,CollitionFilePath,PosX,PozY,PosZ,RotX,RotY,RotZ,EffectF
 4,-1,-1,1550,93,122,0,0,0,0
 4,-1,-1,1696,93,122,0,0,0,0
 4,-1,-1,1838,93,122,0,0,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/wasd.png,12,6,15,0,200,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/dash.png,-22,6,50,0,170,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/ctrl.png,64,20,174,0,250,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/jump.png,122,20,174,0,250,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/kabe.png,200,20,174,0,250,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/daijamp.png,369,25,174,0,250,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/wctrl.png,549,62,174,0,250,0,0
+5,Resources/Models/Signboard.cmo,Resources/Texture/Effect/Signboard/yajirusi.png,935,35,174,0,250,0,0

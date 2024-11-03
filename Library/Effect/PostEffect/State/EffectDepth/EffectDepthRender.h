@@ -46,6 +46,9 @@ public:
 	//		深度作成
 	void CreateDepth();
 
+	//		レンダーターゲットの作製
+	void CreateRenderTarget();
+
 public:
 
 	struct ConstBuffer

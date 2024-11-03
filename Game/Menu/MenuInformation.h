@@ -52,7 +52,8 @@ public:
 		OptionSelect,
 		GamePlaySelect,
 		Slide,
-		AudioTitle
+		AudioTitle,
+		MousePointa,
 	};
 
 	enum MenuType

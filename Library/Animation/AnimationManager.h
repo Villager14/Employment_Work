@@ -48,6 +48,7 @@ public:
 		Player,			//		プレイヤー
 		CommonEnemy,	//		通常エネミー
 		Result,
+		Title,
 	};
 
 	enum AnimationState

@@ -13,21 +13,6 @@ Bler::Bler(PostEffectManager* postEffectManager)
 	:
 	m_postEffectManager(postEffectManager)
 {
-	//		横レンダーテクスチャの生成
-	m_sideRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture(DirectX::SimpleMath::Vector2
-	(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f,
-		LibrarySingleton::GetInstance()->GetScreenSize().y));
-
-	//		縦レンダーテクスチャの生成
-	m_warpRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture(DirectX::SimpleMath::Vector2
-	(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f,
-		LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f));
-
-	//		合成レンダーテクスチャ
-	m_expansionRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture(DirectX::SimpleMath::Vector2
-	(LibrarySingleton::GetInstance()->GetScreenSize().x,
-		LibrarySingleton::GetInstance()->GetScreenSize().y));
-
 	//		横深度ステンシルの作製（シャドウマップ）
 	m_sideDepthStancil = std::make_unique<DepthStencil>(DXGI_FORMAT_D32_FLOAT);
 
@@ -47,6 +32,8 @@ Bler::~Bler()
 
 void Bler::Initialize()
 {
+	CreateRenderTexture();
+
 	//		シェーダーの作製
 	CreateShader();
 
@@ -144,4 +131,25 @@ void Bler::CreateShader()
 
 void Bler::Finalize()
 {
+	m_sideRenderTexture.reset();
+	m_warpRenderTexture.reset();
+	m_expansionRenderTexture.reset();
+}
+
+void Bler::CreateRenderTexture()
+{
+	//		横レンダーテクスチャの生成
+	m_sideRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture(DirectX::SimpleMath::Vector2
+	(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f,
+		LibrarySingleton::GetInstance()->GetScreenSize().y));
+
+	//		縦レンダーテクスチャの生成
+	m_warpRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture(DirectX::SimpleMath::Vector2
+	(LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f,
+		LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f));
+
+	//		合成レンダーテクスチャ
+	m_expansionRenderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture(DirectX::SimpleMath::Vector2
+	(LibrarySingleton::GetInstance()->GetScreenSize().x,
+		LibrarySingleton::GetInstance()->GetScreenSize().y));
 }

@@ -15,8 +15,6 @@ FogProcess::FogProcess(PostEffectManager* postEffectManager)
 	:
 	m_postEffectManager(postEffectManager)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-	m_depthRenderTarget = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 
 	//		深度シェーダー描画
 	m_depthShaderView = std::make_unique<UIRenderManager>();
@@ -28,6 +26,8 @@ FogProcess::~FogProcess()
 
 void FogProcess::Initialize()
 {
+	CreateRenderTarget();
+
 	//		シェーダーの読み込み
 	LoadShader(L"Resources/Shader/PostEffect/Bloom/Depth/ShadowDepthVS.cso",
 		L"Resources/Shader/PostEffect/Bloom/Depth/ShadowDepthPS.cso");
@@ -89,6 +89,8 @@ void FogProcess::PostEffectRender()
 
 void FogProcess::Filanize()
 {
+	m_renderTexture.reset();
+	m_depthRenderTarget.reset();
 }
 
 void FogProcess::LoadShader(const wchar_t* vsPath, const wchar_t* psPath)
@@ -174,4 +176,10 @@ void FogProcess::CreateDepth()
 		// エラーハンドリング
 		MessageBox(0, L"CreateShaderResourceView Failed", NULL, MB_OK);
 	}
+}
+
+void FogProcess::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
+	m_depthRenderTarget = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

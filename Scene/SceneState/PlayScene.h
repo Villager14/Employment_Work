@@ -14,7 +14,6 @@
 #include "Game/PlayScene/Player/Player.h"
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 #include "Game/PlayScene/CollitionManager/CollitionManager.h"
-//#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
 #include "Library/Effect/PostEffect/PostEffectManager.h"
 #include "Game/PlayScene/Effect/EffectManager.h"
 #include "Game/PlayScene/Respawn/RespawnManager.h"
@@ -78,9 +77,6 @@ private:
 
 	//		UIマネージャー
 	std::unique_ptr<UIManager> m_uiManager;
-
-	//		スクリーンエフェクトマネージャー
-	//std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
 	
 	//		ポストエフェクトマネージャー
 	std::unique_ptr<PostEffectManager> m_postEffectManager;

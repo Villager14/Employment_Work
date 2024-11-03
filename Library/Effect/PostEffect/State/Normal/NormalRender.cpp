@@ -14,7 +14,6 @@ NormalRender::NormalRender(PostEffectManager* manager)
 	:
 	m_postEffectManager(manager)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }
 
 NormalRender::~NormalRender()
@@ -23,6 +22,7 @@ NormalRender::~NormalRender()
 
 void NormalRender::Initialize()
 {
+	CreateRenderTarget();
 }
 
 void NormalRender::Update()
@@ -49,4 +49,10 @@ void NormalRender::PostEffectRender()
 
 void NormalRender::Filanize()
 {
+	m_renderTexture.reset();
+}
+
+void NormalRender::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

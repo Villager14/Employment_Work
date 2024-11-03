@@ -22,6 +22,7 @@ SelectPlayState::~SelectPlayState()
 
 void SelectPlayState::Initialize()
 {
+	m_titleSelectManager->GetAnimation()->ChangeState(AnimationManager::Stay);
 }
 
 void SelectPlayState::Update()

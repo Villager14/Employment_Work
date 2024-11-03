@@ -46,6 +46,9 @@ public:
 	//		深度作成
 	void CreateDepth();
 
+	//		レンダーターゲットの作製
+	void CreateRenderTarget();
+
 public:
 
 	//		コンストバッファ
@@ -82,7 +85,5 @@ private:
 
 	//		深度テクスチャ
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_depthTexture;
-
-public:
 
 };

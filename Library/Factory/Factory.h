@@ -31,6 +31,7 @@ public:
 		Goal,		//		ゴールオブジェクト
 		Grider,		//		破壊オブジェクト
 		Wire,		//		ワイヤーオブジェクト
+		Signboard,	//		看板オブジェクト
 		None,
 	};
 

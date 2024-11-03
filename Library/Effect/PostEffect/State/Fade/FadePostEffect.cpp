@@ -19,8 +19,6 @@ FadePostEffect::FadePostEffect(PostEffectManager* postEffectManager)
 	m_fadeoutResetJudgement(false),
 	m_firstJudgement(true)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-
 	//		深度シェーダー描画
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 }
@@ -31,6 +29,8 @@ FadePostEffect::~FadePostEffect()
 
 void FadePostEffect::Initialize()
 {
+	CreateRenderTarget();
+
 	//		合成用
 	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
 		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
@@ -83,6 +83,7 @@ void FadePostEffect::PostEffectRender()
 
 void FadePostEffect::Filanize()
 {
+	m_renderTexture.reset();
 	m_fadeStayTime = 0.0f;
 	m_fadeinResetJudgement = true;
 	m_fadeoutResetJudgement = false;
@@ -168,4 +169,9 @@ void FadePostEffect::Fade()
 			m_fadeinResetJudgement = true;
 		}
 	}
+}
+
+void FadePostEffect::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

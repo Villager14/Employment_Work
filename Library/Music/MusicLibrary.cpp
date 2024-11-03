@@ -57,13 +57,13 @@ void MusicLibrary::Initialize()
 	m_audioEngineSoundEffect = std::make_unique<DirectX::AudioEngine>();
 
 	//		BGMの作製
-	CreateBGM(BGMType::TitleScene, L"Resources/Music/BGM/TitleScene/Concave.wav");
-	CreateBGM(BGMType::PlayScene, L"Resources/Music/BGM/PlayScene/Cyber_City.wav");
-	CreateBGM(BGMType::ResultScene, L"Resources/Music/BGM/ResultScene/サイバーポップ_2.wav");
+	CreateBGM(BGMType::TitleScene, L"Resources/Music/BGM/TitleScene/SteamEngine.wav");
+	CreateBGM(BGMType::PlayScene, L"Resources/Music/BGM/PlayScene/stealth.wav");
+	CreateBGM(BGMType::ResultScene, L"Resources/Music/BGM/ResultScene/Pseudoscience_2.wav");
 
 	//		効果音の作製
-	CreateSoundEffect(SoundEffectType::Select, L"Resources/Music/SoundEffect/TitleScene/カーソル移動8.wav");
-	CreateSoundEffect(SoundEffectType::Decision, L"Resources/Music/SoundEffect/TitleScene/決定ボタンを押す23.wav");
+	CreateSoundEffect(SoundEffectType::Select, L"Resources/Music/SoundEffect/TitleScene/decision4.wav");
+	CreateSoundEffect(SoundEffectType::Decision, L"Resources/Music/SoundEffect/TitleScene/decision3.wav");
 	CreateSoundEffect(SoundEffectType::Jump, L"Resources/Music/SoundEffect/PlayScene/se_jump05.wav");
 	CreateSoundEffect(SoundEffectType::Dash, L"Resources/Music/SoundEffect/PlayScene/se_shun1.wav");
 	CreateSoundEffect(SoundEffectType::Wire, L"Resources/Music/SoundEffect/PlayScene/ジャンプ.wav");

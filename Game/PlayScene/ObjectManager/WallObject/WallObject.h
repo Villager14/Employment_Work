@@ -83,7 +83,6 @@ public:
 	struct ConstBuffer
 	{
 		DirectX::SimpleMath::Vector4 Time;				//		時間
-		DirectX::SimpleMath::Vector4 lightDirection;	//		ライトの方向
 	};
 
 private:
@@ -111,6 +110,9 @@ private:
 
 	//		ポストエフェクトフラグ
 	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
+
+	//		座標
+	DirectX::SimpleMath::Vector3 m_position;
 
 public:
 

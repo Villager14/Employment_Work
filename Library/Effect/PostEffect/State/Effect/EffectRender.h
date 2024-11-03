@@ -58,6 +58,9 @@ public:
 
 	void SetObjectShader(PostEffectObjectShader* shader);
 
+	//		レンダーターゲットの作製
+	void CreateRenderTarget();
+
 public:
 	struct FogShaderConstBuffer
 	{

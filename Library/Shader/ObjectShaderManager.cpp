@@ -36,25 +36,28 @@ void ObjectShaderManager::LoadTexture(const wchar_t* path)
 
 void ObjectShaderManager::SetShader(ID3D11DeviceContext1* context)
 {
-	//		定数バッファの設定
-	ID3D11Buffer* cbuff[] = { m_constantBuffer.Get() };
-
-	//		ジオメトリシェーダー
-	if ((m_useShader & ShaderType::GeometryShader) != 0)
+	if (m_constantBuffer != nullptr)
 	{
-		context->GSSetConstantBuffers(1, 1, cbuff);
-	}
+		//		定数バッファの設定
+		ID3D11Buffer* cbuff[] = { m_constantBuffer.Get() };
 
-	//		頂点シェーダー
-	if ((m_useShader & ShaderType::VertexShader) != 0)
-	{
-		context->VSSetConstantBuffers(1, 1, cbuff);
-	}
+		//		ジオメトリシェーダー
+		if ((m_useShader & ShaderType::GeometryShader) != 0)
+		{
+			context->GSSetConstantBuffers(1, 1, cbuff);
+		}
 
-	//		ピクセルシェーダー
-	if ((m_useShader & ShaderType::PixelShader) != 0)
-	{
-		context->PSSetConstantBuffers(1, 1, cbuff);
+		//		頂点シェーダー
+		if ((m_useShader & ShaderType::VertexShader) != 0)
+		{
+			context->VSSetConstantBuffers(1, 1, cbuff);
+		}
+
+		//		ピクセルシェーダー
+		if ((m_useShader & ShaderType::PixelShader) != 0)
+		{
+			context->PSSetConstantBuffers(1, 1, cbuff);
+		}
 	}
 	
 	//		テクスチャの設定

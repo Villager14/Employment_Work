@@ -23,6 +23,10 @@
 
 #include "TitleCommonProcess.h"
 
+#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
+
+#include "Library/Animation/AnimationManager.h"
+
 class TitleUIManager;
 
 class TitleSelectManager
@@ -89,6 +93,12 @@ private:
 	//		共通処理
 	std::unique_ptr<TitleCommonProcess> m_commonProcess;
 
+	//		スクリーンエフェクトマネージャー
+	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
+
+	//		プレイヤーアニメーション
+	std::unique_ptr<AnimationManager> m_playerAnimation;
+
 public:
 
 	/*
@@ -118,5 +128,7 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	TitleCommonProcess* GetCommonProcess() { return m_commonProcess.get(); }
+
+	AnimationManager* GetAnimation() { return m_playerAnimation.get(); }
 
 };

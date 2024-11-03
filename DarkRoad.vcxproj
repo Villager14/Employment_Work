@@ -239,6 +239,7 @@
     <ClInclude Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObjectInformation.h" />
@@ -265,14 +266,13 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h" />
     <ClInclude Include="Game\PlayScene\Respawn\RespawnManager.h" />
     <ClInclude Include="Game\PlayScene\Respawn\RespawnPointRead.h" />
-    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h" />
-    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h" />
     <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h" />
+    <ClInclude Include="Game\PlayScene\UIManager\CountDown\CountDown.h" />
     <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h" />
     <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h" />
     <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h" />
@@ -328,6 +328,7 @@
     <ClInclude Include="Library\Bones\ModelBones.h" />
     <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRain.h" />
     <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRainParameter.h" />
+    <ClInclude Include="Library\Effect\Effect\Signboard\SignboardEffect.h" />
     <ClInclude Include="Library\Effect\PostEffect\IPostEffect.h" />
     <ClInclude Include="Library\Effect\PostEffect\PostEffectCommonProcess.h" />
     <ClInclude Include="Library\Effect\PostEffect\PostEffectFlag.h" />
@@ -422,6 +423,7 @@
     <ClCompile Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Player.cpp" />
@@ -443,14 +445,13 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp" />
     <ClCompile Include="Game\PlayScene\Respawn\RespawnManager.cpp" />
     <ClCompile Include="Game\PlayScene\Respawn\RespawnPointRead.cpp" />
-    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp" />
-    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp" />
+    <ClCompile Include="Game\PlayScene\UIManager\CountDown\CountDown.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp" />
     <ClCompile Include="Game\PlayScene\UIManager\GameOver\GameOverManager.cpp" />
@@ -496,6 +497,7 @@
     <ClCompile Include="Library\Animation\State\Player\WireJumpAnimationState.cpp" />
     <ClCompile Include="Library\Bones\ModelBones.cpp" />
     <ClCompile Include="Library\Effect\Effect\DigitalRain\DegitalRain.cpp" />
+    <ClCompile Include="Library\Effect\Effect\Signboard\SignboardEffect.cpp" />
     <ClCompile Include="Library\Effect\PostEffect\PostEffectCommonProcess.cpp" />
     <ClCompile Include="Library\Effect\PostEffect\PostEffectManager.cpp" />
     <ClCompile Include="Library\Effect\PostEffect\State\Bler\Bler.cpp" />
@@ -577,6 +579,7 @@
     <None Include="Resources\Shader\UI\Fade\FadeShader.hlsli" />
     <None Include="Resources\Shader\UI\FrameWalk\FrameWalk.hlsli" />
     <None Include="Resources\Shader\UI\MenuSelect\MenuSelect.hlsli" />
+    <None Include="Resources\Shader\UI\NumberAlpha\NumberAlpha.hlsli" />
     <None Include="Resources\Shader\UI\Number\Number.hlsli" />
     <None Include="Resources\Shader\UI\Slider\Slider.hlsli" />
     <None Include="Resources\Shader\UI\SpeedLine\SpeedLine.hlsli" />
@@ -602,7 +605,7 @@
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Grider\Grinder.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -706,6 +709,9 @@
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources\Models\Player\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources\Models\Player\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Signboard\Signboard.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\Wall\WallObject.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -760,6 +766,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Model/BillShader\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Model/BillShader\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Model\Wall\WallPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -1259,6 +1266,26 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/MenuSelect\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/MenuSelect\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/NumberAlpha\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/NumberAlpha\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/NumberAlpha\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/NumberAlpha\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/NumberAlpha\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/NumberAlpha\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Resources\Shader\UI\Number\NumberGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
@@ -1302,7 +1329,7 @@
     <FxCompile Include="Resources\Shader\UI\SpeedLine\SpeedLineGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/UI/SpeedLine\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/UI/SpeedLine\%(Filename).cso</ObjectFileOutput>

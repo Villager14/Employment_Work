@@ -55,7 +55,7 @@ bool MeshCommonProcessing::OnTheSamePlane(const std::vector<DirectX::SimpleMath:
 	float dotS = normalize.Dot(velocityS);
 	float dotE = normalize.Dot(velocityE);
 
-	//		’l‚ª‚OˆÈã‚Ìê‡ˆ—‚ð‚µ‚È‚¢
+	//		’l‚ª‚OˆÈ‰º‚Ìê‡ˆ—‚ð‚µ‚È‚¢
 	if (dotS * dotE <= 0)
 	{
 		//		•½–Êã‚Ì“_‚ð‹‚ß‚é

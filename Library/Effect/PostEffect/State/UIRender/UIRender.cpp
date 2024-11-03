@@ -15,7 +15,6 @@ UIRender::UIRender(PostEffectManager* manager)
 	:
 	m_postEffectManager(manager)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }
 
 UIRender::~UIRender()
@@ -24,6 +23,7 @@ UIRender::~UIRender()
 
 void UIRender::Initialize()
 {
+	CreateRenderTarget();
 }
 
 void UIRender::Update()
@@ -58,4 +58,10 @@ void UIRender::PostEffectRender()
 
 void UIRender::Filanize()
 {
+	m_renderTexture.reset();
+}
+
+void UIRender::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }

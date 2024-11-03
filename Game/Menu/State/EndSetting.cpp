@@ -81,6 +81,9 @@ void EndSetting::Render()
 
 	//		EXITの枠
 	m_menuManager->GetInformation()->GetFramWalkUI()->Render(m_menuManager->EasingIcon(m_transitionSettingUITime), FrameWalkUI::EXIT);
+
+	//		マウスポインタの描画
+	m_menuManager->GetCommonProcess()->MousePointa();
 }
 
 void EndSetting::Finalize()
@@ -105,6 +108,8 @@ void EndSetting::ButtonProcess()
 		{
 			m_endJudgement = true;
 			m_menuCloseJudgement = true;
+
+			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
 		}
 
 		//		当たっている

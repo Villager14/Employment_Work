@@ -30,5 +30,4 @@ cbuffer Parameters : register(b0)
 cbuffer ConstBuffer : register(b1)
 {
     float4 Time;            //      ŠÔ
-    float4 lightDirection;  //      ƒ‰ƒCƒg‚Ì•ûŒü
 }

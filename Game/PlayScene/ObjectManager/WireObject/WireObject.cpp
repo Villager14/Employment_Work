@@ -89,6 +89,8 @@ void WireObject::Initialize(ObjectInformation information)
 	//		座標を設定する
 	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 
+	m_position = information.position;
+
 	//		デバックワールドの半径の大きさ
 	m_debugWorld = DirectX::SimpleMath::Matrix::CreateScale(WIRE_RANGE);
 
@@ -138,6 +140,12 @@ void WireObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 	//		フラグがfalseの場合処理をしない	
 	if ((flag & m_postEffectFlag->GetFlag()) == 0)
+	{
+		return;
+	}
+
+	//		カリング処理
+	if (!m_objectManager->Culling(m_position, 500.0f))
 	{
 		return;
 	}

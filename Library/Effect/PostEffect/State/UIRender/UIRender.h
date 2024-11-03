@@ -48,6 +48,9 @@ public:
 	//		テクスチャを受け取る
 	ID3D11ShaderResourceView* GetTexture() override { return nullptr; };
 
+	//		レンダーターゲットを作成する
+	void CreateRenderTarget();
+
 private:
 
 	//		ポストエフェクトマネージャーのポインタのインスタンス

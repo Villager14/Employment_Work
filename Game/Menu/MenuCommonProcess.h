@@ -39,6 +39,8 @@ public:
 	*/
 	void SlideProcess(AboveUI::UIType type);
 
+	void MousePointa();
+
 private:
 
 	MenuInformation* m_information;

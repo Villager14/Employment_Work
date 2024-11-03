@@ -40,6 +40,12 @@ void TitleSelectManager::Initialize()
 	//		背景の初期化
 	m_backGroundMove->Initialize();
 
+	//		スクリーンエフェクトの初期化
+	m_screenEffectManager->Initialize();
+
+	//		プレイヤーのアニメーション初期化
+	m_playerAnimation->Initialize();
+
 	//----
 	//		タイトルの状態の作製
 	//---
@@ -66,6 +72,12 @@ void TitleSelectManager::Generation()
 
 	//		タイトル共通処理の生成
 	m_commonProcess = std::make_unique<TitleCommonProcess>(m_information.get());
+
+	//		プレイヤーのアニメーションの作製
+	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Title);
+
+	//		スクリーンエフェクトマネージャーの作製
+	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
 
 	//		スタンダードシェーダーの作製
 	CreateStandardShader();
@@ -124,14 +136,29 @@ void TitleSelectManager::Update()
 	//		メニューを開いている場合は処理をしない
 	if (m_menuInformation->GetMenuJudgement()) return;
 
+	//		プレイヤーのアニメーション
+	m_playerAnimation->Execute(0.0f, { 0.5f, -2.0f, 1.05f },
+		{ 180.0f, 0.0f }, 2.5f);
+	//m_playerAnimation->Execute(0.0f, { 0.0f, 0.0f, -10.0f },
+	//	{ 180.0f, 0.0f }, 2.5f);
+
 	//		更新処理
 	m_iState->Update();
 }
 
 void TitleSelectManager::Render()
 {
+	m_screenEffectManager->ChangeRenderTarget();
+
+	m_playerAnimation->Render();
+
+	m_screenEffectManager->FirstRenderTarget();
+
 	//		背景の描画
 	m_backGroundMove->Render();
+
+	//		レンダーターゲットの描画
+	m_screenEffectManager->Render();
 
 	//		選択の描画
 	for (int i = 0, max = static_cast<int>((*m_information->GetDraowOder()).size()); i < max; ++i)

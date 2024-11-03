@@ -28,6 +28,11 @@ void PlayerStartCamera::Initialize()
 
 	//		ゲームスタートフラグをオフにする
 	m_playerCameraManager->GetGameManager()->FalseFlag(GameManager::GameStart);
+
+	if (!m_playerCameraManager->GetGameManager()->FlagJudgement(GameManager::StartLimitView))
+	{
+		m_firstViewJudgement = true;
+	}
 }
 
 void PlayerStartCamera::Update()
@@ -73,6 +78,7 @@ void PlayerStartCamera::Update()
 
 	if (m_time >= 1.0f)
 	{
+		/*
 		//		初期状態の場合
 		if (m_firstViewJudgement)
 		{
@@ -88,6 +94,7 @@ void PlayerStartCamera::Update()
 
 			return;
 		}
+		//*/
 
 		//		スタンダードカメラにする
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);

@@ -60,10 +60,10 @@ public:
 public:
 
 	//		‰Šú‚ÌŒø‰Ê‰¹‚Ì‘å‚«‚³
-	const float FIRST_SOUND_EFFECT_VOLUME = 0.0f;
+	const float FIRST_SOUND_EFFECT_VOLUME = 0.1f;
 
 	//		‰Šú‚ÌBGM‚Ì‘å‚«‚³
-	const float FIRST_BMG_VOLUME = 0.0f;
+	const float FIRST_BMG_VOLUME = 0.1f;
 
 private:
 

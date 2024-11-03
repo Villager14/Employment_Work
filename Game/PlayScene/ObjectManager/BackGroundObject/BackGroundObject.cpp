@@ -61,7 +61,7 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 
 	m_information->Create(mesh, wirePosition);
 
-	// ピクセルシェーダーの作成（トーラス用）
+	// ピクセルシェーダーの作成
 	std::vector<uint8_t> ps_torus =
 		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
 	DX::ThrowIfFailed(
@@ -86,9 +86,7 @@ void BackGroundObject::Update()
 {
 }
 
-void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
-	DirectX::SimpleMath::Vector3 cameraPosition,
-	PostEffectFlag::Flag flag,
+void BackGroundObject::Render(PostEffectFlag::Flag flag,
 	PostEffectObjectShader* objectShader)
 {
 	UNREFERENCED_PARAMETER(objectShader);
@@ -104,7 +102,10 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 	for (int i = 0, max = static_cast<int>(m_information->GetObjectPosition().size()); i < max; ++i)
 	{
 		//		カリングの処理
-		if (!Culling(i, cameraVelocity, cameraPosition)) continue;
+		if (!m_objectManager->Culling(m_information->GetObjectPosition()[i], 500.0f))
+		{
+			continue;
+		}
 
 		//		回転処理
 		DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::
@@ -121,45 +122,10 @@ void BackGroundObject::Render(DirectX::SimpleMath::Vector3 cameraVelocity,
 
 				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
 			});
-
 	}
 }
 
 void BackGroundObject::Finalize()
 {
 	m_information->Finalize();
-}
-
-bool BackGroundObject::Culling(int index,
-	DirectX::SimpleMath::Vector3 cameraVelocity,
-	DirectX::SimpleMath::Vector3 cameraPosition)
-{
-	if ((DirectX::SimpleMath::Vector3(m_information->GetObjectPosition()[index].x,
-		0.0f, m_information->GetObjectPosition()[index].z) -
-		DirectX::SimpleMath::Vector3(cameraPosition.x, 0.0f, cameraPosition.z)).Length() > 500.0f)
-	{
-		return false;
-	}
-
-	//		カメラからのオブジェクトの方向
-	DirectX::SimpleMath::Vector3 objectVelocityUnder =
-		m_information->GetObjectPosition()[index] - cameraPosition;
-
-	//		Y軸は気にしないようにする
-	objectVelocityUnder.y = 0.0f;
-
-	DirectX::SimpleMath::Vector3 cameraDirection = cameraVelocity;
-
-	cameraDirection.y = 0.0f;
-
-	//		正規化処理
-	objectVelocityUnder.Normalize();
-
-	if (cameraDirection.Dot(objectVelocityUnder) < -0.2f)
-	{
-		return false;
-	}
-
-
-	return true;
 }

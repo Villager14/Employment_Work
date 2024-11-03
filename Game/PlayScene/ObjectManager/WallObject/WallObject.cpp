@@ -47,15 +47,13 @@ void WallObject::Initialize(ObjectInformation information)
 	//		静的オブジェクトにする
 	m_objectMesh->StaticProcess(m_world, information.position);
 
+	m_position = information.position;
+
 	//		座標
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 
 	//		オブジェクトタイプの設定（壁）
 	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Wall);
-
-	m_constBuffer.lightDirection = { m_objectManager->GetLightDirection().x,
-									 m_objectManager->GetLightDirection().y,
-									 m_objectManager->GetLightDirection().z, 0.0f };
 
 	if (information.effectFlag)
 	{
@@ -179,10 +177,10 @@ void WallObject::LoadModel(ObjectInformation information)
 	m_objectShader = std::make_unique<ObjectShaderManager>();
 
 	//		テクスチャの読み込み
-	m_objectShader->LoadTexture(L"FBX/Wall/WallTexture.png");
-	m_objectShader->LoadTexture(L"FBX/Wall/wallFantom.png");
-	m_objectShader->LoadTexture(L"FBX/Wall/wallSpray.png");
-	m_objectShader->LoadTexture(L"FBX/Wall/NormalMap.png");
+	m_objectShader->LoadTexture(L"Resources/Texture/Object/Wall/WallTexture.png");
+	m_objectShader->LoadTexture(L"Resources/Texture/Object/Wall/wallFantom.png");
+	m_objectShader->LoadTexture(L"Resources/Texture/Object/Wall/wallSpray.png");
+	m_objectShader->LoadTexture(L"Resources/Texture/Object/Wall/NormalMap.png");
 
 	//		シェーダーの読み込み（ピクセルシェーダー）
 	m_objectShader->LoadShader(ObjectShaderManager::PixelShader,

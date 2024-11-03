@@ -96,6 +96,8 @@ void OptionSetting::Render()
 	m_menuManager->GetInformation()->GetSlider()->Render(Slider::Mouse, transitionTime);
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::MouseKnob, transitionTime);
 
+	//		マウスポインタの描画
+	m_menuManager->GetCommonProcess()->MousePointa();
 }
 
 void OptionSetting::Finalize()

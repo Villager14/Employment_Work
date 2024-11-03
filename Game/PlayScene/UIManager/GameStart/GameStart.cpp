@@ -44,6 +44,8 @@ void GameStart::Initialize()
 	m_endJudgement = false;
 	m_limitJudgement = false;
 	m_numberSizeTime = 0.0;
+	m_numberStayTime = 0.0f;
+	m_numberTime = 0.0f;
 
 	m_limitTime = m_gameManager->GetLimitTime();
 
@@ -105,7 +107,6 @@ void GameStart::Render()
 
 	if (!m_gameManager->FlagJudgement(GameManager::StartLimitView)) return;
 
-
 	NumberView();
 
 	if (ThreeCountView()) return;
@@ -115,6 +116,15 @@ void GameStart::Render()
 
 void GameStart::Finalize()
 {
+	m_stayTime = 0.0f;
+	m_elapsedTime = 0.0f;
+	m_numberUpdateFrequency = 0.0f;
+	m_numberElapsedTime = 0.0f;
+	m_threeCountNumber = 3;
+	m_threeCountElapsedTime = 0.0f;
+	m_endJudgement = false;
+	m_limitJudgement = false;
+	m_numberSizeTime = 0.0;
 }
 
 void GameStart::NumberView()

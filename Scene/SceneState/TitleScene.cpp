@@ -31,6 +31,10 @@ void TitleScene::Initialize()
 
 	//		メニューの情報を設定する
 	m_titleSelectManager->SetMenuInformation(m_sceneManager->GetMenuManager()->GetInformation());
+
+	CreateView();
+
+	CreateProj();
 }
 
 void TitleScene::Update()
@@ -59,4 +63,32 @@ void TitleScene::Render()
 void TitleScene::Finalize()
 {
 	m_titleSelectManager->Finalize();
+}
+
+void TitleScene::CreateView()
+{
+	DirectX::SimpleMath::Matrix rotation;
+
+	//		視点方向
+	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f);
+
+	//		アップベクトル
+	DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3::UnitY;
+
+	//		ビュー行列を設定する
+	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
+	({ 0.0f, 0.0f, 0.0f }, target, up));
+}
+
+void TitleScene::CreateProj()
+{
+	//		ビュー行列を作成する
+	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
+		CreatePerspectiveFieldOfView
+		(DirectX::XMConvertToRadians(60.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
+			LibrarySingleton::GetInstance()->GetScreenSize().y,
+			0.1f, 360.0f);
+
+	//		プロジェクション行列を設定する
+	LibrarySingleton::GetInstance()->SetProj(proj);
 }

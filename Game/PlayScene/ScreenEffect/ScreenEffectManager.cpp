@@ -20,25 +20,12 @@ ScreenEffectManager::ScreenEffectManager(Scene scene, GameManager* gameManager)
 
 	m_scene = scene;
 
-	if (m_scene == Scene::PlayScene)
-	{
-		m_redScreen = std::make_unique<RedScreen>();
+	m_playerModelTexture = std::make_unique<PlayerModelTexture>();
 
-		m_redScreen->Create({ LibrarySingleton::GetInstance()
-			->GetScreenSize().x, 0.0f }, { 1.0f, 1.0f });
+	m_playerModelTexture->Create({ 1280.0f, 0.0f }, { 1.0f, 1.0f });
 
-		//		îwåiÇÃêF
-		m_backColor = DirectX::Colors::MediumSeaGreen;
-	}
-	else if (m_scene == Scene::ResultScene)
-	{
-		m_playerModelTexture = std::make_unique<PlayerModelTexture>();
-
-		m_playerModelTexture->Create({ 980.0f, -90.0f }, { 1.0f, 1.0f });
-
-		//		îwåiÇÃêF
-		m_backColor = DirectX::Colors::Black;
-	}
+	//		îwåiÇÃêF
+	m_backColor = DirectX::Colors::Black;
 }
 
 ScreenEffectManager::~ScreenEffectManager()
@@ -51,18 +38,12 @@ void ScreenEffectManager::Initialize()
 
 void ScreenEffectManager::Update(PlayerCameraInformation* playerCameraInformation)
 {
-	if (m_scene == Scene::PlayScene)
-		m_redScreen->Update(m_gameManager, playerCameraInformation);
-	else if (m_scene == Scene::ResultScene)
-		m_playerModelTexture->Update();
+	m_playerModelTexture->Update();
 }
 
 void ScreenEffectManager::Render()
 {
-	if (m_scene == Scene::PlayScene)
-		m_redScreen->Render(m_shaderResouceView);
-	else if (m_scene == Scene::ResultScene)
-		m_playerModelTexture->Render(m_shaderResouceView);
+	m_playerModelTexture->Render(m_shaderResouceView);
 }
 
 void ScreenEffectManager::Finalize()
@@ -121,6 +102,8 @@ void ScreenEffectManager::ChangeRenderTarget()
 	auto depthStencil = LibrarySingleton::GetInstance()
 		->GetDeviceResources()->GetDepthStencilView();
 
+	m_backColor = DirectX::Colors::White;
+
 	//		ÉåÉìÉ_Å[É^Å[ÉQÉbÉgÇïœçX
 	context->ClearRenderTargetView(rtv, m_backColor);
 
@@ -149,10 +132,4 @@ void ScreenEffectManager::FirstRenderTarget()
 	auto viewPoart = LibrarySingleton::GetInstance()->GetDeviceResources()->GetScreenViewport();
 
 	context->RSSetViewports(1, &viewPoart);
-}
-
-void ScreenEffectManager::GrayScare(MenuInformation* menuInformation)
-{
-	if (m_scene == Scene::PlayScene)
-		m_redScreen->Gray(menuInformation);
 }

@@ -43,6 +43,9 @@ public:
 	//		終了処理
 	void Finalize();
 
+	//		レンダーテクスチャの作成
+	void CreateRenderTexture();
+
 public:
 
 	//		コンストバッファ

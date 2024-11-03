@@ -48,6 +48,14 @@ AnimationManager::AnimationManager(CharactorType type)
 
 		createHead = true;
 	}
+	else if (m_charaType == CharactorType::Title)
+	{
+		m_animaInformation.insert({ AnimationState::Upright, std::make_unique<UprightAnimationState>(this) });
+		m_animaInformation.insert({ AnimationState::Stay, std::make_unique<StayAnimationState>(this) });
+		m_animaInformation.insert({ AnimationState::Sliding, std::make_unique<WallJumpAnimationState>(this) });
+
+		createHead = true;
+	}
 	else if (m_charaType == CharactorType::CommonEnemy)
 	{
 		m_animaInformation.insert({ AnimationState::HandGunStayA, std::make_unique<HandGunStay>(this) });
@@ -83,6 +91,12 @@ void AnimationManager::Initialize()
 	else if (m_charaType == CharactorType::Result)
 	{
 		m_animationState = AnimationState::Upright;
+
+		m_istate = m_animaInformation[m_animationState].get();
+	}
+	else if (m_charaType == CharactorType::Title)
+	{
+		m_animationState = AnimationState::Stay;
 
 		m_istate = m_animaInformation[m_animationState].get();
 	}

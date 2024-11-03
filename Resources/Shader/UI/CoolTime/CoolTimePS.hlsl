@@ -35,23 +35,6 @@ float4 main(PS_INPUT input) : SV_TARGET
 	float3 vel = float3(0.0f,0.0f,0.0f);
 
 	float a = output.w;
-	/*
-	float move = angle / 90.0f;
-
-	vel += lerp(float3(0.5f, 0.0f, 0.0f), float3(1.0f, 0.5f, 0.0f), move) * AnglePoint(0.0f, 90.0f);
-
-	move = (angle - 90.0f) / 90.0f;
-
-	vel += lerp(float3(1.0f, 0.5f, 0.0f), float3(0.5f, 1.0f, 0.0f), move) * AnglePoint(90.0f, 180.0f);
-	
-	//move = (angle - 180.0f) / 90.0f;
-
-	//vel += lerp(float3(0.5f, 1.0f, 0.0f), float3(0.0f, 0.5f, 0.0f), move) * AnglePoint(180.0f, 270.0f);
-
-	//move = (angle - 270.0f) / 90.0f;
-
-	//vel += lerp(float3(0.0f, 0.5f, 0.0f), float3(0.5f, 0.0f, 0.0f), move) * AnglePoint(270.0f, 360.0f);
-	*/
 
 	//		90“xŽ–‚ÉŒvŽZ‚·‚é
 	if (angle <= 90.0f)

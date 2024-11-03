@@ -83,9 +83,6 @@
     <Filter Include="Game\PlayScene\ScreenEffect">
       <UniqueIdentifier>{fad8f5ee-458e-4299-984b-951397be411c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\ScreenEffect\FailureScreen">
-      <UniqueIdentifier>{7ff02722-213d-4bc1-9195-9c8f876dddfb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\GameManager">
       <UniqueIdentifier>{b34f999c-acda-436d-9eaa-8875cc43bf11}</UniqueIdentifier>
     </Filter>
@@ -97,9 +94,6 @@
     </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GoalObject">
       <UniqueIdentifier>{3fc37252-63e8-4008-86c5-3f13c00004ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\ScreenEffect\SpeedScreen">
-      <UniqueIdentifier>{93d666c9-465d-4941-9004-30957cfa59e1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\Effect">
       <UniqueIdentifier>{9c01b93b-274c-41bd-9abf-9c94f9bf5a7b}</UniqueIdentifier>
@@ -371,6 +365,18 @@
     <Filter Include="Resorces\Shader\UI\FadeShader">
       <UniqueIdentifier>{f2523ad1-57d1-41eb-a682-eec5a14cd5c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library\Effect\Effect\Signboard">
+      <UniqueIdentifier>{6aeb945c-3dc3-448e-afc3-01ea2e166782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\Signboard.fbx">
+      <UniqueIdentifier>{40ad0f3f-36f7-4fbc-9caa-9a1fd085c6a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\UIManager\CountDown">
+      <UniqueIdentifier>{23312854-c921-441f-979c-b132c32dd896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\UI\NumberAlpha">
+      <UniqueIdentifier>{f7f04474-a0db-4129-b3bf-a5004129c091}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -564,9 +570,6 @@
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.h">
-      <Filter>Game\PlayScene\ScreenEffect\FailureScreen</Filter>
-    </ClInclude>
     <ClInclude Include="Common\RenderTexture.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -614,9 +617,6 @@
     </ClInclude>
     <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h">
       <Filter>Game\ResultManager\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.h">
-      <Filter>Game\PlayScene\ScreenEffect\SpeedScreen</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.h">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
@@ -942,6 +942,15 @@
     <ClInclude Include="Game\PlayScene\UIManager\GameStart\GameStart.h">
       <Filter>Game\PlayScene\UIManager\GameStart</Filter>
     </ClInclude>
+    <ClInclude Include="Library\Effect\Effect\Signboard\SignboardEffect.h">
+      <Filter>Library\Effect\Effect\Signboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.h">
+      <Filter>Game\PlayScene\ObjectManager\Signboard.fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\UIManager\CountDown\CountDown.h">
+      <Filter>Game\PlayScene\UIManager\CountDown</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -1103,9 +1112,6 @@
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\RedScreen.cpp">
-      <Filter>Game\PlayScene\ScreenEffect\FailureScreen</Filter>
-    </ClCompile>
     <ClCompile Include="Common\RenderTexture.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -1147,9 +1153,6 @@
     </ClCompile>
     <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp">
       <Filter>Game\ResultManager\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\ScreenEffect\FailureScreen\SpeedScreen.cpp">
-      <Filter>Game\PlayScene\ScreenEffect\SpeedScreen</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObjectInformation.cpp">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
@@ -1412,6 +1415,15 @@
     <ClCompile Include="Game\PlayScene\UIManager\GameStart\GameStart.cpp">
       <Filter>Game\PlayScene\UIManager\GameStart</Filter>
     </ClCompile>
+    <ClCompile Include="Library\Effect\Effect\Signboard\SignboardEffect.cpp">
+      <Filter>Library\Effect\Effect\Signboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\Signboard.fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\UIManager\CountDown\CountDown.cpp">
+      <Filter>Game\PlayScene\UIManager\CountDown</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1521,6 +1533,9 @@
     <None Include="Resources\Shader\UI\FadeShader\FadeUI.hlsli">
       <Filter>Resorces\Shader\UI\FadeShader</Filter>
     </None>
+    <None Include="Resources\Shader\UI\NumberAlpha\NumberAlpha.hlsli">
+      <Filter>Resorces\Shader\UI\NumberAlpha</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\WireRange.fbx">
@@ -1599,6 +1614,9 @@
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Bill\Background.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Signboard\Signboard.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -1884,6 +1902,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\FadeShader\FadeUIVS.hlsl">
       <Filter>Resorces\Shader\UI\FadeShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaVS.hlsl">
+      <Filter>Resorces\Shader\UI\NumberAlpha</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaGS.hlsl">
+      <Filter>Resorces\Shader\UI\NumberAlpha</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaPS.hlsl">
+      <Filter>Resorces\Shader\UI\NumberAlpha</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

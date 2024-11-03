@@ -15,8 +15,6 @@ GlitchNoise::GlitchNoise(PostEffectManager* postEffectManager)
 	:
 	m_postEffectManager(postEffectManager)
 {
-	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
-
 	//		深度シェーダー描画
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 }
@@ -27,6 +25,8 @@ GlitchNoise::~GlitchNoise()
 
 void GlitchNoise::Initialize()
 {
+	CreateRenderTarget();
+
 	//		合成用
 	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
 		L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoiseVS.cso",
@@ -74,4 +74,10 @@ void GlitchNoise::PostEffectRender()
 
 void GlitchNoise::Filanize()
 {
+	m_renderTexture.reset();
+}
+
+void GlitchNoise::CreateRenderTarget()
+{
+	m_renderTexture = m_postEffectManager->GetCommonProcess()->CreateRenderTexture();
 }
