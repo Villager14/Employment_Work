@@ -78,7 +78,6 @@ void PlayerStartCamera::Update()
 
 	if (m_time >= 1.0f)
 	{
-		/*
 		//		初期状態の場合
 		if (m_firstViewJudgement)
 		{
@@ -94,7 +93,6 @@ void PlayerStartCamera::Update()
 
 			return;
 		}
-		//*/
 
 		//		スタンダードカメラにする
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Standard);

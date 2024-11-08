@@ -99,4 +99,5 @@ void LoadingObjectInformation::OrganizingInformation(int count,
 void LoadingObjectInformation::Finalize()
 {
 	m_objectInformation.clear();
+	m_objectInformation.shrink_to_fit();
 }

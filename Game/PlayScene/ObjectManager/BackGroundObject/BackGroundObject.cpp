@@ -57,7 +57,6 @@ void BackGroundObject::Initialize(std::vector<ObjectMesh*> mesh,
 				basicEffect->SetVertexColorEnabled(false);
 			}
 		});
-	//*/
 
 	m_information->Create(mesh, wirePosition);
 
@@ -128,4 +127,6 @@ void BackGroundObject::Render(PostEffectFlag::Flag flag,
 void BackGroundObject::Finalize()
 {
 	m_information->Finalize();
+
+	m_backGroundModel.reset();
 }

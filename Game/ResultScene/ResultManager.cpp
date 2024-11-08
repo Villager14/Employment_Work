@@ -38,7 +38,6 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	m_time = time;
 	m_deathCount = deathCount;
 
-
 	//		数字上昇シェーダーの初期化
 	m_riseNumber->Initialize(m_deathCount, m_time, m_score);
 
@@ -48,55 +47,19 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	//		プレイヤーのアニメーション初期化
 	m_playerAnimation->Initialize();
 
-	//		初期化
-	m_information->Initialize(m_shader.get(), m_riseNumber.get(),
-		m_fade.get(), m_backGroundMove.get(),
-		m_screenEffectManager.get(),
-		m_playerAnimation.get());
-
-	//		初期状態を代入する
-	m_state = State::Start;
-
-	//		初期状態を設定する
-	m_iState = m_stateInformation[m_state].get();
-
-	//		状態を初期化する
-	m_iState->Initialize();
-}
-
-void ResultManager::Generation()
-{
-	//		フェード描画の作製
-	m_fade = std::make_unique<UIRenderManager>();
-
-	//		背景の生成
-	m_backGroundMove = std::make_unique<BackGroundMove>();
-
-	//		数字上昇シェーダーの生成
-	m_riseNumber = std::make_unique<RiseNumberShader>();
-
-	//		プレイヤーのアニメーションの作製
-	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Result);
-
-	//		スクリーンエフェクトマネージャーの作製
-	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
-
-	//		情報を生成する
-	m_information = std::make_unique<ResultInformation>();
+	//		スタンダードシェーダーの作製
+	CreateStandardShader();
 
 	//		背景の初期化
 	m_backGroundMove->Initialize();
 
-	//		スタンダードシェーダーの作製
-	CreateStandardShader();
-
-	//		状態を作成する
-	CreateState();
-
 	//--
 	//	フェード初期処理
 	//--
-	
+
+	//		フェード描画の作製
+	m_fade = std::make_unique<UIRenderManager>();
+
 	//		バッファ
 	ResultInformation::ConstBuffer buffer = m_information->GetBuffer();
 
@@ -116,6 +79,42 @@ void ResultManager::Generation()
 	buffer.rotationMatrix = m_fade->GetRotationMatrix();
 
 	m_information->SetBuffer(buffer);
+
+	//		初期化
+	m_information->Initialize(m_shader.get(), m_riseNumber.get(),
+		m_fade.get(), m_backGroundMove.get(),
+		m_screenEffectManager.get(),
+		m_playerAnimation.get());
+
+	//		初期状態を代入する
+	m_state = State::Start;
+
+	//		初期状態を設定する
+	m_iState = m_stateInformation[m_state].get();
+
+	//		状態を初期化する
+	m_iState->Initialize();
+}
+
+void ResultManager::Generation()
+{
+	//		背景の生成
+	m_backGroundMove = std::make_unique<BackGroundMove>();
+
+	//		数字上昇シェーダーの生成
+	m_riseNumber = std::make_unique<RiseNumberShader>();
+
+	//		プレイヤーのアニメーションの作製
+	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Result);
+
+	//		スクリーンエフェクトマネージャーの作製
+	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
+
+	//		情報を生成する
+	m_information = std::make_unique<ResultInformation>();
+
+	//		状態を作成する
+	CreateState();
 }
 
 void ResultManager::Update()
@@ -164,6 +163,18 @@ void ResultManager::Finalize()
 
 	m_information->Finalize();
 
+	m_riseNumber->Finalize();
+
+	m_backGroundMove->Finalize();
+
+	m_playerAnimation->Finalize();
+
+	m_screenEffectManager->Finalize();
+
+	m_shader.reset();
+
+	m_fade.reset();
+
 	m_rotation = 0.0f;
 }
 
@@ -208,14 +219,14 @@ void ResultManager::CreateStandardShader()
 		ResultInformation::ResultUIType::Back);
 
 	//		スコアによって評価を変える
-	if (m_information->SCORE_A > m_score)
+	if (m_information->SCORE_A < m_score)
 	{
 		//		A評価の生成
 		m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/ScoreA.png",
 			m_information->SCORE_POSITION, { 0.0f, 0.0f },
 			ResultInformation::ResultUIType::EvaluationUI);
 	}
-	else if (m_information->SCORE_B > m_score)
+	else if (m_information->SCORE_B < m_score)
 	{
 		//		B評価の生成
 		m_shader->CreateUIInformation(L"Resources/Texture/ResultScene/ScoreB.png",

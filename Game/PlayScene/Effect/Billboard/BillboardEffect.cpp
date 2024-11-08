@@ -12,7 +12,7 @@
 #include "BillboardEffect.h"
 
 #include <WICTextureLoader.h>
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 
 
 const std::vector<D3D11_INPUT_ELEMENT_DESC> BillboardEffect::INPUT_LAYOUT =

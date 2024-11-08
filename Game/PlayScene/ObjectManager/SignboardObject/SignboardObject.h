@@ -19,7 +19,7 @@
 
 #include "Library/Shader/ObjectShaderManager.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class SignboardObject : public IFactory
 {
@@ -81,7 +81,7 @@ public:
 private:
 
 	//		床モデル
-	std::unique_ptr<DirectX::Model> m_floorModel;
+	std::unique_ptr<DirectX::Model> m_signboardModel;
 
 	//		オブジェクトのメッシュ
 	std::unique_ptr<ObjectMesh> m_objectMesh;

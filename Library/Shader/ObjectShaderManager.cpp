@@ -11,7 +11,7 @@
 
 #include <WICTextureLoader.h>
 
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 
 ObjectShaderManager::ObjectShaderManager()
 {

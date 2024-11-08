@@ -77,6 +77,9 @@ private:
 	//		シーンタイプ
 	SceneType m_sceneType;
 
+	//		ゲームを終了するか
+	bool m_endJudgement;
+
 public:
 
 	void ChangeScene(SceneType type);
@@ -119,4 +122,8 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	MenuManager* GetMenuManager() { return m_menuManager.get(); }
+
+	void SetEndJudgement(bool judgement) { m_endJudgement = judgement; }
+
+	bool GetEndJudgement() { return m_endJudgement; }
 };

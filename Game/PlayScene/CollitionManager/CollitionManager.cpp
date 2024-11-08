@@ -125,3 +125,9 @@ void CollitionManager::CollitionProcess(
 		m_meshCollition->GetWallWalkPlayerPosition(),
 		m_playerPosition);
 }
+
+void CollitionManager::Finalize()
+{
+	m_meshCollition->Finalize();
+	m_collitionInformation->Finalize();
+}

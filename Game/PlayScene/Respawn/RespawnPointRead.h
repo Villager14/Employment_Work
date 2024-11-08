@@ -33,6 +33,9 @@ public:
 	void SetParameter(std::string val, int index, DirectX::SimpleMath::Vector3* position,
 		float* length, float* direction);
 
+	//		I—¹ˆ—
+	void Finalize();
+
 private:
 
 	//		À•W

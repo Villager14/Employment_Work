@@ -132,7 +132,8 @@ void EndSetting::ButtonProcess()
 			== DirectX::Mouse::ButtonStateTracker().PRESSED)
 		{
 			//		ƒQ[ƒ€‚ð•Â‚¶‚é
-			PostQuitMessage(0);
+			//PostQuitMessage(0);
+			m_menuManager->GetSceneManager()->SetEndJudgement(true);
 		}
 
 		//		“–‚½‚Á‚Ä‚¢‚é

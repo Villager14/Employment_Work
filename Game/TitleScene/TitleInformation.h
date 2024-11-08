@@ -15,7 +15,7 @@
 
 #include "Library/Shader/UIRenderManager.h"
 
-#include "Game/TitleScene/UI/BackGroundMove.h"
+#include "Effect/UI/TitleScene/BackGroundMove.h"
 
 #include "ITitleSelect.h"
 

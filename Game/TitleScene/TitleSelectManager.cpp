@@ -33,6 +33,9 @@ void TitleSelectManager::Initialize()
 	//		マウスのフォールチをリセットする
 	DirectX::Mouse::Get().ResetScrollWheelValue();
 
+	//		スタンダードシェーダーの作製
+	CreateStandardShader();
+
 	//		情報の初期化
 	m_information->Initilaize(m_backGroundMove.get(), m_standardShader.get(),
 		m_fade.get());
@@ -67,9 +70,6 @@ void TitleSelectManager::Generation()
 	//		背景の生成
 	m_backGroundMove = std::make_unique<BackGroundMove>();
 
-	//		タイトルUIマネージャーの生成
-	m_standardShader = std::make_unique<StandardShader<TitleInformation::TitleUIType>>();
-
 	//		タイトル共通処理の生成
 	m_commonProcess = std::make_unique<TitleCommonProcess>(m_information.get());
 
@@ -78,9 +78,6 @@ void TitleSelectManager::Generation()
 
 	//		スクリーンエフェクトマネージャーの作製
 	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
-
-	//		スタンダードシェーダーの作製
-	CreateStandardShader();
 
 	//----
 	//		フェードインアウトの初期化
@@ -139,8 +136,6 @@ void TitleSelectManager::Update()
 	//		プレイヤーのアニメーション
 	m_playerAnimation->Execute(0.0f, { 0.5f, -2.0f, 1.05f },
 		{ 180.0f, 0.0f }, 2.5f);
-	//m_playerAnimation->Execute(0.0f, { 0.0f, 0.0f, -10.0f },
-	//	{ 180.0f, 0.0f }, 2.5f);
 
 	//		更新処理
 	m_iState->Update();
@@ -181,6 +176,14 @@ void TitleSelectManager::Finalize()
 {
 	//		情報の初期化
 	m_information->Finalize();
+
+	m_playerAnimation->Finalize();
+
+	m_screenEffectManager->Finalize();
+
+	m_backGroundMove->Finalize();
+
+	m_standardShader.reset();
 }
 
 void TitleSelectManager::InputKey()
@@ -230,6 +233,9 @@ void TitleSelectManager::InputKey()
 
 void TitleSelectManager::CreateStandardShader()
 {
+	//		タイトルUIマネージャーの生成
+	m_standardShader = std::make_unique<StandardShader<TitleInformation::TitleUIType>>();
+
 	//		タイトルUIマネージャの初期化
 	m_standardShader->Initialize();
 

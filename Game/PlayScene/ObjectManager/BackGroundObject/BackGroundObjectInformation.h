@@ -78,12 +78,6 @@ private:
 
 private:
 
-	//		床モデル
-	std::unique_ptr<DirectX::Model> m_floorModel;
-
-	//		ワールド行列
-	DirectX::SimpleMath::Matrix m_world;
-
 	//		オブジェクトの座標
 	std::vector<DirectX::SimpleMath::Vector3> m_objectPosition;
 
@@ -92,12 +86,6 @@ private:
 
 	//		オブジェクトのクオータニオン
 	std::vector<DirectX::SimpleMath::Quaternion> m_objectQuaternion;
-
-	//		メッシュの読み込み
-	std::unique_ptr<LeadMesh> m_loadMesh;
-
-	//		頂点情報
-	std::vector<Vertex> m_vertex;
 
 public:
 

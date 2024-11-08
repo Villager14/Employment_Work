@@ -15,11 +15,11 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectInformation.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 #include "Factory.h"
 
-#include "Library/Effect/PostEffect/PostEffectObjectShader.h"
+#include "Effect/PostEffect/PostEffectObjectShader.h"
 
 class IFactory
 {

@@ -95,3 +95,17 @@ DirectX::SimpleMath::Vector3 CollitionInformation::WallMeshInformation
 	return { playerPositionV2.x, playerPosition.y ,playerPositionV2.y };
 }
 
+void CollitionInformation::Finalize()
+{
+	m_floorhitPoint.clear();
+	m_floorhitPoint.shrink_to_fit();
+	m_floorNormalize.clear();
+	m_floorNormalize.shrink_to_fit();
+	m_wallHitVelocity.clear();
+	m_wallHitVelocity.shrink_to_fit();
+	m_wallHitNormalize.clear();
+	m_wallHitNormalize.shrink_to_fit();
+	m_wallWalkPosition.clear();
+	m_wallWalkPosition.shrink_to_fit();
+}
+

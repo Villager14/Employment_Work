@@ -16,7 +16,7 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class GoalObject : public IFactory
 {
@@ -75,10 +75,14 @@ public:
 		return m_postEffectFlag.get();
 	}
 
+public:
+
+	const float GOAL_ROTATION_SPEED = 10.0f;
+
 private:
 
 	//		床モデル
-	std::unique_ptr<DirectX::Model> m_floorModel;
+	std::unique_ptr<DirectX::Model> m_goalModel;
 
 	//		オブジェクトのメッシュ
 	std::unique_ptr<ObjectMesh> m_objectMesh;
@@ -87,7 +91,7 @@ private:
 	DirectX::SimpleMath::Matrix m_world;
 
 	//		ピクセルシェーダー
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_floorPS;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
 
 	// テクスチャハンドル 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;

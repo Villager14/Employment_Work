@@ -295,3 +295,11 @@ void MeshCollitionFloor::MinLengthMP()
 	//		Å’ZÀ•W‚ğ‘ã“ü‚·‚é
 	m_hitMeshPoint.push_back(position);
 }
+
+void MeshCollitionFloor::Finalize()
+{
+	m_hitMeshPoint.clear();
+	m_hitMeshPoint.shrink_to_fit();
+	m_normalize.clear();
+	m_normalize.shrink_to_fit();
+}

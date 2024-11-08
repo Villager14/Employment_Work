@@ -98,11 +98,16 @@ void Game::Update(DX::StepTimer const& timer)
         LibrarySingleton::GetInstance()->ChangeDebugView();
     }
 
+    //      ゲームを終了する
+    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
+    {
+        m_sceneManager->SetEndJudgement(true);
+    }
+
     //      シーンの更新
     m_sceneManager->Update();
 
-    //      ゲームを終了する
-    if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
+    if (m_sceneManager->GetEndJudgement())
     {
         PostQuitMessage(0);
     }

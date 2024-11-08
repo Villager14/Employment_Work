@@ -182,11 +182,48 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common\BinaryFile.h" />
     <ClInclude Include="Common\DebugDraw.h" />
     <ClInclude Include="Common\DepthStencil.h" />
     <ClInclude Include="Common\ReaData.h" />
     <ClInclude Include="Common\RenderTexture.h" />
     <ClInclude Include="DeviceResources.h" />
+    <ClInclude Include="Effect\Effect\DigitalRain\DegitalRain.h" />
+    <ClInclude Include="Effect\Effect\DigitalRain\DegitalRainParameter.h" />
+    <ClInclude Include="Effect\Effect\Signboard\SignboardEffect.h" />
+    <ClInclude Include="Effect\PostEffect\IPostEffect.h" />
+    <ClInclude Include="Effect\PostEffect\PostEffectCommonProcess.h" />
+    <ClInclude Include="Effect\PostEffect\PostEffectFlag.h" />
+    <ClInclude Include="Effect\PostEffect\PostEffectManager.h" />
+    <ClInclude Include="Effect\PostEffect\PostEffectObjectShader.h" />
+    <ClInclude Include="Effect\PostEffect\State\Bler\Bler.h" />
+    <ClInclude Include="Effect\PostEffect\State\BloomDepth\BloomDepth.h" />
+    <ClInclude Include="Effect\PostEffect\State\Bloom\Bloom.h" />
+    <ClInclude Include="Effect\PostEffect\State\EffectDepth\EffectDepthRender.h" />
+    <ClInclude Include="Effect\PostEffect\State\Effect\EffectRender.h" />
+    <ClInclude Include="Effect\PostEffect\State\Fade\FadePostEffect.h" />
+    <ClInclude Include="Effect\PostEffect\State\Fog\FogProcess.h" />
+    <ClInclude Include="Effect\PostEffect\State\GlitchNoise\GlitchNoise.h" />
+    <ClInclude Include="Effect\PostEffect\State\Normal\NormalRender.h" />
+    <ClInclude Include="Effect\PostEffect\State\ScreenColor\ScreenColor.h" />
+    <ClInclude Include="Effect\PostEffect\State\UIRender\UIRender.h" />
+    <ClInclude Include="Effect\UI\Menu\AboveUI\AboveUI.h" />
+    <ClInclude Include="Effect\UI\Menu\FrameWalkUI\FrameWalkUI.h" />
+    <ClInclude Include="Effect\UI\Menu\MenuSelect\MenuSelect.h" />
+    <ClInclude Include="Effect\UI\Menu\Slider\Slider.h" />
+    <ClInclude Include="Effect\UI\PlayScene\Clock\ClockBackGround.h" />
+    <ClInclude Include="Effect\UI\PlayScene\Clock\ClockManager.h" />
+    <ClInclude Include="Effect\UI\PlayScene\Clock\ClockTime.h" />
+    <ClInclude Include="Effect\UI\PlayScene\CoolTime\CoolTime.h" />
+    <ClInclude Include="Effect\UI\PlayScene\CountDown\CountDown.h" />
+    <ClInclude Include="Effect\UI\PlayScene\Fade\FadeIn.h" />
+    <ClInclude Include="Effect\UI\PlayScene\GameClear\GameClearManager.h" />
+    <ClInclude Include="Effect\UI\PlayScene\GameOver\GameOverManager.h" />
+    <ClInclude Include="Effect\UI\PlayScene\GameStart\GameStart.h" />
+    <ClInclude Include="Effect\UI\PlayScene\SpeedLine\SpeedLine.h" />
+    <ClInclude Include="Effect\UI\PlayScene\UIManager.h" />
+    <ClInclude Include="Effect\UI\ResultScene\RiseNumberShader.h" />
+    <ClInclude Include="Effect\UI\TitleScene\BackGroundMove.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\IPlayerCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h" />
@@ -208,10 +245,6 @@
     <ClInclude Include="Game\Menu\State\MenuClose.h" />
     <ClInclude Include="Game\Menu\State\MenuStart.h" />
     <ClInclude Include="Game\Menu\State\OptionSetting.h" />
-    <ClInclude Include="Game\Menu\UI\AboveUI.h" />
-    <ClInclude Include="Game\Menu\UI\FrameWalkUI.h" />
-    <ClInclude Include="Game\Menu\UI\MenuSelect.h" />
-    <ClInclude Include="Game\Menu\UI\Slider.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionInformation.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionManager.h" />
@@ -267,18 +300,6 @@
     <ClInclude Include="Game\PlayScene\Respawn\RespawnManager.h" />
     <ClInclude Include="Game\PlayScene\Respawn\RespawnPointRead.h" />
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\CountDown\CountDown.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\GameStart\GameStart.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\SpeedLine\SpeedLine.h" />
-    <ClInclude Include="Game\PlayScene\UIManager\UIManager.h" />
     <ClInclude Include="Game\ResultScene\IResultManager.h" />
     <ClInclude Include="Game\ResultScene\ResultInformation.h" />
     <ClInclude Include="Game\ResultScene\ResultManager.h" />
@@ -288,7 +309,6 @@
     <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h" />
     <ClInclude Include="Game\ResultScene\State\ResultStart.h" />
     <ClInclude Include="Game\ResultScene\State\ResultStay.h" />
-    <ClInclude Include="Game\ResultScene\UI\RiseNumberShader.h" />
     <ClInclude Include="Game\TitleScene\ITitleSelect.h" />
     <ClInclude Include="Game\TitleScene\State\ChangeSceneState.h" />
     <ClInclude Include="Game\TitleScene\State\SelectEndState.h" />
@@ -298,7 +318,6 @@
     <ClInclude Include="Game\TitleScene\TitleCommonProcess.h" />
     <ClInclude Include="Game\TitleScene\TitleInformation.h" />
     <ClInclude Include="Game\TitleScene\TitleSelectManager.h" />
-    <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h" />
     <ClInclude Include="Game\TutorialScene\ITutorialManager.h" />
     <ClInclude Include="Game\TutorialScene\State\TutorialWalkState.h" />
     <ClInclude Include="Game\TutorialScene\TutorialInformation.h" />
@@ -326,25 +345,7 @@
     <ClInclude Include="Library\Animation\State\Player\WireJumpAnimationState.h" />
     <ClInclude Include="Library\Bones\BonInformation.h" />
     <ClInclude Include="Library\Bones\ModelBones.h" />
-    <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRain.h" />
     <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRainParameter.h" />
-    <ClInclude Include="Library\Effect\Effect\Signboard\SignboardEffect.h" />
-    <ClInclude Include="Library\Effect\PostEffect\IPostEffect.h" />
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectCommonProcess.h" />
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectFlag.h" />
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectManager.h" />
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectObjectShader.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\Bler\Bler.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\BloomDepth\BloomDepth.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\Bloom\Bloom.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\EffectDepth\EffectDepthRender.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\Effect\EffectRender.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\Fade\FadePostEffect.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\Fog\FogProcess.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\GlitchNoise\GlitchNoise.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\Normal\NormalRender.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\ScreenColor\ScreenColor.h" />
-    <ClInclude Include="Library\Effect\PostEffect\State\UIRender\UIRender.h" />
     <ClInclude Include="Library\Factory\Factory.h" />
     <ClInclude Include="Library\Factory\IFactory.h" />
     <ClInclude Include="Library\Instancing.h" />
@@ -376,10 +377,43 @@
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common\BinaryFile.cpp" />
     <ClCompile Include="Common\DebugDraw.cpp" />
     <ClCompile Include="Common\DepthStencil.cpp" />
     <ClCompile Include="Common\RenderTexture.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
+    <ClCompile Include="Effect\Effect\DigitalRain\DegitalRain.cpp" />
+    <ClCompile Include="Effect\Effect\Signboard\SignboardEffect.cpp" />
+    <ClCompile Include="Effect\PostEffect\PostEffectCommonProcess.cpp" />
+    <ClCompile Include="Effect\PostEffect\PostEffectManager.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\Bler\Bler.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\BloomDepth\BloomDepth.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\Bloom\Bloom.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\EffectDepth\EffectDepthRender.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\Effect\EffectRender.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\Fade\FadePostEffect.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\Fog\FogProcess.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\GlitchNoise\GlitchNoise.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\Normal\NormalRender.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\ScreenColor\ScreenColor.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\UIRender\UIRender.cpp" />
+    <ClCompile Include="Effect\UI\Menu\AboveUI\AboveUI.cpp" />
+    <ClCompile Include="Effect\UI\Menu\FrameWalkUI\FrameWalkUI.cpp" />
+    <ClCompile Include="Effect\UI\Menu\MenuSelect\MenuSelect.cpp" />
+    <ClCompile Include="Effect\UI\Menu\Slider\Slider.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\Clock\ClockBackGround.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\Clock\ClockManager.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\Clock\ClockTime.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\CoolTime\CoolTime.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\CountDown\CountDown.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\Fade\FadeIn.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\GameClear\GameClearManager.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\GameOver\GameOverManager.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\GameStart\GameStart.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\SpeedLine\SpeedLine.cpp" />
+    <ClCompile Include="Effect\UI\PlayScene\UIManager.cpp" />
+    <ClCompile Include="Effect\UI\ResultScene\RiseNumberShader.cpp" />
+    <ClCompile Include="Effect\UI\TitleScene\BackGroundMove.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\DebugCamera.cpp" />
@@ -396,10 +430,6 @@
     <ClCompile Include="Game\Menu\State\MenuClose.cpp" />
     <ClCompile Include="Game\Menu\State\MenuStart.cpp" />
     <ClCompile Include="Game\Menu\State\OptionSetting.cpp" />
-    <ClCompile Include="Game\Menu\UI\AboveUI.cpp" />
-    <ClCompile Include="Game\Menu\UI\FrameWalkUI.cpp" />
-    <ClCompile Include="Game\Menu\UI\MenuSelect.cpp" />
-    <ClCompile Include="Game\Menu\UI\Slider.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionInformation.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionManager.cpp" />
@@ -446,18 +476,6 @@
     <ClCompile Include="Game\PlayScene\Respawn\RespawnManager.cpp" />
     <ClCompile Include="Game\PlayScene\Respawn\RespawnPointRead.cpp" />
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\CountDown\CountDown.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\GameOver\GameOverManager.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\GameStart\GameStart.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\SpeedLine\SpeedLine.cpp" />
-    <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp" />
     <ClCompile Include="Game\ResultScene\ResultManager.cpp" />
     <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultEnd.cpp" />
@@ -465,7 +483,6 @@
     <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultStart.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultStay.cpp" />
-    <ClCompile Include="Game\ResultScene\UI\RiseNumberShader.cpp" />
     <ClCompile Include="Game\TitleScene\State\ChangeSceneState.cpp" />
     <ClCompile Include="Game\TitleScene\State\SelectEndState.cpp" />
     <ClCompile Include="Game\TitleScene\State\SelectPlayState.cpp" />
@@ -473,7 +490,6 @@
     <ClCompile Include="Game\TitleScene\State\StartSceneState.cpp" />
     <ClCompile Include="Game\TitleScene\TitleCommonProcess.cpp" />
     <ClCompile Include="Game\TitleScene\TitleSelectManager.cpp" />
-    <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp" />
     <ClCompile Include="Game\TutorialScene\State\TutorialWalkState.cpp" />
     <ClCompile Include="Game\TutorialScene\TutorialManager.cpp" />
     <ClCompile Include="Library\Animation\AnimationCommonProcess.cpp" />
@@ -496,21 +512,6 @@
     <ClCompile Include="Library\Animation\State\Player\WallWalkAnimationState.cpp" />
     <ClCompile Include="Library\Animation\State\Player\WireJumpAnimationState.cpp" />
     <ClCompile Include="Library\Bones\ModelBones.cpp" />
-    <ClCompile Include="Library\Effect\Effect\DigitalRain\DegitalRain.cpp" />
-    <ClCompile Include="Library\Effect\Effect\Signboard\SignboardEffect.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\PostEffectCommonProcess.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\PostEffectManager.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\Bler\Bler.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\BloomDepth\BloomDepth.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\Bloom\Bloom.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\EffectDepth\EffectDepthRender.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\Effect\EffectRender.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\Fade\FadePostEffect.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\Fog\FogProcess.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\GlitchNoise\GlitchNoise.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\Normal\NormalRender.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\ScreenColor\ScreenColor.cpp" />
-    <ClCompile Include="Library\Effect\PostEffect\State\UIRender\UIRender.cpp" />
     <ClCompile Include="Library\Factory\Factory.cpp" />
     <ClCompile Include="Library\Instancing.cpp" />
     <ClCompile Include="Library\LibrarySingleton.cpp" />
@@ -586,6 +587,9 @@
     <None Include="Resources\Shader\UI\UIShader\UIShader.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="FBX\Bas\bassObject.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\Bill\Background.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>

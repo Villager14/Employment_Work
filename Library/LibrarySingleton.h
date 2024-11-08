@@ -13,7 +13,7 @@
 
 #include <random>
 
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 
 class LibrarySingleton final
 {

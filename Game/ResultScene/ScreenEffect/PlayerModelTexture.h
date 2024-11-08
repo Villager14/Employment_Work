@@ -116,9 +116,6 @@ private:
 	//		入力レイアウト
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
-	//		テクスチャハンドル
-	Microsoft::WRL::ComPtr<ID3D11Resource> m_res;
-
 	//		頂点シェーダー
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
 
@@ -127,9 +124,6 @@ private:
 
 	//		ジオメトリックシェーダー
 	Microsoft::WRL::ComPtr<ID3D11GeometryShader> m_geometoryShaer;
-
-	//		ジオメトリックシェーダー
-	Microsoft::WRL::ComPtr<ID3D11GeometryShader> m_geometoryRotationShaer;
 
 	//		スケール
 	DirectX::SimpleMath::Vector2 m_scale;
@@ -142,11 +136,6 @@ private:
 
 	//		回転行列
 	DirectX::SimpleMath::Matrix m_rotationMatrix;
-
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pasttexture;
-
-	//		時間
-	float m_time;
 
 	//		グレイにするかどうか
 	bool m_grayJudgement;

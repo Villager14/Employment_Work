@@ -11,7 +11,7 @@
 
 #include "Instancing.h"
 
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 
 #include <WICTextureLoader.h>
 

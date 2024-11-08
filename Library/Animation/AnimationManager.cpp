@@ -11,15 +11,14 @@
 
 AnimationManager::AnimationManager(CharactorType type)
 	:
-	m_charaType(type)
+	m_charaType(type),
+	m_createHead(false)
 {
 	//		アニメーションの情報
 	m_information = std::make_unique<AnimationInformation>();
 
 	//		共通処理
 	m_commonProcess = std::make_unique<AnimationCommonProcess>(this);
-
-	bool createHead = false;
 
 	if (m_charaType == CharactorType::Player)
 	{
@@ -46,7 +45,7 @@ AnimationManager::AnimationManager(CharactorType type)
 		//		ワイヤーフレームにする
 		m_information->SetWireJudgement(true);
 
-		createHead = true;
+		m_createHead = true;
 	}
 	else if (m_charaType == CharactorType::Title)
 	{
@@ -54,24 +53,22 @@ AnimationManager::AnimationManager(CharactorType type)
 		m_animaInformation.insert({ AnimationState::Stay, std::make_unique<StayAnimationState>(this) });
 		m_animaInformation.insert({ AnimationState::Sliding, std::make_unique<WallJumpAnimationState>(this) });
 
-		createHead = true;
+		m_createHead = true;
 	}
 	else if (m_charaType == CharactorType::CommonEnemy)
 	{
 		m_animaInformation.insert({ AnimationState::HandGunStayA, std::make_unique<HandGunStay>(this) });
 		m_animaInformation.insert({ AnimationState::HandGunStyleA, std::make_unique<HandGunStyle>(this) });
 
-		createHead = true;
+		m_createHead = true;
 
 		//		銃を使う
 		m_information->SetGunModelJudgement(true);
 	}
 
 	//		ボーンの処理
-	m_bons = std::make_unique<ModelBones>(createHead, m_information->GetGunModelJudgement());
+	m_bons = std::make_unique<ModelBones>(m_createHead, m_information->GetGunModelJudgement());
 
-	//		モデルの作製
-	CreateModel(createHead);
 }
 
 AnimationManager::~AnimationManager()
@@ -80,6 +77,9 @@ AnimationManager::~AnimationManager()
 
 void AnimationManager::Initialize()
 {
+	//		モデルの作製
+	CreateModel(m_createHead);
+
 	//		プレイヤー
 	if (m_charaType == CharactorType::Player)
 	{
@@ -206,4 +206,7 @@ void AnimationManager::ChangeState(AnimationState State)
 
 void AnimationManager::Finalize()
 {
+	m_model.clear();
+	m_model.shrink_to_fit();
+	m_information->Finalize();
 }

@@ -17,16 +17,22 @@
 #include "State/EndSetting.h"
 #include "State/MenuClose.h"
 
-
 #include "MenuInformation.h"
 
 #include "MenuCommonProcess.h"
+
+#include "Scene/SceneManager.h"
+
+class AboveUI;
+class Slider;
+class MenuSelect;
+class FrameWalkUI;
 
 class MenuManager
 {
 public:
 	//		コンストラクタ
-	MenuManager();
+	MenuManager(SceneManager* sceneManager);
 
 	//		デストラクタ
 	~MenuManager();
@@ -84,6 +90,8 @@ private:
 	//		共通処理
 	std::unique_ptr<MenuCommonProcess> m_commonProcess;
 
+	//		シーンマネージャ
+	SceneManager* m_sceneManager;
 public:
 
 	/*
@@ -166,5 +174,12 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	MenuCommonProcess* GetCommonProcess() { return m_commonProcess.get(); }
+
+	/*
+	*	シーンマネージャーを受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	SceneManager* GetSceneManager() { return m_sceneManager; }
 
 };

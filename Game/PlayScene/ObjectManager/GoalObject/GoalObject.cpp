@@ -17,7 +17,7 @@
 
 GoalObject::GoalObject(ObjectManager* objectManager)
 	:
-	m_floorModel{},
+	m_goalModel{},
 	m_rotation(0.0f),
 	m_objectManager(objectManager)
 {
@@ -43,7 +43,7 @@ void GoalObject::Initialize(ObjectInformation information)
 	m_effect->SetDirectory(L"Resources/Models");
 
 	//		ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
+	m_goalModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Goal.cmo", *m_effect);
 
 
@@ -70,7 +70,7 @@ void GoalObject::Initialize(ObjectInformation information)
 
 void GoalObject::Update()
 {
-	m_rotation.z += LibrarySingleton::GetInstance()->GetElpsedTime() * 10.0f;
+	m_rotation.z += LibrarySingleton::GetInstance()->GetElpsedTime() * GOAL_ROTATION_SPEED;
 }
 
 void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
@@ -90,7 +90,7 @@ void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
-	m_floorModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()
+	m_goalModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()
 		->GetD3DDeviceContext(),
 		*LibrarySingleton::GetInstance()->GetCommonState(),
 		m_world,
@@ -102,6 +102,6 @@ void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 void GoalObject::Finalize()
 {
-	m_floorModel.reset();
+	m_goalModel.reset();
 	m_objectMesh->Finalize();
 }

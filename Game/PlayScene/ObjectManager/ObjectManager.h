@@ -23,9 +23,9 @@
 
 #include "ObjectInformation.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
-#include "Library/Effect/PostEffect/PostEffectObjectShader.h"
+#include "Effect/PostEffect/PostEffectObjectShader.h"
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 

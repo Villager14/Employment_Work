@@ -90,7 +90,6 @@ void FloorObject::Initialize(ObjectInformation information)
 			nullptr, m_pixselShader.ReleaseAndGetAddressOf())
 	);
 
-
 	if (information.effectFlag)
 	{
 		//		ƒAƒ‹ƒtƒ@‚Ìˆ—‚Ìê‡•`‰æ‚·‚é

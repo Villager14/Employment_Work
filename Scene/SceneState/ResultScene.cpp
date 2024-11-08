@@ -42,10 +42,10 @@ void ResultScene::Initialize()
 	}
 	else
 	{
-		score = 400.0f;
+		score = 200.0f;
 	}
 
-	score *=  1.0f - time / maxTime + 1.0f;
+	score *= Library::Lerp(3.0f, 1.0f, time / maxTime);
 
 	m_score = score;
 

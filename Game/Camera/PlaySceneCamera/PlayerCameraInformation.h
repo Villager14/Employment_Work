@@ -43,29 +43,14 @@ public:
 		m_eye = DirectX::SimpleMath::Vector3::Zero;
 		m_cameraMove = DirectX::SimpleMath::Vector2::Zero;
 	}
-private:
+
+public:
 
 	//		Å‘åŠp“xY
 	const float ANGLE_Y_MAX = 50.0f;
 
 	//		Å¬Šp“xY
 	const float ANGLE_Y_MIN = -50.0f;
-
-public:
-
-	/*
-	*	Å‘åŠp“xY‚ğó‚¯æ‚é
-	*
-	*	@return Šp“x
-	*/
-	float GetMaxAngleY() { return ANGLE_Y_MAX; }
-
-	/*
-	*	Å¬Šp“xY‚ğó‚¯æ‚é
-	*
-	*	@return Šp“x
-	*/
-	float GetMinAngleY() { return ANGLE_Y_MIN; }
 
 private:
 

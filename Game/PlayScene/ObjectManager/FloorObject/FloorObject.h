@@ -17,7 +17,7 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class FloorObject : public IFactory
 {
@@ -84,9 +84,6 @@ private:
 
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
-
-	//		ピクセルシェーダー
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_floorPS;
 
 	// テクスチャハンドル 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;

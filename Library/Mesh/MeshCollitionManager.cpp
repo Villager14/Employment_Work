@@ -111,6 +111,9 @@ void MeshCollitionManager::MeshHitPointClear()
 	m_meshHitPoint.clear();
 	//		•Ç‚Ì“–‚½‚è”»’è‚ð
 	m_wallHit.clear();
+	m_wallWalkPlayerPosition.clear();
+	m_wallHitNormalize.clear();
+	m_meshHitPoint.clear();
 }
 
 void MeshCollitionManager::DamageHitJudgement()
@@ -123,4 +126,17 @@ void MeshCollitionManager::DamageHitJudgement()
 		//		Ž€–Só‘Ô‚É‚·‚é
 		m_gameManager->TrueFlag(GameManager::DamageObjectHit);
 	}
+}
+
+void MeshCollitionManager::Finalize()
+{
+	m_meshHitPoint.clear();
+	//		•Ç‚Ì“–‚½‚è”»’è‚ð
+	m_wallHit.clear();
+	m_wallWalkPlayerPosition.clear();
+	m_wallHitNormalize.clear();
+	m_meshHitPoint.clear();
+
+	m_meshCollitionFloor->Finalize();
+	m_meshCollitionWall->Finalize();
 }

@@ -19,7 +19,7 @@
 
 #include "Library/Shader/ObjectShaderManager.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class WallObject : public IFactory
 {
@@ -88,7 +88,7 @@ public:
 private:
 
 	//		床モデル
-	std::unique_ptr<DirectX::Model> m_floorModel;
+	std::unique_ptr<DirectX::Model> m_wallModel;
 
 	//		オブジェクトのメッシュ
 	std::unique_ptr<ObjectMesh> m_objectMesh;

@@ -8,17 +8,16 @@
 #pragma once
 
 #include "Game/PlayScene/GameManager/GameManager.h"
-#include "Game/PlayScene/UIManager/UIManager.h"
-#include "Game/PlayScene/Enemy/EnemyManager.h"
+#include "Effect/UI/PlayScene/UIManager.h"
 #include "Game/Camera/PlaySceneCamera/PlayerCameraManager.h"
 #include "Game/PlayScene/Player/Player.h"
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 #include "Game/PlayScene/CollitionManager/CollitionManager.h"
-#include "Library/Effect/PostEffect/PostEffectManager.h"
+#include "Effect/PostEffect/PostEffectManager.h"
 #include "Game/PlayScene/Effect/EffectManager.h"
 #include "Game/PlayScene/Respawn/RespawnManager.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 #include "../SceneManager.h"
 
@@ -71,9 +70,6 @@ private:
 
 	//		当たり判定オブジェクト
 	std::unique_ptr<CollitionManager> m_collitionManager;
-
-	//		エネミーマネージャー
-	std::unique_ptr<EnemyManager> m_enemyManager;
 
 	//		UIマネージャー
 	std::unique_ptr<UIManager> m_uiManager;

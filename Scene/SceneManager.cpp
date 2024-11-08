@@ -15,7 +15,8 @@ SceneManager::SceneManager()
 	m_deathCount(0),
 	m_clearTime(0),
 	m_maxTime(0),
-	m_sceneType{}
+	m_sceneType{},
+	m_endJudgement(false)
 {
 }
 
@@ -26,7 +27,7 @@ SceneManager::~SceneManager()
 void SceneManager::Initialize()
 {
 	//		メニューマネージャーの生成
-	m_menuManager = std::make_unique<MenuManager>();
+	m_menuManager = std::make_unique<MenuManager>(this);
 
 	//		メニューマネージャーの初期化
 	m_menuManager->Initialize();
@@ -49,6 +50,13 @@ void SceneManager::Initialize()
 
 void SceneManager::Update()
 {
+	if (m_endJudgement)
+	{
+		Finalize();
+
+		return;
+	}
+
 	//		シーンの更新処理
 	m_scene->Update();
 
@@ -58,6 +66,8 @@ void SceneManager::Update()
 
 void SceneManager::Render()
 {
+	if (m_endJudgement) return;
+
 	//		シーンの描画処理
 	m_scene->Render();
 
@@ -67,6 +77,10 @@ void SceneManager::Render()
 
 void SceneManager::Finalize()
 {
+	//		現在の状態の終了処理をする
+	m_scene->Finalize();
+
+	m_sceneInformation.clear();
 }
 
 void SceneManager::ChangeScene(SceneType type)

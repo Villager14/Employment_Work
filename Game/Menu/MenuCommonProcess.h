@@ -22,7 +22,14 @@ public:
 	//		メニューのESCボタンで閉じる処理
 	bool MenuEscCloseProcess();
 
-	//		四角の当たり判定
+
+	/*
+	*	四角の当たり判定
+	* 
+	*	@param	(min)	最小値
+	*	@param	(max)	最大値
+	*	@return true : 当たっている false : 当たっていない
+	*/
 	bool BoxCollider(DirectX::SimpleMath::Vector2 min, DirectX::SimpleMath::Vector2 max);
 
 	/*
@@ -39,9 +46,11 @@ public:
 	*/
 	void SlideProcess(AboveUI::UIType type);
 
+	//		マウスポインタの処理
 	void MousePointa();
 
 private:
 
+	//		メニューの情報
 	MenuInformation* m_information;
 };

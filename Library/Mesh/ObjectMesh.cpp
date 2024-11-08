@@ -18,6 +18,8 @@ ObjectMesh::ObjectMesh()
 	m_staticObjectJudgement(false),
 	m_objectType{ObjectType::Null}
 {
+	//		メッシュの読み込みを生成する
+	m_leadMesh = std::make_unique<LeadMesh>();
 }
 
 ObjectMesh::~ObjectMesh()
@@ -26,9 +28,6 @@ ObjectMesh::~ObjectMesh()
 
 void ObjectMesh::Initialize(const wchar_t* filePath)
 {
-	//		メッシュの読み込みを生成する
-	m_leadMesh = std::make_unique<LeadMesh>();
-
 	//		読み込む
 	m_leadMesh->Lead(filePath);
 
