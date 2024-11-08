@@ -10,7 +10,7 @@
 #include "UIRenderManager.h"
 
 #include <WICTextureLoader.h>
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 
 const std::vector<D3D11_INPUT_ELEMENT_DESC> UIRenderManager::INPUT_LAYOUT =
 {
@@ -81,60 +81,13 @@ void UIRenderManager::LoadShader(
 		m_inputLayout.GetAddressOf());
 }
 
-/*
-void UIRenderManager::Render()
+void UIRenderManager::Finalize()
 {
-	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+	m_textureWidth = 0;
+	m_textureHeight = 0;
 
-	auto commonState = LibrarySingleton::GetInstance()->GetCommonState();
+	m_texture.clear();
+	m_texture.shrink_to_fit();
 
-	//		画像の中心
-	DirectX::VertexPositionColorTexture vertex[1] =
-	{
-		DirectX::VertexPositionColorTexture(DirectX::SimpleMath::Vector3(m_scale.x, m_scale.y, static_cast<float>(m_centerPoint)),
-		DirectX::SimpleMath::Vector4(m_position.x, m_position.y, static_cast<float>(m_textureWidth), static_cast<float>(m_textureHeight)),
-		DirectX::SimpleMath::Vector2(1.0f,0.0f))
-	};
-
-	//		コンストバッファのバインド
-	m_constBufferManager->BindBuffer();
-
-	//		画像用サンプラーの登録
-	ID3D11SamplerState* sampler[1] = { commonState->LinearWrap() };
-	context->PSSetSamplers(0, 1, sampler);
-
-	//		半透明描画指定
-	ID3D11BlendState* blendestate = commonState->NonPremultiplied();
-
-	//		透明判定処理
-	context->OMSetBlendState(blendestate, nullptr, 0xFFFFFFFF);
-
-	//		深度バッファに書き込み参照
-	context->OMSetDepthStencilState(commonState->DepthDefault(), 0);
-
-	//		カリングは左回り
-	context->RSSetState(commonState->CullNone());
-
-	//		シェーダをセットする
-	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
-	context->GSSetShader(m_geometoryShaer.Get(), nullptr, 0);
-	context->PSSetShader(m_pixelShader.Get(), nullptr, 0);
-
-	//		ピクセルシェーダにテクスチャを登録する
-	context->PSSetShaderResources(0, 1, m_texture.GetAddressOf());
-
-	//		インプットレイアウトの登録
-	context->IASetInputLayout(m_inputLayout.Get());
-
-	//		板ポリゴンを描画
-	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Begin();
-	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->
-		Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &vertex[0], 1);
-	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->End();
-
-	//		シェーダの登録を解除しておく
-	context->VSSetShader(nullptr, nullptr, 0);
-	context->GSSetShader(nullptr, nullptr, 0);
-	context->PSSetShader(nullptr, nullptr, 0);
+	m_constBufferManager.reset();
 }
-*/

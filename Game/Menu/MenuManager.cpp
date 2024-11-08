@@ -11,11 +11,18 @@
 
 #include <Windows.h>
 
-MenuManager::MenuManager()
+#include "Effect/UI/Menu/AboveUI/AboveUI.h"
+#include "Effect/UI/Menu/Slider/Slider.h"
+#include "Effect/UI/Menu/MenuSelect/MenuSelect.h"
+#include "Effect/UI/Menu/FrameWalkUI/FrameWalkUI.h"
+
+
+MenuManager::MenuManager(SceneManager* sceneManager)
 	:
 	m_state(),
 	m_type{},
-	m_firstAudioMenuJudgement(true)
+	m_firstAudioMenuJudgement(true),
+	m_sceneManager(sceneManager)
 {
 	//		ó‘Ô‚Ì¶¬
 	m_menuStateInformation.insert({ MenuInformation::Start, std::make_unique<MenuStart>(this) });

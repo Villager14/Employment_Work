@@ -8,7 +8,7 @@
 #include "pch.h"
 
 #include "PlayerModelTexture.h"
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 #include "Library/Library.h"
 
 const std::vector<D3D11_INPUT_ELEMENT_DESC> PlayerModelTexture::INPUT_LAYOUT =
@@ -20,9 +20,7 @@ const std::vector<D3D11_INPUT_ELEMENT_DESC> PlayerModelTexture::INPUT_LAYOUT =
 
 PlayerModelTexture::PlayerModelTexture()
 	:
-	m_res(nullptr),
 	m_rotationMatrix(DirectX::SimpleMath::Matrix::Identity),
-	m_time(0.0f),
 	m_baseScale(0.0f),
 	m_grayJudgement(false)
 {
@@ -108,9 +106,6 @@ void PlayerModelTexture::Render(ID3D11ShaderResourceView* shaderResouceView)
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Begin();
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &vertex[0], 1);
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->End();
-
-	//		過去のテクスチャとして保存する
-	m_pasttexture = shaderResouceView;
 
 	//		シェーダの登録を解除しておく
 	context->VSSetShader(nullptr, nullptr, 0);

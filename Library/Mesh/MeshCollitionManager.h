@@ -52,6 +52,9 @@ public:
 	//		ダメージオブジェクトに当たったかどうか?
 	void DamageHitJudgement();
 
+	//		終了処理
+	void Finalize();
+
 private:
 
 	//		プレイヤーのレイの長さ上

@@ -84,3 +84,13 @@ void RespawnPointRead::SetParameter(std::string val, int index,
 	else if (index == 3)	*length		= std::stof(val);
 	else if (index == 4)	*direction	= std::stof(val);
 }
+
+void RespawnPointRead::Finalize()
+{
+	m_position.clear();
+	m_position.shrink_to_fit();
+	m_length.clear();
+	m_length.shrink_to_fit();
+	m_direction.clear();
+	m_direction.shrink_to_fit();
+}

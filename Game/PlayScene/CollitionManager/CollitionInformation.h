@@ -42,6 +42,8 @@ public:
 		const std::vector<DirectX::SimpleMath::Vector3>& wallWalkPosition,
 		const DirectX::SimpleMath::Vector3& playerPosition);
 
+	//		I—¹ˆ—
+	void Finalize();
 
 private:
 

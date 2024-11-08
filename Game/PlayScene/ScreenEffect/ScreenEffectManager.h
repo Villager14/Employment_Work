@@ -17,6 +17,8 @@
 
 #include "Game/Menu/MenuInformation.h"
 
+#include "Library/Shader/UIRenderManager.h"
+
 class ScreenEffectManager
 {
 public:
@@ -39,7 +41,7 @@ public:
 	void Initialize();
 
 	//		アップデート
-	void Update(PlayerCameraInformation* playerCameraInformation);
+	void Update();
 
 	//		描画処理
 	void Render();
@@ -78,4 +80,6 @@ private:
 
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
+
+	std::unique_ptr<UIRenderManager> m_playerTexture;
 };

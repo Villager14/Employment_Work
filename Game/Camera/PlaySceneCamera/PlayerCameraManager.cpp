@@ -15,8 +15,8 @@ PlayerCameraManager::PlayerCameraManager(GameManager* gameManager)
 	m_playerInformation{},
 	m_gameManager(gameManager),
 	m_cameraType{},
-	m_nowViewAngle(70.0f),
-	m_startDirection(0.0f)
+	m_startDirection(0.0f),
+	m_nowViewAngle(70.0f)
 {
 	//		カメラの情報を
 	m_information = std::make_unique<PlayerCameraInformation>();
@@ -78,7 +78,6 @@ void PlayerCameraManager::Update()
 
 void PlayerCameraManager::Finalize()
 {
-	m_nowViewAngle = 70.0f;
 	m_startDirection = 0.0f;
 	m_information->Finalize();
 }
@@ -101,7 +100,7 @@ void PlayerCameraManager::CameraMove()
 	angle += move;
 
 	//		視点移動の制限
-	angle.y = Library::Clamp(angle.y, m_information->GetCameraAngleMin(), m_information->GetMaxAngleY());
+	angle.y = Library::Clamp(angle.y, m_information->GetCameraAngleMin(), m_information->ANGLE_Y_MAX);
 	
 	m_information->SetAngle(angle);
 	m_information->SetCameraMove(move);
@@ -147,6 +146,30 @@ void PlayerCameraManager::ViewingAngle()
 
 	//		プロジェクション行列を設定する
 	LibrarySingleton::GetInstance()->SetProj(proj);
+
+
+
+	/*
+	float time = Library::Clamp(((m_playerInformation->GetAcceleration().Length() - 30.0f) / 60.0f), 0.0f, 1.0f);
+
+	float angle = Library::Lerp(0.0f, 30.0f, time);
+
+	m_nowViewAngle = Library::Lerp(m_nowViewAngle, angle, 0.7f);
+
+	float viewAnge = m_nowViewAngle + m_information->GetViewAngle();
+
+	//		ビュー行列を作成する
+	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
+		CreatePerspectiveFieldOfView
+		(DirectX::XMConvertToRadians(viewAnge), LibrarySingleton::GetInstance()->GetScreenSize().x /
+			LibrarySingleton::GetInstance()->GetScreenSize().y,
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MIN,
+			LibrarySingleton::GetInstance()->DRAWING_DISTANCE_MAX);
+
+	//		プロジェクション行列を設定する
+	LibrarySingleton::GetInstance()->SetProj(proj);
+	*/
+
 }
 
 void PlayerCameraManager::ViewAngleUpdate(PlayerInformation* playerInformation)

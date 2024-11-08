@@ -11,7 +11,7 @@
 
 #include "IResultManager.h"
 
-#include "Game/TitleScene/UI/BackGroundMove.h"
+#include "Effect/UI/TitleScene/BackGroundMove.h"
 
 #include "Library/Shader/UIRenderManager.h"
 
@@ -21,7 +21,7 @@
 
 #include "Library/Shader/StandardShader.h"
 
-#include "UI/RiseNumberShader.h"
+#include "Effect/UI/ResultScene/RiseNumberShader.h"
 
 #include "ResultInformation.h"
 

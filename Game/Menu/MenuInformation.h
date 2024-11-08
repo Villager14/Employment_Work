@@ -10,10 +10,10 @@
 #include "pch.h"
 
 #include "Library/Shader/StandardShader.h"
-#include "UI/AboveUI.h"
-#include "UI/Slider.h"
-#include "UI/MenuSelect.h"
-#include "UI/FrameWalkUI.h"
+#include "Effect/UI/Menu/AboveUI/AboveUI.h"
+#include "Effect/UI/Menu/Slider/Slider.h"
+#include "Effect/UI/Menu/MenuSelect/MenuSelect.h"
+#include "Effect/UI/Menu/FrameWalkUI/FrameWalkUI.h"
 
 class MenuInformation
 {

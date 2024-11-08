@@ -13,7 +13,7 @@
 
 SignboardObject::SignboardObject(ObjectManager* objectManager)
 	:
-	m_floorModel{},
+	m_signboardModel{},
 	m_objectManager(objectManager)
 {
 	//		ポストエフェクトフラグを生成する
@@ -70,22 +70,8 @@ void SignboardObject::Render(PostEffectFlag::Flag flag,
 	auto common = LibrarySingleton::GetInstance()->GetCommonState();
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
-	/*
-	DirectX::SimpleMath::Matrix m_billboard = DirectX::SimpleMath::Matrix::CreateBillboard(DirectX::SimpleMath::Vector3::Zero,
-		m_objectManager->GetCameraInformation()->GetEye() - m_position,
-		m_objectManager->GetCameraInformation()->GetUP());
-
-	DirectX::SimpleMath::Matrix rot = DirectX::SimpleMath::Matrix::Identity;
-	rot._11 = -1;
-	rot._33 = -1;
-
-	m_billboard = rot * m_billboard;
-
-	m_world = m_billboard.Transpose();
-	*/
-
 	//		モデルの描画
-	m_floorModel->Draw(context, *common,
+	m_signboardModel->Draw(context, *common,
 		m_world, LibrarySingleton::GetInstance()->GetView(),
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
@@ -104,7 +90,7 @@ void SignboardObject::Render(PostEffectFlag::Flag flag,
 
 void SignboardObject::Finalize()
 {
-	m_floorModel.reset();
+	m_signboardModel.reset();
 }
 
 void SignboardObject::LoadModel(ObjectInformation information)
@@ -121,10 +107,10 @@ void SignboardObject::LoadModel(ObjectInformation information)
 	oss << Library::StringToWString(information.modelPath);
 
 	//		モデルの読み込み
-	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
+	m_signboardModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		oss.str().c_str(), *m_effect);
 
-	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
+	m_signboardModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
 			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 

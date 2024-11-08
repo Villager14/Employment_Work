@@ -81,6 +81,9 @@ public:
 	*/
 	void MinLengthMP();
 
+	//		I—¹ˆ—
+	void Finalize();
+
 private:
 
 	MeshCollitionManager* m_meshCollitionManager;

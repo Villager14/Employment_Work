@@ -9,7 +9,7 @@
 
 #include <WICTextureLoader.h>
 
-#include "Game/PlayScene/UIManager/BinaryFile.h"
+#include "Common/BinaryFile.h"
 
 template<typename ConstBuffer>
 class EffectShaderManager

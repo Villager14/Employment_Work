@@ -16,7 +16,7 @@ ScreenEffectManager::ScreenEffectManager(Scene scene, GameManager* gameManager)
 	m_scene(),
 	m_backColor()
 {
-	CreateRenderTexture();
+	
 
 	m_scene = scene;
 
@@ -34,10 +34,12 @@ ScreenEffectManager::~ScreenEffectManager()
 
 void ScreenEffectManager::Initialize()
 {
+	CreateRenderTexture();
 }
 
-void ScreenEffectManager::Update(PlayerCameraInformation* playerCameraInformation)
+void ScreenEffectManager::Update()
 {
+	
 	m_playerModelTexture->Update();
 }
 
@@ -48,6 +50,7 @@ void ScreenEffectManager::Render()
 
 void ScreenEffectManager::Finalize()
 {
+	m_renderTexture.reset();
 }
 
 void ScreenEffectManager::CreateRenderTexture()

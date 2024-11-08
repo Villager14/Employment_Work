@@ -11,7 +11,7 @@
 
 #include "Library/Factory/IFactory.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class WireObject : public IFactory
 {

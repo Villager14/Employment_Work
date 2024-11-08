@@ -173,8 +173,10 @@ void WireObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 void WireObject::Finalize()
 {
 	m_wingPosition.clear();
+	m_wingPosition.shrink_to_fit();
 	m_wireRangeModel.reset();
 	m_wingModel.reset();
+	m_wireModel.reset();
 }
 
 void WireObject::DebugRender()

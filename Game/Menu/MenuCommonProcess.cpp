@@ -139,6 +139,7 @@ void MenuCommonProcess::SlideProcess(AboveUI::UIType type)
 	DirectX::SimpleMath::Vector2 max = nowPosition + m_information->KNOB_LENGTH;
 	DirectX::SimpleMath::Vector2 min = nowPosition - m_information->KNOB_LENGTH;
 
+	//		四角の当たり判定
 	if (BoxCollider(min, max))
 	{
 		if (LibrarySingleton::GetInstance()->GetButtonStateTracker()->leftButton
@@ -174,11 +175,14 @@ void MenuCommonProcess::SlideProcess(AboveUI::UIType type)
 
 void MenuCommonProcess::MousePointa()
 {
+	//		マウスの座標
 	DirectX::SimpleMath::Vector2 mousePosition;
 
+	//		マウスの現在座標を受け取る
 	mousePosition.x = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().x) - LibrarySingleton::GetInstance()->GetScreenSize().x / 2.0f;
 	mousePosition.y = static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().y) - LibrarySingleton::GetInstance()->GetScreenSize().y / 2.0f;
 
+	//		マウスポインタのUIの座標を設定する
 	(*m_information->GetStandardShader()->GetUIInformation())[MenuInformation::UIType::MousePointa].position = mousePosition;
 
 	//		マウスポインタの描画

@@ -78,9 +78,6 @@ void PlayerCameraStop::Update()
 	if (m_playerCameraManager->GetGameManager()->FlagJudgement(GameManager::DeathJudgement))
 	{
 		//		Ž€–SƒJƒƒ‰‚É‚·‚é
-		//m_playerCameraManager->ChangeState(m_playerCameraManager->GetDeathCamera());
-
-		//		Ž€–SƒJƒƒ‰‚É‚·‚é
 		m_playerCameraManager->ChangeState(m_playerCameraManager->CameraType::Death);
 	}
 

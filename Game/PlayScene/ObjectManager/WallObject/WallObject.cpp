@@ -13,7 +13,7 @@
 
 WallObject::WallObject(ObjectManager* objectManager)
 	:
-	m_floorModel{},
+	m_wallModel{},
 	m_objectManager(objectManager),
 	m_time(0.0f)
 {
@@ -117,7 +117,7 @@ void WallObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
 
 	//		ƒ‚ƒfƒ‹‚Ì•`‰æ
-	m_floorModel->Draw(context, *common,
+	m_wallModel->Draw(context, *common,
 		m_world, LibrarySingleton::GetInstance()->GetView(),
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
@@ -139,7 +139,7 @@ void WallObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 void WallObject::Finalize()
 {
-	m_floorModel.reset();
+	m_wallModel.reset();
 	m_objectMesh->Finalize();
 }
 
@@ -157,10 +157,10 @@ void WallObject::LoadModel(ObjectInformation information)
 	oss << Library::StringToWString(information.modelPath);
 
 	//		ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
+	m_wallModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		oss.str().c_str(), *m_effect);
 
-	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
+	m_wallModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
 			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 

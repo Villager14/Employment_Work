@@ -15,11 +15,11 @@
 
 #include "Game/PlayScene/ObjectManager/WireObject/WireObjectInformation.h"
 
-#include "Library/Effect/Effect/DigitalRain/DegitalRain.h"
+#include "Effect/Effect/DigitalRain/DegitalRain.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
-#include "Library/Effect/Effect/Signboard/SignboardEffect.h"
+#include "Effect/Effect/Signboard/SignboardEffect.h"
 
 class EffectManager
 {

@@ -106,3 +106,12 @@ void RespawnManager::DebugRender()
 	}
 }
 
+void RespawnManager::Finalize()
+{
+	m_respawnPointRead->Finalize();
+
+	m_direction = 0.0f;
+
+	m_respownIndex = 0;
+}
+

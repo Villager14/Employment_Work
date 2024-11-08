@@ -96,6 +96,5 @@ void LeadMesh::Clear()
 {
 	m_triangle.clear();
 	m_vertex.clear();
-	m_origanization.reset();
 	m_vertexIndex.clear();
 }

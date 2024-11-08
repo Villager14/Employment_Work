@@ -104,6 +104,9 @@ public:
 								   float playerUnder,
 								   float playerHeight);
 
+	//		I—¹ˆ—
+	void Finalize();
+
 private:
 
 	MeshCollitionManager* m_meshCollitionManager;

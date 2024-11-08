@@ -42,6 +42,9 @@ public:
 	void CollitionProcess(PlayerInformationCollition* playerInformationCollition,
 		float height, int index);
 
+	//		I—¹ˆ—
+	void Finalize();
+
 private:
 
 	//		ƒƒbƒVƒ…‚Ì“–‚½‚è”»’è

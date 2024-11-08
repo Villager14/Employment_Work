@@ -120,7 +120,6 @@ bool PlayScene::MenuInformation()
 		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
 
 		//		グレイ
-		//m_screenEffectManager->GrayScare(m_sceneManager->GetMenuManager()->GetInformation());
 		m_postEffectManager->Update(PostEffectFlag::Flag::Color);
 
 		return true;
@@ -135,6 +134,8 @@ void PlayScene::Update()
 	if (LibrarySingleton::GetInstance()->GetKeyboardStateTracker()->GetLastState().IsKeyDown(DirectX::Keyboard::P))
 	{
 		m_sceneManager->ChangeScene(SceneManager::Result);
+
+		return;
 	}
 
 	//		メニューを開いているかどうか
@@ -225,7 +226,7 @@ void PlayScene::Render()
 		//		ポストエフェクトマネージャーの変更
 		m_postEffectManager->Render(PostEffectFlag::Flag(i));
 
-		//		オブジェクトマネージャーの描画処理
+				//オブジェクトマネージャーの描画処理
 		m_objectManager->Render(m_player->GetCameraInformation(),
 			m_player->GetInformation()->GetPlayerHeight(),
 			PostEffectFlag::Flag(i), m_postEffectManager->GetPostObjectShader());
@@ -278,6 +279,8 @@ void PlayScene::Finalize()
 	//		ゲームマネージャーの終了処理
 	m_gameManager->Finalize();
 
+	m_collitionManager->Finalize();
+
 	//		カメラの終了処理
 	m_playerCameraManager->Finalize();
 
@@ -287,6 +290,9 @@ void PlayScene::Finalize()
 	//		ポストエフェクトマネージャー
 	m_postEffectManager->Finalize();
 
+	//		リスポーンポイントの終了処理
+	m_respawnManager->Finalize();
+
 	//		エフェクトマネージャー
 	m_effectManager->Finalize();
 	
@@ -294,6 +300,4 @@ void PlayScene::Finalize()
 	m_uiManager->Finalize();
 
 	m_objectManager->Finalize();
-
-
 }

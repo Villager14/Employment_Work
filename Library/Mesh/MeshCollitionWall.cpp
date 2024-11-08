@@ -401,3 +401,13 @@ float MeshCollitionWall::PerpendicularPointSecond(
 	}
 }
 
+void MeshCollitionWall::Finalize()
+{
+	m_hitpp.clear();
+	m_hitpp.shrink_to_fit();
+	m_normalize.clear();
+	m_normalize.shrink_to_fit();
+	m_moveVelocity.clear();
+	m_moveVelocity.shrink_to_fit();
+}
+

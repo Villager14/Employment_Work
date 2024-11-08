@@ -27,28 +27,12 @@ void PlayerCamera::Initialize()
 	//		マウスを相対参照にする
 	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
 
-	m_playerCameraManager->GetInformation()->SetCameraAngleMin(m_playerCameraManager->GetInformation()->GetMinAngleY());
+	m_playerCameraManager->GetInformation()->SetCameraAngleMin(m_playerCameraManager->GetInformation()->ANGLE_Y_MIN);
 }
 
 void PlayerCamera::Update()
 {
 	m_playerCameraManager->CameraMove();
-
-	/*
-	//		頭を揺らすかどうか
-	if (m_playerCameraManager->GetPlayerInformationCamera()
-		->GetHeadShakingJudgement())
-	{
-		ShakingView();
-	}
-	else
-	{
-		//		現在の座標
-		m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
-
-		m_shakingTime = 0.0f;
-	}
-	*/
 
 	//		現在の座標
 	m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
@@ -62,9 +46,6 @@ void PlayerCamera::Update()
 
 	//		向いている角度にする
 	DirectX::SimpleMath::Matrix rotation = matrixY * matrixX;
-
-	//		カメラ座標
-	//m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
 
 	//		視点方向
 	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3::Transform(
@@ -127,8 +108,6 @@ void PlayerCamera::ShakingView()
 
 	//		プレイヤーの速度を受け取る
 	float playerSpeed = m_playerCameraManager->GetPlayerInformationCamera()->GetAcceleration().Length();
-
-	//playerSpeed = 70.0f;
 
 	//		頭を動かす割合を設定する
 	m_shakingRatio = playerSpeed / m_playerCameraManager->GetPlayerInformationCamera()->GetMaxSpeed();

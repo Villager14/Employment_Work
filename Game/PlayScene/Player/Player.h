@@ -42,7 +42,7 @@
 
 #include "PlayerCommonProcessing.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class Player
 {

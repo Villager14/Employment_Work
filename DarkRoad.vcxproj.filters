@@ -56,38 +56,17 @@
     <Filter Include="Library\Bones">
       <UniqueIdentifier>{5d407fbb-53c6-4835-a3a6-6e0f55452b2c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Camera\PlayerCamera">
-      <UniqueIdentifier>{ce56b838-d436-4b62-b62d-3444458e42ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Camera\PlayerCamera\State">
-      <UniqueIdentifier>{e4580d1a-ba01-43d3-944a-d4b124e66e01}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\WireObject">
       <UniqueIdentifier>{59719ea9-2e1d-4cca-ab5c-9d74636e44ce}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\WallObject">
       <UniqueIdentifier>{0f38d5f3-2861-4feb-9033-16145fd21a32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\UIManager">
-      <UniqueIdentifier>{4afb6e23-a37d-4e02-807d-eaa6441dd6a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\UIManager\Clock">
-      <UniqueIdentifier>{3175a090-b1e6-4f9c-8c9a-86954e50d45c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\UIManager\CoolTime">
-      <UniqueIdentifier>{6c3895e0-c78b-461b-bdae-5373834bc64d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\UIManager\FadeIn">
-      <UniqueIdentifier>{36705254-2527-435f-b523-9f5cd5501d43}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ScreenEffect">
       <UniqueIdentifier>{fad8f5ee-458e-4299-984b-951397be411c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\GameManager">
       <UniqueIdentifier>{b34f999c-acda-436d-9eaa-8875cc43bf11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\UIManager\GameOver">
-      <UniqueIdentifier>{3b0bf28e-2c29-4df8-a0a7-609013951545}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\BackGround">
       <UniqueIdentifier>{89346af3-c05f-4eb9-8bd3-a5f8e3df1b2e}</UniqueIdentifier>
@@ -122,9 +101,6 @@
     <Filter Include="Resorces\FBX\Player">
       <UniqueIdentifier>{24aadd23-d916-4d8e-a9cd-cb91e95d688f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\UIManager\GameClear">
-      <UniqueIdentifier>{15776f83-2d7f-4841-aa96-48b0174c6d0c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\PlayerModelTexture">
       <UniqueIdentifier>{f930e44a-dfe8-4f84-9e19-d60abc3e3a4b}</UniqueIdentifier>
     </Filter>
@@ -146,23 +122,14 @@
     <Filter Include="Game\ResultManager\State">
       <UniqueIdentifier>{f1101602-971a-4a62-853c-3fbdac8923cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\ResultManager\UI">
-      <UniqueIdentifier>{df9aa0e4-acc9-481c-a2df-c22f8f87512c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\ResultManager\ScreenEffect">
       <UniqueIdentifier>{df773b49-5e02-46ca-98fd-3342b0f6292e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\TitleScene">
       <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\TitleScene\UI">
-      <UniqueIdentifier>{3d864d14-41ac-4c44-8a8f-bffabd28eb05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\TitleScene\State">
       <UniqueIdentifier>{9c4105e1-bf06-4936-be4e-7f08fe01601b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Menu\UI">
-      <UniqueIdentifier>{3c8508d3-2924-4dba-a66c-4cdf77711c36}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GriderObject">
       <UniqueIdentifier>{cb77693b-47e0-4122-97ad-6d0ee1bb3d48}</UniqueIdentifier>
@@ -193,15 +160,6 @@
     </Filter>
     <Filter Include="Library\Mesh\MeshType">
       <UniqueIdentifier>{6c3dbe99-c6f8-4a7c-a5a8-bcbda3abc4ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\UIManager\SpeedLine">
-      <UniqueIdentifier>{5648a73e-396b-41b1-a849-9a9232f8ee01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect">
-      <UniqueIdentifier>{8ecfd551-be4b-4501-b655-d211518a83c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect">
-      <UniqueIdentifier>{5abede6e-d38d-4a58-aa38-d7e7c6f3d56a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\PostEffect">
       <UniqueIdentifier>{d889fd5c-2d9a-4b93-8ea3-f929354d5752}</UniqueIdentifier>
@@ -245,12 +203,6 @@
     <Filter Include="Resorces\Shader\PostEffect\Bloom\BloomUnaffectedDepth">
       <UniqueIdentifier>{5909338c-7f24-4aac-bfe3-4ebf778b0fba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Effect\Effect">
-      <UniqueIdentifier>{5fc45fc0-1759-4838-afed-ab334da0afb6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\Effect\DegitalRain">
-      <UniqueIdentifier>{2b38562e-6b8d-48d5-bfdf-94fcbcf6f50e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\UI">
       <UniqueIdentifier>{fa5e4c07-5ba9-410f-9d22-b54b6cac4f79}</UniqueIdentifier>
     </Filter>
@@ -293,50 +245,11 @@
     <Filter Include="Resorces\Shader\PostEffect\Transparency\Depth">
       <UniqueIdentifier>{cae9df08-5e24-418a-86f2-21d468b49462}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Effect\PostEffect\State">
-      <UniqueIdentifier>{f5ef5b26-c9aa-4dcf-a51f-d723d51e8a91}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\UIRender">
-      <UniqueIdentifier>{87223837-0da9-4e08-88cc-59d388043396}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\Bloom">
-      <UniqueIdentifier>{990a6f6e-3bcb-4417-a876-635f046b8087}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\BloomDepth">
-      <UniqueIdentifier>{2b531761-3454-4723-affb-a2ea447072df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\Fog">
-      <UniqueIdentifier>{b3cce43e-206c-4d98-9ac5-bd3870ff125d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\Bler">
-      <UniqueIdentifier>{cfdc2b76-925c-441f-a748-50cf6f5d12c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\Effect">
-      <UniqueIdentifier>{980a6a29-2231-4327-8f2f-8fb31008b464}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\EffectDepth">
-      <UniqueIdentifier>{c42482fe-5025-4c01-abde-0156b32e8220}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\Normal">
-      <UniqueIdentifier>{ac33b260-57ce-49a4-81b6-170649a69ba7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\ScreenColor">
-      <UniqueIdentifier>{52079cd0-6ab3-4539-9363-2fa0d1bfb704}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\PostEffect\ScreenColor">
       <UniqueIdentifier>{8fb6fc18-d5b7-4acb-b25d-3d755d1ba069}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\FadePostEffect">
-      <UniqueIdentifier>{84cf5ff5-af26-4c03-8da4-e407628b966d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Library\Effect\PostEffect\State\GlitchNoise">
-      <UniqueIdentifier>{f61ea9fa-4f8d-4c4f-b3fc-43b412bdc037}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\PostEffect\GlitchNoise">
       <UniqueIdentifier>{4123a89e-e675-462d-97f5-0742770e80e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\UIManager\GameStart">
-      <UniqueIdentifier>{43be1012-ee75-4ae6-833f-1bbf99f76a7f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\Shader\UI\CoolTime">
       <UniqueIdentifier>{f515a44a-363a-44a4-91e7-7e212770d4d4}</UniqueIdentifier>
@@ -365,17 +278,119 @@
     <Filter Include="Resorces\Shader\UI\FadeShader">
       <UniqueIdentifier>{f2523ad1-57d1-41eb-a682-eec5a14cd5c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Library\Effect\Effect\Signboard">
-      <UniqueIdentifier>{6aeb945c-3dc3-448e-afc3-01ea2e166782}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\Signboard.fbx">
       <UniqueIdentifier>{40ad0f3f-36f7-4fbc-9caa-9a1fd085c6a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\UIManager\CountDown">
-      <UniqueIdentifier>{23312854-c921-441f-979c-b132c32dd896}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\UI\NumberAlpha">
       <UniqueIdentifier>{f7f04474-a0db-4129-b3bf-a5004129c091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera\PlayerSceneCamera">
+      <UniqueIdentifier>{ce56b838-d436-4b62-b62d-3444458e42ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera\PlayerSceneCamera\State">
+      <UniqueIdentifier>{e4580d1a-ba01-43d3-944a-d4b124e66e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{b252b7e8-a5ec-42f9-8491-83920890dd34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI">
+      <UniqueIdentifier>{e27b3f89-d371-4b2d-af68-fd22e50e7502}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\Menu">
+      <UniqueIdentifier>{e42fe383-ffc3-4294-a4f3-8f7239a70225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\Menu\AboveUI">
+      <UniqueIdentifier>{1f312f75-af8f-4c26-ad44-8ba1a93fd745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\Menu\FrameWalkUI">
+      <UniqueIdentifier>{57522871-2cee-4bdb-9f57-c6fab48a0065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\Menu\MenuSelect">
+      <UniqueIdentifier>{50531b37-9729-42ea-b064-0a0f85118be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\Menu\Slider">
+      <UniqueIdentifier>{e0243de3-23a7-440a-acc7-755f066c710e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene">
+      <UniqueIdentifier>{266c6717-0cf4-4bd3-bf1f-77a3758931c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\Clock">
+      <UniqueIdentifier>{3175a090-b1e6-4f9c-8c9a-86954e50d45c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\CoolTime">
+      <UniqueIdentifier>{6c3895e0-c78b-461b-bdae-5373834bc64d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\CountDown">
+      <UniqueIdentifier>{23312854-c921-441f-979c-b132c32dd896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\GameClear">
+      <UniqueIdentifier>{15776f83-2d7f-4841-aa96-48b0174c6d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\GameOver">
+      <UniqueIdentifier>{3b0bf28e-2c29-4df8-a0a7-609013951545}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\GameStart">
+      <UniqueIdentifier>{43be1012-ee75-4ae6-833f-1bbf99f76a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\PlayScene\SpeedLine">
+      <UniqueIdentifier>{5648a73e-396b-41b1-a849-9a9232f8ee01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\FadeIn">
+      <UniqueIdentifier>{36705254-2527-435f-b523-9f5cd5501d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\ResultScene">
+      <UniqueIdentifier>{db4e735d-228a-4332-8ff5-0591e1954364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\TitleScene">
+      <UniqueIdentifier>{62f15d4b-cbc2-4402-aa79-bb4a997c558a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Effect">
+      <UniqueIdentifier>{5fc45fc0-1759-4838-afed-ab334da0afb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Effect\DegitalRain">
+      <UniqueIdentifier>{2b38562e-6b8d-48d5-bfdf-94fcbcf6f50e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Effect\Signboard">
+      <UniqueIdentifier>{6aeb945c-3dc3-448e-afc3-01ea2e166782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect">
+      <UniqueIdentifier>{5abede6e-d38d-4a58-aa38-d7e7c6f3d56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State">
+      <UniqueIdentifier>{f5ef5b26-c9aa-4dcf-a51f-d723d51e8a91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\UIRender">
+      <UniqueIdentifier>{87223837-0da9-4e08-88cc-59d388043396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\Bloom">
+      <UniqueIdentifier>{990a6f6e-3bcb-4417-a876-635f046b8087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\BloomDepth">
+      <UniqueIdentifier>{2b531761-3454-4723-affb-a2ea447072df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\Fog">
+      <UniqueIdentifier>{b3cce43e-206c-4d98-9ac5-bd3870ff125d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\Bler">
+      <UniqueIdentifier>{cfdc2b76-925c-441f-a748-50cf6f5d12c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\Effect">
+      <UniqueIdentifier>{980a6a29-2231-4327-8f2f-8fb31008b464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\EffectDepth">
+      <UniqueIdentifier>{c42482fe-5025-4c01-abde-0156b32e8220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\Normal">
+      <UniqueIdentifier>{ac33b260-57ce-49a4-81b6-170649a69ba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\ScreenColor">
+      <UniqueIdentifier>{52079cd0-6ab3-4539-9363-2fa0d1bfb704}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\FadePostEffect">
+      <UniqueIdentifier>{84cf5ff5-af26-4c03-8da4-e407628b966d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\GlitchNoise">
+      <UniqueIdentifier>{f61ea9fa-4f8d-4c4f-b3fc-43b412bdc037}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -493,19 +508,19 @@
       <Filter>Game\PlayScene\CollitionManager</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.h">
-      <Filter>Game\Camera\PlayerCamera</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\IPlayerCamera.h">
-      <Filter>Game\Camera\PlayerCamera</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\DebugCamera.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h">
       <Filter>Game\PlayScene\ObjectManager\WireObject</Filter>
@@ -528,24 +543,6 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWallJump.h">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\UIManager.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\BinaryFile.h">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockBackGround.h">
-      <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockManager.h">
-      <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\Clock\ClockTime.h">
-      <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\CoolTime\CoolTime.h">
-      <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\Player\PlayerInformationUI.h">
       <Filter>Game\PlayScene\Player</Filter>
     </ClInclude>
@@ -556,16 +553,13 @@
       <Filter>Game\PlayScene\Player</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\Player\State\PlayerStart.h">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h">
-      <Filter>Game\Camera\PlayerCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\Fade\FadeIn.h">
-      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
@@ -577,10 +571,7 @@
       <Filter>Game\PlayScene\GameManager</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerDeathCamera.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\GameOver\GameOverManager.h">
-      <Filter>Game\PlayScene\UIManager\GameOver</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.h">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
@@ -593,9 +584,6 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneState\TitleScene.h">
       <Filter>Scene\SceneState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\UI\BackGroundMove.h">
-      <Filter>Game\TitleScene\UI</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.h">
       <Filter>Game\PlayScene\ObjectManager\GoalObject</Filter>
@@ -622,7 +610,7 @@
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCameraStop.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayScene\Effect\EffectManager.h">
       <Filter>Game\PlayScene\Effect</Filter>
@@ -633,11 +621,8 @@
     <ClInclude Include="Game\PlayScene\Effect\Billboard\BillboardEffect.h">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\GameClear\GameClearManager.h">
-      <Filter>Game\PlayScene\UIManager\GameClear</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.h">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h">
       <Filter>Game\ResultManager\ScreenEffect</Filter>
@@ -699,32 +684,17 @@
     <ClInclude Include="Library\Shader\StandardShader.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ResultScene\UI\RiseNumberShader.h">
-      <Filter>Game\ResultManager\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\UI\AboveUI.h">
-      <Filter>Game\Menu\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Menu\State\OptionSetting.h">
       <Filter>Game\Menu\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Menu\State\EndSetting.h">
       <Filter>Game\Menu\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Menu\UI\MenuSelect.h">
-      <Filter>Game\Menu\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\UI\Slider.h">
-      <Filter>Game\Menu\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Menu\State\MenuClose.h">
       <Filter>Game\Menu\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Menu\MenuInformation.h">
       <Filter>Game\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\UI\FrameWalkUI.h">
-      <Filter>Game\Menu\UI</Filter>
     </ClInclude>
     <ClInclude Include="Game\Menu\MenuInformationRead.h">
       <Filter>Game\Menu</Filter>
@@ -870,12 +840,6 @@
     <ClInclude Include="Library\Shader\ObjectShaderManager.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\SpeedLine\SpeedLine.h">
-      <Filter>Game\PlayScene\UIManager\SpeedLine</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectManager.h">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\Respawn\RespawnManager.h">
       <Filter>Game\PlayScene\Respawn</Filter>
     </ClInclude>
@@ -885,71 +849,125 @@
     <ClInclude Include="Library\Instancing.h">
       <Filter>Library</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectCommonProcess.h">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectFlag.h">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\PostEffectObjectShader.h">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRain.h">
-      <Filter>Library\Effect\Effect\DegitalRain</Filter>
-    </ClInclude>
     <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRainParameter.h">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClInclude>
     <ClInclude Include="Library\Shader\EffectShaderManager.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\IPostEffect.h">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\Bler\Bler.h">
-      <Filter>Library\Effect\PostEffect\State\Bler</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\Bloom\Bloom.h">
-      <Filter>Library\Effect\PostEffect\State\Bloom</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\BloomDepth\BloomDepth.h">
-      <Filter>Library\Effect\PostEffect\State\BloomDepth</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\Fog\FogProcess.h">
-      <Filter>Library\Effect\PostEffect\State\Fog</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\Effect\EffectRender.h">
-      <Filter>Library\Effect\PostEffect\State\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\EffectDepth\EffectDepthRender.h">
-      <Filter>Library\Effect\PostEffect\State\EffectDepth</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\UIRender\UIRender.h">
-      <Filter>Library\Effect\PostEffect\State\UIRender</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\Normal\NormalRender.h">
-      <Filter>Library\Effect\PostEffect\State\Normal</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\ScreenColor\ScreenColor.h">
-      <Filter>Library\Effect\PostEffect\State\ScreenColor</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\Fade\FadePostEffect.h">
-      <Filter>Library\Effect\PostEffect\State\FadePostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\PostEffect\State\GlitchNoise\GlitchNoise.h">
-      <Filter>Library\Effect\PostEffect\State\GlitchNoise</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\GameStart\GameStart.h">
-      <Filter>Game\PlayScene\UIManager\GameStart</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\Effect\Effect\Signboard\SignboardEffect.h">
-      <Filter>Library\Effect\Effect\Signboard</Filter>
-    </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.h">
       <Filter>Game\PlayScene\ObjectManager\Signboard.fbx</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\UIManager\CountDown\CountDown.h">
-      <Filter>Game\PlayScene\UIManager\CountDown</Filter>
+    <ClInclude Include="Effect\UI\Menu\AboveUI\AboveUI.h">
+      <Filter>Effect\UI\Menu\AboveUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\Menu\FrameWalkUI\FrameWalkUI.h">
+      <Filter>Effect\UI\Menu\FrameWalkUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\Menu\MenuSelect\MenuSelect.h">
+      <Filter>Effect\UI\Menu\MenuSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\Menu\Slider\Slider.h">
+      <Filter>Effect\UI\Menu\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BinaryFile.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\UIManager.h">
+      <Filter>Effect\UI\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\Clock\ClockBackGround.h">
+      <Filter>Effect\UI\PlayScene\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\Clock\ClockManager.h">
+      <Filter>Effect\UI\PlayScene\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\Clock\ClockTime.h">
+      <Filter>Effect\UI\PlayScene\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\CoolTime\CoolTime.h">
+      <Filter>Effect\UI\PlayScene\CoolTime</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\CountDown\CountDown.h">
+      <Filter>Effect\UI\PlayScene\CountDown</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\Fade\FadeIn.h">
+      <Filter>Game\Menu\FadeIn</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\GameClear\GameClearManager.h">
+      <Filter>Effect\UI\PlayScene\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\GameOver\GameOverManager.h">
+      <Filter>Effect\UI\PlayScene\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\GameStart\GameStart.h">
+      <Filter>Effect\UI\PlayScene\GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\PlayScene\SpeedLine\SpeedLine.h">
+      <Filter>Effect\UI\PlayScene\SpeedLine</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\ResultScene\RiseNumberShader.h">
+      <Filter>Effect\UI\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\TitleScene\BackGroundMove.h">
+      <Filter>Effect\UI\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Effect\DigitalRain\DegitalRain.h">
+      <Filter>Effect\Effect\DegitalRain</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Effect\DigitalRain\DegitalRainParameter.h">
+      <Filter>Effect\Effect\DegitalRain</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Effect\Signboard\SignboardEffect.h">
+      <Filter>Effect\Effect\Signboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\IPostEffect.h">
+      <Filter>Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\PostEffectCommonProcess.h">
+      <Filter>Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\PostEffectFlag.h">
+      <Filter>Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\PostEffectManager.h">
+      <Filter>Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\PostEffectObjectShader.h">
+      <Filter>Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\UIRender\UIRender.h">
+      <Filter>Effect\PostEffect\State\UIRender</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\ScreenColor\ScreenColor.h">
+      <Filter>Effect\PostEffect\State\ScreenColor</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\Normal\NormalRender.h">
+      <Filter>Effect\PostEffect\State\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\GlitchNoise\GlitchNoise.h">
+      <Filter>Effect\PostEffect\State\GlitchNoise</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\Fog\FogProcess.h">
+      <Filter>Effect\PostEffect\State\Fog</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\Fade\FadePostEffect.h">
+      <Filter>Effect\PostEffect\State\FadePostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\EffectDepth\EffectDepthRender.h">
+      <Filter>Effect\PostEffect\State\EffectDepth</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\Effect\EffectRender.h">
+      <Filter>Effect\PostEffect\State\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\BloomDepth\BloomDepth.h">
+      <Filter>Effect\PostEffect\State\BloomDepth</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\Bloom\Bloom.h">
+      <Filter>Effect\PostEffect\State\Bloom</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\Bler\Bler.h">
+      <Filter>Effect\PostEffect\State\Bler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1053,16 +1071,16 @@
       <Filter>Game\PlayScene\CollitionManager</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.cpp">
-      <Filter>Game\Camera\PlayerCamera</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCamera.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerWallWalkCamera.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\DebugCamera.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\WireObject</Filter>
@@ -1079,35 +1097,14 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWallJump.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\UIManager.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\BinaryFile.cpp">
-      <Filter>Game\PlayScene\UIManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockBackGround.cpp">
-      <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockManager.cpp">
-      <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\Clock\ClockTime.cpp">
-      <Filter>Game\PlayScene\UIManager\Clock</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\CoolTime\CoolTime.cpp">
-      <Filter>Game\PlayScene\UIManager\CoolTime</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\State\PlayerDeath.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerStartCamera.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\State\PlayerStart.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\Fade\FadeIn.cpp">
-      <Filter>Game\PlayScene\UIManager\FadeIn</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp">
       <Filter>Game\PlayScene\ScreenEffect</Filter>
@@ -1119,10 +1116,7 @@
       <Filter>Game\PlayScene\GameManager</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerDeathCamera.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\GameOver\GameOverManager.cpp">
-      <Filter>Game\PlayScene\UIManager\GameOver</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ObjectManager\BackGroundObject\BackGroundObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
@@ -1132,9 +1126,6 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneState\TitleScene.cpp">
       <Filter>Scene\SceneState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\UI\BackGroundMove.cpp">
-      <Filter>Game\TitleScene\UI</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\GoalObject</Filter>
@@ -1158,7 +1149,7 @@
       <Filter>Game\PlayScene\ObjectManager\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCameraStop.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Effect\EffectManager.cpp">
       <Filter>Game\PlayScene\Effect</Filter>
@@ -1169,11 +1160,8 @@
     <ClCompile Include="Game\PlayScene\Effect\Billboard\BillboardEffect.cpp">
       <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\GameClear\GameClearManager.cpp">
-      <Filter>Game\PlayScene\UIManager\GameClear</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp">
-      <Filter>Game\Camera\PlayerCamera\State</Filter>
+      <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp">
       <Filter>Game\ResultManager\ScreenEffect</Filter>
@@ -1223,29 +1211,14 @@
     <ClCompile Include="Game\TitleScene\TitleSelectManager.cpp">
       <Filter>Game\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ResultScene\UI\RiseNumberShader.cpp">
-      <Filter>Game\ResultManager\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\UI\AboveUI.cpp">
-      <Filter>Game\Menu\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Menu\State\OptionSetting.cpp">
       <Filter>Game\Menu\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\Menu\State\EndSetting.cpp">
       <Filter>Game\Menu\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Menu\UI\MenuSelect.cpp">
-      <Filter>Game\Menu\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\UI\Slider.cpp">
-      <Filter>Game\Menu\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Menu\State\MenuClose.cpp">
       <Filter>Game\Menu\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\UI\FrameWalkUI.cpp">
-      <Filter>Game\Menu\UI</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp">
       <Filter>Game\PlayScene\Player</Filter>
@@ -1355,12 +1328,6 @@
     <ClCompile Include="Library\Shader\ObjectShaderManager.cpp">
       <Filter>Library\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\SpeedLine\SpeedLine.cpp">
-      <Filter>Game\PlayScene\UIManager\SpeedLine</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\PostEffectManager.cpp">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Game\PlayScene\Respawn\RespawnManager.cpp">
       <Filter>Game\PlayScene\Respawn</Filter>
     </ClCompile>
@@ -1370,59 +1337,110 @@
     <ClCompile Include="Library\Instancing.cpp">
       <Filter>Library</Filter>
     </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\PostEffectCommonProcess.cpp">
-      <Filter>Library\Effect\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\Effect\DigitalRain\DegitalRain.cpp">
-      <Filter>Library\Effect\Effect\DegitalRain</Filter>
-    </ClCompile>
     <ClCompile Include="Library\Shader\EffectShaderManager.cpp">
       <Filter>Library\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\Bler\Bler.cpp">
-      <Filter>Library\Effect\PostEffect\State\Bler</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\Bloom\Bloom.cpp">
-      <Filter>Library\Effect\PostEffect\State\Bloom</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\BloomDepth\BloomDepth.cpp">
-      <Filter>Library\Effect\PostEffect\State\BloomDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\Fog\FogProcess.cpp">
-      <Filter>Library\Effect\PostEffect\State\Fog</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\Effect\EffectRender.cpp">
-      <Filter>Library\Effect\PostEffect\State\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\EffectDepth\EffectDepthRender.cpp">
-      <Filter>Library\Effect\PostEffect\State\EffectDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\UIRender\UIRender.cpp">
-      <Filter>Library\Effect\PostEffect\State\UIRender</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\Normal\NormalRender.cpp">
-      <Filter>Library\Effect\PostEffect\State\Normal</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\ScreenColor\ScreenColor.cpp">
-      <Filter>Library\Effect\PostEffect\State\ScreenColor</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\Fade\FadePostEffect.cpp">
-      <Filter>Library\Effect\PostEffect\State\FadePostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\PostEffect\State\GlitchNoise\GlitchNoise.cpp">
-      <Filter>Library\Effect\PostEffect\State\GlitchNoise</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\GameStart\GameStart.cpp">
-      <Filter>Game\PlayScene\UIManager\GameStart</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\Effect\Effect\Signboard\SignboardEffect.cpp">
-      <Filter>Library\Effect\Effect\Signboard</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\Signboard.fbx</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\UIManager\CountDown\CountDown.cpp">
-      <Filter>Game\PlayScene\UIManager\CountDown</Filter>
+    <ClCompile Include="Effect\UI\Menu\AboveUI\AboveUI.cpp">
+      <Filter>Effect\UI\Menu\AboveUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\Menu\FrameWalkUI\FrameWalkUI.cpp">
+      <Filter>Effect\UI\Menu\FrameWalkUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\Menu\MenuSelect\MenuSelect.cpp">
+      <Filter>Effect\UI\Menu\MenuSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\Menu\Slider\Slider.cpp">
+      <Filter>Effect\UI\Menu\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BinaryFile.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\UIManager.cpp">
+      <Filter>Effect\UI\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\Clock\ClockBackGround.cpp">
+      <Filter>Effect\UI\PlayScene\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\Clock\ClockManager.cpp">
+      <Filter>Effect\UI\PlayScene\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\Clock\ClockTime.cpp">
+      <Filter>Effect\UI\PlayScene\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\CoolTime\CoolTime.cpp">
+      <Filter>Effect\UI\PlayScene\CoolTime</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\CountDown\CountDown.cpp">
+      <Filter>Effect\UI\PlayScene\CountDown</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\Fade\FadeIn.cpp">
+      <Filter>Game\Menu\FadeIn</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\GameClear\GameClearManager.cpp">
+      <Filter>Effect\UI\PlayScene\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\GameOver\GameOverManager.cpp">
+      <Filter>Effect\UI\PlayScene\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\GameStart\GameStart.cpp">
+      <Filter>Effect\UI\PlayScene\GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\PlayScene\SpeedLine\SpeedLine.cpp">
+      <Filter>Effect\UI\PlayScene\SpeedLine</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\ResultScene\RiseNumberShader.cpp">
+      <Filter>Effect\UI\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\TitleScene\BackGroundMove.cpp">
+      <Filter>Effect\UI\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\Effect\DigitalRain\DegitalRain.cpp">
+      <Filter>Effect\Effect\DegitalRain</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\Effect\Signboard\SignboardEffect.cpp">
+      <Filter>Effect\Effect\Signboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\PostEffectCommonProcess.cpp">
+      <Filter>Effect\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\PostEffectManager.cpp">
+      <Filter>Effect\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\UIRender\UIRender.cpp">
+      <Filter>Effect\PostEffect\State\UIRender</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\ScreenColor\ScreenColor.cpp">
+      <Filter>Effect\PostEffect\State\ScreenColor</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\Normal\NormalRender.cpp">
+      <Filter>Effect\PostEffect\State\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\GlitchNoise\GlitchNoise.cpp">
+      <Filter>Effect\PostEffect\State\GlitchNoise</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\Fog\FogProcess.cpp">
+      <Filter>Effect\PostEffect\State\Fog</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\Fade\FadePostEffect.cpp">
+      <Filter>Effect\PostEffect\State\FadePostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\EffectDepth\EffectDepthRender.cpp">
+      <Filter>Effect\PostEffect\State\EffectDepth</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\Effect\EffectRender.cpp">
+      <Filter>Effect\PostEffect\State\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\BloomDepth\BloomDepth.cpp">
+      <Filter>Effect\PostEffect\State\BloomDepth</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\Bloom\Bloom.cpp">
+      <Filter>Effect\PostEffect\State\Bloom</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\Bler\Bler.cpp">
+      <Filter>Effect\PostEffect\State\Bler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1617,6 +1635,9 @@
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Signboard\Signboard.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Bas\bassObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>

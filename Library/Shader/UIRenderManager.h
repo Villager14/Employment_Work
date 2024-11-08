@@ -80,6 +80,9 @@ public:
 	template<typename UIType>
 	void Render(const UIType& obj);
 
+	//		終了処理
+	void Finalize();
+
 private:
 
 	//		バッファー
@@ -104,6 +107,7 @@ private:
 
 	//		テクスチャ横サイズ
 	int m_textureWidth;
+
 	//		テクスチャ縦サイズ
 	int m_textureHeight;
 
@@ -219,7 +223,6 @@ inline void UIRenderManager::Render(const UIType& obj)
 		DirectX::SimpleMath::Vector2(1.0f,0.0f))
 	};
 
-	
 	m_constBufferManager->UpdateBuffer(obj);
 
 	//		コンストバッファのバインド

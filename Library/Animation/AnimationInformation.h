@@ -30,6 +30,8 @@ public:
 		m_fallJudgement = false;
 		m_gunModelJudgement = false;
 		m_landingTime = 0.0f;
+		m_world.clear();
+		m_world.shrink_to_fit();
 	}
 
 private:

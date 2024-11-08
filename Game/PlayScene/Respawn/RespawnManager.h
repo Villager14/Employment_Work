@@ -42,6 +42,9 @@ public:
 	//		デバック描画
 	void DebugRender();
 
+	//		終了処理
+	void Finalize();
+
 private:
 
 	//		リスポーンの要素数

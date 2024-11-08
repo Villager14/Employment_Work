@@ -17,7 +17,7 @@
 
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 
-#include "Library/Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 class GriderObject : public IFactory
 {

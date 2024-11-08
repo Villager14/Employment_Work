@@ -130,12 +130,6 @@ void PlayerWallWalkCamera::Finalize()
 
 void PlayerWallWalkCamera::RadianConversion(float* cameraangle, float* velocityRadian)
 {
-	/*
-	//		現在の移動方向から角度を求める（余りを出すためにintにする）
-	int radian = static_cast<int>(DirectX::XMConvertToDegrees(
-	atan2(m_playerCameraManager->GetPlayerInformationCamera()->GetAcceleration().z,
-		m_playerCameraManager->GetPlayerInformationCamera()->GetAcceleration().x)));
-		*/
 	int radian = static_cast<int>(DirectX::XMConvertToDegrees(
 		atan2(m_playerCameraManager->GetPlayerInformationCamera()->GetDirection().z,
 			m_playerCameraManager->GetPlayerInformationCamera()->GetDirection().x)));

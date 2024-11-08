@@ -140,6 +140,8 @@ private:
 	//		アニメーションの情報
 	std::unordered_map<AnimationState, std::unique_ptr<IAnimation>> m_animaInformation;
 
+	//		頭モデルを作成するかどうか
+	bool m_createHead;
 public:
 
 	/*
