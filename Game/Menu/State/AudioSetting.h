@@ -44,6 +44,18 @@ public:
 
 	//		スライダーの更新処理
 	void SliderUpdate();
+
+public:
+
+	//			マスターボリュームスライダーの座標
+	const DirectX::SimpleMath::Vector2 MASTER_SLIDER_POSITION = { 200.0f, -100.0f };
+
+	//			BGMボリュームスライダーの座標
+	const DirectX::SimpleMath::Vector2 BGM_SLIDER_POSITION = { 200.0f, 50.0f };
+
+	//			効果音ボリュームスライダーの座標
+	const DirectX::SimpleMath::Vector2 SOUND_EFFECT_SLIDER_POSITION = { 200.0f, 200.0f };
+
 private:
 
 	//		メニューマネージャーのインスタンスのポインタ

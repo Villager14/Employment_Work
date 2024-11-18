@@ -33,9 +33,6 @@ std::vector<Triangle> LeadMesh::Lead
 	//		配列をリセット
 	m_triangle.clear();
 
-	//		頂点
-	std::vector<DirectX::SimpleMath::Vector3> vertex;
-
 	//		頂点インデックス
 	std::vector<int> vertexIndex;
 
@@ -53,9 +50,6 @@ std::vector<Triangle> LeadMesh::Lead
 
 			//		ファイルから受けとった値をfloatへ変換&代入する
 			sscanf_s(str.data(), "v %f %f %f", &val.x, &val.y, &val.z);
-
-			//		頂点を受け取る
-			vertex.push_back(val);
 
 			//		頂点を受け取る
 			m_vertex.push_back(val);
@@ -87,7 +81,7 @@ std::vector<Triangle> LeadMesh::Lead
 	//		ファイルを閉じる
 	ifs.close();
 
-	m_triangle = m_origanization->Organization(vertex, vertexIndex);
+	m_triangle = m_origanization->Organization(m_vertex, vertexIndex);
 
 	return std::move(m_triangle);
 }

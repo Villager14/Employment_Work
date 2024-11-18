@@ -95,23 +95,21 @@ void AudioSetting::Finalize()
 void AudioSetting::SliderView(float transitionTime)
 {
 	//		マスターボリュームの描画
-	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, -100.0f };
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = MASTER_SLIDER_POSITION;
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::MastarVolume, transitionTime);
 	m_menuManager->GetInformation()->GetSlider()->Render(Slider::MastarVolum, transitionTime);
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::MasterKnob, transitionTime);
 
-	
-
 	//		BGMボリュームの描画
-	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, 50.0f };
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = BGM_SLIDER_POSITION;
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::BGMVolume, transitionTime);
 	m_menuManager->GetInformation()->GetSlider()->Render(Slider::BGMVolum, transitionTime);
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::BGMKnob, transitionTime);
 
 	//		効果音の描画
-	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, 200.0f };
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = SOUND_EFFECT_SLIDER_POSITION;
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SoundEffectVolume, transitionTime);
 	m_menuManager->GetInformation()->GetSlider()->Render(Slider::SoundEffect, transitionTime);
@@ -124,27 +122,15 @@ void AudioSetting::SliderUpdate()
 	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::BGMKnob);
 	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::SoundEffectKnob);
 
-	//		マスターボリュームのスライダーの更新
-	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::MastarVolum].slideVal =
-		((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::MasterKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
+	//		マスターボリュームの音量を設定する & マスターボリュームのスライダーの更新
+	MusicLibrary::GetInstance()->SetMastaraVolume(m_menuManager->GetCommonProcess()->
+				SliderVal(AboveUI::UIType::MasterKnob, Slider::UIType::MastarVolum));	
 
-	//		マスターボリュームの音量を設定する
-	MusicLibrary::GetInstance()->SetMastaraVolume(((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())
-		[AboveUI::UIType::MasterKnob].position.x - (-81.0f)) / (480.0f - (-81.0f)));
+	//		BGMの音量を設定する & BGMのスライダーの更新
+	MusicLibrary::GetInstance()->SetBGMVolume(m_menuManager->GetCommonProcess()->
+				SliderVal(AboveUI::UIType::BGMKnob, Slider::UIType::BGMVolum));
 
-	//		BGMのスライダーの更新
-	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::BGMVolum].slideVal =
-		((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::BGMKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
-
-	//		BGMの音量を設定する
-	MusicLibrary::GetInstance()->SetBGMVolume(((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())
-		[AboveUI::UIType::BGMKnob].position.x - (-81.0f)) / (480.0f - (-81.0f)));
-
-	//		効果音のスライダーの更新
-	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::SoundEffect].slideVal =
-		((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SoundEffectKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
-
-	//		効果音の音量を設定する
-	MusicLibrary::GetInstance()->SetSoundEffectVolume(((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())
-		[AboveUI::UIType::SoundEffectKnob].position.x - (-81.0f)) / (480.0f - (-81.0f)));
+	//		効果音の音量を設定する & 効果音のスライダーの更新
+	MusicLibrary::GetInstance()->SetSoundEffectVolume(m_menuManager->GetCommonProcess()->
+		SliderVal(AboveUI::UIType::SoundEffectKnob, Slider::UIType::SoundEffect));
 }

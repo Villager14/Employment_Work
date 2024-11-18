@@ -67,6 +67,20 @@ public:
 
 private:
 
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		フェードVSパス
+	const wchar_t* FADE_VS_PATH = L"Resources/Shader/UI/Fade/FadeShaderVS.cso";
+
+	//		フェードGSパス
+	const wchar_t* FADE_GS_PATH = L"Resources/Shader/UI/Fade/FadeShaderGS.cso";
+
+	//		フェードPSパス
+	const wchar_t* FADE_PS_PATH = L"Resources/Shader/UI/Fade/FadeShaderPS.cso";
+
+private:
+
 	//		ポストエフェクトマネージャーのポインタのインスタンス
 	PostEffectManager* m_postEffectManager;
 

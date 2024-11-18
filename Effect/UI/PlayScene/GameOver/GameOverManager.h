@@ -34,6 +34,11 @@ public:
 
 private:
 
+	//		テキストの変更時間
+	const float TEXT_CHANGE = 3.0f;
+
+private:
+
 	//		ゲームマネージャーのインスタンスのポインタ
 	GameManager* m_gameManager;
 

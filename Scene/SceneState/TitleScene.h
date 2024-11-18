@@ -47,4 +47,5 @@ private:
 
 	//		タイトル選択マネージャー
 	std::unique_ptr<TitleSelectManager> m_titleSelectManager;
+
 };

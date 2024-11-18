@@ -15,7 +15,9 @@
 
 EffectRender::EffectRender(PostEffectManager* postEffectManager)
 	:
-	m_postEffectManager(postEffectManager)
+	m_postEffectManager(postEffectManager),
+	m_alphaEffectTexture(nullptr),
+	m_texture(nullptr)
 {
 }
 
@@ -32,10 +34,10 @@ void EffectRender::Initialize()
 	m_transparencyRenderManager = std::make_unique<UIRenderManager>();
 
 	//		合成用
-	m_transparencyRenderManager->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/Transparency/TransparencyVS.cso",
-		L"Resources/Shader/PostEffect/Transparency/TransparencyGS.cso",
-		L"Resources/Shader/PostEffect/Transparency/TransparencyPS.cso",
+	m_transparencyRenderManager->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		TRANSPARENCY_VS_PATH,
+		TRANSPARENCY_GS_PATH,
+		TRANSPARENCY_PS_PATH,
 		m_fogShaderConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
@@ -47,7 +49,7 @@ void EffectRender::Initialize()
 
 	//		オブジェクトに対するシェーダーをセット
 	m_objectShader = LibrarySingleton::GetInstance()->CreatePSShader
-	(L"Resources/Shader/PostEffect/Transparency/TransparencyObject/TransparencyObject.cso");
+	(TRANSPARENCY_OBJECT_PATH);
 }
 
 void EffectRender::Update()

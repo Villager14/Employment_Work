@@ -49,24 +49,20 @@ void Bloom::Initialize()
 	m_synthticBuffer.backcolor = m_postEffectManager->GetBackColor();
 
 	//		輝度シェーダーを作成する
-	m_luminanceShader->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/Bloom/Luminance/LuminanceVS.cso",
-		L"Resources/Shader/PostEffect/Bloom/Luminance/LuminanceGS.cso",
-		L"Resources/Shader/PostEffect/Bloom/Luminance/LuminancePS.cso",
-		m_luminanceConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_luminanceShader->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		LUMINANCE_VS_PATH,LUMINANCE_GS_PATH,
+		LUMINANCE_PS_PATH,m_luminanceConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		合成用
-	m_syntheticShader->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/Bloom/Synthetic/SyntheticVS.cso",
-		L"Resources/Shader/PostEffect/Bloom/Synthetic/SyntheticGS.cso",
-		L"Resources/Shader/PostEffect/Bloom/Synthetic/SyntheticPS.cso",
-		m_synthticBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_syntheticShader->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		SYNTHETIC_VS_PATH,SYNTHETIC_GS_PATH,
+		SYNTHETIC_PS_PATH,m_synthticBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		ピクセルシェーダーの作製
-	m_bloomUnaffectedpixelShader = LibrarySingleton::GetInstance()->CreatePSShader
-	(L"Resources/Shader/PostEffect/Bloom/BloomUnaffectedObject/BloomunaffectedObject.cso");
+	m_bloomUnaffectedpixelShader = LibrarySingleton::GetInstance()->
+		CreatePSShader(BLOOM_UNAFFECTED_OBJECT_PATH);
 }
 
 void Bloom::Update()

@@ -61,6 +61,19 @@ private:
 	//		秒(一の位)の座標
 	const DirectX::SimpleMath::Vector2 ONE_PLACE_SECONDS_POSITION = { 1180.0f, 560.0f };
 
+	//		時計番号テクスチャのパス
+	const wchar_t* CLOCK_NUMBER_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockNumber.png";
+
+	//		番号VSパス
+	const wchar_t* NUMBER_VS_PATH = L"Resources/Shader/UI/Number/NumberVS.cso";
+
+	//		番号GSパス
+	const wchar_t* NUMBER_GS_PATH = L"Resources/Shader/UI/Number/NumberGS.cso";
+
+	//		番号PSパス
+	const wchar_t* NUMBER_PS_PATH = L"Resources/Shader/UI/Number/NumberPS.cso";
+	
+
 private:
 
 	//		数字のシェーダー

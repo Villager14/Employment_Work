@@ -22,6 +22,9 @@ struct ObjectInformation
 	//		À•W
 	DirectX::SimpleMath::Vector3 position;
 
+	//		ˆÚ“®À•W
+	DirectX::SimpleMath::Vector3 movePosition;
+
 	//		‰ñ“]—Ê
 	DirectX::SimpleMath::Vector3 rotation;
 
@@ -35,4 +38,6 @@ struct ObjectInformation
 	std::string collitionPath;
 
 	int effectFlag;
+
+	float speed = 0.0f;
 };

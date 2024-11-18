@@ -113,6 +113,19 @@ public:
 
 	//		つまみの大きさ
 	const DirectX::SimpleMath::Vector2 KNOB_LENGTH = { 15.0f, 33.0f };
+
+	//		ノブの最大値
+	const float KNOB_MAX_VAL = 561.0f;
+	
+	//		ノブの最小値
+	const float KNOB_MIN_VAL = 81.0f;
+
+	//		スライダーの最大値
+	const float SLIDER_MAX_VAL = 590.0f;
+
+	//		スライダーの最小値
+	const float SLIDER_MIN_VAL = 95.0f;
+
 private:
 
 	//		スタンダードシェーダー

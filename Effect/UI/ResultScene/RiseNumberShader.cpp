@@ -23,11 +23,9 @@ void RiseNumberShader::Initialize(int dethCount, int clearTime, int score)
 	m_uiRenderManager = std::make_unique<UIRenderManager>();
 
 	//		シェーダーの生成
-	m_uiRenderManager->Create(L"Resources/Texture/ResultScene/nomber.png",
-		L"Resources/Shader/UI/AboveNumber/AboveNumberVS.cso",
-		L"Resources/Shader/UI/AboveNumber/AboveNumberGS.cso",
-		L"Resources/Shader/UI/AboveNumber/AboveNumberPS.cso",
-		buffer,
+	m_uiRenderManager->Create(NOMBER_TEXTURE_PATH,
+		ABOVE_NUMBER_VS_PATH, ABOVE_NUMBER_GS_PATH,
+		ABOVE_NUMBER_PS_PATH, buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
 	//		ウィンドウサイズを設定する
@@ -87,25 +85,6 @@ void RiseNumberShader::Render(float time)
 
 void RiseNumberShader::Finalize()
 {
-	/*
-	//		死亡回数
-	m_numberinformation[DethCount1].position = { DESH_POSITION.x,					DESH_POSITION.y };
-	m_numberinformation[DethCount2].position = { DESH_POSITION.x + INTERVAL,		DESH_POSITION.y };
-	m_numberinformation[DethCount3].position = { DESH_POSITION.x + INTERVAL * 2.0f, DESH_POSITION.y };
-
-	//		クリアタイム
-	m_numberinformation[ClearCount1].position = { SCORE_TIME_X_POSITION,					CLEAR_TIME_Y_POSITION };
-	m_numberinformation[ClearCount2].position = { SCORE_TIME_X_POSITION + INTERVAL,			CLEAR_TIME_Y_POSITION };
-	m_numberinformation[ClearCount3].position = { SCORE_TIME_X_POSITION + INTERVAL * 2.0f,	CLEAR_TIME_Y_POSITION };
-	m_numberinformation[ClearCount4].position = { SCORE_TIME_X_POSITION + INTERVAL * 3.0f,	CLEAR_TIME_Y_POSITION };
-
-	//		スコア
-	m_numberinformation[Score1].position = { SCORE_TIME_X_POSITION,						SCORE_Y_POSITION };
-	m_numberinformation[Score2].position = { SCORE_TIME_X_POSITION + INTERVAL,			SCORE_Y_POSITION };
-	m_numberinformation[Score3].position = { SCORE_TIME_X_POSITION + INTERVAL * 2.0f,	SCORE_Y_POSITION };
-	m_numberinformation[Score4].position = { SCORE_TIME_X_POSITION + INTERVAL * 3.0f,	SCORE_Y_POSITION };
-	*/
-
 	m_uiRenderManager.reset();
 
 	m_numberinformation.clear();

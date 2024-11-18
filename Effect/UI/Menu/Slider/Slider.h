@@ -49,7 +49,7 @@ public:
 		Empty,
 	};
 
-public:
+private:
 
 	//		MastarVolumUIの座標
 	const DirectX::SimpleMath::Vector2 MASTER_VOLUM_POSITION = { 200.0f, -100.0f };
@@ -65,6 +65,18 @@ public:
 
 	//		MouseUIの座標
 	const DirectX::SimpleMath::Vector2 MOUSE_POSITION = { 200.0f, 50.0f };
+
+	//		スライダーのテクスチャパス
+	const wchar_t* SLIDER_TEXTURE = L"Resources/Texture/Menu/Slide/Slide.png";
+
+	//		スライダーのVSパス
+	const wchar_t* SLIDER_VS_PATH = L"Resources/Shader/UI/Slider/SliderVS.cso";
+
+	//		スライダーのGSパス
+	const wchar_t* SLIDER_GS_PATH = L"Resources/Shader/UI/Slider/SliderGS.cso";
+
+	//		スライダーのPSパス
+	const wchar_t* SLIDER_PS_PATH = L"Resources/Shader/UI/Slider/SliderPS.cso";
 
 private:
 

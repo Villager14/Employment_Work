@@ -46,8 +46,8 @@ void PlayScene::Initialize()
 	//		UIマネージャーの初期化
 	m_uiManager->Initialize();
 
-	//		ポストエフェクトマネージャーの初期化
-	m_postEffectManager->Initialize(m_gameManager->BACK_GROUND_COLOR);
+	//		ストエフェクトマネージャーの初期化
+	m_sceneManager->GetInformation()->GetPostEffectManager()->Initialize(m_gameManager->BACK_GROUND_COLOR, m_postEffectFlag.get());
 
 	//		ワイヤーの情報を受け取る
 	m_effectManager->SetWireInformation(m_objectManager->GetUseWireInformation());
@@ -62,13 +62,13 @@ void PlayScene::Initialize()
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
 
 	//		視野角の情報を受け取る
-	m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetMenuManager()->GetInformation()->GetViewAngle());
+	m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
 
 	//		視野角の更新
 	m_playerCameraManager->ViewAngleUpdate(m_player->GetInformation());
 
 	//		カメラの速度の更新
-	m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
+	m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
 }
 
 void PlayScene::Generation()
@@ -81,10 +81,6 @@ void PlayScene::Generation()
 
 	//		プレイヤーの生成
 	m_player = std::make_unique<Player>(m_gameManager.get());
-
-	//		ポストエフェクトマネージャー
-	m_postEffectManager = std::make_unique<PostEffectManager>(m_gameManager.get(),
-															  m_sceneManager->GetMenuManager()->GetInformation());
 
 	//		エフェクトマネージャーの作製
 	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation(), m_playerCameraManager->GetInformation());
@@ -100,27 +96,33 @@ void PlayScene::Generation()
 
 	//		リスポーンマネージャー
 	m_respawnManager = std::make_unique<RespawnManager>(m_gameManager.get());
+
+	//		ポストエフェクトフラグの生成
+	m_postEffectFlag = std::make_unique<PostEffectFlag>(true);
+
+	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Glitch);
+	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::PlayerView);
 }
 
 bool PlayScene::MenuInformation()
 {
 	//		メニューを開いている場合の処理
-	if (m_sceneManager->GetMenuManager()->GetInformation()->GetMenuJudgement())
+	if (m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetMenuJudgement())
 	{
 		//		メニューを開いている
 		m_menuCloseJugement = true;
 
 		//		視野角の情報を受け取る
-		m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetMenuManager()->GetInformation()->GetViewAngle());
+		m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
 
 		//		視野角の更新
 		m_playerCameraManager->ViewAngleUpdate(m_player->GetInformation());
 
 		//		カメラの速度の更新
-		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
+		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
 
 		//		グレイ
-		m_postEffectManager->Update(PostEffectFlag::Flag::Color);
+		m_sceneManager->GetInformation()->GetPostEffectManager()->Update(PostEffectFlag::Flag::Color);
 
 		return true;
 	}
@@ -142,7 +144,7 @@ void PlayScene::Update()
 	if (MenuInformation()) return;
 
 	//		メニューが使えるかどうか？
-	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
+	m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
 
 	//		オブジェクトマネージャーの更新処理
 	m_objectManager->Update(m_player->GetInformation()->GetPosition());
@@ -191,13 +193,23 @@ void PlayScene::Update()
 	//		ポストエフェクトの更新処理
 	for (int i = 1; i <= PostEffectFlag::Flag::Fade;)
 	{
-		m_postEffectManager->Update(PostEffectFlag::Flag(i));
+		//		フラグがfalseの場合処理をしない
+		if (!m_postEffectFlag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			i = i + i;
+
+			continue;
+		}
+
+		m_sceneManager->GetInformation()->GetPostEffectManager()
+						->Update(PostEffectFlag::Flag(i));
 
 		i = i + i;
 	}
 
 	//		ゲームマネージャーの更新処理
-	m_gameManager->Update();
+	m_gameManager->Update(m_sceneManager->GetInformation()
+			->GetPostEffectManager()->GetInformation());
 
 	//		エフェクトマネージャーの描画
 	m_effectManager->Update();
@@ -212,7 +224,8 @@ void PlayScene::Update()
 	m_playerCameraManager->SetStartDirection(m_respawnManager->GetRespownDirection());
 
 	//		次のシーンに切り替えるかどうか
-	if (m_gameManager->FlagJudgement(GameManager::NextScene))
+	if (m_sceneManager->GetInformation()->GetPostEffectManager()->
+		GetInformation()->FlagJudgement(PostEffectInformation::Flag::SceneEnd))
 	{
 		//		次のシーンに切り替える（リザルトシーン）
 		m_sceneManager->ChangeScene(SceneManager::SceneType::Result);
@@ -223,13 +236,23 @@ void PlayScene::Render()
 {
 	for (int i = 1; i <= PostEffectFlag::Flag::Fade;)
 	{
+		//		フラグがfalseの場合処理をしない
+		if (!m_postEffectFlag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			i = i + i;
+
+			continue;
+		}
+
 		//		ポストエフェクトマネージャーの変更
-		m_postEffectManager->Render(PostEffectFlag::Flag(i));
+		m_sceneManager->GetInformation()->
+			GetPostEffectManager()->Render(PostEffectFlag::Flag(i));
 
 				//オブジェクトマネージャーの描画処理
 		m_objectManager->Render(m_player->GetCameraInformation(),
 			m_player->GetInformation()->GetPlayerHeight(),
-			PostEffectFlag::Flag(i), m_postEffectManager->GetPostObjectShader());
+			PostEffectFlag::Flag(i), m_sceneManager->GetInformation()->
+			GetPostEffectManager()->GetPostObjectShader());
 
 		//		プレイヤーのモデル描画
 		m_player->ModelRender(PostEffectFlag::Flag(i));
@@ -250,7 +273,8 @@ void PlayScene::Render()
 		}
 
 		//		ポストエフェクトマネージャーのラスト描画
-		m_postEffectManager->RastRender(PostEffectFlag::Flag(i));
+		m_sceneManager->GetInformation()->
+			GetPostEffectManager()->RastRender(PostEffectFlag::Flag(i));
 
 		i = i + i;
 	}
@@ -259,26 +283,29 @@ void PlayScene::Render()
 	m_player->DebugRender();
 
 	//		レンダーテクスチャをリセットする
-	m_postEffectManager->ResetRenderTarget();
+	m_sceneManager->GetInformation()->
+		GetPostEffectManager()->ResetRenderTarget();
 
 	//		レンダーテクスチャの描画
-	m_postEffectManager->RenderTextureView();
+	m_sceneManager->GetInformation()->
+		GetPostEffectManager()->RenderTextureView();
 }
 
 void PlayScene::Finalize()
 {
-	//		クリアタイムを受け取る
-	m_sceneManager->SetClearTime(static_cast<int>(m_gameManager->GetTime()));
+	//		クリアタイムを設定する
+	m_sceneManager->GetInformation()->SetClearTime(static_cast<int>(m_gameManager->GetTime()));
 
-	//		死亡回数を受け取る
-	m_sceneManager->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));
+	//		死亡回数を設定する
+	m_sceneManager->GetInformation()->SetDeathCount(static_cast<int>(m_gameManager->GetDeathCount()));
 
-
-	m_sceneManager->SetMaxTime(static_cast<int>(m_gameManager->GetLimitTime()));
+	//		最大リミットタイムを設定する
+	m_sceneManager->GetInformation()->SetMaxTime(static_cast<int>(m_gameManager->GetLimitTime()));
 
 	//		ゲームマネージャーの終了処理
 	m_gameManager->Finalize();
 
+	//		当たり判定マネージャーの終了処理
 	m_collitionManager->Finalize();
 
 	//		カメラの終了処理
@@ -288,7 +315,8 @@ void PlayScene::Finalize()
 	m_player->Finalize();
 
 	//		ポストエフェクトマネージャー
-	m_postEffectManager->Finalize();
+	m_sceneManager->GetInformation()->
+		GetPostEffectManager()->Finalize();
 
 	//		リスポーンポイントの終了処理
 	m_respawnManager->Finalize();

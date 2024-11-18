@@ -11,15 +11,9 @@
 
 #include "Scene/IScene.h"
 
-#include "SceneState/TutorialScene.h"
-#include "SceneState/PlayScene.h"
-#include "SceneState/TitleScene.h"
-#include "SceneState/ResultScene.h"
+#include "Effect/PostEffect/PostEffectManager.h"
 
-class PlayScene;
-class TitleScene;
-class ResultScene;
-class TutorialScene;
+#include "SceneManagerInformation.h"
 
 #include "Game/Menu/MenuManager.h"
 
@@ -62,68 +56,31 @@ private:
 	//		メニューマネージャー
 	std::unique_ptr<MenuManager> m_menuManager;
 
-	//        クリアタイム
-	int m_clearTime;
-
-	//        死亡カウント
-	int m_deathCount;
-
-	//		最大タイム
-	int m_maxTime;
-
 	//		シーンの情報
 	std::unordered_map<SceneType, std::unique_ptr<IScene>> m_sceneInformation;
 
 	//		シーンタイプ
 	SceneType m_sceneType;
 
-	//		ゲームを終了するか
-	bool m_endJudgement;
+	//		ポストエフェクトマネージャー
+	std::unique_ptr<PostEffectManager> m_postEffectManager;
+	
+	//		シーンマネージャーの情報
+	std::unique_ptr<SceneManagerInformation> m_information;
 
 public:
 
+	/*
+	*	シーンを切り替える
+	* 
+	*	@param	(type)	次のシーン
+	*/
 	void ChangeScene(SceneType type);
 
 	/*
-	*    クリアタイムを設定する
-	*
-	*    @param    (time)    時間
-	*/
-	void SetClearTime(int time) { m_clearTime = time; }
-
-	/*
-	*    クリアタイムを受け取る
-	*
-	*    @return 時間
-	*/
-	int GetClearTime() { return m_clearTime; }
-
-	/*
-	*    死亡回数を設定する
-	*
-	*    @param    (count)    回数
-	*/
-	void SetDeathCount(int count) { m_deathCount = count; }
-
-	/*
-	*    死亡回数を受け取る
-	*
-	*    @return 回数
-	*/
-	int GetDeathCount() { return m_deathCount; }
-	
-	void SetMaxTime(int time) { m_maxTime = time; }
-
-	int GetMaxTime() { return m_maxTime; }
-
-	/*
-	*	メニューマネージャーを受け取る
+	*	シーンマネージャの情報を受け取る
 	* 
 	*	@return インスタンスのポインタ
 	*/
-	MenuManager* GetMenuManager() { return m_menuManager.get(); }
-
-	void SetEndJudgement(bool judgement) { m_endJudgement = judgement; }
-
-	bool GetEndJudgement() { return m_endJudgement; }
+	SceneManagerInformation* GetInformation() { return m_information.get(); }
 };

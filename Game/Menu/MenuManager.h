@@ -21,7 +21,7 @@
 
 #include "MenuCommonProcess.h"
 
-#include "Scene/SceneManager.h"
+class SceneManager;
 
 class AboveUI;
 class Slider;
@@ -54,6 +54,22 @@ public:
 
 	//		UIの作製
 	void CreateUI();
+
+private:
+	//		メッセージバーのファイルパス
+	const wchar_t* MESSAGE_BAR_FILE_PATH = L"Resources/Texture/UI/GameClear/messegeBer.png";
+
+	//		メッセージ背景のファイルパス
+	const wchar_t* MESSAGE_BACK_FILE_PATH = L"Resources/Texture/UI/GameClear/messegeBack.png";
+
+	//		メッセージ背景のファイルパス
+	const wchar_t* MOUSE_POINTA_FILE_PATH = L"Resources/Texture/Menu/Title/mousePointa.png";
+
+	//		メッセージバー１の初期座標
+	const DirectX::SimpleMath::Vector2 MESSAGE_BAR1_FIRST_POSITION = { 0.0f, 13.0f };
+
+	//		メッセージバー２の初期座標
+	const DirectX::SimpleMath::Vector2 MESSAGE_BAR2_FIRST_POSITION = { 0.0f, -13.0f };
 
 private:
 
@@ -120,7 +136,7 @@ public:
 
 	/*
 	*	UIの遷移処理
-	* 
+	*
 	*	@param	(transitionTime1)	遷移時間１
 	*	@param	(transitionTime2)	遷移時間２
 	*	@param	(transitionTime3)	遷移時間３
@@ -129,7 +145,30 @@ public:
 	*	@param	(moveJudgement)		遷移時間３を動かすか判断する
 	*/
 	bool Transition(float* transitionTime1, float* transitionTime2, float* transitionTime3,
-		bool *startJudgement, bool endJudgement, bool moveJudgement);
+					bool* startJudgement, bool endJudgement, bool moveJudgement);
+
+
+	/*
+	*	UIの遷移処理（開始）
+	* 
+	*	@param	(transitionTime1)	遷移時間１
+	*	@param	(transitionTime2)	遷移時間２
+	*	@param	(transitionTime3)	遷移時間３
+	*	@param	(startJudgement)	スタートしているかどうか判断する
+	*	@param	(moveJudgement)		遷移時間３を動かすか判断する
+	*/
+	void TransitionStart(float* transitionTime1, float* transitionTime2, float* transitionTime3,
+		bool* startJudgement, bool moveJudgement);
+
+	/*
+	*	UIの遷移処理（終了）
+	*
+	*	@param	(transitionTime1)	遷移時間１
+	*	@param	(transitionTime2)	遷移時間２
+	*	@param	(transitionTime3)	遷移時間３
+	*	@param	(moveJudgement)		遷移時間３を動かすか判断する
+	*/
+	void TransitionEnd(float* transitionTime1, float* transitionTime2, float* transitionTime3, bool moveJudgement);
 
 	/*
 	*	イージング関数通常UI用

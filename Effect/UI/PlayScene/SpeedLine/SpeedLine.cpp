@@ -24,14 +24,12 @@ void SpeedLine::Initialize()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	//		回転シェーダーの作製
-	m_shader->Create(L"Resources/Texture/UI/Speed/UISpeed.png",
-		L"Resources/Shader/UI/SpeedLine/SpeedLineVS.cso",
-		L"Resources/Shader/UI/SpeedLine/SpeedLineGS.cso",
-		L"Resources/Shader/UI/SpeedLine/SpeedLinePS.cso",
-		buffer,
+	m_shader->Create(UI_SPEED_TEXTURE_PATH,
+		SPEED_LINE_VS_PATH, SPEED_LINE_GS_PATH,
+		SPEED_LINE_PS_PATH, buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
-	m_shader->LoadTexture(L"Resources/Texture/UI/Speed/Speed01.png", 1);
+	m_shader->LoadTexture(SPEED_TEXTURE_PATH, 1);
 
 	//		ウィンドウサイズを設定する
 	buffer.windowSize = DirectX::SimpleMath::Vector4(
@@ -62,7 +60,7 @@ void SpeedLine::Update()
 		return;
 	}
 
-	m_backTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 0.1f;
+	m_backTime += LibrarySingleton::GetInstance()->GetElpsedTime() * BACK_SPEED;
 
 	//		MINIMUM_SPEED以上MAXIMUM_SPEED以内にする
 	float val = Library::Clamp(m_uiManager->GetPlayerInformation()->GetAcceleration().Length(), MINIMUM_SPEED, MAXIMUM_SPEED);

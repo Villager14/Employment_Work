@@ -49,22 +49,22 @@ void ObjectManager::Initialize()
 		m_factoryObject.push_back(m_factory->CreateObject(
 			Factory::Object(m_loadObjectInformation->GetObjectInformation()[i].objectType),
 			m_loadObjectInformation->GetObjectInformation()[i]));
-
 	}
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
-		//		グライダーのメッシュ
-		if (m_factoryObject[i]->GetObjectType() == Factory::Grider)
+		//		グライダーのメッシュ ゴールオブジェクト
+		if (m_factoryObject[i]->GetObjectType() == Factory::Grider ||
+			m_factoryObject[i]->GetObjectType() == Factory::Goal)
 		{
 			m_objectMesh.push_back(m_factoryObject[i]->GetObjectMesh(0));
 			m_objectMesh.push_back(m_factoryObject[i]->GetObjectMesh(1));
 		}
 
-		//		壁のメッシュ 床メッシュ　ゴールオブジェクト
+		//		壁のメッシュ 床メッシュ
 		if (m_factoryObject[i]->GetObjectType() == Factory::Wall ||
-			m_factoryObject[i]->GetObjectType() == Factory::Goal ||
-			m_factoryObject[i]->GetObjectType() == Factory::Floor)
+			m_factoryObject[i]->GetObjectType() == Factory::Floor ||
+			m_factoryObject[i]->GetObjectType() == Factory::Move)
 		{
 			m_objectMesh.push_back(m_factoryObject[i]->GetObjectMesh(0));
 		}
@@ -121,6 +121,8 @@ void ObjectManager::Finalize()
 
 bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position, float length)
 {
+	return true;
+
 	//		Y軸を気にせず距離がlength以上の場合消す
 	if ((DirectX::SimpleMath::Vector3(position.x, 0.0f, position.z) -
 		DirectX::SimpleMath::Vector3(m_cameraPosition.x, 0.0f, m_cameraPosition.z)).Length() > length)

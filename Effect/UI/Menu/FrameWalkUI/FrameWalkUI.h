@@ -58,6 +58,18 @@ public:
 	//		フレームの速度
 	const float FRAME_SPEED = 5.0f;
 
+	//		メニューフレームワークテクスチャ
+	const wchar_t* MENU_FRAMEWAORK_TEXTURE_PATH = L"Resources/Texture/Menu/GamePlay/MenuFramework.png";
+
+	//		メニューフレーム頂点シェーダー
+	const wchar_t* MENU_FRAMEWAORK_VS_PATH = L"Resources/Shader/UI/FrameWalk/FrameWalkVS.cso";
+
+	//		メニューフレームジオメトリシェーダー
+	const wchar_t* MENU_FRAMEWAORK_GS_PATH = L"Resources/Shader/UI/FrameWalk/FrameWalkGS.cso";
+
+	//		メニューフレームピクセルシェーダー
+	const wchar_t* MENU_FRAMEWAORK_PS_PATH = L"Resources/Shader/UI/FrameWalk/FrameWalkPS.cso";
+
 private:
 
 	//		シェーダー

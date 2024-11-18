@@ -10,10 +10,10 @@
 
 CoolTime::CoolTime(UIManager* uiManager)
 	:
-	m_angle(360.0f),
+	m_angle(MAX_ANGLE),
 	m_time(0.0f),
 	m_coolTimeJudgement(false),
-	m_ratio(100.0f),
+	m_ratio(RATO),
 	m_state(),
 	m_uiManager(uiManager)
 {
@@ -32,19 +32,15 @@ void CoolTime::Initialize()
 	m_coolTimeNumberShader = std::make_unique<UIRenderManager>();
 
 	//		クールタイムUIの作製
-	m_coolTImeShader->Create(L"Resources/Texture/UI/CoolTime/CoolTime.png",
-		L"Resources/Shader/UI/CoolTime/CoolTimeVS.cso",
-		L"Resources/Shader/UI/CoolTime/CoolTimeGS.cso",
-		L"Resources/Shader/UI/CoolTime/CoolTimePS.cso",
-		buffer,
+	m_coolTImeShader->Create(COOL_TIME_TEXTURE_PATH,
+		COOL_TIME_VS_PATH, COOL_TIME_GS_PATH,
+		COOL_TIME_PS_PATH, buffer,
 		COOL_TIME_POSITION, { 0.6f, 0.6f });
 
 	//		数字シェーダーの作製
-	m_coolTimeNumberShader->Create(L"Resources/Texture/UI/CoolTime/cooltimeNumber.png",
-		L"Resources/Shader/UI/Number/NumberVS.cso",
-		L"Resources/Shader/UI/Number/NumberGS.cso",
-		L"Resources/Shader/UI/Number/NumberPS.cso",
-		buffer,
+	m_coolTimeNumberShader->Create(COOL_TIME_NUMBER_TEXTURE_PATH,
+		NUMBER_VS_PATH, NUMBER_GS_PATH,
+		NUMBER_PS_PATH, buffer,
 		{ 0.0f, 0.0f }, { 0.3f, 0.3f });
 
 	//		ウィンドウサイズを設定する
@@ -79,10 +75,10 @@ void CoolTime::Update(PlayerInformation* playerInformation)
 			m_coolTimeJudgement = true;
 
 			//		角度を最大にする
-			m_angle = 360.0f;
+			m_angle = MAX_ANGLE;
 
 			//		割合を最大にする
-			m_ratio = 100.0f;
+			m_ratio = RATO;
 
 			//		減らす状態
 			m_state = State::Reduce;
@@ -96,7 +92,7 @@ void CoolTime::Update(PlayerInformation* playerInformation)
 	if (m_state == State::Reduce)
 	{
 		//		ダッシュ時間
-		m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * 3.0f;
+		m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * DASH_SPEED;
 
 		if (m_time >= 1.0f)
 		{
@@ -110,7 +106,7 @@ void CoolTime::Update(PlayerInformation* playerInformation)
 	else if (m_state == State::Increase)
 	{
 		//		クールタイム
-		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * 0.6f;
+		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * COOL_TIME_SPEED;
 
 		if (m_time <= 0.0f)
 		{
@@ -124,10 +120,10 @@ void CoolTime::Update(PlayerInformation* playerInformation)
 	}
 
 	//		角度を設定する
-	m_angle = Library::Lerp(360.0f, 0.0f, m_time);
+	m_angle = Library::Lerp(MAX_ANGLE, 0.0f, m_time);
 
 	//		割合を設定する
-	m_ratio = Library::Lerp(100.0f, 0.0f, m_time);
+	m_ratio = Library::Lerp(RATO, 0.0f, m_time);
 }
 
 void CoolTime::Render()
@@ -147,10 +143,10 @@ void CoolTime::Render()
 
 void CoolTime::Finalize()
 {
-	m_angle = 360.0f;
+	m_angle = MAX_ANGLE;
 	m_time = 0.0f;
 	m_coolTimeJudgement = false;
-	m_ratio = 100.0f;
+	m_ratio = RATO;
 
 	m_coolTImeShader.reset();
 	m_coolTimeNumberShader.reset();

@@ -27,11 +27,9 @@ void ClockTime::Initialize()
 	m_shader = std::make_unique<UIRenderManager>();
 
 	//		数字シェーダーの作製
-	m_shader->Create(L"Resources/Texture/UI/Clock/ClockNumber.png",
-		L"Resources/Shader/UI/Number/NumberVS.cso",
-		L"Resources/Shader/UI/Number/NumberGS.cso",
-		L"Resources/Shader/UI/Number/NumberPS.cso",
-		buffer,
+	m_shader->Create(CLOCK_NUMBER_TEXTURE_PATH,
+		NUMBER_VS_PATH, NUMBER_GS_PATH,
+		NUMBER_PS_PATH, buffer,
 		{ 0.0f, 0.0f }, { 0.8f, 0.8f });
 
 	//		ウィンドウサイズを設定する

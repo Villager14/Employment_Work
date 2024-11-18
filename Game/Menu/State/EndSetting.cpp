@@ -9,6 +9,8 @@
 
 #include "EndSetting.h"
 
+#include "Scene/SceneManager.h"
+
 EndSetting::EndSetting(MenuManager* menuManager)
 	:
 	m_menuManager(menuManager),
@@ -133,7 +135,7 @@ void EndSetting::ButtonProcess()
 		{
 			//		ƒQ[ƒ€‚ð•Â‚¶‚é
 			//PostQuitMessage(0);
-			m_menuManager->GetSceneManager()->SetEndJudgement(true);
+			m_menuManager->GetSceneManager()->GetInformation()->SetEndJudgement(true);
 		}
 
 		//		“–‚½‚Á‚Ä‚¢‚é

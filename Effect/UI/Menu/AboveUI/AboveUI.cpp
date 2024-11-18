@@ -35,56 +35,35 @@ void AboveUI::CreateShader()
 {
 	m_shader = std::make_unique<UIRenderManager>();
 
-	m_shader->Create(L"Resources/Texture/Menu/Select/Audio.png",
-		L"Resources/Shader/UI/AboveUI/AboveUIVS.cso",
-		L"Resources/Shader/UI/AboveUI/AboveUIGS.cso",
-		L"Resources/Shader/UI/AboveUI/AboveUIPS.cso",
+	m_shader->Create(AUDIO_PATH,
+		ABOVE_UI_VS_PATH, ABOVE_UI_GS_PATH, ABOVE_UI_PS_PATH,
 		m_constBuffer,
 		{ 0.0f, 0.0f , }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
-	CreateUIInformation(L"Resources/Texture/Menu/Select/Audio.png",
-		AUDIO_POSITION, { 1.0f, 1.0f }, UIType::AudioSelect);
-	CreateUIInformation(L"Resources/Texture/Menu/Select/GamePlay.png",
-		GAME_PLAY_POSITION, { 1.0f, 1.0f }, UIType::GamePlaySelect);
-	CreateUIInformation(L"Resources/Texture/Menu/Select/Opetion.png",
-		OPTION_POSITION, { 1.0f, 1.0f }, UIType::OptionSelect);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/SlideBack.png",
-		{ 0.0f, 0.0f }, { 0.8f, 0.8f }, UIType::Slide);
-	CreateUIInformation(L"Resources/Texture/Menu/Title/AudioSetting.png",
-		SETTING_TITLE_POSITION, { 0.8f, 0.8f }, UIType::AudioTitle);
-	CreateUIInformation(L"Resources/Texture/Menu/Title/OptionSetting.png",
-		SETTING_TITLE_POSITION, { 0.8f, 0.8f }, UIType::OptionTitle);
-	CreateUIInformation(L"Resources/Texture/Menu/Title/GamePlay.png",
-		SETTING_TITLE_POSITION, { 0.8f, 0.8f }, UIType::GamePlayTitle);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/SlideBack.png",
-		SLIDE_BACK_POSITION, { 1.0f, 1.0f }, UIType::SliderBack);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/MasterVloume.png",
-		MASTER_VOLUME_POSITION, { 1.0f, 1.0f }, UIType::MastarVolume);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/BGM.png",
-		BGM_POSITION, { 1.0f, 1.0f }, UIType::BGMVolume);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/SoundEffect.png",
-		SOUND_EFFECT_POSITION, { 1.0f, 1.0f }, UIType::SoundEffectVolume);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		MASTER_K_NOB_POSITION, { 1.0f, 1.0f }, UIType::MasterKnob);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		{ Library::Lerp(MIN_K_NOB, MAX_K_NOB,  MusicLibrary::GetInstance()->FIRST_BMG_VOLUME), BGM_K_NOB_Y_POSITION },
+	//		UI‚Ìî•ñ‚ð“Ç‚Ýž‚Þ
+	CreateUIInformation(AUDIO_PATH, AUDIO_POSITION, { 1.0f, 1.0f }, UIType::AudioSelect);
+	CreateUIInformation(GAME_PLAY_PATH, GAME_PLAY_POSITION, { 1.0f, 1.0f }, UIType::GamePlaySelect);
+	CreateUIInformation(OPTION_PATH, OPTION_POSITION, { 1.0f, 1.0f }, UIType::OptionSelect);
+	CreateUIInformation(SLIDER_BACK_PATH, { 0.0f, 0.0f }, { 0.8f, 0.8f }, UIType::Slide);
+	CreateUIInformation(AUDIO_SETTING_PATH, SETTING_TITLE_POSITION, { 0.8f, 0.8f }, UIType::AudioTitle);
+	CreateUIInformation(OPTION_SETTING_PATH, SETTING_TITLE_POSITION, { 0.8f, 0.8f }, UIType::OptionTitle);
+	CreateUIInformation(TITLE_GAME_PLAY_PATH, SETTING_TITLE_POSITION, { 0.8f, 0.8f }, UIType::GamePlayTitle);
+	CreateUIInformation(SLIDER_BACK_PATH, SLIDE_BACK_POSITION, { 1.0f, 1.0f }, UIType::SliderBack);
+	CreateUIInformation(MASTER_VLOUME_PATH, MASTER_VOLUME_POSITION, { 1.0f, 1.0f }, UIType::MastarVolume);
+	CreateUIInformation(BGM_PATH, BGM_POSITION, { 1.0f, 1.0f }, UIType::BGMVolume);
+	CreateUIInformation(SOUND_EFFECT_PATH, SOUND_EFFECT_POSITION, { 1.0f, 1.0f }, UIType::SoundEffectVolume);
+	CreateUIInformation(KNOB_PATH, MASTER_K_NOB_POSITION, { 1.0f, 1.0f }, UIType::MasterKnob);
+	CreateUIInformation(KNOB_PATH, { Library::Lerp(MIN_K_NOB, MAX_K_NOB,  MusicLibrary::GetInstance()->FIRST_BMG_VOLUME), BGM_K_NOB_Y_POSITION },
 		{ 1.0f, 1.0f }, UIType::BGMKnob);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		{ Library::Lerp(MIN_K_NOB, MAX_K_NOB,  MusicLibrary::GetInstance()->FIRST_SOUND_EFFECT_VOLUME), SOUND_K_NOB_Y_POSITION },
+	CreateUIInformation(KNOB_PATH, { Library::Lerp(MIN_K_NOB, MAX_K_NOB,  MusicLibrary::GetInstance()->FIRST_SOUND_EFFECT_VOLUME), SOUND_K_NOB_Y_POSITION },
 		{ 1.0f, 1.0f }, UIType::SoundEffectKnob);
-	CreateUIInformation(L"Resources/Texture/Menu/GamePlay/CloseMenu.png",
-		SLIDE_BACK_POSITION, { 1.0f, 1.0f }, UIType::MenuClose);
-	CreateUIInformation(L"Resources/Texture/Menu/GamePlay/Exit.png",
-		EXIT_POSITION, { 1.0f, 1.0f }, UIType::Exit);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/FOV.png",
-		FOV_POSITION, { 1.0f, 1.0f }, UIType::FOV);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		FOV_K_NOB_POSITION, { 1.0f, 1.0f }, UIType::FOVKnob);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/mouseSe.png",
-		MOUSE_POSITION, { 1.0f, 1.0f }, UIType::Mouse);
-	CreateUIInformation(L"Resources/Texture/Menu/Slide/Knob.png",
-		MOUSE_K_NOB_POSITION, { 1.0f, 1.0f }, UIType::MouseKnob);
+	CreateUIInformation(CLOSE_MENU_PATH, SLIDE_BACK_POSITION, { 1.0f, 1.0f }, UIType::MenuClose);
+	CreateUIInformation(EXIT_PATH, EXIT_POSITION, { 1.0f, 1.0f }, UIType::Exit);
+	CreateUIInformation(FOV_PATH, FOV_POSITION, { 1.0f, 1.0f }, UIType::FOV);
+	CreateUIInformation(KNOB_PATH, FOV_K_NOB_POSITION, { 1.0f, 1.0f }, UIType::FOVKnob);
+	CreateUIInformation(MOUSE_POINTA_PATH, MOUSE_POSITION, { 1.0f, 1.0f }, UIType::Mouse);
+	CreateUIInformation(KNOB_PATH, MOUSE_K_NOB_POSITION, { 1.0f, 1.0f }, UIType::MouseKnob);
 }
 
 void AboveUI::CreateUIInformation(const wchar_t* path,

@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "Effect/PostEffect/PostEffectInformation.h"
+
 class GameManager
 {
 public:
@@ -17,7 +19,7 @@ public:
 
 	void Initialize();
 
-	void Update();
+	void Update(PostEffectInformation* postEffectInformation);
 
 	void Finalize();
 public:
@@ -27,15 +29,13 @@ public:
 		None = 0b00000000,
 		GameStart			= 1 << 0,		//		ゲームを開始するか
 		DeathJudgement		= 1 << 1,		//		死亡しているか判断する
-		RevivalJudgement	= 1 << 2,		//		復活しているか判断する
-		GoalJudgement		= 1 << 3,		//		ゴールしているか判断する
-		EndJudgement		= 1 << 4,		//		終了しているか判断する
-		NextScene			= 1 << 5,		//		次のシーンに行くか判断する
-		DamageObjectHit		= 1 << 6,		//		ダメージオブジェクトに当たっているかどうか
-		FallDead			= 1 << 7,		//		落下死しているかどうか
-		DashJudgement		= 1 << 8,		//		ダッシュをしているかどうか
-		StartLimitView		= 1 << 9,		//		開始時のリミット描画
-		TimeLimitJudgement  = 1 << 10,		//		タイムリミットかどうか
+		GoalJudgement		= 1 << 2,		//		ゴールしているか判断する
+		EndJudgement		= 1 << 3,		//		終了しているか判断する
+		DamageObjectHit		= 1 << 4,		//		ダメージオブジェクトに当たっているかどうか
+		FallDead			= 1 << 5,		//		落下死しているかどうか
+		DashJudgement		= 1 << 6,		//		ダッシュをしているかどうか
+		StartLimitView		= 1 << 7,		//		開始時のリミット描画
+		TimeLimitJudgement  = 1 << 8,		//		タイムリミットかどうか
 	};
 
 public:

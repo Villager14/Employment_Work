@@ -65,6 +65,32 @@ public:
 
 private:
 
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		光度VSパス
+	const wchar_t* LUMINANCE_VS_PATH = L"Resources/Shader/PostEffect/Bloom/Luminance/LuminanceVS.cso";
+
+	//		光度GSパス
+	const wchar_t* LUMINANCE_GS_PATH = L"Resources/Shader/PostEffect/Bloom/Luminance/LuminanceGS.cso";
+
+	//		光度PSパス
+	const wchar_t* LUMINANCE_PS_PATH = L"Resources/Shader/PostEffect/Bloom/Luminance/LuminancePS.cso";
+
+	//		合成VSパス
+	const wchar_t* SYNTHETIC_VS_PATH = L"Resources/Shader/PostEffect/Bloom/Synthetic/SyntheticVS.cso";
+
+	//		合成GSパス
+	const wchar_t* SYNTHETIC_GS_PATH = L"Resources/Shader/PostEffect/Bloom/Synthetic/SyntheticGS.cso";
+
+	//		合成PSパス
+	const wchar_t* SYNTHETIC_PS_PATH = L"Resources/Shader/PostEffect/Bloom/Synthetic/SyntheticPS.cso";
+
+	//		ブルームのオブジェクトパス
+	const wchar_t* BLOOM_UNAFFECTED_OBJECT_PATH = L"Resources/Shader/PostEffect/Bloom/BloomUnaffectedObject/BloomunaffectedObject.cso";
+
+private:
+
 	//		深度バッファ
 	ID3D11DepthStencilView* m_depthNormalStencil;
 

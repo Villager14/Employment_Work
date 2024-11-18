@@ -75,6 +75,26 @@ public:
 
 private:
 
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		フォグVSパス
+	const wchar_t* FADE_DEPTH_VS_PATH = L"Resources/Shader/PostEffect/Fog/Depth/FogDepthVS.cso";
+
+	//		フォグGSパス
+	const wchar_t* FADE_DEPTH_GS_PATH = L"Resources/Shader/PostEffect/Fog/Depth/FogDepthGS.cso";
+
+	//		フォグPSパス
+	const wchar_t* FADE_DEPTH_PS_PATH = L"Resources/Shader/PostEffect/Fog/Depth/FogDepthPS.cso";
+
+	//		深度VSパス
+	const wchar_t* SHADOW_DEPTH_VS_PATH = L"Resources/Shader/PostEffect/Bloom/Depth/ShadowDepthVS.cso";
+
+	//		深度PSパス
+	const wchar_t* SHADOW_DEPTH_PS_PATH = L"Resources/Shader/PostEffect/Bloom/Depth/ShadowDepthPS.cso";
+
+private:
+
 	//		ポストエフェクトマネージャーのポインタのインスタンス
 	PostEffectManager* m_postEffectManager;
 

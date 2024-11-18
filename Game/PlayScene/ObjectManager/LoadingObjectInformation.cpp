@@ -56,8 +56,11 @@ void LoadingObjectInformation::Load(int stageNumber)
 
 		while (std::getline(ss, value, ','))
 		{
-			OrganizingInformation(count, value,
-				&objectInformation);
+			if (value != "")
+			{
+				OrganizingInformation(count, value,
+					&objectInformation);
+			}
 
 			count++;
 		}
@@ -94,6 +97,14 @@ void LoadingObjectInformation::OrganizingInformation(int count,
 
 	//		エフェクトフラグ
 	else if (count == 9) objectInformation->effectFlag = std::stoi(val);
+	
+	//		移動座標
+	if (count == 10) objectInformation->movePosition.x = std::stof(val);
+	else if (count == 11) objectInformation->movePosition.y = std::stof(val);
+	else if (count == 12) objectInformation->movePosition.z = std::stof(val);
+
+	//		移動速度
+	if (count == 13) objectInformation->speed = std::stof(val);
 }
 
 void LoadingObjectInformation::Finalize()

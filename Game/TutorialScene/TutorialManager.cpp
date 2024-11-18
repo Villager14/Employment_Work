@@ -50,13 +50,13 @@ void TutorialManager::Initialize()
 	m_player->SetCameraInformation(m_cameraManager->GetInformation());
 
 	//		視野角の情報を受け取る
-	m_cameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetMenuManager()->GetInformation()->GetViewAngle());
+	m_cameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
 
 	//		視野角の更新
 	m_cameraManager->ViewAngleUpdate(m_player->GetInformation());
 
 	//		カメラの速度の更新
-	m_cameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetMenuManager()->GetInformation()->GetCameraSpeed());
+	m_cameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
 
 	//		カメラの状態をスタンダードにする
 	m_cameraManager->ChangeState(PlayerCameraManager::Standard);

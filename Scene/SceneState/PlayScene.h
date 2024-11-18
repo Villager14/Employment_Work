@@ -16,7 +16,6 @@
 #include "Effect/PostEffect/PostEffectManager.h"
 #include "Game/PlayScene/Effect/EffectManager.h"
 #include "Game/PlayScene/Respawn/RespawnManager.h"
-
 #include "Effect/PostEffect/PostEffectFlag.h"
 
 #include "../SceneManager.h"
@@ -74,8 +73,6 @@ private:
 	//		UIマネージャー
 	std::unique_ptr<UIManager> m_uiManager;
 	
-	//		ポストエフェクトマネージャー
-	std::unique_ptr<PostEffectManager> m_postEffectManager;
 	//		ゲームマネージャー
 	std::unique_ptr<GameManager> m_gameManager;
 
@@ -84,6 +81,9 @@ private:
 
 	//		リスポーンマネージャー
 	std::unique_ptr<RespawnManager> m_respawnManager;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 
 	bool m_menuCloseJugement;
 };

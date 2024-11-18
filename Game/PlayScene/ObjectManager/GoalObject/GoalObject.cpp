@@ -22,7 +22,8 @@ GoalObject::GoalObject(ObjectManager* objectManager)
 	m_objectManager(objectManager)
 {
 	//		オブジェクトメッシュの生成
-	m_objectMesh = std::make_unique<ObjectMesh>();
+	m_objectMesh.push_back(std::make_unique<ObjectMesh>());
+	m_objectMesh.push_back(std::make_unique<ObjectMesh>());
 
 	//		ポストエフェクトフラグを生成する
 	m_postEffectFlag = std::make_unique<PostEffectFlag>();
@@ -46,31 +47,65 @@ void GoalObject::Initialize(ObjectInformation information)
 	m_goalModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		L"Resources/Models/Goal.cmo", *m_effect);
 
+	m_goalModel->UpdateEffects([&](DirectX::IEffect* effect)
+		{
+			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
+
+			if (basicEffect)
+			{
+				basicEffect->SetLightingEnabled(true);
+				basicEffect->SetPerPixelLighting(true);
+				basicEffect->SetTextureEnabled(true);
+				basicEffect->SetVertexColorEnabled(false);
+			}
+		});
 
 	m_position = information.position;
 
 	m_rotation = information.rotation;
 
 	//		初期化処理
-	m_objectMesh->Initialize(L"Resources/ModelMesh/Goal.obj");
+	m_objectMesh[0]->Initialize(L"Resources/ModelMesh/Goal.obj");
+	m_objectMesh[1]->Initialize(L"Resources/ModelMesh/GoalGate.obj");
 
 	m_world = DirectX::SimpleMath::Matrix::CreateScale(1.0f);
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y)), m_position);
+	m_objectMesh[0]->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y)), m_position);
+	m_objectMesh[1]->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y)), m_position);
+
+	m_objectMesh[0]->SetObuectType(ObjectMesh::ObjectType::Floor);
+	m_objectMesh[1]->SetObuectType(ObjectMesh::ObjectType::Goal);
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
-	//		オブジェクトのタイプを設定（床）
-	m_objectMesh->SetObuectType(ObjectMesh::ObjectType::Goal);
+	// ピクセルシェーダーの作成
+	std::vector<uint8_t> ps_torus =
+		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
+	DX::ThrowIfFailed(
+		LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+		->CreatePixelShader(ps_torus.data(), ps_torus.size(),
+			nullptr, m_pixelShader.ReleaseAndGetAddressOf())
+	);
 
 	//		通常描画をするようにする
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+	//		ブルームを掛けるようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
+
+	//		ブルームの深度描画は描画しない
+	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::BloomDepth);
+
+	//		フォグの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+	//		アルファの処理の場合描画する
+	//m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
 }
 
 void GoalObject::Update()
 {
-	m_rotation.z += LibrarySingleton::GetInstance()->GetElpsedTime() * GOAL_ROTATION_SPEED;
 }
 
 void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postEffectObjectShader)
@@ -78,30 +113,39 @@ void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 	UNREFERENCED_PARAMETER(postEffectObjectShader);
 	UNREFERENCED_PARAMETER(flag);
 
-	//		カリング処理
-	if (!m_objectManager->Culling(m_position, 500.0f))
+	//		フラグがfalseの場合処理をしない	
+	if ((flag & m_postEffectFlag->GetFlag()) != 0)
 	{
-		return;
+		m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation.z));
+
+		m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y));
+
+		m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+
+		auto context = LibrarySingleton::GetInstance()->GetDeviceResources()
+			->GetD3DDeviceContext();
+
+		auto state = LibrarySingleton::GetInstance()->GetCommonState();
+
+
+		m_goalModel->Draw(context,
+			*LibrarySingleton::GetInstance()->GetCommonState(),
+			m_world,
+			LibrarySingleton::GetInstance()->GetView(),
+			LibrarySingleton::GetInstance()->GetProj(), false, [&]()
+			{
+				context->PSSetShader(m_pixelShader.Get(), nullptr, 0);
+			}
+		);
 	}
-
-	m_world = DirectX::SimpleMath::Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rotation.z));
-
-	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_rotation.y));
-
-	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
-
-	m_goalModel->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()
-		->GetD3DDeviceContext(),
-		*LibrarySingleton::GetInstance()->GetCommonState(),
-		m_world,
-		LibrarySingleton::GetInstance()->GetView(),
-		LibrarySingleton::GetInstance()->GetProj());
-
-	//drawMesh->StaticRender(m_objectMesh.get());
 }
 
 void GoalObject::Finalize()
 {
 	m_goalModel.reset();
-	m_objectMesh->Finalize();
+
+	for (auto& e : m_objectMesh)
+	{
+		e->Finalize();
+	}
 }

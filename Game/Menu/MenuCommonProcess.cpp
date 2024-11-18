@@ -188,3 +188,14 @@ void MenuCommonProcess::MousePointa()
 	//		マウスポインタの描画
 	m_information->GetStandardShader()->Render(MenuInformation::UIType::MousePointa);
 }
+
+float MenuCommonProcess::SliderVal(AboveUI::UIType uiType, Slider::UIType sliderType)
+{
+	//		スライダーの更新
+	(*m_information->GetSlider()->GetInformation())[sliderType].slideVal = 
+		((*m_information->GetAboveUI()->GetInformation())[uiType].position.x
+			+ m_information->SLIDER_MIN_VAL) / m_information->SLIDER_MAX_VAL;
+
+	//		スライダーノブの更新＆ノブの割合
+	return ((*m_information->GetAboveUI()->GetInformation())[uiType].position.x + m_information->KNOB_MIN_VAL) / m_information->KNOB_MAX_VAL;
+}

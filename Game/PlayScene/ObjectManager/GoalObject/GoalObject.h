@@ -63,7 +63,7 @@ public:
 	*/
 	ObjectMesh* GetObjectMesh(int index) override {
 		UNREFERENCED_PARAMETER(index);
-		return m_objectMesh.get(); }
+		return m_objectMesh[index].get(); }
 
 	/*
 	*	ポストエフェクトフラグ
@@ -85,7 +85,7 @@ private:
 	std::unique_ptr<DirectX::Model> m_goalModel;
 
 	//		オブジェクトのメッシュ
-	std::unique_ptr<ObjectMesh> m_objectMesh;
+	std::vector<std::unique_ptr<ObjectMesh>> m_objectMesh;
 
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
@@ -106,12 +106,5 @@ private:
 
 	//		ポストエフェクトフラグ
 	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
-public:
 
-	/*
-	*	オブジェクトメッシュを受け取る
-	*
-	*	@return インスタンス
-	*/
-	ObjectMesh* GetObjectMesh() const { return m_objectMesh.get(); }
 };

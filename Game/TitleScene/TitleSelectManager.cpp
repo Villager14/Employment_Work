@@ -15,11 +15,12 @@
 #include "State/ChangeSceneState.h"
 #include "State/StartSceneState.h"
 
-TitleSelectManager::TitleSelectManager()
+TitleSelectManager::TitleSelectManager(PostEffectManager* postEffectManager)
 	:
 	m_iState(),
 	m_state{},
-	m_menuInformation(nullptr)
+	m_menuInformation(nullptr),
+	m_postEffectManager(postEffectManager)
 {
 	Generation();
 }
@@ -37,17 +38,22 @@ void TitleSelectManager::Initialize()
 	CreateStandardShader();
 
 	//		情報の初期化
-	m_information->Initilaize(m_backGroundMove.get(), m_standardShader.get(),
-		m_fade.get());
+	m_information->Initilaize(m_backGroundMove.get(), m_standardShader.get());
 
 	//		背景の初期化
 	m_backGroundMove->Initialize();
 
-	//		スクリーンエフェクトの初期化
-	m_screenEffectManager->Initialize();
-
 	//		プレイヤーのアニメーション初期化
 	m_playerAnimation->Initialize();
+
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::UI);
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::PlayerView);
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::UIBack);
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Fade);
+
+	//		ポストエフェクトマネージャーの初期化処理
+	m_postEffectManager->Initialize(DirectX::Colors::White, m_posteffectFlag.get());
 
 	//----
 	//		タイトルの状態の作製
@@ -76,35 +82,8 @@ void TitleSelectManager::Generation()
 	//		プレイヤーのアニメーションの作製
 	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Title);
 
-	//		スクリーンエフェクトマネージャーの作製
-	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
-
-	//----
-	//		フェードインアウトの初期化
-	//---
-
-	TitleInformation::ConstBuffer buffer = m_information->GetBuffer();
-
-	//		フェード描画の作製
-	m_fade = std::make_unique<UIRenderManager>();
-
-	//		フェードの作成
-	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
-		L"Resources/Shader/UI/FadeShader/FadeUIVS.cso",
-		L"Resources/Shader/UI/FadeShader/FadeUIGS.cso",
-		L"Resources/Shader/UI/FadeShader/FadeUIPS.cso",
-		buffer,
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
-
-	//		ウィンドウサイズを設定する
-	buffer.windowSize = DirectX::SimpleMath::Vector4(
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
-
-	//		回転量を設定する
-	buffer.rotationMatrix = m_fade->GetRotationMatrix();
-
-	m_information->SetBuffer(buffer);
+	//		ポストエフェクトフラグの作製
+	m_posteffectFlag = std::make_unique<PostEffectFlag>();
 
 	//----
 	//		タイトルの状態の作製
@@ -139,37 +118,82 @@ void TitleSelectManager::Update()
 
 	//		更新処理
 	m_iState->Update();
+
+	//		ポストエフェクトの更新
+	for (int i = 1; i <= PostEffectFlag::Fade;)
+	{
+		//		フラグが立っていない処理は行わない
+		if (!m_posteffectFlag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			i = i + i;
+
+			continue;
+		}
+
+		//		ポストエフェクトの更新
+		m_postEffectManager->Update(PostEffectFlag::Flag(i));
+
+		i = i + i;
+	}
 }
 
 void TitleSelectManager::Render()
 {
-	m_screenEffectManager->ChangeRenderTarget();
-
-	m_playerAnimation->Render();
-
-	m_screenEffectManager->FirstRenderTarget();
-
-	//		背景の描画
-	m_backGroundMove->Render();
-
-	//		レンダーターゲットの描画
-	m_screenEffectManager->Render();
-
-	//		選択の描画
-	for (int i = 0, max = static_cast<int>((*m_information->GetDraowOder()).size()); i < max; ++i)
+	//		ポストエフェクトの更新
+	for (int i = 1; i <= PostEffectFlag::Fade;)
 	{
-		//		選択UIの描画
-		m_information->GetStandardShader()->Render((*m_information->GetDraowOder())[i]);
+		//		フラグが立っていない処理は行わない
+		if (!m_posteffectFlag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			i = i + i;
+
+			continue;
+		}
+
+		//		ポストエフェクトの更新
+		m_postEffectManager->Render(PostEffectFlag::Flag(i));
+
+		if (i == PostEffectFlag::Flag::UI)
+		{
+			//		背景の描画
+			m_backGroundMove->Render();
+		}
+
+		if (i == PostEffectFlag::Flag::PlayerView)
+		{
+			m_playerAnimation->Render();
+		}
+
+		if (i == PostEffectFlag::Flag::UIBack)
+		{
+			//		選択の描画
+			for (int j = 0, max = static_cast<int>((*m_information->GetDraowOder()).size()); j < max; ++j)
+			{
+				//		選択UIの描画
+				m_information->GetStandardShader()->Render((*m_information->GetDraowOder())[j]);
+			}
+
+			//		スペース
+			m_standardShader->Render(TitleInformation::TitleUIType::Space);
+
+			//		タイトルロゴの描画
+			m_standardShader->Render(TitleInformation::TitleUIType::TitleRogo);
+
+			//		描画処理
+			m_iState->Render();
+		}
+
+		//		ポストエフェクトマネージャーのラスト描画
+		m_postEffectManager->RastRender(PostEffectFlag::Flag(i));
+
+		i = i + i;
 	}
 
-	//		スペース
-	m_standardShader->Render(TitleInformation::TitleUIType::Space);
+	//		レンダーテクスチャをリセットする
+	m_postEffectManager->ResetRenderTarget();
 
-	//		タイトルロゴの描画
-	m_standardShader->Render(TitleInformation::TitleUIType::TitleRogo);
-
-	//		描画処理
-	m_iState->Render();
+	//		レンダーテクスチャの描画
+	m_postEffectManager->RenderTextureView();
 }
 
 void TitleSelectManager::Finalize()
@@ -179,11 +203,11 @@ void TitleSelectManager::Finalize()
 
 	m_playerAnimation->Finalize();
 
-	m_screenEffectManager->Finalize();
-
 	m_backGroundMove->Finalize();
 
 	m_standardShader.reset();
+
+	m_postEffectManager->Finalize();
 }
 
 void TitleSelectManager::InputKey()

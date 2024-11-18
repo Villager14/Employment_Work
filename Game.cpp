@@ -101,13 +101,13 @@ void Game::Update(DX::StepTimer const& timer)
     //      ゲームを終了する
     if (m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Escape))
     {
-        m_sceneManager->SetEndJudgement(true);
+        m_sceneManager->GetInformation()->SetEndJudgement(true);
     }
 
     //      シーンの更新
     m_sceneManager->Update();
 
-    if (m_sceneManager->GetEndJudgement())
+    if (m_sceneManager->GetInformation()->GetEndJudgement())
     {
         PostQuitMessage(0);
     }

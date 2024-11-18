@@ -105,27 +105,21 @@ ID3D11ShaderResourceView* Bler::Render(ID3D11ShaderResourceView* texture)
 void Bler::CreateShader()
 {
 	//		横ぼかしシェーダーを作成する
-	m_sideBler->Create(L"Resources/Texture/Test.jpg",
-		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerVS.cso",
-		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerGS.cso",
-		L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerPS.cso",
-		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_sideBler->Create(TEST_TEXTURE_PATH,
+		SLIDER_BLER_VS_PATH, SLIDER_BLER_GS_PATH,
+		SLIDER_BLER_PS_PATH, m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		縦ぼかしシェーダーを制作する
-	m_warpBler->Create(L"Resources/Texture/Test.jpg",
-		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerVS.cso",
-		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerGS.cso",
-		L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerPS.cso",
-		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_warpBler->Create(TEST_TEXTURE_PATH,
+		WARP_BLER_VS_PATH, WARP_BLER_GS_PATH,
+		WARP_BLER_PS_PATH, m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		合成シェーダーを制作する
-	m_expansionBler->Create(L"Resources/Texture/Test.jpg",
-		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionVS.cso",
-		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionGS.cso",
-		L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionPS.cso",
-		m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_expansionBler->Create(TEST_TEXTURE_PATH,
+		EXPANSION_BLER_VS_PATH, EXPANSION_BLER_GS_PATH,
+		EXPANSION_BLER_PS_PATH, m_sideConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 }
 

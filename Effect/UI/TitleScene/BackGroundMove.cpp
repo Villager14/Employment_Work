@@ -25,11 +25,9 @@ void BackGroundMove::Initialize()
 	m_uiRenderManager = std::make_unique<UIRenderManager>();
 
 	//		シェーダーの生成
-	m_uiRenderManager->Create(L"Resources/Texture/TitleScene/TitleBack.png",
-		L"Resources/Shader/UI/BackGroundMove/BackGroundMoveVS.cso",
-		L"Resources/Shader/UI/BackGroundMove/BackGroundMoveGS.cso",
-		L"Resources/Shader/UI/BackGroundMove/BackGroundMovePS.cso",
-		buffer,
+	m_uiRenderManager->Create(BACK_GROUND_TEXTURE_PATH,
+		BACK_GROUND_VS_PATH, BACK_GROUND_GS_PATH,
+		BACK_GROUND_PS_PATH, buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
 	//		ウィンドウサイズを設定する

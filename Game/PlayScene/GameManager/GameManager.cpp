@@ -32,8 +32,16 @@ void GameManager::Initialize()
 	m_limitTime = 0.0f;
 }
 
-void GameManager::Update()
+void GameManager::Update(PostEffectInformation* postEffectInformation)
 {
+	//		シーンを終了するとき
+	if (FlagJudgement(Flag::EndJudgement))
+	{
+		//		ポストエフェクトのフェード
+		postEffectInformation->TrueFlag(PostEffectInformation::Flag::SceneEndFade);
+	}
+
+	//		死亡していない場合以下の処理をしない
 	if (!FlagJudgement(Flag::DeathJudgement)) return;
 
 	//		キーボードの取得
@@ -46,7 +54,32 @@ void GameManager::Update()
 	if (keyboard.IsKeyPressed(DirectX::Keyboard::Space) ||
 		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 	{
-		TrueFlag(Flag::RevivalJudgement);
+		postEffectInformation->TrueFlag(PostEffectInformation::Flag::FadeJudgement);
+	}
+
+	//		フェードが終了すると
+	if (postEffectInformation->FlagJudgement(PostEffectInformation::Flag::FadeEnd))
+	{
+		//		死亡状態をFlaseにする
+		FalseFlag(GameManager::DeathJudgement);
+		postEffectInformation->FalseFlag(PostEffectInformation::Flag::FadeEnd);
+		postEffectInformation->FalseFlag(PostEffectInformation::Flag::RedScreen);
+	}
+
+	if (FlagJudgement(GameManager::DeathJudgement))
+	{
+		//		画面を赤くする
+		postEffectInformation->TrueFlag(PostEffectInformation::Flag::RedScreen);
+	}
+
+	//		シーンを終了するとき
+	if (FlagJudgement(Flag::TimeLimitJudgement))
+	{
+		//		ポストエフェクトのフェード
+		postEffectInformation->TrueFlag(PostEffectInformation::Flag::TimeLimitJudgement);
+		
+		//		画面を赤くする
+		postEffectInformation->TrueFlag(PostEffectInformation::Flag::RedScreen);
 	}
 }
 

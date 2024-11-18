@@ -52,25 +52,18 @@ void OptionSetting::Update()
 	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::FOVKnob);
 	m_menuManager->GetCommonProcess()->SlideProcess(AboveUI::UIType::MouseKnob);
 
-	float fov = ((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::FOVKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
+	//		視野角の更新
+	m_menuManager->GetInformation()->SetViewAngle(Library::Lerp(FOV_MIN_VAL, FOV_MAX_VAL,
+		m_menuManager->GetCommonProcess()->SliderVal(AboveUI::UIType::FOVKnob, Slider::UIType::FOV)));
 
-	//		マスターボリュームのスライダーの更新
-	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::FOV].slideVal = fov;
-		
-	m_menuManager->GetInformation()->SetViewAngle(Library::Lerp(70.0f, 120.0f, fov));
-
-
-	float mouse = ((*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::MouseKnob].position.x - (-96.0f)) / (496.0f - (-96.0f));
-
-	//		マスターボリュームのスライダーの更新
-	(*m_menuManager->GetInformation()->GetSlider()->GetInformation())[Slider::UIType::Mouse].slideVal = mouse;
-
-	m_menuManager->GetInformation()->SetCameraSpeed(Library::Lerp(0.1f, 10.0f, mouse));
-
+	//		マウス感度の更新
+	m_menuManager->GetInformation()->SetCameraSpeed(Library::Lerp(MOUSE_SENSITIVITY_MIN, MOUSE_SENSITIVITY_MAX,
+		m_menuManager->GetCommonProcess()->SliderVal(AboveUI::UIType::MouseKnob, Slider::UIType::Mouse)));
 }
 
 void OptionSetting::Render()
 {
+	//		メニューの背景の描画
 	m_menuManager->MenuBackRneder();
 
 	//		Optionのタイトル描画
@@ -84,16 +77,27 @@ void OptionSetting::Render()
 
 	float transitionTime = m_menuManager->EasingIcon(m_transitionSettingUITime);
 
-	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, -100.0f };
+	//		スライダーの背景座標１
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = SLIDER_POSITION1;
+
+	//		スライダー背景描画
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
+	//		FOVのテキスト描画
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::FOV, transitionTime);
+	//		FOVのスライダー描画
 	m_menuManager->GetInformation()->GetSlider()->Render(Slider::FOV, transitionTime);
+	//		スライダーのノブ描画
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::FOVKnob, transitionTime);
 
-	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = { 200.0f, 50.0f };
+	//		スライダーの背景座標２
+	(*m_menuManager->GetInformation()->GetAboveUI()->GetInformation())[AboveUI::UIType::SliderBack].position = SLIDER_POSITION2;
+	//		スライダー背景描画
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::SliderBack, transitionTime);
+	//		マウス感度テキスト描画
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::Mouse, transitionTime);
+	//		マウス感度のスライダー描画
 	m_menuManager->GetInformation()->GetSlider()->Render(Slider::Mouse, transitionTime);
+	//		スライダーのノブ描画
 	m_menuManager->GetInformation()->GetAboveUI()->Render(AboveUI::UIType::MouseKnob, transitionTime);
 
 	//		マウスポインタの描画

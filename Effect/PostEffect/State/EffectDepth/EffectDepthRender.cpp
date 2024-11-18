@@ -28,10 +28,10 @@ void EffectDepthRender::Initialize()
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 
 	//		‡¬—p
-	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/Transparency/Depth/TransparencyDepthVS.cso",
-		L"Resources/Shader/PostEffect/Transparency/Depth/TransparencyDepthGS.cso",
-		L"Resources/Shader/PostEffect/Transparency/Depth/TransparencyDepthPS.cso",
+	m_depthShaderView->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		TRANSPARENCY_DEPTH_VS_PATH,
+		TRANSPARENCY_DEPTH_GS_PATH,
+		TRANSPARENCY_DEPTH_PS_PATH,
 		m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 

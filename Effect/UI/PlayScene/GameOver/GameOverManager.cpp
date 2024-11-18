@@ -55,7 +55,7 @@ void GameOverManager::Render()
 	//		ゲームオーバー状態ではないなら処理をしない
 	if (!m_gameManager->FlagJudgement(GameManager::DeathJudgement)) return;
 	
-	if (m_elapsedTime < 3.0f)
+	if (m_elapsedTime < TEXT_CHANGE)
 	{
 		m_uiManager->GetStandardShader()->Render(UIManager::UIType::GameOver);
 	}

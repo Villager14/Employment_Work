@@ -29,11 +29,9 @@ void GlitchNoise::Initialize()
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 
 	//		合成用
-	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoiseVS.cso",
-		L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoiseGS.cso",
-		L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoisePS.cso",
-		m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_depthShaderView->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		GLITCH_NOIZE_VS_PATH, GLITCH_NOIZE_GS_PATH,
+		GLITCH_NOIZE_PS_PATH, m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		定数バッファの値

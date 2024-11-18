@@ -61,6 +61,23 @@ private:
 	//		レイ最高速度
 	const float RAY_SPEED_MAX = 3.0f;
 
+	//		背景速度
+	const float BACK_SPEED = 0.1f;
+
+	//		UI速度テクスチャパス
+	const wchar_t* UI_SPEED_TEXTURE_PATH = L"Resources/Texture/UI/Speed/UISpeed.png";
+
+	//		速度ラインVSパス
+	const wchar_t* SPEED_LINE_VS_PATH = L"Resources/Shader/UI/SpeedLine/SpeedLineVS.cso";
+
+	//		速度ラインGSパス
+	const wchar_t* SPEED_LINE_GS_PATH = L"Resources/Shader/UI/SpeedLine/SpeedLineGS.cso";
+
+	//		速度ラインPSパス
+	const wchar_t* SPEED_LINE_PS_PATH = L"Resources/Shader/UI/SpeedLine/SpeedLinePS.cso";
+
+	//		スピードテクスチャパス
+	const wchar_t* SPEED_TEXTURE_PATH = L"Resources/Texture/UI/Speed/Speed01.png";
 
 private:
 

@@ -29,7 +29,7 @@ public:
 	* 
 	*	@param	(filePath)	ファイルパス
 	*/
-	void Initialize(const wchar_t* filePath);
+	void Initialize(const wchar_t* filePath, bool staticJudgement = true);
 
 	/*
 	*	静的な処理を行う(静的なオブジェクトの場合のみ呼ぶ)
@@ -39,6 +39,13 @@ public:
 	*/
 	void StaticProcess(const DirectX::SimpleMath::Matrix& world,
 					  const DirectX::SimpleMath::Vector3& move);
+
+	/*
+	*	移動プロセス
+	* 
+	*/
+	void MoveProcess(const DirectX::SimpleMath::Matrix& world,
+		const DirectX::SimpleMath::Vector3& move);
 
 	//		終了処理
 	void Finalize();
@@ -52,6 +59,7 @@ public:
 		Goal,
 		DamageObject,
 		SignboardObject,
+		MoveObject,
 		Null
 	};
 
@@ -69,11 +77,18 @@ private:
 	//		オブジェクトメッシュ
 	std::unordered_map<int, std::vector<Triangle>> m_objectMesh;
 
+	//		オブジェクトメッシュ
+	std::unordered_map<int, std::vector<Triangle>> m_firstobjectMesh;
+
 	//		メッシュの長さ
 	std::vector<float> m_meshLength;
 
 	//		メッシュの中心
 	std::vector<DirectX::SimpleMath::Vector3> m_meshCenter;
+
+
+	//		メッシュの中心
+	std::vector<DirectX::SimpleMath::Vector3> m_firstMeshCenter;
 
 public:
 

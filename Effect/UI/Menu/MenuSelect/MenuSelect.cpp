@@ -15,10 +15,10 @@ MenuSelect::MenuSelect()
 {
 	m_shader = std::make_unique<UIRenderManager>();
 
-	m_shader->Create(L"Resources/Texture/Menu/Select/Select.png",
-		L"Resources/Shader/UI/MenuSelect/MenuSelectVS.cso",
-		L"Resources/Shader/UI/MenuSelect/MenuSelectGS.cso",
-		L"Resources/Shader/UI/MenuSelect/MenuSelectPS.cso",
+	m_shader->Create(SELECT_TEXTURE,
+		SELECT_MENU_VS_TEXTURE,
+		SELECT_MENU_GS_TEXTURE,
+		SELECT_MENU_PS_TEXTURE,
 		m_constBuffer,
 		{ 0.0f, 0.0f , }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
@@ -41,11 +41,15 @@ void MenuSelect::Initialize()
 
 void MenuSelect::Render(DirectX::SimpleMath::Vector2 position)
 {
+	//		経過時間
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
 
+	//		コンストバッファの更新
 	m_constBuffer.time = { m_time, 0.0f, 0.0f, 0.0f };
 
+	//		座補を設定する
 	m_shader->SetPosition(position);
 
+	//		描画
 	m_shader->Render(m_constBuffer);
 }

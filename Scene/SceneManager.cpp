@@ -9,15 +9,24 @@
 
 #include "SceneManager.h"
 
+#include "SceneState/TutorialScene.h"
+#include "SceneState/PlayScene.h"
+#include "SceneState/TitleScene.h"
+#include "SceneState/ResultScene.h"
+
 SceneManager::SceneManager()
 	:
 	m_scene{},
-	m_deathCount(0),
-	m_clearTime(0),
-	m_maxTime(0),
-	m_sceneType{},
-	m_endJudgement(false)
+	m_sceneType{}
 {
+	//		シーンマネージャーの情報
+	m_information = std::make_unique<SceneManagerInformation>();
+
+	//		メニューマネージャーの生成
+	m_menuManager = std::make_unique<MenuManager>(this);
+
+	//		ポストエフェクトマネージャーを受け取る
+	m_postEffectManager = std::make_unique<PostEffectManager>(m_menuManager->GetInformation());
 }
 
 SceneManager::~SceneManager()
@@ -26,8 +35,7 @@ SceneManager::~SceneManager()
 
 void SceneManager::Initialize()
 {
-	//		メニューマネージャーの生成
-	m_menuManager = std::make_unique<MenuManager>(this);
+	m_information->Initialize(m_postEffectManager.get(), m_menuManager.get());
 
 	//		メニューマネージャーの初期化
 	m_menuManager->Initialize();
@@ -39,7 +47,7 @@ void SceneManager::Initialize()
 	m_sceneInformation.insert({ SceneType::Tutorial, std::make_unique<TutorialScene>(this) });
 
 	//		初期のシーンタイプを設定する
-	m_sceneType = SceneType::Title;
+	m_sceneType = SceneType::Play;
 
 	//		シーンを設定する
 	m_scene = m_sceneInformation[m_sceneType].get();
@@ -50,23 +58,23 @@ void SceneManager::Initialize()
 
 void SceneManager::Update()
 {
-	if (m_endJudgement)
-	{
-		Finalize();
-
-		return;
-	}
-
 	//		シーンの更新処理
 	m_scene->Update();
 
 	//		メニューマネージャーの更新
 	m_menuManager->Update();
+
+	//		ゲームを終了するか？
+	if (m_information->GetEndJudgement())
+	{
+		Finalize();
+	}
 }
 
 void SceneManager::Render()
 {
-	if (m_endJudgement) return;
+	//		ゲーム終了時には描画しない
+	if (m_information->GetEndJudgement()) return;
 
 	//		シーンの描画処理
 	m_scene->Render();
@@ -80,6 +88,7 @@ void SceneManager::Finalize()
 	//		現在の状態の終了処理をする
 	m_scene->Finalize();
 
+	//		シーンの情報を削除する
 	m_sceneInformation.clear();
 }
 

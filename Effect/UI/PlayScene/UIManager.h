@@ -84,6 +84,40 @@ public:
 	//		メッセージバー下の座標
 	const DirectX::SimpleMath::Vector2 MESSAGE_BER_DOWN = { 0.0f, -13.0f };
 
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_PAHT = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		クロック背景テクスチャパス
+	const wchar_t* CLOCK_COLON_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockColon.png";
+
+	//		クールタイム背景テクスチャパス
+	const wchar_t* COOL_TIME_BACK_TEXTURE_PATH = L"Resources/Texture/UI/CoolTime/CoolTimeBack.png";
+
+	//		ゲームオーバーテクスチャパス
+	const wchar_t* GAME_OVER_TEXTURE_PATH = L"Resources/Texture/UI/GameOver/GameOver.png";
+
+	//		コンテニューテクスチャパス
+	const wchar_t* CONTINUE_TEXTURE_PATH = L"Resources/Texture/UI/GameOver/Continue.png";
+
+	//		ボタンテクスチャパス
+	const wchar_t* BUTTON_TEXTURE_PATH = L"Resources/Texture/UI/GameOver/button.png";
+
+	//		スクリーンレイテクスチャパス
+	const wchar_t* SCREEN_RAY_TEXTURE_PATH = L"Resources/Texture/UI/ScreenRay/ScreenRay.png";
+
+	//		メッセージバーテクスチャパス
+	const wchar_t* MESSAGE_BAR_TEXTURE_PATH = L"Resources/Texture/UI/GameClear/messegeBer.png";
+
+	//		タイムリミットテクスチャパス
+	const wchar_t* TIME_LIMIT_TEXTURE_PATH = L"Resources/Texture/UI/GameStart/TimeLimit.png";
+
+	//		点テクスチャパス
+	const wchar_t* TEN_TEXTURE_PATH = L"Resources/Texture/UI/GameStart/Ten.png";
+
+
+	//		メッセージ背景のファイルパス
+	const wchar_t* MESSAGE_BACK_FILE_PATH = L"Resources/Texture/UI/GameClear/messegeBack.png";
+
 private:
 	//		時計の背景
 	std::unique_ptr<ClockManager> m_clockManager;
