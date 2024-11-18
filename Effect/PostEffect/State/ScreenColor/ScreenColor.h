@@ -71,6 +71,20 @@ public:
 
 private:
 
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		スクリーンカラーVSパス
+	const wchar_t* SCREEN_COLOR_VS_PATH = L"Resources/Shader/PostEffect/ScreenColor/ScreenColorVS.cso";
+
+	//		スクリーンカラーGSパス
+	const wchar_t* SCREEN_COLOR_GS_PATH = L"Resources/Shader/PostEffect/ScreenColor/ScreenColorGS.cso";
+
+	//		スクリーンカラーPSパス
+	const wchar_t* SCREEN_COLOR_PS_PATH = L"Resources/Shader/PostEffect/ScreenColor/ScreenColorPS.cso";
+
+private:
+
 	//		ポストエフェクトマネージャーのポインタのインスタンス
 	PostEffectManager* m_postEffectManager;
 

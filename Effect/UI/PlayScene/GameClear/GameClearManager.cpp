@@ -30,10 +30,10 @@ void GameClearManager::Initialize()
 	m_messageShader = std::make_unique<UIRenderManager>();
 
 	//		メッセージの作成
-	m_messageShader->Create(L"Resources/Texture/UI/GameClear/Messege.png",
-		L"Resources/Shader/UI/CenterShader/CenterShaderVS.cso",
-		L"Resources/Shader/UI/CenterShader/CenterShaderGS.cso",
-		L"Resources/Shader/UI/CenterShader/CenterShaderPS.cso",
+	m_messageShader->Create(MESSAGE_TEXTURE_PATH,
+		CENTER_SHADER_VS_PATH,
+		CENTER_SHADER_GS_PATH,
+		CENTER_SHADER_PS_PATH,
 		buffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f }
 	);

@@ -107,7 +107,7 @@ public:
 	const float SOUND_K_NOB_Y_POSITION = 200.0f;
 
 	//		最大つまみ座標
-	const float MAX_K_NOB = 480.0f;
+	const float MAX_K_NOB = 561.0f;
 
 	//		最小つまみ座標
 	const float MIN_K_NOB = -81.0f;
@@ -126,6 +126,60 @@ public:
 
 	//		MouseKnobUIの座標
 	const DirectX::SimpleMath::Vector2 MOUSE_K_NOB_POSITION = { 200.0f, 50.0f };
+
+	//		上昇頂点シェーダーパス
+	const wchar_t* ABOVE_UI_VS_PATH = L"Resources/Shader/UI/AboveUI/AboveUIVS.cso";
+
+	//		上昇ジオメトリシェーダーパス
+	const wchar_t* ABOVE_UI_GS_PATH = L"Resources/Shader/UI/AboveUI/AboveUIGS.cso";
+
+	//		上昇ピクセルシェーダーパス
+	const wchar_t* ABOVE_UI_PS_PATH = L"Resources/Shader/UI/AboveUI/AboveUIPS.cso";
+
+	//		Audioテクスチャパス
+	const wchar_t* AUDIO_PATH = L"Resources/Texture/Menu/Select/Audio.png";
+
+	//		GamePlayテクスチャパス
+	const wchar_t* GAME_PLAY_PATH = L"Resources/Texture/Menu/Select/GamePlay.png";
+
+	//		Opetionテクスチャパス
+	const wchar_t* OPTION_PATH = L"Resources/Texture/Menu/Select/Opetion.png";
+
+	//		SliderBackテクスチャパス
+	const wchar_t* SLIDER_BACK_PATH = L"Resources/Texture/Menu/Slide/SlideBack.png";
+
+	//		AudioSettingテクスチャパス
+	const wchar_t* AUDIO_SETTING_PATH = L"Resources/Texture/Menu/Title/AudioSetting.png";
+
+	//		OptionSettingテクスチャパス
+	const wchar_t* OPTION_SETTING_PATH = L"Resources/Texture/Menu/Title/OptionSetting.png";
+
+	//		TitleGamePlayテクスチャパス
+	const wchar_t* TITLE_GAME_PLAY_PATH = L"Resources/Texture/Menu/Title/GamePlay.png";
+
+	//		MasterVloumeテクスチャパス
+	const wchar_t* MASTER_VLOUME_PATH = L"Resources/Texture/Menu/Slide/MasterVloume.png";
+
+	//		BGMテクスチャパス
+	const wchar_t* BGM_PATH = L"Resources/Texture/Menu/Slide/BGM.png";
+
+	//		SoundEffectテクスチャパス
+	const wchar_t* SOUND_EFFECT_PATH = L"Resources/Texture/Menu/Slide/SoundEffect.png";
+
+	//		Knobテクスチャパス
+	const wchar_t* KNOB_PATH = L"Resources/Texture/Menu/Slide/Knob.png";
+
+	//		CloseMenuテクスチャパス
+	const wchar_t* CLOSE_MENU_PATH = L"Resources/Texture/Menu/GamePlay/CloseMenu.png";
+
+	//		Exitテクスチャパス
+	const wchar_t* EXIT_PATH = L"Resources/Texture/Menu/GamePlay/Exit.png";
+
+	//		FOVテクスチャパス
+	const wchar_t* FOV_PATH = L"Resources/Texture/Menu/Slide/FOV.png";
+
+	//		mouseSeテクスチャパス
+	const wchar_t* MOUSE_POINTA_PATH = L"Resources/Texture/Menu/Slide/mouseSe.png";
 
 private:
 

@@ -18,10 +18,8 @@ public:
 	:
 		m_shader(nullptr),
 		m_backGroundMove(nullptr),
-		m_fade(nullptr),
 		m_playerAnimation(nullptr),
 		m_riseNumber(nullptr),
-		m_screenEffectManager(nullptr),
 		m_changeScene(false)
 	{};
 
@@ -50,15 +48,12 @@ public:
 public:
 
 	void Initialize(StandardShader<ResultInformation::ResultUIType>* shader,
-		RiseNumberShader* riseNumber, UIRenderManager* fade,
-		BackGroundMove* backGroundMove, ScreenEffectManager* screenEffectManager,
+		RiseNumberShader* riseNumber, BackGroundMove* backGroundMove,
 		AnimationManager* playerAnimation)
 	{
 		m_shader = shader;
 		m_riseNumber = riseNumber;
-		m_fade = fade;
 		m_backGroundMove = backGroundMove;
-		m_screenEffectManager = screenEffectManager;
 		m_playerAnimation = playerAnimation;
 	}
 
@@ -102,14 +97,8 @@ private:
 	//		コンストバッファ
 	ConstBuffer m_buffer;
 
-	//		フェード描画
-	UIRenderManager* m_fade;
-
 	//		背景の移動
 	BackGroundMove* m_backGroundMove;
-
-	//		スクリーンエフェクトマネージャー
-	ScreenEffectManager* m_screenEffectManager;
 
 	//		プレイヤーアニメーション
 	AnimationManager* m_playerAnimation;
@@ -137,16 +126,6 @@ public:
 	RiseNumberShader* GetRiseNumber() { return m_riseNumber; }
 
 	/*
-	*	フェードの描画
-	*
-	*	@param	(time)	時間
-	*/
-	void FadeViewProcess(float time) {
-		m_buffer.time = { time, 0.0f, 0.0f, 0.0f };
-		m_fade->Render(m_buffer);
-	}
-
-	/*
 	*	コンストバッファのポインタを受け取る
 	*
 	*	@return コンストバッファ
@@ -161,25 +140,11 @@ public:
 	void SetBuffer(ConstBuffer buffer) { m_buffer = buffer; };
 
 	/*
-	*	フェードを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	UIRenderManager* GetFade() { return m_fade; }
-
-	/*
 	*	背景を受け取る
 	* 
 	*	@return インスタンスのポインタ
 	*/
 	BackGroundMove* GetBackGround() { return m_backGroundMove; }
-
-	/*
-	*	スクリーンエフェクトを受け取る
-	*
-	*	@return インスタンスのポインタ
-	*/
-	ScreenEffectManager* GetScreenEffect() { return m_screenEffectManager; }
 
 	/*
 	*	プレイヤーアニメーションを受け取る

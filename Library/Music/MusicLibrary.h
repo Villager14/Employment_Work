@@ -172,7 +172,7 @@ public:
 	*/
 	void SetMastaraVolume(float val)
 	{
-		m_mastarVolume = Library::Clamp(val, 0.01f, 1.0f); 
+		m_mastarVolume = Library::Clamp(val, 0.0f, 1.0f); 
 
 		m_audioEngineBGM->SetMasterVolume(Library::Lerp(0.0f, m_bgmVolume, m_mastarVolume));
 		m_audioEngineSoundEffect->SetMasterVolume(Library::Lerp(0.0f, m_soundEffectVolum, m_mastarVolume));

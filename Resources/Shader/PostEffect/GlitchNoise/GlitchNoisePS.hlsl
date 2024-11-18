@@ -9,7 +9,5 @@ float4 main(PS_INPUT input) : SV_TARGET
 	//		テクスチャ
 	float4 output = tex.Sample(samLinear, input.tex);
 
-
-
 	return output;
 }

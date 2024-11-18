@@ -25,11 +25,9 @@ void CountDown::Initialize()
 	//		フェード描画の生成
 	m_numberAlpha = std::make_unique<UIRenderManager>();
 
-	m_numberAlpha->Create(L"Resources/Texture/UI/CountDown/CountDown.png",
-		L"Resources/Shader/UI/NumberAlpha/NumberAlphaVS.cso",
-		L"Resources/Shader/UI/NumberAlpha/NumberAlphaGS.cso",
-		L"Resources/Shader/UI/NumberAlpha/NumberAlphaPS.cso",
-		buffer,
+	m_numberAlpha->Create(COUNT_DOWN_TEXTURE_PATH,
+		NUMBER_ALPHA_VS_PATH, NUMBER_ALPHA_GS_PATH,
+		NUMBER_ALPHA_PS_PATH, buffer,
 		COUNT_DOWN_POSITION, { 0.8f, 0.8f });
 
 	//		ウィンドウサイズを設定する
@@ -51,8 +49,8 @@ void CountDown::Update(float time)
 
 void CountDown::Render()
 {
-	if (m_time > 6.0f ||
-		m_time < 1.0f) return;
+	if (m_time > MAX_TIME ||
+		m_time < MIN_TIME) return;
 
 	buffer.alpha = sinf(m_time - static_cast<float>(static_cast<int>(m_time))) / 2.0f;
 	buffer.time = static_cast<int>(m_time);

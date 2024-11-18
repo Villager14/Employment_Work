@@ -36,16 +36,14 @@ DegitalRain::~DegitalRain()
 void DegitalRain::Initialzie()
 {	
 	m_effectShaderManager->Create(
-		L"Resources/Texture/TEST.png",
-		L"Resources/Shader/Effect/DegitalRain/DegitalRainVS.cso",
-		L"Resources/Shader/Effect/DegitalRain/DegitalRainGS.cso",
-		L"Resources/Shader/Effect/DegitalRain/DegitalRainPS.cso",
-		m_constBuffer,
+		TEST_TEXTURE_PATH,
+		DEGITAL_RAIN_VS_PATH, DEGITAL_RAIN_GS_PATH,
+		DEGITAL_RAIN_PS_PATH, m_constBuffer,
 		{0.0f, 0.0f, 0.0f},
 		{1.0f, 1.0f}
 	);
 
-	m_effectShaderManager->LoadTexture(L"Resources/Texture/TEST2.png");
+	m_effectShaderManager->LoadTexture(TEST2_TEXTURE_PATH);
 
 	DegitalRainParameter parameta;
 
@@ -126,10 +124,7 @@ void DegitalRain::Render(PostEffectFlag::Flag flag)
 	for (int i = 0; i < m_parameta.size(); ++i)
 	{
 		m_constBuffer.matWorld = m_parameta[i].billbord.Transpose();
-		//DirectX::SimpleMath::Matrix world;
-		//m_constBuffer.matWorld = m_parameta[i].billbord.Transpose();
 
-		//m_constBuffer.number = { static_cast<float>(m_parameta[i].number), 0.0f, 0.0f, 0.0f };
 		m_constBuffer.number = m_parameta[i].number;
 
 		m_effectShaderManager->SetPosition(m_parameta[i].position);

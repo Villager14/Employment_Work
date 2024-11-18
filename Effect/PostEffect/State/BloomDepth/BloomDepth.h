@@ -59,6 +59,20 @@ public:
 	};
 
 private:
+
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		ブルーム深度VSパス
+	const wchar_t* BLOOM_UNAFFECTED_DEPTH_VS_PATH = L"Resources/Shader/PostEffect/Bloom/BloomUnaffectedDepth/BloomUnaffectedDepthVS.cso";
+
+	//		ブルーム深度GSパス
+	const wchar_t* BLOOM_UNAFFECTED_DEPTH_GS_PATH = L"Resources/Shader/PostEffect/Bloom/BloomUnaffectedDepth/BloomUnaffectedDepthGS.cso";
+
+	//		ブルーム深度PSパス
+	const wchar_t* BLOOM_UNAFFECTED_DEPTH_PS_PATH = L"Resources/Shader/PostEffect/Bloom/BloomUnaffectedDepth/BloomUnaffectedDepthPS.cso";
+
+private:
 	//		コンストバッファ
 	ConstBuffer m_constBuffer;
 

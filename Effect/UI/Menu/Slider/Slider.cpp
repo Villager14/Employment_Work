@@ -13,12 +13,12 @@ Slider::Slider()
 {
 	m_shader = std::make_unique<UIRenderManager>();
 
-	m_shader->Create(L"Resources/Texture/Menu/Slide/Slide.png",
-		L"Resources/Shader/UI/Slider/SliderVS.cso",
-		L"Resources/Shader/UI/Slider/SliderGS.cso",
-		L"Resources/Shader/UI/Slider/SliderPS.cso",
+	m_shader->Create(SLIDER_TEXTURE,
+		SLIDER_VS_PATH,
+		SLIDER_GS_PATH,
+		SLIDER_PS_PATH,
 		m_constBuffer,
-		{ 200.0f, -100.0f }, { 1.0f,1.0f },
+		{ 0.0f, 0.0f }, { 1.0f,1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	CreateUIInformation(MASTER_VOLUM_POSITION, { 1.0f, 1.0f }, 1.0f, UIType::MastarVolum);

@@ -231,8 +231,6 @@ inline void UIRenderManager::Render(const UIType& obj)
 	//		画像用サンプラーの登録
 	ID3D11SamplerState* sampler[1] = { commonState->LinearWrap() };
 	context->PSSetSamplers(0, 1, sampler);
-	//ID3D11SamplerState* sampler[1] = { m_sample.Get()};
-	//context->PSSetSamplers(0, 1, sampler);
 
 	//		半透明描画指定
 	ID3D11BlendState* blendestate = commonState->NonPremultiplied();
@@ -246,17 +244,17 @@ inline void UIRenderManager::Render(const UIType& obj)
 	//		カリングは左回り
 	context->RSSetState(commonState->CullNone());
 
-	//		シェーダをセットする
-	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
-	context->GSSetShader(m_geometryShader.Get(), nullptr, 0);
-	context->PSSetShader(m_pixelShader.Get(), nullptr, 0);
-
 	for (int i = 0, max = static_cast<int>(m_texture.size());
-		 i < max; ++i)
+		i < max; ++i)
 	{
 		//		ピクセルシェーダにテクスチャを登録する
 		context->PSSetShaderResources(i, 1, m_texture[i].GetAddressOf());
 	}
+
+	//		シェーダをセットする
+	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
+	context->GSSetShader(m_geometryShader.Get(), nullptr, 0);
+	context->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
 	//		インプットレイアウトの登録
 	context->IASetInputLayout(m_inputLayout.Get());
@@ -267,8 +265,20 @@ inline void UIRenderManager::Render(const UIType& obj)
 		Draw(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST, &vertex[0], 1);
 	LibrarySingleton::GetInstance()->GetVertexPositionColorTexture()->End();
 
+
+	ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
+
+	for (int i = 0, max = static_cast<int>(m_texture.size());
+		i < max; ++i)
+	{
+		//		ピクセルシェーダにテクスチャを登録する
+		context->PSSetShaderResources(i, 1, nullSRV);
+	}
+
 	//		シェーダの登録を解除しておく
 	context->VSSetShader(nullptr, nullptr, 0);
 	context->GSSetShader(nullptr, nullptr, 0);
 	context->PSSetShader(nullptr, nullptr, 0);
+
+
 }

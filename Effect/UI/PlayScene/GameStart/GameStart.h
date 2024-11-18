@@ -67,6 +67,20 @@ public:
 
 private:
 
+	//		番号テクスチャパス
+	const wchar_t* NUMBER_TEXTURE_PATH = L"Resources/Texture/UI/GameStart/number.png";
+
+	//		番号VSパス
+	const wchar_t* NUMBER_VS_PATH = L"Resources/Shader/UI/Number/NumberVS.cso";
+
+	//		番号GSパス
+	const wchar_t* NUMBER_GS_PATH = L"Resources/Shader/UI/Number/NumberGS.cso";
+
+	//		番号PSパス
+	const wchar_t* NUMBER_PS_PATH = L"Resources/Shader/UI/Number/NumberPS.cso";
+
+private:
+
 
 	//		ゲームマネージャーのインスタンスのポインタ
 	GameManager* m_gameManager;

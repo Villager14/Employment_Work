@@ -15,7 +15,8 @@ ResultScene::ResultScene(SceneManager* sceneManager)
 	m_score(0.0f)
 {
 	//		リザルトマネージャーの生成
-	m_resultManager = std::make_unique<ResultManager>();
+	m_resultManager = std::make_unique<ResultManager>
+		(sceneManager->GetInformation()->GetPostEffectManager());
 }
 
 ResultScene::~ResultScene()
@@ -24,11 +25,11 @@ ResultScene::~ResultScene()
 
 void ResultScene::Initialize()
 {
-	float time = static_cast<float>(m_sceneManager->GetClearTime());
+	float time = static_cast<float>(m_sceneManager->GetInformation()->GetClearTime());
 
-	float deth = static_cast<float>(m_sceneManager->GetDeathCount());
+	float deth = static_cast<float>(m_sceneManager->GetInformation()->GetDeathCount());
 
-	float maxTime = static_cast<float>(m_sceneManager->GetMaxTime());
+	float maxTime = static_cast<float>(m_sceneManager->GetInformation()->GetMaxTime());
 	
 	float score = 0.0f;
 
@@ -50,8 +51,8 @@ void ResultScene::Initialize()
 	m_score = score;
 
 	//		リザルトマネージャーの初期化
-	m_resultManager->Initialize(static_cast<int>(m_score), m_sceneManager->GetClearTime(),
-								m_sceneManager->GetDeathCount());
+	m_resultManager->Initialize(static_cast<int>(m_score), m_sceneManager->GetInformation()->GetClearTime(),
+								m_sceneManager->GetInformation()->GetDeathCount());
 
 	//		プロジェクション行列の作製
 	CreateProj();
@@ -68,10 +69,10 @@ void ResultScene::Update()
 	m_resultManager->BackGroundUpdate();
 
 	//		メニューを開いている場合処理をしない
-	if (m_sceneManager->GetMenuManager()->GetInformation()->GetMenuJudgement()) return;
+	if (m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetMenuJudgement()) return;
 
 	//		メニューを使えるかどうか
-	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
+	m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
 
 	//		リザルトマネージャーの更新処理
 	m_resultManager->Update();

@@ -15,27 +15,37 @@ public:
 
 	enum Flag
 	{
-		None		= 0b00000000000,
-		Normal		= 0b00000000001,		//		通常描画
-		BloomDepth  = 0b00000000010,		//		ブルーム深度
-		Bloom		= 0b00000000100,		//		ブルーム
-		Fog			= 0b00000001000,		//		フォグの処理
-		AlphaDepth  = 0b00000010000,		//		アルファ深度処理
-		Alpha		= 0b00000100000,		//		アルファの処理
-		UI			= 0b00001000000,		//		UIの描画
-		Color		= 0b00010000000,		//		画面の色変更
-		UIBack		= 0b00100000000,		//		UIの後描画
-		Glitch		= 0b01000000000,		//		グリッチノイズ
-		Fade		= 0b10000000000,		//		フェード
+		None =			0,
+		Normal =		1 << 0,		//		通常描画
+		BloomDepth =	1 << 1,		//		ブルーム深度
+		Bloom =			1 << 2,		//		ブルーム
+		Fog =			1 << 3,		//		フォグの処理
+		AlphaDepth =	1 << 4,		//		アルファ深度処理
+		Alpha =			1 << 5,		//		アルファの処理
+		UI =			1 << 6,		//		UIの描画
+		Color =			1 << 7,		//		画面の色変更
+		PlayerView =	1 << 8,		//		プレイヤーの描画
+		UIBack =		1 << 9,		//		UIの後描画
+		Glitch =		1 << 10,	//		グリッチノイズ
+		Fade =			1 << 11,	//		フェード
 	};
 
 public:
 
-	//		コンストラクタ
-	PostEffectFlag()
-	:
-	m_flag(Flag::None)
-	{};
+	/*
+	*	コンストラクタ
+	* 
+	*	@param	(notFlagTrue) ビットフラグの初期の値を全てTrueにするか？
+	*/
+	PostEffectFlag(bool notFlagTrue = false)
+	{
+		m_flag = Flag::None;
+
+		if (notFlagTrue)
+		{
+			m_flag = ~Flag::None;
+		}
+	};
 
 	//		デストラクタ
 	~PostEffectFlag() {};

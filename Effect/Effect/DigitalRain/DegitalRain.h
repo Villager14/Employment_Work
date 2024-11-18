@@ -74,6 +74,21 @@ public:
 
 	const float MIN_LENGTH = 40.0f;
 
+	//		テクスチャパス
+	const wchar_t* TEST_TEXTURE_PATH = L"Resources/Texture/TEST.png";
+
+	//		テクスチャパス２
+	const wchar_t* TEST2_TEXTURE_PATH = L"Resources/Texture/TEST2.png";
+
+	//		デジタル雨VSパス
+	const wchar_t* DEGITAL_RAIN_VS_PATH = L"Resources/Shader/Effect/DegitalRain/DegitalRainVS.cso";
+
+	//		デジタル雨GSパス
+	const wchar_t* DEGITAL_RAIN_GS_PATH = L"Resources/Shader/Effect/DegitalRain/DegitalRainGS.cso";
+
+	//		デジタル雨PSパス
+	const wchar_t* DEGITAL_RAIN_PS_PATH = L"Resources/Shader/Effect/DegitalRain/DegitalRainPS.cso";
+
 private:
 
 	ConstBuffer m_constBuffer;

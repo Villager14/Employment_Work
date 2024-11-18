@@ -79,6 +79,42 @@ private:
 	//		クールタイムの座標
 	const DirectX::SimpleMath::Vector2 COOL_TIME_POSITION = { 270.0f, 0.0f };
 
+	//		最大角度
+	const float MAX_ANGLE = 360.0f;
+	
+	//		レート
+	const float RATO = 100.0f;
+
+	//		ダッシュの速度
+	const float DASH_SPEED = 3.0f;
+
+	//		クールタイムの速度
+	const float COOL_TIME_SPEED = 0.6f;
+
+	//		クールタイムテクスチャパス
+	const wchar_t* COOL_TIME_TEXTURE_PATH = L"Resources/Texture/UI/CoolTime/CoolTime.png";
+
+	//		クールタイムVSパス
+	const wchar_t* COOL_TIME_VS_PATH = L"Resources/Shader/UI/CoolTime/CoolTimeVS.cso";
+
+	//		クールタイムGSパス
+	const wchar_t* COOL_TIME_GS_PATH = L"Resources/Shader/UI/CoolTime/CoolTimeGS.cso";
+
+	//		クールタイムPSパス
+	const wchar_t* COOL_TIME_PS_PATH = L"Resources/Shader/UI/CoolTime/CoolTimePS.cso";
+
+	//		クールタイムテクスチャパス
+	const wchar_t* COOL_TIME_NUMBER_TEXTURE_PATH = L"Resources/Texture/UI/CoolTime/cooltimeNumber.png";
+
+	//		番号VSパス
+	const wchar_t* NUMBER_VS_PATH = L"Resources/Shader/UI/Number/NumberVS.cso";
+
+	//		番号GSパス
+	const wchar_t* NUMBER_GS_PATH = L"Resources/Shader/UI/Number/NumberGS.cso";
+
+	//		番号PSパス
+	const wchar_t* NUMBER_PS_PATH = L"Resources/Shader/UI/Number/NumberPS.cso";
+
 private:
 
 	//		UIマネージャのインスタンスのポインタ

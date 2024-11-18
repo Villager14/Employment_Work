@@ -18,12 +18,7 @@ struct PS_INPUT
 */
 float ColorPower(float viewcolorPower, float power)
 {
-    if (power < viewcolorPower)
-    {
-        return 1.0f;
-    }
-
-    return 0.0f;
+    return lerp(1.0f, 0.0f, ceil(clamp(power - viewcolorPower + 0.01, 0.0f, 1.0f)));
 }
 
 /*

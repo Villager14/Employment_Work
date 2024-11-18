@@ -162,16 +162,16 @@ void UIManager::BackRender()
 
 void UIManager::CreateStandardUITexture()
 {
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/Clock/ClockBackGround.png", CLOCK_BACK_GROUND_POSITION, { 0.8f, 0.8f }, UIType::ClockBackGround);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/Clock/ClockColon.png", CLOCK_BACK_GROUND_POSITION, { 0.8f, 0.8f }, UIType::ClockColon);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/CoolTime/CoolTimeBack.png", CLOCK_BACK_TIME_GROUND_POSITION, { 0.6f, 0.6f }, UIType::CloolTimeBackGround);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameOver/GameOver.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameOver);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameOver/Continue.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameOverContinue);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameOver/button.png", NEXT_INDCCTION, { 0.6f, 0.6f }, UIType::NextInduction);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/ScreenRay/ScreenRay.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::ScreenRay);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png", MESSAGE_BER_UP, { 0.0f, 1.0f }, UIType::GameClearBarUp);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png", MESSAGE_BER_DOWN, { 0.0f, 1.0f }, UIType::GameClearBarUnder);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png", { 0.0f, 0.0f }, { 1.0f, 0.0f }, UIType::GameClearBackGround);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameStart/TimeLimit.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeLimit);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameStart/Ten.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeTen);
+	m_standardShader->CreateUIInformation(CLOCK_BACK_GROUND_PAHT, CLOCK_BACK_GROUND_POSITION, { 0.8f, 0.8f }, UIType::ClockBackGround);
+	m_standardShader->CreateUIInformation(CLOCK_COLON_TEXTURE_PATH, CLOCK_BACK_GROUND_POSITION, { 0.8f, 0.8f }, UIType::ClockColon);
+	m_standardShader->CreateUIInformation(COOL_TIME_BACK_TEXTURE_PATH, CLOCK_BACK_TIME_GROUND_POSITION, { 0.6f, 0.6f }, UIType::CloolTimeBackGround);
+	m_standardShader->CreateUIInformation(GAME_OVER_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameOver);
+	m_standardShader->CreateUIInformation(CONTINUE_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameOverContinue);
+	m_standardShader->CreateUIInformation(BUTTON_TEXTURE_PATH, NEXT_INDCCTION, { 0.6f, 0.6f }, UIType::NextInduction);
+	m_standardShader->CreateUIInformation(SCREEN_RAY_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::ScreenRay);
+	m_standardShader->CreateUIInformation(MESSAGE_BAR_TEXTURE_PATH, MESSAGE_BER_UP, { 0.0f, 1.0f }, UIType::GameClearBarUp);
+	m_standardShader->CreateUIInformation(MESSAGE_BAR_TEXTURE_PATH, MESSAGE_BER_DOWN, { 0.0f, 1.0f }, UIType::GameClearBarUnder);
+	m_standardShader->CreateUIInformation(MESSAGE_BACK_FILE_PATH, { 0.0f, 0.0f }, { 1.0f, 0.0f }, UIType::GameClearBackGround);
+	m_standardShader->CreateUIInformation(TIME_LIMIT_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeLimit);
+	m_standardShader->CreateUIInformation(TEN_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeTen);
 }

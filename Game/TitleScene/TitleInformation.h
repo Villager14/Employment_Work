@@ -9,8 +9,6 @@
 
 #include "pch.h"
 
-#include "Library/Shader/UIRenderManager.h"
-
 #include "Library/Shader/StandardShader.h"
 
 #include "Library/Shader/UIRenderManager.h"
@@ -28,7 +26,6 @@ public:
 	:
 		m_inputKey(false),
 		m_backGroundMove(nullptr),
-		m_fade(nullptr),
 		m_standardShader(nullptr),
 		m_changeSceneJudgement(false),
 		m_scrollWheel(0),
@@ -81,12 +78,10 @@ public:
 public:
 
 	void Initilaize(BackGroundMove* backGroundMove,
-		StandardShader<TitleUIType>* standardShader,
-		UIRenderManager* fade)
+		StandardShader<TitleUIType>* standardShader)
 	{
 		m_backGroundMove = backGroundMove;
 		m_standardShader = standardShader;
-		m_fade = fade;
 	}
 
 	void Finalize()
@@ -155,9 +150,6 @@ private:
 	//		スタンダードシェーダー
 	StandardShader<TitleUIType>* m_standardShader;
 
-	//		フェードの処理
-	UIRenderManager* m_fade;
-
 	//		定数バッファ
 	ConstBuffer m_buffer;
 
@@ -184,15 +176,15 @@ private:
 
 public:
 
-	/*
-	*	フェードの描画
-	*
-	*	@param	(time)	時間
-	*/
-	void FadeViewProcess(float time) {
-		m_buffer.time = { time, 0.0f, 0.0f, 0.0f };
-		m_fade->Render(m_buffer);
-	}
+	///*
+	//*	フェードの描画
+	//*
+	//*	@param	(time)	時間
+	//*/
+	//void FadeViewProcess(float time) {
+	//	m_buffer.time = { time, 0.0f, 0.0f, 0.0f };
+	//	m_fade->Render(m_buffer);
+	//}
 
 	/*
 	*	コンストバッファのポインタを受け取る

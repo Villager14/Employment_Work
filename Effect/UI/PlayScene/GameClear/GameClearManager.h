@@ -46,6 +46,20 @@ public:
 
 private:
 
+	//		メッセージテクスチャパス
+	const wchar_t* MESSAGE_TEXTURE_PATH = L"Resources/Texture/UI/GameClear/Messege.png";
+
+	//		中心シェーダーVSパス
+	const wchar_t* CENTER_SHADER_VS_PATH = L"Resources/Shader/UI/CenterShader/CenterShaderVS.cso";
+
+	//		中心シェーダーGSパス
+	const wchar_t* CENTER_SHADER_GS_PATH = L"Resources/Shader/UI/CenterShader/CenterShaderGS.cso";
+
+	//		中心シェーダーPSパス
+	const wchar_t* CENTER_SHADER_PS_PATH = L"Resources/Shader/UI/CenterShader/CenterShaderPS.cso";
+
+private:
+
 	//		UIマネージャーのインスタンスのポインタ
 	UIManager* m_uiManager;
 

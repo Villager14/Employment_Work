@@ -14,7 +14,8 @@ TitleScene::TitleScene(SceneManager* sceneManager)
 	m_sceneManager(sceneManager)
 {
 	//		タイトル選択マネージャーの生成
-	m_titleSelectManager = std::make_unique<TitleSelectManager>();
+	m_titleSelectManager = std::make_unique<TitleSelectManager>(
+		sceneManager->GetInformation()->GetPostEffectManager());
 }
 
 TitleScene::~TitleScene()
@@ -22,15 +23,14 @@ TitleScene::~TitleScene()
 }
 
 void TitleScene::Initialize()
-{
-	//		タイトル選択マネージャーの初期化
+{	//		タイトル選択マネージャーの初期化
 	m_titleSelectManager->Initialize();
 
 	//		タイトルのBGMの再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::TitleScene);
 
 	//		メニューの情報を設定する
-	m_titleSelectManager->SetMenuInformation(m_sceneManager->GetMenuManager()->GetInformation());
+	m_titleSelectManager->SetMenuInformation(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation());
 
 	CreateView();
 
@@ -40,7 +40,7 @@ void TitleScene::Initialize()
 void TitleScene::Update()
 {
 	//		メニューを使える状態にするかどうか？
-	m_sceneManager->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_titleSelectManager->
+	m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_titleSelectManager->
 														GetInformation()->GetMenuUseJudgement());
 
 	//		タイトル選択マネージャーの更新処理

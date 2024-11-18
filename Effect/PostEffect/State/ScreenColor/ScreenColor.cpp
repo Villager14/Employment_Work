@@ -31,11 +31,9 @@ void ScreenColor::Initialize()
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 
 	//		合成用
-	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/ScreenColor/ScreenColorVS.cso",
-		L"Resources/Shader/PostEffect/ScreenColor/ScreenColorGS.cso",
-		L"Resources/Shader/PostEffect/ScreenColor/ScreenColorPS.cso",
-		m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_depthShaderView->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		SCREEN_COLOR_VS_PATH, SCREEN_COLOR_GS_PATH,
+		SCREEN_COLOR_PS_PATH, m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		定数バッファの値
@@ -100,8 +98,8 @@ void ScreenColor::Filanize()
 bool ScreenColor::RedScreen()
 {
 	//		死亡した場合
-	if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::DeathJudgement) ||
-		m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::TimeLimitJudgement))
+	//if (m_postEffectManager->GetInformation()->FlagJudgement(PostEffectInformation::Flag::TimeLimitJudgement))
+	if (m_postEffectManager->GetInformation()->FlagJudgement(PostEffectInformation::Flag::RedScreen))
 	{
 		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 

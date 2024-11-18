@@ -106,7 +106,6 @@ void FloorObject::Initialize(ObjectInformation information)
 
 		//		ƒtƒHƒO‚Ìˆ—‚Ìê‡•`‰æ‚·‚é
 		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
-
 	}
 	else
 	{

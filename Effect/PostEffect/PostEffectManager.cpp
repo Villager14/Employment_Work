@@ -22,10 +22,10 @@
 #include "State/ScreenColor/ScreenColor.h"
 #include "State/Fade/FadePostEffect.h"
 #include "State/GlitchNoise/GlitchNoise.h"
+#include "State/ScreenObjectView/ScreenObjectView.h"
 
-PostEffectManager::PostEffectManager(GameManager* gameManager, MenuInformation* menuInformation)
+PostEffectManager::PostEffectManager(MenuInformation* menuInformation)
 	:
-	m_gameManager(gameManager),
 	m_menuInformation(menuInformation)
 {
 	//		ポストエフェクト共通処理
@@ -33,16 +33,19 @@ PostEffectManager::PostEffectManager(GameManager* gameManager, MenuInformation* 
 
 	m_backRenderColor = DirectX::Colors::Black;
 	m_backColor = DirectX::Colors::Black;
+	m_information = std::make_unique<PostEffectInformation>();
 }
 
 PostEffectManager::~PostEffectManager()
 {
 }
 
-void PostEffectManager::Initialize(DirectX::XMVECTORF32 color)
+void PostEffectManager::Initialize(DirectX::XMVECTORF32 color, PostEffectFlag* flag)
 {
 	//		ポストエフェクトオブジェクトシェーダーの生成
 	m_objectShader = std::make_unique<PostEffectObjectShader>();
+
+	m_information->Initialize();
 
 	//		サンプラーの作製
 	CreateSampler();
@@ -65,17 +68,7 @@ void PostEffectManager::Initialize(DirectX::XMVECTORF32 color)
 
 	m_bler->Initialize();
 
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Normal,		std::make_unique<NormalRender>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Bloom,		std::make_unique<Bloom>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::BloomDepth,	std::make_unique<BloomDepth>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Fog,			std::make_unique<FogProcess>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Alpha,		std::make_unique<EffectRender>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::AlphaDepth,	std::make_unique<EffectDepthRender>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::UI,			std::make_unique<UIRender>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::UIBack,		std::make_unique<UIRender>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Color,		std::make_unique<ScreenColor>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Glitch,		std::make_unique<GlitchNoise>(this) });
-	m_postEffectProcess.insert({ PostEffectFlag::Flag::Fade,		std::make_unique<FadePostEffect>(this) });
+	CreatePostEffect(flag);
 
 	//		ポストエフェクト処理の初期化
 	for (auto& e : m_postEffectProcess)
@@ -116,10 +109,64 @@ void PostEffectManager::Finalize()
 	m_postEffectProcess.clear();
 }
 
+void PostEffectManager::CreatePostEffect(PostEffectFlag* flag)
+{
+	//		ポストエフェクトの生成
+	for (int i = 1; i <= PostEffectFlag::Flag::Fade;)
+	{
+		if (flag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			switch (PostEffectFlag::Flag(i))
+			{
+			case PostEffectFlag::Flag::Normal:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Normal,		std::make_unique<NormalRender>(this) });
+				break;
+			case PostEffectFlag::Flag::Bloom:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Bloom,		std::make_unique<Bloom>(this) });
+				break;
+			case PostEffectFlag::Flag::BloomDepth:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::BloomDepth,	std::make_unique<BloomDepth>(this) });
+				break;
+			case PostEffectFlag::Flag::Fog:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Fog,			std::make_unique<FogProcess>(this) });
+				break;
+			case PostEffectFlag::Flag::Alpha:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Alpha,		std::make_unique<EffectRender>(this) });
+				break;
+			case PostEffectFlag::Flag::AlphaDepth:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::AlphaDepth,	std::make_unique<EffectDepthRender>(this) });
+				break;
+			case PostEffectFlag::Flag::UI:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::UI,			std::make_unique<UIRender>(this) });
+				break;
+			case PostEffectFlag::Flag::Color:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Color,		std::make_unique<ScreenColor>(this) });
+				break;
+			case PostEffectFlag::Flag::PlayerView:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::PlayerView,	std::make_unique<ScreenObjectView>(this) });
+				break;
+			case PostEffectFlag::Flag::UIBack:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::UIBack,		std::make_unique<UIRender>(this) });
+				break;
+			case PostEffectFlag::Flag::Glitch:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Glitch,		std::make_unique<GlitchNoise>(this) });
+				break;
+			case PostEffectFlag::Flag::Fade:
+				m_postEffectProcess.insert({ PostEffectFlag::Flag::Fade,		std::make_unique<FadePostEffect>(this) });
+				break;
+			default:
+				break;
+			}
+		}
+
+		i = i + i;
+	}
+}
+
 void PostEffectManager::CreateSampler()
 {
 	//		サンプラーの作製
-	D3D11_SAMPLER_DESC sampler_desc = {};// CD3D11_SAMPLER_DESC(D3D11_DEFAULT);
+	D3D11_SAMPLER_DESC sampler_desc = {};
 	//		フィルター処理方法
 	sampler_desc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
 	//		uテクスチャ解決方法

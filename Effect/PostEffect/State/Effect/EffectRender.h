@@ -70,6 +70,23 @@ public:
 
 private:
 
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		透明シェーダーVSパス
+	const wchar_t* TRANSPARENCY_VS_PATH = L"Resources/Shader/PostEffect/Transparency/TransparencyVS.cso";
+
+	//		透明シェーダーGSパス
+	const wchar_t* TRANSPARENCY_GS_PATH = L"Resources/Shader/PostEffect/Transparency/TransparencyGS.cso";
+
+	//		透明シェーダーPSパス
+	const wchar_t* TRANSPARENCY_PS_PATH = L"Resources/Shader/PostEffect/Transparency/TransparencyPS.cso";
+
+	//		オブジェクトシェーダーパス
+	const wchar_t* TRANSPARENCY_OBJECT_PATH = L"Resources/Shader/PostEffect/Transparency/TransparencyObject/TransparencyObject.cso";
+
+private:
+
 	//		ポストエフェクトマネージャーのポインタのインスタンス
 	PostEffectManager* m_postEffectManager;
 

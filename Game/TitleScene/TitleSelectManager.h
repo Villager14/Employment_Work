@@ -15,17 +15,17 @@
 
 #include "Library/Shader/StandardShader.h"
 
-#include "Library/Shader/UIRenderManager.h"
-
 #include "Game/Menu/MenuInformation.h"
 
 #include "TitleInformation.h"
 
 #include "TitleCommonProcess.h"
 
-#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
-
 #include "Library/Animation/AnimationManager.h"
+
+#include "Effect/PostEffect/PostEffectFlag.h"
+
+#include "Effect/PostEffect/PostEffectManager.h"
 
 class TitleUIManager;
 
@@ -34,7 +34,7 @@ class TitleSelectManager
 public:
 
 	//		コンストラクタ
-	TitleSelectManager();
+	TitleSelectManager(PostEffectManager* postEffectManager);
 
 	//		デストラクタ
 	~TitleSelectManager();
@@ -87,17 +87,17 @@ private:
 	//		タイトルUIマネージャー
 	std::unique_ptr<StandardShader<TitleInformation::TitleUIType>> m_standardShader;
 
-	//		フェード描画
-	std::unique_ptr<UIRenderManager> m_fade;
-
 	//		共通処理
 	std::unique_ptr<TitleCommonProcess> m_commonProcess;
 
-	//		スクリーンエフェクトマネージャー
-	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
-
 	//		プレイヤーアニメーション
 	std::unique_ptr<AnimationManager> m_playerAnimation;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_posteffectFlag;
+
+	//		ポストエフェクトマネージャー
+	PostEffectManager* m_postEffectManager;
 
 public:
 
@@ -129,6 +129,17 @@ public:
 	*/
 	TitleCommonProcess* GetCommonProcess() { return m_commonProcess.get(); }
 
+	/*
+	*	アニメーションを受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
 	AnimationManager* GetAnimation() { return m_playerAnimation.get(); }
 
+	/*
+	*	ポストエフェクトマネージャを受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectManager* GetPostEffectManager() { return m_postEffectManager; }
 };

@@ -20,7 +20,7 @@ public:
 	/*
 	*	コンストラクタ
 	* 
-	*	@param	()
+	*	@param	(menuManager)	インスタンスのポインタ
 	*/
 	OptionSetting(MenuManager* menuManager);
 
@@ -38,6 +38,25 @@ public:
 
 	//		終了処理
 	void Finalize() override;
+
+private:
+	//		スライダーの座標１
+	const DirectX::SimpleMath::Vector2 SLIDER_POSITION1 = { 200.0f, -100.0f };
+
+	//		スライダーの座標２
+	const DirectX::SimpleMath::Vector2 SLIDER_POSITION2 = { 200.0f, 50.0f };
+
+	//		視野角の最大値
+	const float FOV_MAX_VAL = 120.0f;
+
+	//		視野角の最小値
+	const float FOV_MIN_VAL = 70.0f;
+
+	//		マウス感度最小値
+	const float MOUSE_SENSITIVITY_MIN = 0.1f;
+
+	//		マウス感度最大値
+	const float MOUSE_SENSITIVITY_MAX = 10.0f;
 
 private:
 

@@ -46,6 +46,18 @@ private:
 	//		背景の速度
 	const float BACK_GROUND_SPEED = 0.1f;
 
+	//		背景テクスチャのファイルパス
+	const wchar_t* BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/TitleScene/TitleBack.png";
+
+	//		背景移動VSパス
+	const wchar_t* BACK_GROUND_VS_PATH = L"Resources/Shader/UI/BackGroundMove/BackGroundMoveVS.cso";
+
+	//		背景移動GSパス
+	const wchar_t* BACK_GROUND_GS_PATH = L"Resources/Shader/UI/BackGroundMove/BackGroundMoveGS.cso";
+
+	//		背景移動PSパス
+	const wchar_t* BACK_GROUND_PS_PATH = L"Resources/Shader/UI/BackGroundMove/BackGroundMovePS.cso";
+
 private:
 
 	//		UI描画マネージャー

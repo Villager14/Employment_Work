@@ -32,6 +32,7 @@ public:
 		Grider,		//		破壊オブジェクト
 		Wire,		//		ワイヤーオブジェクト
 		Signboard,	//		看板オブジェクト
+		Move,		//		移動オブジェクト
 		None,
 	};
 

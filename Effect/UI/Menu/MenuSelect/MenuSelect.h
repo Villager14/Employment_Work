@@ -33,6 +33,21 @@ public:
 
 private:
 
+	//		選択テクスチャ
+	const wchar_t* SELECT_TEXTURE = L"Resources/Texture/Menu/Select/Select.png";
+
+	//		メニュー選択VS
+	const wchar_t* SELECT_MENU_VS_TEXTURE = L"Resources/Shader/UI/MenuSelect/MenuSelectVS.cso";
+
+	//		メニュー選択GS
+	const wchar_t* SELECT_MENU_GS_TEXTURE = L"Resources/Shader/UI/MenuSelect/MenuSelectGS.cso";
+
+	//		メニュー選択PS
+	const wchar_t* SELECT_MENU_PS_TEXTURE = L"Resources/Shader/UI/MenuSelect/MenuSelectPS.cso";
+
+
+private:
+
 	//		シェーダー
 	std::unique_ptr<UIRenderManager> m_shader;
 

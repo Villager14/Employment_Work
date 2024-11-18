@@ -13,10 +13,6 @@
 
 #include "Effect/UI/TitleScene/BackGroundMove.h"
 
-#include "Library/Shader/UIRenderManager.h"
-
-#include "Game/PlayScene/ScreenEffect/ScreenEffectManager.h"
-
 #include "Library/Animation/AnimationManager.h"
 
 #include "Library/Shader/StandardShader.h"
@@ -25,12 +21,16 @@
 
 #include "ResultInformation.h"
 
+#include "Effect/PostEffect/PostEffectManager.h"
+
+#include "Effect/PostEffect/PostEffectFlag.h"
+
 class ResultManager
 {
 public:
 
 	//		リザルトマネージャー
-	ResultManager();
+	ResultManager(PostEffectManager* postEffectManager);
 
 	//		リザルトマネージャー
 	~ResultManager();
@@ -117,17 +117,17 @@ private:
 	//		スタンダードシェーダー
 	std::unique_ptr<StandardShader<ResultInformation::ResultUIType>> m_shader;
 
-	//		フェード描画
-	std::unique_ptr<UIRenderManager> m_fade;
-
 	//		背景移動の描画
 	std::unique_ptr<BackGroundMove> m_backGroundMove;
 
-	//		スクリーンエフェクトマネージャー
-	std::unique_ptr<ScreenEffectManager> m_screenEffectManager;
-
 	//		プレイヤーアニメーション
 	std::unique_ptr<AnimationManager> m_playerAnimation;
+
+	//		ポストエフェクトマネージャー
+	PostEffectManager* m_postEffectManager;
+
+	//		ポストエフェクトフラグ
+	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 
 public:
 
@@ -159,5 +159,10 @@ public:
 	*/
 	ResultInformation* GetInformation() { return m_information.get(); }
 
-	
+	/*
+	*	ポストエフェクトマネージャを受け取る
+	*
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectManager* GetPostEffectManager() { return m_postEffectManager; }
 };

@@ -11,8 +11,7 @@
 
 ResultEnd::ResultEnd(ResultManager* resultManager)
 	:
-	m_resultManager(resultManager),
-	m_time(1.0f)
+	m_resultManager(resultManager)
 {
 }
 
@@ -25,21 +24,16 @@ void ResultEnd::Initialize()
 	//		メニューを使えないようにする
 	m_resultManager->SetMenuUseJugement(false);
 
-	m_time = 1.0f;
+	//		フェードアウトの処理
+	m_resultManager->GetPostEffectManager()->GetInformation()->
+		TrueFlag(PostEffectInformation::Flag::SceneEndFade);
 }
 
 void ResultEnd::Update()
 {
-	m_time -= LibrarySingleton::GetInstance()->GetElpsedTime();
-
-	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
-
-	//		音量を少しずつ上げる
-	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
-
-	if (m_time <= 0.0f)
+	if (m_resultManager->GetPostEffectManager()->GetInformation()->FlagJudgement(PostEffectInformation::Flag::SceneEnd))
 	{
-		//		タイトルシーンへ
+		//		プレイシーンに切り替える
 		m_resultManager->GetInformation()->SetChangeSceneJudgement(true);
 	}
 }
@@ -54,9 +48,6 @@ void ResultEnd::Render()
 
 	//		数字の描画
 	m_resultManager->GetInformation()->GetRiseNumber()->Render(4.0f);
-
-	//		フェード処理
-	m_resultManager->GetInformation()->FadeViewProcess(m_time);
 }
 
 void ResultEnd::Finalize()

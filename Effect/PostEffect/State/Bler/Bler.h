@@ -58,6 +58,39 @@ public:
 
 private:
 
+	//		テストテクスチャパス
+	const wchar_t* TEST_TEXTURE_PATH = L"Resources/Texture/Test.jpg";
+
+	//		横ブラーVSパス
+	const wchar_t* SLIDER_BLER_VS_PATH = L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerVS.cso";
+
+	//		横ブラーGSパス
+	const wchar_t* SLIDER_BLER_GS_PATH = L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerGS.cso";
+
+	//		横ブラーPSパス
+	const wchar_t* SLIDER_BLER_PS_PATH = L"Resources/Shader/PostEffect/Bler/SideBler/SideBlerPS.cso";
+
+
+	//		縦ブラーVSパス
+	const wchar_t* WARP_BLER_VS_PATH = L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerVS.cso";
+
+	//		縦ブラーGSパス
+	const wchar_t* WARP_BLER_GS_PATH = L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerGS.cso";
+
+	//		縦ブラーPSパス
+	const wchar_t* WARP_BLER_PS_PATH = L"Resources/Shader/PostEffect/Bler/WarpBler/WarpBlerPS.cso";
+
+	//		合成ブラーVSパス
+	const wchar_t* EXPANSION_BLER_VS_PATH = L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionVS.cso";
+
+	//		合成ブラーGSパス
+	const wchar_t* EXPANSION_BLER_GS_PATH = L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionGS.cso";
+
+	//		合成ブラーPSパス
+	const wchar_t* EXPANSION_BLER_PS_PATH = L"Resources/Shader/PostEffect/Bler/Expansion/ExpansionPS.cso";
+
+private:
+
 	//		ポストエフェクトマネージャー
 	PostEffectManager* m_postEffectManager;
 

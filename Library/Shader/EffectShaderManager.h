@@ -280,7 +280,7 @@ inline void EffectShaderManager<ConstBuffer>::RenderProcedure()
 	context->PSSetSamplers(0, 1, samPler);
 
 	//”¼“§–¾•`‰æŽw’è
-	ID3D11BlendState* blendstate = state->NonPremultiplied();
+	ID3D11BlendState* blendstate = state->AlphaBlend();
 
 	// “§–¾”»’èˆ—
 	context->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);

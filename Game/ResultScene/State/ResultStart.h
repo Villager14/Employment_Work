@@ -43,7 +43,4 @@ private:
 
 	//		リザルトマネージャー
 	ResultManager* m_resultManager;
-
-	//		時間
-	float m_time;
 };

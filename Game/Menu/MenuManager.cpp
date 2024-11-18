@@ -16,6 +16,7 @@
 #include "Effect/UI/Menu/MenuSelect/MenuSelect.h"
 #include "Effect/UI/Menu/FrameWalkUI/FrameWalkUI.h"
 
+#include "Scene/SceneManager.h"
 
 MenuManager::MenuManager(SceneManager* sceneManager)
 	:
@@ -137,13 +138,13 @@ void MenuManager::CreateUI()
 	//		スタンダードシェーダーの初期化処理
 	m_standardShader->Initialize();
 
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png",
-		{ 0.0f, 13.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::Bar1);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBer.png",
-		{ 0.0f, -13.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::Bar2);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/UI/GameClear/messegeBack.png",
+	m_standardShader->CreateUIInformation(MESSAGE_BAR_FILE_PATH,
+		MESSAGE_BAR1_FIRST_POSITION, { 0.0f, 1.0f }, MenuInformation::UIType::Bar1);
+	m_standardShader->CreateUIInformation(MESSAGE_BAR_FILE_PATH,
+		MESSAGE_BAR2_FIRST_POSITION, { 0.0f, 1.0f }, MenuInformation::UIType::Bar2);
+	m_standardShader->CreateUIInformation(MESSAGE_BACK_FILE_PATH,
 		{ 0.0f, 0.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::BackGround);
-	m_standardShader->CreateUIInformation(L"Resources/Texture/Menu/Title/mousePointa.png",
+	m_standardShader->CreateUIInformation(MOUSE_POINTA_FILE_PATH,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f }, MenuInformation::UIType::MousePointa);
 
 	//		上昇UIの生成
@@ -176,7 +177,6 @@ void MenuManager::CreateUI()
 	//		メニューの情報を初期化する
 	m_information->Initialzie(m_standardShader.get(),
 		m_aboveUI.get(), m_slider.get(), m_menuSelect.get(), m_frameWalkUI.get());
-
 }
 
 void MenuManager::RoughMenuViwe(float transitionTime)
@@ -218,6 +218,29 @@ void MenuManager::ChangState(MenuInformation::MenuType type)
 
 bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, float* transitionTime3,
 							bool* startJudgement, bool endJudgement, bool moveJudgement)
+{
+	if (*startJudgement)
+	{
+		//		メニュー開始時のUIの動き
+		TransitionStart(transitionTime1, transitionTime2, transitionTime3, startJudgement, moveJudgement);
+
+		return true;
+	}
+
+	if (endJudgement)
+	{
+		//		メニュー終了時のUIの動き
+		TransitionEnd(transitionTime1, transitionTime2, transitionTime3, moveJudgement);
+
+		return true;
+	}
+
+
+	return false;
+}
+
+void MenuManager::TransitionStart(float* transitionTime1, float* transitionTime2, float* transitionTime3,
+								  bool* startJudgement, bool moveJudgement)
 {
 	//		開始状態の場合
 	if (*startJudgement)
@@ -263,54 +286,47 @@ bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, flo
 				*startJudgement = false;
 			}
 		}
-
-		return true;
 	}
+}
 
-	//		終了状態の場合
-	if (endJudgement)
+void MenuManager::TransitionEnd(float* transitionTime1, float* transitionTime2, float* transitionTime3, bool moveJudgement)
+{
+	//		時間1の更新
+	*transitionTime1 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
+
+	//		時間1が一定時間以下になったら他の時間も更新する
+	if (*transitionTime1 < 0.7f)
 	{
-		//		時間1の更新
-		*transitionTime1 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
+		//		時間2の更新
+		*transitionTime2 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
 
-		//		時間1が一定時間以下になったら他の時間も更新する
-		if (*transitionTime1 < 0.7f)
+		//		時間2が一定時間以下3遷移フラグがオンの場合時間3の更新をする
+		if (*transitionTime2 < 0.7f && moveJudgement)
 		{
-			//		時間2の更新
-			*transitionTime2 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-
-			//		時間2が一定時間以下3遷移フラグがオンの場合時間3の更新をする
-			if (*transitionTime2 < 0.7f && moveJudgement)
-			{
-				//		時間3の更新
-				*transitionTime3 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-			}
+			//		時間3の更新
+			*transitionTime3 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
 		}
-
-		//		0以下にならないようにする
-		*transitionTime1 = Library::Clamp(*transitionTime1, 0.0f, 1.0f);
-		*transitionTime2 = Library::Clamp(*transitionTime2, 0.0f, 1.0f);
-		*transitionTime3 = Library::Clamp(*transitionTime3, 0.0f, 1.0f);
-
-		if (moveJudgement)
-		{
-			if (*transitionTime3 <= 0.0f)
-			{
-				//		シーンを切り替える
-				ChangState(MenuInformation::MenuType::Close);
-			}
-		}
-		else
-		{
-			if (*transitionTime2 <= 0.0f)
-			{
-				//		シーンを切り替える
-				ChangState(m_information->GetSelectUI());
-			}
-		}
-
-		return true;
 	}
 
-	return false;
+	//		0以下にならないようにする
+	*transitionTime1 = Library::Clamp(*transitionTime1, 0.0f, 1.0f);
+	*transitionTime2 = Library::Clamp(*transitionTime2, 0.0f, 1.0f);
+	*transitionTime3 = Library::Clamp(*transitionTime3, 0.0f, 1.0f);
+
+	if (moveJudgement)
+	{
+		if (*transitionTime3 <= 0.0f)
+		{
+			//		シーンを切り替える
+			ChangState(MenuInformation::MenuType::Close);
+		}
+	}
+	else
+	{
+		if (*transitionTime2 <= 0.0f)
+		{
+			//		シーンを切り替える
+			ChangState(m_information->GetSelectUI());
+		}
+	}
 }

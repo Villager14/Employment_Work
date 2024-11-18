@@ -27,8 +27,7 @@ void FogProcess::Initialize()
 	CreateRenderTarget();
 
 	//		シェーダーの読み込み
-	LoadShader(L"Resources/Shader/PostEffect/Bloom/Depth/ShadowDepthVS.cso",
-		L"Resources/Shader/PostEffect/Bloom/Depth/ShadowDepthPS.cso");
+	LoadShader(SHADOW_DEPTH_VS_PATH, SHADOW_DEPTH_PS_PATH);
 
 	//		深度作成
 	CreateDepth();
@@ -37,11 +36,9 @@ void FogProcess::Initialize()
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 
 	//		合成用
-	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/PostEffect/Fog/Depth/FogDepthVS.cso",
-		L"Resources/Shader/PostEffect/Fog/Depth/FogDepthGS.cso",
-		L"Resources/Shader/PostEffect/Fog/Depth/FogDepthPS.cso",
-		m_fogShaderConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_depthShaderView->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		FADE_DEPTH_VS_PATH, FADE_DEPTH_GS_PATH,
+		FADE_DEPTH_PS_PATH, m_fogShaderConstBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		定数バッファの値

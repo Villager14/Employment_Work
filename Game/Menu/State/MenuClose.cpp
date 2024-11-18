@@ -77,8 +77,6 @@ void MenuClose::Update()
 
 	if (m_scale >= 1.0f)
 	{
-		//m_menuManager->ChangState(MenuInformation::MenuType::Start);
-
 		Finalize();
 	}
 }

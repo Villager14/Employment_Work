@@ -15,7 +15,7 @@
 #include "State/ResultStay.h"
 #include "State/ResultEnd.h"
 
-ResultManager::ResultManager()
+ResultManager::ResultManager(PostEffectManager* postEffectManager)
 	:
 	m_score(0),
 	m_time(0),
@@ -23,7 +23,8 @@ ResultManager::ResultManager()
 	m_iState(),
 	m_rotation(0.0f),
 	m_state{},
-	m_menuUseJudgement(false)
+	m_menuUseJudgement(false),
+	m_postEffectManager(postEffectManager)
 {
 	Generation();
 }
@@ -41,9 +42,6 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	//		数字上昇シェーダーの初期化
 	m_riseNumber->Initialize(m_deathCount, m_time, m_score);
 
-	//		スクリーンエフェクトの初期化
-	m_screenEffectManager->Initialize();
-
 	//		プレイヤーのアニメーション初期化
 	m_playerAnimation->Initialize();
 
@@ -53,38 +51,18 @@ void ResultManager::Initialize(int score, int time, int deathCount)
 	//		背景の初期化
 	m_backGroundMove->Initialize();
 
-	//--
-	//	フェード初期処理
-	//--
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::UI);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::UIBack);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::PlayerView);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fade);
 
-	//		フェード描画の作製
-	m_fade = std::make_unique<UIRenderManager>();
-
-	//		バッファ
-	ResultInformation::ConstBuffer buffer = m_information->GetBuffer();
-
-	m_fade->Create(L"Resources/Texture/UI/Fade/BlackTexture.png",
-		L"Resources/Shader/UI/FadeShader/FadeUIVS.cso",
-		L"Resources/Shader/UI/FadeShader/FadeUIGS.cso",
-		L"Resources/Shader/UI/FadeShader/FadeUIPS.cso",
-		buffer,
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
-
-	//		ウィンドウサイズを設定する
-	buffer.windowSize = DirectX::SimpleMath::Vector4(
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().x),
-		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
-
-	//		回転量を設定する
-	buffer.rotationMatrix = m_fade->GetRotationMatrix();
-
-	m_information->SetBuffer(buffer);
+	//		ポストエフェクトの初期化処理
+	m_postEffectManager->Initialize(DirectX::Colors::White, m_postEffectFlag.get());
 
 	//		初期化
 	m_information->Initialize(m_shader.get(), m_riseNumber.get(),
-		m_fade.get(), m_backGroundMove.get(),
-		m_screenEffectManager.get(),
-		m_playerAnimation.get());
+		m_backGroundMove.get(), m_playerAnimation.get());
 
 	//		初期状態を代入する
 	m_state = State::Start;
@@ -107,11 +85,11 @@ void ResultManager::Generation()
 	//		プレイヤーのアニメーションの作製
 	m_playerAnimation = std::make_unique<AnimationManager>(AnimationManager::Result);
 
-	//		スクリーンエフェクトマネージャーの作製
-	m_screenEffectManager = std::make_unique<ScreenEffectManager>(ScreenEffectManager::ResultScene, nullptr);
-
 	//		情報を生成する
 	m_information = std::make_unique<ResultInformation>();
+
+	//		ポストエフェクトフラグ
+	m_postEffectFlag = std::make_unique<PostEffectFlag>();
 
 	//		状態を作成する
 	CreateState();
@@ -128,33 +106,78 @@ void ResultManager::Update()
 	//		プレイヤーのアニメーション
 	m_information->GetAnimation()->Execute(0.0f, {3.9f, 1.1f, 8.0f},
 		{m_rotation + 180.0f, 0.0f}, m_information->PLAYER_HEIGHT);
+
+	//		ポストエフェクトの更新
+	for (int i = 1; i <= PostEffectFlag::Fade;)
+	{
+		//		フラグが立っていない処理は行わない
+		if (!m_postEffectFlag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			i = i + i;
+
+			continue;
+		}
+
+		//		ポストエフェクトの更新
+		m_postEffectManager->Update(PostEffectFlag::Flag(i));
+
+		i = i + i;
+	}
 }
 
 void ResultManager::Render()
 {
-	//		レンダーターゲットの変更
-	m_information->GetScreenEffect()->ChangeRenderTarget();
+	//		ポストエフェクトの更新
+	for (int i = 1; i <= PostEffectFlag::Fade;)
+	{
+		//		フラグが立っていない処理は行わない
+		if (!m_postEffectFlag->FlagJudgement(PostEffectFlag::Flag(i)))
+		{
+			i = i + i;
 
-	//		プレイヤーの描画(ワイヤー)
-	m_information->GetAnimation()->Render();
+			continue;
+		}
 
-	//		レンダーターゲットを戻す
-	m_information->GetScreenEffect()->FirstRenderTarget();
+		//		ポストエフェクトの更新
+		m_postEffectManager->Render(PostEffectFlag::Flag(i));
 
-	//		移動背景の描画
-	m_information->GetBackGround()->Render();
+		if (i == PostEffectFlag::Flag::UI)
+		{
+			//		移動背景の描画
+			m_information->GetBackGround()->Render();
 
-	//		背景の描画(UI)
-	m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::Back);
+			//		背景の描画(UI)
+			m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::Back);
 
-	//		プレイヤの背景
-	m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::PlayerBack);
+			//		プレイヤの背景
+			m_information->GetStandardShader()->Render(ResultInformation::ResultUIType::PlayerBack);
+		}
 
-	//		レンダーターゲットの描画
-	m_information->GetScreenEffect()->Render();
+		if (i == PostEffectFlag::Flag::PlayerView)
+		{
+			//		プレイヤーの描画(ワイヤー)
+			m_information->GetAnimation()->Render();
+		}
 
-	//		状態の描画
-	m_iState->Render();
+		if (i == PostEffectFlag::Flag::UIBack)
+		{
+
+			//		状態の描画
+			m_iState->Render();
+		}
+
+		//		ポストエフェクトマネージャーのラスト描画
+		m_postEffectManager->RastRender(PostEffectFlag::Flag(i));
+
+		i = i + i;
+	}
+
+	//		レンダーテクスチャをリセットする
+	m_postEffectManager->ResetRenderTarget();
+
+	//		レンダーテクスチャの描画
+	m_postEffectManager->RenderTextureView();
+
 }
 
 void ResultManager::Finalize()
@@ -169,13 +192,11 @@ void ResultManager::Finalize()
 
 	m_playerAnimation->Finalize();
 
-	m_screenEffectManager->Finalize();
-
 	m_shader.reset();
 
-	m_fade.reset();
-
 	m_rotation = 0.0f;
+
+	m_postEffectManager->Finalize();
 }
 
 void ResultManager::CreateState()

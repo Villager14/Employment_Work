@@ -23,7 +23,7 @@
     <ProjectGuid>{d096e231-05c1-460b-9be6-5b543d16942b}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>DarkRoad</ProjectName>
+    <ProjectName>SPEEDBUG</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -190,10 +190,10 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRain.h" />
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRainParameter.h" />
-    <ClInclude Include="Effect\Effect\Signboard\SignboardEffect.h" />
     <ClInclude Include="Effect\PostEffect\IPostEffect.h" />
     <ClInclude Include="Effect\PostEffect\PostEffectCommonProcess.h" />
     <ClInclude Include="Effect\PostEffect\PostEffectFlag.h" />
+    <ClInclude Include="Effect\PostEffect\PostEffectInformation.h" />
     <ClInclude Include="Effect\PostEffect\PostEffectManager.h" />
     <ClInclude Include="Effect\PostEffect\PostEffectObjectShader.h" />
     <ClInclude Include="Effect\PostEffect\State\Bler\Bler.h" />
@@ -206,6 +206,7 @@
     <ClInclude Include="Effect\PostEffect\State\GlitchNoise\GlitchNoise.h" />
     <ClInclude Include="Effect\PostEffect\State\Normal\NormalRender.h" />
     <ClInclude Include="Effect\PostEffect\State\ScreenColor\ScreenColor.h" />
+    <ClInclude Include="Effect\PostEffect\State\ScreenObjectView\ScreenObjectView.h" />
     <ClInclude Include="Effect\PostEffect\State\UIRender\UIRender.h" />
     <ClInclude Include="Effect\UI\Menu\AboveUI\AboveUI.h" />
     <ClInclude Include="Effect\UI\Menu\FrameWalkUI\FrameWalkUI.h" />
@@ -216,7 +217,6 @@
     <ClInclude Include="Effect\UI\PlayScene\Clock\ClockTime.h" />
     <ClInclude Include="Effect\UI\PlayScene\CoolTime\CoolTime.h" />
     <ClInclude Include="Effect\UI\PlayScene\CountDown\CountDown.h" />
-    <ClInclude Include="Effect\UI\PlayScene\Fade\FadeIn.h" />
     <ClInclude Include="Effect\UI\PlayScene\GameClear\GameClearManager.h" />
     <ClInclude Include="Effect\UI\PlayScene\GameOver\GameOverManager.h" />
     <ClInclude Include="Effect\UI\PlayScene\GameStart\GameStart.h" />
@@ -270,6 +270,7 @@
     <ClInclude Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.h" />
@@ -299,11 +300,9 @@
     <ClInclude Include="Game\PlayScene\Player\State\PlayerWire.h" />
     <ClInclude Include="Game\PlayScene\Respawn\RespawnManager.h" />
     <ClInclude Include="Game\PlayScene\Respawn\RespawnPointRead.h" />
-    <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h" />
     <ClInclude Include="Game\ResultScene\IResultManager.h" />
     <ClInclude Include="Game\ResultScene\ResultInformation.h" />
     <ClInclude Include="Game\ResultScene\ResultManager.h" />
-    <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h" />
     <ClInclude Include="Game\ResultScene\State\ResultEnd.h" />
     <ClInclude Include="Game\ResultScene\State\ResultEvaluation.h" />
     <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h" />
@@ -370,6 +369,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene\IScene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
+    <ClInclude Include="Scene\SceneManagerInformation.h" />
     <ClInclude Include="Scene\SceneState\PlayScene.h" />
     <ClInclude Include="Scene\SceneState\ResultScene.h" />
     <ClInclude Include="Scene\SceneState\TitleScene.h" />
@@ -383,7 +383,6 @@
     <ClCompile Include="Common\RenderTexture.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Effect\Effect\DigitalRain\DegitalRain.cpp" />
-    <ClCompile Include="Effect\Effect\Signboard\SignboardEffect.cpp" />
     <ClCompile Include="Effect\PostEffect\PostEffectCommonProcess.cpp" />
     <ClCompile Include="Effect\PostEffect\PostEffectManager.cpp" />
     <ClCompile Include="Effect\PostEffect\State\Bler\Bler.cpp" />
@@ -396,6 +395,7 @@
     <ClCompile Include="Effect\PostEffect\State\GlitchNoise\GlitchNoise.cpp" />
     <ClCompile Include="Effect\PostEffect\State\Normal\NormalRender.cpp" />
     <ClCompile Include="Effect\PostEffect\State\ScreenColor\ScreenColor.cpp" />
+    <ClCompile Include="Effect\PostEffect\State\ScreenObjectView\ScreenObjectView.cpp" />
     <ClCompile Include="Effect\PostEffect\State\UIRender\UIRender.cpp" />
     <ClCompile Include="Effect\UI\Menu\AboveUI\AboveUI.cpp" />
     <ClCompile Include="Effect\UI\Menu\FrameWalkUI\FrameWalkUI.cpp" />
@@ -406,7 +406,6 @@
     <ClCompile Include="Effect\UI\PlayScene\Clock\ClockTime.cpp" />
     <ClCompile Include="Effect\UI\PlayScene\CoolTime\CoolTime.cpp" />
     <ClCompile Include="Effect\UI\PlayScene\CountDown\CountDown.cpp" />
-    <ClCompile Include="Effect\UI\PlayScene\Fade\FadeIn.cpp" />
     <ClCompile Include="Effect\UI\PlayScene\GameClear\GameClearManager.cpp" />
     <ClCompile Include="Effect\UI\PlayScene\GameOver\GameOverManager.cpp" />
     <ClCompile Include="Effect\UI\PlayScene\GameStart\GameStart.cpp" />
@@ -452,6 +451,7 @@
     <ClCompile Include="Game\PlayScene\ObjectManager\GoalObject\GoalObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\GrinderObject\GriderObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\LoadingObjectInformation.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
@@ -475,9 +475,7 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerWire.cpp" />
     <ClCompile Include="Game\PlayScene\Respawn\RespawnManager.cpp" />
     <ClCompile Include="Game\PlayScene\Respawn\RespawnPointRead.cpp" />
-    <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp" />
     <ClCompile Include="Game\ResultScene\ResultManager.cpp" />
-    <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultEnd.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultEvaluation.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp" />
@@ -556,7 +554,6 @@
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli" />
     <None Include="Resources\Shader\Effect\DegitalRain\DegitalRain.hlsli" />
     <None Include="Resources\Shader\Model\Wall\Wall.hlsli" />
-    <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli" />
     <None Include="Resources\Shader\PostEffect\Bler\Expansion\Expansion.hlsli" />
     <None Include="Resources\Shader\PostEffect\Bler\SideBler\SideBler.hlsli" />
     <None Include="Resources\Shader\PostEffect\Bler\WarpBler\WarpBler.hlsli" />
@@ -567,10 +564,9 @@
     <None Include="Resources\Shader\PostEffect\Fog\Depth\FogDepth.hlsli" />
     <None Include="Resources\Shader\PostEffect\GlitchNoise\GlitchNoise.hlsli" />
     <None Include="Resources\Shader\PostEffect\ScreenColor\ScreenColor.hlsli" />
+    <None Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectView.hlsli" />
     <None Include="Resources\Shader\PostEffect\Transparency\Depth\TransparencyDepth.hlsli" />
     <None Include="Resources\Shader\PostEffect\Transparency\Transparency.hlsli" />
-    <None Include="Resources\Shader\RedScreen\RedScreen.hlsli" />
-    <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli" />
     <None Include="Resources\Shader\UI\AboveNumber\AboveNumber.hlsli" />
     <None Include="Resources\Shader\UI\AboveUI\AboveUI.hlsli" />
     <None Include="Resources\Shader\UI\BackGroundMove\BackGroundMove.hlsli" />
@@ -607,9 +603,9 @@
     <MeshContentTask Include="FBX\Floor\Post.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Goal.fbx">
+    <MeshContentTask Include="FBX\Goal\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Grider\Grinder.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -622,6 +618,9 @@
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources\Models\Player\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources\Models\Player\%(Filename).cmo</ContentOutput>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\MoveObject\MoveObject.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player\Body.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -783,26 +782,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Model/Wall\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Model/Wall\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureGS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTexturePS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PlayerModelTexture\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\Bler\Expansion\ExpansionGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
@@ -1004,6 +983,26 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PostEffect/ScreenColor\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PostEffect/ScreenColor\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewGS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PostEffect/ScreenObjectView\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PostEffect/ScreenObjectView\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PostEffect/ScreenObjectView\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PostEffect/ScreenObjectView\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PostEffect/ScreenObjectView\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PostEffect/ScreenObjectView\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\Transparency\Depth\TransparencyDepthGS.hlsl">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/PostEffect/Transparency/Depth\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PostEffect/Transparency/Depth\%(Filename).cso</ObjectFileOutput>
@@ -1049,46 +1048,6 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/PostEffect/Transparency\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\RedScreen\RedScreenPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/RedScreen\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenGS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/SpeedScreen\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\AboveNumber\AboveNumberGS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>

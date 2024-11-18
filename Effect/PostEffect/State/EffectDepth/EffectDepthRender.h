@@ -60,6 +60,21 @@ public:
 	};
 
 private:
+
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		透明深度VSパス
+	const wchar_t* TRANSPARENCY_DEPTH_VS_PATH = L"Resources/Shader/PostEffect/Transparency/Depth/TransparencyDepthVS.cso";
+
+	//		透明深度GSパス
+	const wchar_t* TRANSPARENCY_DEPTH_GS_PATH = L"Resources/Shader/PostEffect/Transparency/Depth/TransparencyDepthGS.cso";
+
+	//		透明深度PSパス
+	const wchar_t* TRANSPARENCY_DEPTH_PS_PATH = L"Resources/Shader/PostEffect/Transparency/Depth/TransparencyDepthPS.cso";
+
+
+private:
 	//		コンストバッファ
 	ConstBuffer m_constBuffer;
 

@@ -64,6 +64,20 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 		vertex[1] = objectMesh->GetObjectMesh()[index][i].m_vertex[1];
 		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
 
+		DirectX::SimpleMath::Vector3 center = (vertex[0] + vertex[1] + vertex[2]) / 3.0f;
+
+		for (int i = 0; i < 3; ++i)
+		{
+			DirectX::SimpleMath::Vector3 velocity = vertex[i] - center;
+
+			velocity.Normalize();
+
+			velocity *= 0.05f;
+
+			vertex[i] += velocity;
+		}
+
+
 		//		カメラ分の高さを足す
 		height += 0.5f;
 
@@ -78,12 +92,6 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 
 		//		テスト
 		m_rayStart.y = RayY(vertex, m_playerPosition, height);
-
-		//m_rayStart.y = std::min(vertex[0].y, std::min(vertex[1].y, vertex[2].y));
-
-		//m_rayStart.y += 0.01f;
-
-		//m_rayStart.y += 0.5f;
 
 		if (m_rayStart.y > m_playerPosition.y + height)
 		{

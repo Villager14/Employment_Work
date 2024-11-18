@@ -11,8 +11,7 @@
 
 ResultStart::ResultStart(ResultManager* resultManager)
 	:
-	m_resultManager(resultManager),
-	m_time(0.0f)
+	m_resultManager(resultManager)
 {
 }
 
@@ -27,19 +26,12 @@ void ResultStart::Initialize()
 
 	//		メニューを使えないようにする
 	m_resultManager->SetMenuUseJugement(false);
-
-	m_time = 0.0f;
 }
 
 void ResultStart::Update()
 {
-	//		経過時間
-	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
-
-	//		音量を少しずつ上げる
-	MusicLibrary::GetInstance()->SceneLerpVolume(m_time);
-
-	if (m_time >= 1.0f)
+	if (m_resultManager->GetPostEffectManager()->GetInformation()->
+		FlagJudgement(PostEffectInformation::Flag::FadeInEnd))
 	{
 		//		状態を切り替える(数字移動状態)
 		m_resultManager->ChangeState(ResultManager::State::NumberMove);
@@ -48,11 +40,6 @@ void ResultStart::Update()
 
 void ResultStart::Render()
 {
-	//		UI背景の描画
-	//m_resultManager->UIViewProcess(0);
-
-	//		フェード
-	m_resultManager->GetInformation()->FadeViewProcess(m_time);
 }
 
 void ResultStart::Finalize()

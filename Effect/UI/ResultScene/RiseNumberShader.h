@@ -82,6 +82,17 @@ private:
 	//		スコアの高さ
 	const float SCORE_Y_POSITION = 360.0f;
 
+	//		番号テクスチャパス
+	const wchar_t* NOMBER_TEXTURE_PATH = L"Resources/Texture/ResultScene/nomber.png";
+
+	//		上昇番号VSパス
+	const wchar_t* ABOVE_NUMBER_VS_PATH = L"Resources/Shader/UI/AboveNumber/AboveNumberVS.cso";
+
+	//		上昇番号GSパス
+	const wchar_t* ABOVE_NUMBER_GS_PATH = L"Resources/Shader/UI/AboveNumber/AboveNumberGS.cso";
+
+	//		上昇番号PSパス
+	const wchar_t* ABOVE_NUMBER_PS_PATH = L"Resources/Shader/UI/AboveNumber/AboveNumberPS.cso";
 
 private:
 

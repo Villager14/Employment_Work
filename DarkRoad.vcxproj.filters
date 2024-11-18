@@ -62,9 +62,6 @@
     <Filter Include="Game\PlayScene\ObjectManager\WallObject">
       <UniqueIdentifier>{0f38d5f3-2861-4feb-9033-16145fd21a32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\ScreenEffect">
-      <UniqueIdentifier>{fad8f5ee-458e-4299-984b-951397be411c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\GameManager">
       <UniqueIdentifier>{b34f999c-acda-436d-9eaa-8875cc43bf11}</UniqueIdentifier>
     </Filter>
@@ -92,17 +89,11 @@
     <Filter Include="Resorces\Shader">
       <UniqueIdentifier>{05f01641-4dd8-422f-99e2-2cbbd4243778}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\RedScreen">
-      <UniqueIdentifier>{4bc15fab-610a-462d-abb0-a87c3a7be1bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\Billboard">
       <UniqueIdentifier>{0d83c077-e5df-4c1b-a2c1-4c762b2ce392}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resorces\FBX\Player">
       <UniqueIdentifier>{24aadd23-d916-4d8e-a9cd-cb91e95d688f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resorces\Shader\PlayerModelTexture">
-      <UniqueIdentifier>{f930e44a-dfe8-4f84-9e19-d60abc3e3a4b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Library\Music">
       <UniqueIdentifier>{acfcdda3-68f6-4620-9856-64fd98e54614}</UniqueIdentifier>
@@ -121,9 +112,6 @@
     </Filter>
     <Filter Include="Game\ResultManager\State">
       <UniqueIdentifier>{f1101602-971a-4a62-853c-3fbdac8923cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\ResultManager\ScreenEffect">
-      <UniqueIdentifier>{df773b49-5e02-46ca-98fd-3342b0f6292e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\TitleScene">
       <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
@@ -257,9 +245,6 @@
     <Filter Include="Resorces\Shader\UI\UIShader">
       <UniqueIdentifier>{8781d6c9-91d0-4949-8682-9b84a7dbf0d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resorces\Shader\SpeedScreen">
-      <UniqueIdentifier>{9458d498-c2b8-4a33-9fef-66c1af8f0613}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces\Shader\Model">
       <UniqueIdentifier>{d7f25501-f381-4fa9-8f0e-65e9b866e1f7}</UniqueIdentifier>
     </Filter>
@@ -335,9 +320,6 @@
     <Filter Include="Effect\UI\PlayScene\SpeedLine">
       <UniqueIdentifier>{5648a73e-396b-41b1-a849-9a9232f8ee01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Menu\FadeIn">
-      <UniqueIdentifier>{36705254-2527-435f-b523-9f5cd5501d43}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Effect\UI\ResultScene">
       <UniqueIdentifier>{db4e735d-228a-4332-8ff5-0591e1954364}</UniqueIdentifier>
     </Filter>
@@ -350,9 +332,6 @@
     <Filter Include="Effect\Effect\DegitalRain">
       <UniqueIdentifier>{2b38562e-6b8d-48d5-bfdf-94fcbcf6f50e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Effect\Effect\Signboard">
-      <UniqueIdentifier>{6aeb945c-3dc3-448e-afc3-01ea2e166782}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Effect\PostEffect">
       <UniqueIdentifier>{5abede6e-d38d-4a58-aa38-d7e7c6f3d56a}</UniqueIdentifier>
     </Filter>
@@ -364,9 +343,6 @@
     </Filter>
     <Filter Include="Effect\PostEffect\State\Bloom">
       <UniqueIdentifier>{990a6f6e-3bcb-4417-a876-635f046b8087}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Effect\PostEffect\State\BloomDepth">
-      <UniqueIdentifier>{2b531761-3454-4723-affb-a2ea447072df}</UniqueIdentifier>
     </Filter>
     <Filter Include="Effect\PostEffect\State\Fog">
       <UniqueIdentifier>{b3cce43e-206c-4d98-9ac5-bd3870ff125d}</UniqueIdentifier>
@@ -391,6 +367,18 @@
     </Filter>
     <Filter Include="Effect\PostEffect\State\GlitchNoise">
       <UniqueIdentifier>{f61ea9fa-4f8d-4c4f-b3fc-43b412bdc037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\ScreenObjectView">
+      <UniqueIdentifier>{345e80d8-46ce-4ee2-b10e-b4077b726539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\PostEffect\ScreenObjectView">
+      <UniqueIdentifier>{0f6c8b4e-626a-4a81-b0ab-e19cca3411de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\PostEffect\State\BloomDepth">
+      <UniqueIdentifier>{2b531761-3454-4723-affb-a2ea447072df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\MoveObject">
+      <UniqueIdentifier>{7523d864-e6cf-4445-9aa8-0084141d0668}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -561,9 +549,6 @@
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h">
       <Filter>Game\Camera\PlayerSceneCamera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.h">
-      <Filter>Game\PlayScene\ScreenEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Common\RenderTexture.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -623,9 +608,6 @@
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.h">
       <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.h">
-      <Filter>Game\ResultManager\ScreenEffect</Filter>
     </ClInclude>
     <ClInclude Include="Game\ResultScene\State\ResultEvaluation.h">
       <Filter>Game\ResultManager\State</Filter>
@@ -891,9 +873,6 @@
     <ClInclude Include="Effect\UI\PlayScene\CountDown\CountDown.h">
       <Filter>Effect\UI\PlayScene\CountDown</Filter>
     </ClInclude>
-    <ClInclude Include="Effect\UI\PlayScene\Fade\FadeIn.h">
-      <Filter>Game\Menu\FadeIn</Filter>
-    </ClInclude>
     <ClInclude Include="Effect\UI\PlayScene\GameClear\GameClearManager.h">
       <Filter>Effect\UI\PlayScene\GameClear</Filter>
     </ClInclude>
@@ -917,9 +896,6 @@
     </ClInclude>
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRainParameter.h">
       <Filter>Effect\Effect\DegitalRain</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect\Effect\Signboard\SignboardEffect.h">
-      <Filter>Effect\Effect\Signboard</Filter>
     </ClInclude>
     <ClInclude Include="Effect\PostEffect\IPostEffect.h">
       <Filter>Effect\PostEffect</Filter>
@@ -968,6 +944,18 @@
     </ClInclude>
     <ClInclude Include="Effect\PostEffect\State\Bler\Bler.h">
       <Filter>Effect\PostEffect\State\Bler</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManagerInformation.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\PostEffectInformation.h">
+      <Filter>Effect\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\PostEffect\State\ScreenObjectView\ScreenObjectView.h">
+      <Filter>Effect\PostEffect\State\ScreenObjectView</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.h">
+      <Filter>Game\PlayScene\ObjectManager\MoveObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1106,9 +1094,6 @@
     <ClCompile Include="Game\PlayScene\Player\State\PlayerStart.cpp">
       <Filter>Game\PlayScene\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PlayScene\ScreenEffect\ScreenEffectManager.cpp">
-      <Filter>Game\PlayScene\ScreenEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Common\RenderTexture.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -1162,9 +1147,6 @@
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp">
       <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ResultScene\ScreenEffect\PlayerModelTexture.cpp">
-      <Filter>Game\ResultManager\ScreenEffect</Filter>
     </ClCompile>
     <ClCompile Include="Game\ResultScene\State\ResultEvaluation.cpp">
       <Filter>Game\ResultManager\State</Filter>
@@ -1376,9 +1358,6 @@
     <ClCompile Include="Effect\UI\PlayScene\CountDown\CountDown.cpp">
       <Filter>Effect\UI\PlayScene\CountDown</Filter>
     </ClCompile>
-    <ClCompile Include="Effect\UI\PlayScene\Fade\FadeIn.cpp">
-      <Filter>Game\Menu\FadeIn</Filter>
-    </ClCompile>
     <ClCompile Include="Effect\UI\PlayScene\GameClear\GameClearManager.cpp">
       <Filter>Effect\UI\PlayScene\GameClear</Filter>
     </ClCompile>
@@ -1399,9 +1378,6 @@
     </ClCompile>
     <ClCompile Include="Effect\Effect\DigitalRain\DegitalRain.cpp">
       <Filter>Effect\Effect\DegitalRain</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect\Effect\Signboard\SignboardEffect.cpp">
-      <Filter>Effect\Effect\Signboard</Filter>
     </ClCompile>
     <ClCompile Include="Effect\PostEffect\PostEffectCommonProcess.cpp">
       <Filter>Effect\PostEffect</Filter>
@@ -1442,6 +1418,12 @@
     <ClCompile Include="Effect\PostEffect\State\Bler\Bler.cpp">
       <Filter>Effect\PostEffect\State\Bler</Filter>
     </ClCompile>
+    <ClCompile Include="Effect\PostEffect\State\ScreenObjectView\ScreenObjectView.cpp">
+      <Filter>Effect\PostEffect\State\ScreenObjectView</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\MoveObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1458,17 +1440,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\Shader\RedScreen\RedScreen.hlsli">
-      <Filter>Resorces\Shader\RedScreen</Filter>
-    </None>
-    <None Include="Resources\Shader\SpeedScreen\SpeedScreen.hlsli">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
-    </None>
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli">
       <Filter>Resorces\Shader\Billboard</Filter>
-    </None>
-    <None Include="Resources\Shader\PlayerModelTexture\PlayerModelTexture.hlsli">
-      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </None>
     <None Include="Resources\Shader\PostEffect\Bloom\Luminance\Luminance.hlsli">
       <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
@@ -1554,6 +1527,9 @@
     <None Include="Resources\Shader\UI\NumberAlpha\NumberAlpha.hlsli">
       <Filter>Resorces\Shader\UI\NumberAlpha</Filter>
     </None>
+    <None Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectView.hlsli">
+      <Filter>Resorces\Shader\PostEffect\ScreenObjectView</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\WireRange.fbx">
@@ -1563,9 +1539,6 @@
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Drone\Wing.fbx">
-      <Filter>Resorces\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="FBX\Goal.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Player\Head.fbx">
@@ -1640,26 +1613,14 @@
     <MeshContentTask Include="FBX\Bas\bassObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Goal\Goal.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\MoveObject\MoveObject.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shader\RedScreen\RedScreenGS.hlsl">
-      <Filter>Resorces\Shader\RedScreen</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\RedScreen\RedScreenPS.hlsl">
-      <Filter>Resorces\Shader\RedScreen</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\RedScreen\RedScreenVS.hlsl">
-      <Filter>Resorces\Shader\RedScreen</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenGS.hlsl">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenPS.hlsl">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\SpeedScreen\SpeedScreenVS.hlsl">
-      <Filter>Resorces\Shader\SpeedScreen</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardGS.hlsl">
       <Filter>Resorces\Shader\Billboard</Filter>
     </FxCompile>
@@ -1668,15 +1629,6 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\EffectBillboard\EffectBillboardVS.hlsl">
       <Filter>Resorces\Shader\Billboard</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureGS.hlsl">
-      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTexturePS.hlsl">
-      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shader\PlayerModelTexture\PlayerModelTextureVS.hlsl">
-      <Filter>Resorces\Shader\PlayerModelTexture</Filter>
     </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\Bloom\Luminance\LuminancePS.hlsl">
       <Filter>Resorces\Shader\PostEffect\Bloom\Luminance</Filter>
@@ -1932,6 +1884,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\UI\NumberAlpha\NumberAlphaPS.hlsl">
       <Filter>Resorces\Shader\UI\NumberAlpha</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewPS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\ScreenObjectView</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewVS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\ScreenObjectView</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewGS.hlsl">
+      <Filter>Resorces\Shader\PostEffect\ScreenObjectView</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

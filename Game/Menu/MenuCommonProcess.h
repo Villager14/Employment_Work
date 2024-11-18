@@ -49,6 +49,13 @@ public:
 	//		マウスポインタの処理
 	void MousePointa();
 
+	/*
+	*	スライダーの値の計算
+	* 
+	*	@param	(type)	スライダータイプ
+	*/
+	float SliderVal(AboveUI::UIType uiType, Slider::UIType sliderType);
+
 private:
 
 	//		メニューの情報

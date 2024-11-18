@@ -22,7 +22,7 @@ public:
 
 	/*
 	*	コンストラクタ
-	* 
+	*
 	*	@param	(manager)	ポインタのインスタンス
 	*/
 	GlitchNoise(PostEffectManager* postEffectManager);
@@ -57,6 +57,20 @@ public:
 		DirectX::SimpleMath::Vector4 windowSize;			//		画面スケール
 		DirectX::SimpleMath::Matrix  rotationMatrix;		//		回転量
 	};
+
+private:
+
+	//		時計背景テクスチャパス
+	const wchar_t* CLOCK_BACK_GROUND_TEXTURE_PATH = L"Resources/Texture/UI/Clock/ClockBackGround.png";
+
+	//		グリッチVSパス
+	const wchar_t* GLITCH_NOIZE_VS_PATH = L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoiseVS.cso";
+
+	//		グリッチGSパス
+	const wchar_t* GLITCH_NOIZE_GS_PATH = L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoiseGS.cso";
+
+	//		グリッチPSパス
+	const wchar_t* GLITCH_NOIZE_PS_PATH = L"Resources/Shader/PostEffect/GlitchNoise/GlitchNoisePS.cso";
 
 private:
 

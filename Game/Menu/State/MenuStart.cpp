@@ -33,6 +33,10 @@ void MenuStart::Initialize()
 	m_transitionRoughTime = 0.0f;
 	m_transitionSettingUITime = 0.0f;
 	m_startJudgement = true;
+
+	m_menuManager->GetCommonProcess()->SliderVal(AboveUI::UIType::MasterKnob, Slider::UIType::MastarVolum);
+	m_menuManager->GetCommonProcess()->SliderVal(AboveUI::UIType::BGMKnob, Slider::UIType::BGMVolum);
+	m_menuManager->GetCommonProcess()->SliderVal(AboveUI::UIType::SoundEffectKnob, Slider::UIType::SoundEffect);
 }
 
 void MenuStart::Update()

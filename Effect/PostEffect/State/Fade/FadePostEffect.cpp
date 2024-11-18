@@ -17,7 +17,9 @@ FadePostEffect::FadePostEffect(PostEffectManager* postEffectManager)
 	m_fadeStayTime(0.0f),
 	m_fadeinResetJudgement(true),
 	m_fadeoutResetJudgement(false),
-	m_firstJudgement(true)
+	m_firstJudgement(true),
+	m_fadeTime(0.0f),
+	m_colorTexture{}
 {
 }
 
@@ -33,11 +35,9 @@ void FadePostEffect::Initialize()
 	m_depthShaderView = std::make_unique<UIRenderManager>();
 
 	//		合成用
-	m_depthShaderView->Create(L"Resources/Texture/UI/Clock/ClockBackGround.png",
-		L"Resources/Shader/UI/Fade/FadeShaderVS.cso",
-		L"Resources/Shader/UI/Fade/FadeShaderGS.cso",
-		L"Resources/Shader/UI/Fade/FadeShaderPS.cso",
-		m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
+	m_depthShaderView->Create(CLOCK_BACK_GROUND_TEXTURE_PATH,
+		FADE_VS_PATH,FADE_GS_PATH,
+		FADE_PS_PATH,m_constBuffer, { 0.0f, 0.0f }, { 1.0f, 1.0f },
 		CENTER_POINT::MIDDLE_CENTER);
 
 	//		定数バッファの値
@@ -95,7 +95,7 @@ void FadePostEffect::Filanize()
 void FadePostEffect::Fade()
 {
 	//		終了の場合
-	if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::EndJudgement))
+	if (m_postEffectManager->GetInformation()->FlagJudgement(PostEffectInformation::Flag::SceneEndFade))
 	{
 		m_fadeStayTime += LibrarySingleton::GetInstance()->GetElpsedTime();
 
@@ -111,19 +111,22 @@ void FadePostEffect::Fade()
 		if (m_fadeTime <= 0.0f)
 		{
 			//		次のシーンに切り替える
-			m_postEffectManager->GetGameManager()->TrueFlag(GameManager::NextScene);
+			m_postEffectManager->GetInformation()->TrueFlag(PostEffectInformation::Flag::SceneEnd);
 		}
 
 		return;
 	}
 
-	//		復活状態＆フェードアウトをしない状態の場合
-	if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::RevivalJudgement)
-		&& !m_fadeoutResetJudgement)
+	if (m_postEffectManager->GetInformation()->FlagJudgement(
+		PostEffectInformation::FadeJudgement) &&
+		!m_fadeoutResetJudgement)
 	{
 		m_fadeoutResetJudgement = true;
 
 		m_fadeTime = 1.0f;
+
+		//		フェードインをまた始める
+		m_postEffectManager->GetInformation()->FalseFlag(PostEffectInformation::FadeInEnd);
 	}
 
 	//		フェードインの処理
@@ -142,6 +145,9 @@ void FadePostEffect::Fade()
 		if (m_fadeTime >= 1.0f)
 		{
 			m_fadeinResetJudgement = false;
+			
+			//		フェードインの終了
+			m_postEffectManager->GetInformation()->TrueFlag(PostEffectInformation::FadeInEnd);
 		}
 	}
 
@@ -155,10 +161,11 @@ void FadePostEffect::Fade()
 		if (m_fadeTime <= 0.0f)
 		{
 			//		タイムリミット
-			if (m_postEffectManager->GetGameManager()->FlagJudgement(GameManager::TimeLimitJudgement))
+			if (m_postEffectManager->GetInformation()->FlagJudgement(
+				PostEffectInformation::TimeLimitJudgement))
 			{
 				//		次のシーンに切り替える
-				m_postEffectManager->GetGameManager()->TrueFlag(GameManager::NextScene);
+				m_postEffectManager->GetInformation()->TrueFlag(PostEffectInformation::Flag::SceneEnd);
 
 				return;
 			}
@@ -166,8 +173,8 @@ void FadePostEffect::Fade()
 			m_fadeoutResetJudgement = false;
 
 			//		復活状態を終了
-			m_postEffectManager->GetGameManager()->FalseFlag(GameManager::RevivalJudgement);
-			m_postEffectManager->GetGameManager()->FalseFlag(GameManager::DeathJudgement);
+			m_postEffectManager->GetInformation()->FalseFlag(PostEffectInformation::FadeJudgement);
+			m_postEffectManager->GetInformation()->TrueFlag(PostEffectInformation::Flag::FadeEnd);
 			m_fadeinResetJudgement = true;
 		}
 	}

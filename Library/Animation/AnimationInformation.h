@@ -26,7 +26,6 @@ public:
 
 	void Finalize()
 	{
-		m_wireJudgement = false;
 		m_fallJudgement = false;
 		m_gunModelJudgement = false;
 		m_landingTime = 0.0f;

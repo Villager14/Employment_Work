@@ -19,9 +19,9 @@
 
 #include "IPostEffect.h"
 
-#include "Game/PlayScene/GameManager/GameManager.h"
-
 #include "Game/Menu/MenuInformation.h"
+
+#include "PostEffectInformation.h"
 
 class Bler;
 
@@ -30,13 +30,13 @@ class PostEffectManager
 public:
 
 	//		コンストラクタ
-	PostEffectManager(GameManager* gameManager, MenuInformation* menuInformation);
+	PostEffectManager(MenuInformation* menuInformation);
 
 	//		デストラクタ
 	~PostEffectManager();
 
 	//		初期化処理
-	void Initialize(DirectX::XMVECTORF32 color);
+	void Initialize(DirectX::XMVECTORF32 color, PostEffectFlag* flag);
 
 	//		更新処理
 	void Update(PostEffectFlag::Flag flag);
@@ -49,6 +49,9 @@ public:
 
 	//		終了処理
 	void Finalize();
+
+	//		ポストエフェクトの作成
+	void CreatePostEffect(PostEffectFlag* flag);
 
 	//		サンプラーの作製
 	void CreateSampler();
@@ -82,9 +85,6 @@ private:
 	//		サンプラー(一部を取り出す物)
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_sampler;
 
-	//		ゲームマネージャー
-	GameManager* m_gameManager;
-
 	//		メニューの情報
 	MenuInformation* m_menuInformation;
 
@@ -105,7 +105,16 @@ private:
 	//		オブジェクトに対するシェーダー
 	std::unique_ptr<PostEffectObjectShader> m_objectShader;
 
+	//		ポストエフェクトの情報
+	std::unique_ptr<PostEffectInformation> m_information;
 public:
+
+	/*
+	*	ポストエフェクトの情報を受け取る
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	PostEffectInformation* GetInformation() { return m_information.get(); }
 
 	/*
 	*	スタンダードシェーダーを受け取る
@@ -162,13 +171,6 @@ public:
 	*	@return	ポインタ
 	*/
 	ID3D11ShaderResourceView* GetShaderTexture() { return m_shaderResourceView; }
-
-	/*
-	*	ゲームマネージャを受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	GameManager* GetGameManager() { return m_gameManager; }
 
 	/*
 	*	メニューの情報を受け取る

@@ -51,11 +51,9 @@ void GameStart::Initialize()
 	m_numberRender = std::make_unique<UIRenderManager>();
 
 	//		数字シェーダーの作製
-	m_numberRender->Create(L"Resources/Texture/UI/GameStart/number.png",
-		L"Resources/Shader/UI/Number/NumberVS.cso",
-		L"Resources/Shader/UI/Number/NumberGS.cso",
-		L"Resources/Shader/UI/Number/NumberPS.cso",
-		m_constBuffer,
+	m_numberRender->Create(NUMBER_TEXTURE_PATH,
+		NUMBER_VS_PATH, NUMBER_GS_PATH,
+		NUMBER_PS_PATH, m_constBuffer,
 		{ 0.0f, 0.0f }, { 1.0f, 1.0f });
 
 	//		ウィンドウサイズを設定する

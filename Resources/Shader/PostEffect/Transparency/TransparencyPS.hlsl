@@ -34,11 +34,5 @@ float4 main(PS_INPUT input) : SV_TARGET
 	//		アルファが一以上の場合エフェクトを描画
 	output = lerp(tex2.Sample(samLinear, input.tex), output, ceil(output.a));
 
-	//float4 backColor = tex2.Sample(samLinear, input.tex);
-
-	//float4 output = tex.Sample(samLinear, input.tex);
-
-	//output.rgb = (output.rgb * output.a) + (backColor * (1 - output.a));
-
 	return output;
 }
