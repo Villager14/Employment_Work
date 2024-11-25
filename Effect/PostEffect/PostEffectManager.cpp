@@ -219,7 +219,7 @@ void PostEffectManager::ResetRenderTarget()
 	auto depthStencil = LibrarySingleton::GetInstance()->
 		GetDeviceResources()->GetDepthStencilView();
 
-	context->ClearRenderTargetView(renderTarget, DirectX::Colors::CornflowerBlue);
+	context->ClearRenderTargetView(renderTarget, DirectX::Colors::Black);
 	context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 

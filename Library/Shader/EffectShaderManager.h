@@ -117,6 +117,8 @@ public:
 	void SetPosition(DirectX::SimpleMath::Vector3 position) { m_position = position; }
 
 	DirectX::SimpleMath::Matrix GetBillbord() { return m_billboard; }
+
+	void SetScale(DirectX::SimpleMath::Vector2 scale) { m_scale = scale; }
 };
 
 template<typename ConstBuffer>
@@ -279,14 +281,17 @@ inline void EffectShaderManager<ConstBuffer>::RenderProcedure()
 		state->LinearWrap() };
 	context->PSSetSamplers(0, 1, samPler);
 
+	/*
 	//半透明描画指定
-	ID3D11BlendState* blendstate = state->AlphaBlend();
+	ID3D11BlendState* blendstate = state->Additive();
 
 	// 透明判定処理
 	context->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);
 
 	// 深度バッファに書き込み参照する
-	context->OMSetDepthStencilState(state->DepthDefault(), 0);
+	context->OMSetDepthStencilState(state->DepthNone(), 0);
+	//context->OMSetDepthStencilState(state->DepthDefault(), 0);
+	*/
 
 	//		カリング左
 	context->RSSetState(state->CullNone());

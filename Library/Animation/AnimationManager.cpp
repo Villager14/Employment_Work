@@ -146,10 +146,10 @@ void AnimationManager::CreateModel(bool createHead)
 	m_effect->SetDirectory(L"Resources/Models/Player");
 
 	//		ÉÇÉfÉãÇÃì«Ç›çûÇ›
-	LoadModel(L"Resources/Models/Player/Body.cmo", m_effect);
-	LoadModel(L"Resources/Models/Player/BodyUnder.cmo", m_effect);
-	LoadModel(L"Resources/Models/Player/LArmAbove.cmo", m_effect);
-	LoadModel(L"Resources/Models/Player/LArmUnder.cmo", m_effect);
+	LoadModel(BODY_PATH, m_effect);
+	LoadModel(BODY_UNDER_PATH, m_effect);
+	LoadModel(L_ARM_ABOVE_PATH, m_effect);
+	LoadModel(L_ARM_UNDER_PATH, m_effect);
 	LoadModel(L"Resources/Models/Player/LHand.cmo", m_effect);
 	LoadModel(L"Resources/Models/Player/RArmAbove.cmo", m_effect);
 	LoadModel(L"Resources/Models/Player/RArmUnder.cmo", m_effect);

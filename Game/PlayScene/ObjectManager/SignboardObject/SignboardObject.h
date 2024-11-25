@@ -108,5 +108,5 @@ public:
 	*
 	*	@return インスタンス
 	*/
-	//ObjectMesh* GetObjectMesh() const { return m_objectMesh.get(); }
+	ObjectMesh* GetObjectMesh() const { return m_objectMesh.get(); }
 };

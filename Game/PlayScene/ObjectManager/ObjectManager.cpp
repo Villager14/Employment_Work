@@ -26,6 +26,9 @@ ObjectManager::ObjectManager(GameManager* gameManager)
 
 	//		オブジェクトの読み込みクラスの生成
 	m_loadObjectInformation = std::make_unique<LoadingObjectInformation>();
+
+	//		世界生成シェーダーの生成
+	m_generationWorld = std::make_unique<GenerationWorld>();
 }
 
 ObjectManager::~ObjectManager()
@@ -34,6 +37,8 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::Initialize()
 {
+	m_generationWorld->Initialize();
+
 	//		ステージの読み込み
 	m_loadObjectInformation->Load(0);
 
@@ -83,6 +88,9 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 		//		更新処理
 		m_factoryObject[i]->Update();
 	}
+
+	//		世界の生成シェーダーの更新
+	m_generationWorld->Update();
 }
 
 void ObjectManager::Render(PlayerCameraInformation* cameraInformation,
@@ -104,6 +112,7 @@ void ObjectManager::Render(PlayerCameraInformation* cameraInformation,
 void ObjectManager::Finalize()
 {
 	m_backGroundObject->Finalize();
+	m_generationWorld->Finalize();
 
 	for (int i = 0; i < m_factoryObject.size(); ++i)
 	{
@@ -121,8 +130,6 @@ void ObjectManager::Finalize()
 
 bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position, float length)
 {
-	return true;
-
 	//		Y軸を気にせず距離がlength以上の場合消す
 	if ((DirectX::SimpleMath::Vector3(position.x, 0.0f, position.z) -
 		DirectX::SimpleMath::Vector3(m_cameraPosition.x, 0.0f, m_cameraPosition.z)).Length() > length)

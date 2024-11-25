@@ -37,9 +37,6 @@ void PlayerCamera::Update()
 	//		現在の座標
 	m_position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
 
-	//m_shakingTime = 0.0f;
-
-
 	//		デグリーからラジアンへ行列にする
 	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
 	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().y));

@@ -66,6 +66,8 @@ private:
 		DirectX::SimpleMath::Vector4 Diffuse;
 		int number = 0;
 		DirectX::SimpleMath::Vector3 pad;
+		float length = 0;
+		DirectX::SimpleMath::Vector3 pad2;
 	};
 
 public:

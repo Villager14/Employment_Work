@@ -54,9 +54,6 @@ public:
 	//		終了処理
 	void Finalize();
 
-	//		キー入力
-	void InputKey();
-
 	//		スタンダードシェーダーの作製
 	void CreateStandardShader();
 

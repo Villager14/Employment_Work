@@ -61,5 +61,5 @@ private:
 
 
 	//		透明テクスチャ
-	ID3D11ShaderResourceView* m_alphaEffectTexture;
+	ID3D11ShaderResourceView* m_texture;
 };

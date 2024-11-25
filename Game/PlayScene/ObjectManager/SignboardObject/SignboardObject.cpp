@@ -51,7 +51,7 @@ void SignboardObject::Initialize(ObjectInformation information)
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
 
 	//		アルファの処理の場合描画する
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 void SignboardObject::Update()
@@ -76,13 +76,19 @@ void SignboardObject::Render(PostEffectFlag::Flag flag,
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
 			//		ポストエフェクト時
-			if (flag & PostEffectFlag::Flag::Alpha)
+			if (flag & PostEffectFlag::Flag::AlphaDepth)
 			{
 				// ポストエフェクト時のシェーダー設定
 				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
 			}
 			else
 			{
+				//		カリングをしない
+				context->RSSetState(common->CullNone());
+
+				m_objectShader->UpdateBuffer(m_objectManager->
+					GetGenerationWorld()->GetConstBuffer());
+
 				m_objectShader->SetShader(context);
 			}
 		});
@@ -91,6 +97,8 @@ void SignboardObject::Render(PostEffectFlag::Flag flag,
 void SignboardObject::Finalize()
 {
 	m_signboardModel.reset();
+
+	m_objectShader.reset();
 }
 
 void SignboardObject::LoadModel(ObjectInformation information)
@@ -133,7 +141,11 @@ void SignboardObject::LoadModel(ObjectInformation information)
 	//		テクスチャの読み込み
 	m_objectShader->LoadTexture(oss2.str().c_str());
 
+	m_objectShader->CreateConstBuffer(m_objectManager->GetGenerationWorld()->GetConstBuffer());
+
 	//		シェーダーの読み込み（ピクセルシェーダー）
 	m_objectShader->LoadShader(ObjectShaderManager::PixelShader,
-		L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
+		L"Resources/Shader/Model/GenerationWorld/GenerationWorldPS.cso");
+	m_objectShader->LoadShader(ObjectShaderManager::VertexShader,
+		L"Resources/Shader/Model/GenerationWorld/GenerationWorldVS.cso");
 }

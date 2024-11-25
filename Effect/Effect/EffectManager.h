@@ -11,7 +11,7 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
-#include "../Player/PlayerInformation.h"
+#include "Game/PlayScene/Player/PlayerInformation.h"
 
 #include "Game/PlayScene/ObjectManager/WireObject/WireObjectInformation.h"
 

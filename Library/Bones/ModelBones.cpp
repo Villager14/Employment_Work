@@ -18,8 +18,8 @@ ModelBones::ModelBones(bool createHead, bool createGun)
 {
 	float scale = 2.6f;
 
-	CrateBons(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f) / 3.0f * scale, 1.0f, BonsType::Body);
-	CrateBons(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f) / 3.0f * scale, 1.0f, BonsType::BodyDown, Body);
+	CrateBons(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f), 1.0f, BonsType::Body);
+	CrateBons(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f), 1.0f, BonsType::BodyDown, Body);
 	CrateBons(DirectX::SimpleMath::Vector3(-0.7f, 1.1f, 0.0f) / 3.0f * scale, 1.0f, BonsType::LArmUp, Body);
 	CrateBons(DirectX::SimpleMath::Vector3(0.0f, -0.7f, 0.0f) / 3.0f * scale, 1.0f, BonsType::LArmDown, LArmUp);
 	CrateBons(DirectX::SimpleMath::Vector3(0.0f, -0.7f, 0.0f) / 3.0f * scale, 1.0f, BonsType::LArmHand, LArmDown);

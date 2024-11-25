@@ -71,15 +71,6 @@
     <Filter Include="Game\PlayScene\ObjectManager\GoalObject">
       <UniqueIdentifier>{3fc37252-63e8-4008-86c5-3f13c00004ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\PlayScene\Effect">
-      <UniqueIdentifier>{9c01b93b-274c-41bd-9abf-9c94f9bf5a7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\Effect\WireUseEffect">
-      <UniqueIdentifier>{ee6e70de-81aa-4de3-8926-11bfbd593747}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\PlayScene\Effect\Billboard">
-      <UniqueIdentifier>{f0ae1a87-ee88-4267-b33d-fb9af333affa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resorces">
       <UniqueIdentifier>{8426b171-c48d-4cb5-962c-054131dc48ee}</UniqueIdentifier>
     </Filter>
@@ -380,6 +371,15 @@
     <Filter Include="Game\PlayScene\ObjectManager\MoveObject">
       <UniqueIdentifier>{7523d864-e6cf-4445-9aa8-0084141d0668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resorces\Shader\Model\GenerationWorld">
+      <UniqueIdentifier>{db4d025e-abb1-4823-920d-1180ec1f8263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Model">
+      <UniqueIdentifier>{24cc72ab-cef3-4e8e-91a3-7572edaa513d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Effect\WireUseEffect">
+      <UniqueIdentifier>{9ebc6b3b-356c-4fbc-a95b-a46d42315fc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -596,15 +596,6 @@
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerCameraStop.h">
       <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Effect\EffectManager.h">
-      <Filter>Game\PlayScene\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Effect\WireUseEffect\WireUseEffect.h">
-      <Filter>Game\PlayScene\Effect\WireUseEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PlayScene\Effect\Billboard\BillboardEffect.h">
-      <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.h">
       <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
@@ -831,9 +822,6 @@
     <ClInclude Include="Library\Instancing.h">
       <Filter>Library</Filter>
     </ClInclude>
-    <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRainParameter.h">
-      <Filter>Game\PlayScene\Effect\Billboard</Filter>
-    </ClInclude>
     <ClInclude Include="Library\Shader\EffectShaderManager.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
@@ -956,6 +944,15 @@
     </ClInclude>
     <ClInclude Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.h">
       <Filter>Game\PlayScene\ObjectManager\MoveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Model\GenerationWorld.h">
+      <Filter>Effect\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Effect\EffectManager.h">
+      <Filter>Effect\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Effect\WireUseEffect\WireUseEffect.h">
+      <Filter>Effect\Effect\WireUseEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1135,15 +1132,6 @@
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerCameraStop.cpp">
       <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Effect\EffectManager.cpp">
-      <Filter>Game\PlayScene\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Effect\WireUseEffect\WireUseEffect.cpp">
-      <Filter>Game\PlayScene\Effect\WireUseEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PlayScene\Effect\Billboard\BillboardEffect.cpp">
-      <Filter>Game\PlayScene\Effect\Billboard</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\PlayerGoalCamera.cpp">
       <Filter>Game\Camera\PlayerSceneCamera\State</Filter>
@@ -1424,6 +1412,15 @@
     <ClCompile Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.cpp">
       <Filter>Game\PlayScene\ObjectManager\MoveObject</Filter>
     </ClCompile>
+    <ClCompile Include="Effect\Model\GenerationWorld.cpp">
+      <Filter>Effect\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\Effect\EffectManager.cpp">
+      <Filter>Effect\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\Effect\WireUseEffect\WireUseEffect.cpp">
+      <Filter>Effect\Effect\WireUseEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1530,6 +1527,9 @@
     <None Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectView.hlsli">
       <Filter>Resorces\Shader\PostEffect\ScreenObjectView</Filter>
     </None>
+    <None Include="Resources\Shader\Model\GenerationWorld\GenerationWorld.hlsli">
+      <Filter>Resorces\Shader\Model\GenerationWorld</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\WireRange.fbx">
@@ -1613,10 +1613,10 @@
     <MeshContentTask Include="FBX\Bas\bassObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\Goal\Goal.fbx">
+    <MeshContentTask Include="FBX\MoveObject\MoveObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="FBX\MoveObject\MoveObject.fbx">
+    <MeshContentTask Include="FBX\Goal\Goal.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -1893,6 +1893,12 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\PostEffect\ScreenObjectView\ScreenObjectViewGS.hlsl">
       <Filter>Resorces\Shader\PostEffect\ScreenObjectView</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\GenerationWorld\GenerationWorldPS.hlsl">
+      <Filter>Resorces\Shader\Model\GenerationWorld</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\GenerationWorld\GenerationWorldVS.hlsl">
+      <Filter>Resorces\Shader\Model\GenerationWorld</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

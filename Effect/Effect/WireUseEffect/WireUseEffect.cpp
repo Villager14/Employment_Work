@@ -5,7 +5,6 @@
 * @date		2024/06/10
 */
 
-
 #include "pch.h"
 #include "WireUseEffect.h"
 
@@ -13,14 +12,8 @@ WireUseEffect::WireUseEffect(PlayerInformation* playerInformation)
 	:
 	m_playerInformation(playerInformation)
 {
-	//		ビルボードエフェクトの生成
-	m_billboardEffect = std::make_unique<BillboardEffect>();
-
-	//		テクスチャの読み込み
-	m_billboardEffect->LoadTexture(L"Resources/Texture/UI/WireSelect/WireSelect.png");
-
-	//		ビルボードの作製
-	m_billboardEffect->Create();
+	//		エフェクトの生成
+	m_effect = std::make_unique<EffectShaderManager<ConstBuffer>>();
 
 	//		ポストエフェクトフラグを生成する
 	m_postEffectFlag = std::make_unique<PostEffectFlag>();
@@ -35,6 +28,17 @@ WireUseEffect::~WireUseEffect()
 
 void WireUseEffect::Initialize(int size)
 {
+	//		エフェクトの生成
+	m_effect->Create(
+		L"Resources/Texture/UI/WireSelect/WireSelect.png",
+		L"Resources/Shader/EffectBillboard/EffectBillboardVS.cso",
+		L"Resources/Shader/EffectBillboard/EffectBillboardGS.cso",
+		L"Resources/Shader/EffectBillboard/EffectBillboardPS.cso",
+		m_constBuffer,
+		{ 0.0f, 0.0f, 0.0f },
+		{ 1.0f, 1.0f }
+	);
+
 	WireStatas wireState;
 
 	for (int i = 0; i < size; ++i)
@@ -80,10 +84,10 @@ void WireUseEffect::BillbordUpdate(PlayerCameraInformation* cameraInformation)
 {
 	if (m_playerInformation->GetWireJudgement())
 	{
-		m_billboardEffect->CreateBillboard(
-			cameraInformation->GetTarget(),
-			cameraInformation->GetEye(),
-			cameraInformation->GetUP());
+		m_effect->CreateBillboard(
+				cameraInformation->GetTarget(),
+				cameraInformation->GetEye(),
+		cameraInformation->GetUP());
 	}
 }
 
@@ -92,9 +96,50 @@ void WireUseEffect::Render(DirectX::SimpleMath::Vector3 position, int index,
 {
 	UNREFERENCED_PARAMETER(flag);
 
-	m_billboardEffect->SetScale(m_wireStatas[index].scale);
+	m_effect->RenderProcedure();
 
-	m_billboardEffect->Render(position);
+	m_constBuffer = m_effect->GetConstBuffer();
+
+	//		スケール
+	m_effect->SetScale({ m_wireStatas[index].scale, m_wireStatas[index].scale });
+
+	m_effect->SetPosition(position);
+
+	if ((PostEffectFlag::Alpha & flag) != 0)
+	{
+		//半透明描画指定
+		ID3D11BlendState* blendstate = LibrarySingleton::GetInstance()->GetCommonState()->Additive();
+
+		// 透明判定処理
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);
+
+		// 深度バッファに書き込み参照する
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetDepthStencilState
+			(LibrarySingleton::GetInstance()->GetCommonState()->DepthNone(), 0);
+	}
+
+	if ((PostEffectFlag::AlphaDepth & flag) != 0)
+	{
+		//半透明描画指定(不透明)
+		ID3D11BlendState* blendstate =
+			LibrarySingleton::GetInstance()->GetCommonState()->Opaque();
+
+		// 透明判定処理
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);
+
+		// 深度バッファに書き込み参照する
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetDepthStencilState
+			(LibrarySingleton::GetInstance()->GetCommonState()->DepthDefault(), 0);
+	}
+
+	m_constBuffer.matWorld = m_effect->GetBillbord().Transpose();
+
+	m_effect->Render(m_constBuffer);
+
 }
 
 void WireUseEffect::Finalize()

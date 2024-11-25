@@ -14,9 +14,9 @@
 #include "Game/PlayScene/ObjectManager/ObjectManager.h"
 #include "Game/PlayScene/CollitionManager/CollitionManager.h"
 #include "Effect/PostEffect/PostEffectManager.h"
-#include "Game/PlayScene/Effect/EffectManager.h"
 #include "Game/PlayScene/Respawn/RespawnManager.h"
 #include "Effect/PostEffect/PostEffectFlag.h"
+#include "Effect/Effect/EffectManager.h"
 
 #include "../SceneManager.h"
 

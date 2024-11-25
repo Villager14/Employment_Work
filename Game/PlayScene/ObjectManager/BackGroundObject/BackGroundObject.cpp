@@ -119,7 +119,7 @@ void BackGroundObject::Render(PostEffectFlag::Flag flag,
 			world, LibrarySingleton::GetInstance()->GetView(),
 			LibrarySingleton::GetInstance()->GetProj(), false, [&]() {
 
-				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
+				m_objectManager->GetGenerationWorld()->Shader(context);
 			});
 	}
 }

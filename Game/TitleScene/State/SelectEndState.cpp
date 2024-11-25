@@ -27,7 +27,7 @@ void SelectEndState::Initialize()
 void SelectEndState::Update()
 {
 	//		ƒL[“ü—Íˆ—
-	m_titleSelectManager->InputKey();
+	m_titleSelectManager->GetCommonProcess()->InputKey();
 
 	//		UI‚ÌˆÚ“®ˆ—
 	UIMove();

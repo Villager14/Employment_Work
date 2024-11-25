@@ -1,7 +1,6 @@
 ObjectName,ModelFilePath,CollitionFilePath,PosX,PozY,PosZ,RotX,RotY,RotZ,EffectFlag,MovePosX,MovePosY,MovePosZ,SPEED
 0,Resources/Models/Floor.cmo,Resources/ModelMesh/Floor.obj,0,0,0,0,0,0,0,,,,
 0,Resources/Models/Post.cmo,Resources/ModelMesh/Post.obj,77,14,150,0,180,0,1,,,,
-0,Resources/Models/Test.cmo,Resources/ModelMesh/Test.obj,0,0,20,0,180,0,0,,,,
 1,Resources/Models/WallObject.cmo,Resources/ModelMesh/WallCollition.obj,225,28,123,0,270,0,1,,,,
 2,-1,-1,1456,3.16,151,0,90,0,0,,,,
 4,-1,-1,434,93,154,0,0,0,0,,,,

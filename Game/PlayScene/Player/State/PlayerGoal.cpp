@@ -24,7 +24,6 @@ PlayerGoal::~PlayerGoal()
 
 void PlayerGoal::Initialize()
 {
-
 		//		プレイヤーの高さを受け取る
 	m_firstHeight = m_player->GetInformation()->GetPlayerHeight().y - m_player->GetInformation()->GetPosition().y;
 
@@ -35,11 +34,17 @@ void PlayerGoal::Initialize()
 	m_player->SetMenuUiseJudgement(false);
 
 	//		加速度が０になる
-	m_player->GetInformation()->SetAcceleration(DirectX::SimpleMath::Vector3::Zero);
+	//m_player->GetInformation()->SetAcceleration(DirectX::SimpleMath::Vector3::Zero);
 }
 
 void PlayerGoal::Update()
 {
+	DirectX::SimpleMath::Vector3 velocity = m_player->GetInformation()->GetAcceleration();
+
+	velocity = velocity * 0.8f * LibrarySingleton::GetInstance()->GetElpsedTime();
+
+	m_player->GetInformation()->SetAcceleration(velocity);
+
 	//		メッシュと当たった時の処理
 	m_player->GetCommonProcessing()->Gravity();
 }
