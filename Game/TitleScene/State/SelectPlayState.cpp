@@ -28,7 +28,7 @@ void SelectPlayState::Initialize()
 void SelectPlayState::Update()
 {
 	//		ƒL[“ü—Íˆ—
-	m_titleSelectManager->InputKey();
+	m_titleSelectManager->GetCommonProcess()->InputKey();
 
 	//		UI‚ÌˆÚ“®ˆ—
 	UIMove();

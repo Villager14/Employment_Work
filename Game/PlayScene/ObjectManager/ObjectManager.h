@@ -29,6 +29,8 @@
 
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
+#include "Effect/Model/GenerationWorld.h"
+
 class BackGroundObject;
 
 class ObjectManager
@@ -119,6 +121,9 @@ private:
 	//		プレイヤーの座標
 	DirectX::SimpleMath::Vector3 m_playerPosition;
 
+	//		世界の生成シェーダー
+	std::unique_ptr<GenerationWorld> m_generationWorld;
+
 public:
 
 
@@ -150,4 +155,6 @@ public:
 	GameManager* GetGameManager() { return m_gameManager; }
 
 	PlayerCameraInformation* GetCameraInformation() { return m_cameraInformation; }
+
+	GenerationWorld* GetGenerationWorld() { return m_generationWorld.get(); }
 };

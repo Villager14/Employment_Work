@@ -90,9 +90,6 @@ private:
 	//		ワールド行列
 	DirectX::SimpleMath::Matrix m_world;
 
-	//		ピクセルシェーダー
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
-
 	// テクスチャハンドル 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 

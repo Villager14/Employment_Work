@@ -71,7 +71,6 @@ void MeshCollitionManager::MeshCollition(ObjectMesh* objectMesh,
 		m_wallHit.size() != 0)
 	{
 		//		ƒS[ƒ‹‚ðÝ’è‚·‚é
-		//gameManager->SetGoalJudgement(true);
 		gameManager->TrueFlag(GameManager::GoalJudgement);
 	}
 

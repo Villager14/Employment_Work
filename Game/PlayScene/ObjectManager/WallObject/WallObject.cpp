@@ -57,38 +57,29 @@ void WallObject::Initialize(ObjectInformation information)
 
 	if (information.effectFlag)
 	{
-		//		通常描画をするようにする
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
-
 		//		ブルームを掛けるようにする
 		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
 
 		//		ブルームの深度描画は描画しない
 		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::BloomDepth);
-
-		//		フォグの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
-
-		//		アルファの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
 	}
 	else
 	{
-		//		通常描画をするようにする
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
-
 		//		ブルームを掛けるようにする
 		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
 
 		//		ブルームの深度描画は描画しない
 		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
-
-		//		フォグの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
-
-		//		アルファの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
 	}
+
+	//		通常描画をするようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+	//		フォグの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+	//		アルファの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 void WallObject::Update()
@@ -121,8 +112,12 @@ void WallObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 		m_world, LibrarySingleton::GetInstance()->GetView(),
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
+			if (m_objectManager->GetGenerationWorld()->GetGenerationJdugement())
+			{
+				m_objectManager->GetGenerationWorld()->Shader(context);
+			}
 			//		ポストエフェクト時
-			if (flag & PostEffectFlag::Flag::Alpha)
+			else if (flag & PostEffectFlag::Flag::AlphaDepth)
 			{
 				// ポストエフェクト時のシェーダー設定
 				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);

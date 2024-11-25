@@ -110,7 +110,7 @@ void WireObject::Initialize(ObjectInformation information)
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
 
 	//		アルファの処理の場合描画する
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 
 }
 
@@ -159,10 +159,14 @@ void WireObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 		LibrarySingleton::GetInstance()->GetProj(), false, [&]
 		{
 			//		ポストエフェクト時
-			if (flag & PostEffectFlag::Flag::Bloom || flag & PostEffectFlag::Flag::Alpha)
+			if (flag & PostEffectFlag::Flag::Bloom || flag & PostEffectFlag::Flag::AlphaDepth)
 			{
 				// ポストエフェクト時のシェーダー設定
 				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+			}
+			else
+			{
+				m_objectManager->GetGenerationWorld()->Shader(context);
 			}
 		});
 
@@ -217,10 +221,14 @@ void WireObject::WingRender(PostEffectFlag::Flag flag, PostEffectObjectShader* p
 			LibrarySingleton::GetInstance()->GetProj(), false, [&]
 			{
 				//		ポストエフェクト時
-				if (flag & PostEffectFlag::Flag::Bloom)
+				if (flag & PostEffectFlag::Flag::Bloom || flag & PostEffectFlag::Flag::AlphaDepth)
 				{
 					// ポストエフェクト時のシェーダー設定
 					context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+				}
+				else
+				{
+					m_objectManager->GetGenerationWorld()->Shader(context);
 				}
 			});
 	}

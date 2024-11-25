@@ -28,7 +28,7 @@ void SelectSettingState::Initialize()
 void SelectSettingState::Update()
 {
 	//		ƒL[“ü—Íˆ—
-	m_titleSelectManager->InputKey();
+	m_titleSelectManager->GetCommonProcess()->InputKey();
 	
 	//		UI‚ÌˆÚ“®ˆ—
 	UIMove();

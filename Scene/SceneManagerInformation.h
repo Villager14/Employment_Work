@@ -133,6 +133,4 @@ public:
 	*	@return true : I—¹‚·‚é false : I—¹‚µ‚È‚¢
 	*/
 	bool GetEndJudgement() { return m_endJudgement; }
-
-
 };

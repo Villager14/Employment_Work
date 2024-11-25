@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "../Billboard/BillboardEffect.h"
-
 #include "Game/Camera/PlaySceneCamera/PlayerCameraInformation.h"
 
 #include "Game/PlayScene/Player/PlayerInformation.h"
 
 #include "Effect/PostEffect/PostEffectFlag.h"
+
+#include "Library/Shader/EffectShaderManager.h"
 
 class WireUseEffect
 {
@@ -71,8 +71,22 @@ public:
 	void ResetProcess(int index);
 
 private:
-	//		ビルボードエフェクト
-	std::unique_ptr<BillboardEffect> m_billboardEffect;
+
+	struct  ConstBuffer
+	{
+		DirectX::SimpleMath::Matrix matWorld;
+		DirectX::SimpleMath::Matrix matView;
+		DirectX::SimpleMath::Matrix matProj;
+		DirectX::SimpleMath::Vector4 Diffuse;
+	};
+
+private:
+
+	//		コンストバッファ
+	ConstBuffer m_constBuffer;
+
+	//		エフェクト
+	std::unique_ptr<EffectShaderManager<ConstBuffer>> m_effect;
 
 	//		プレイヤーの情報
 	PlayerInformation* m_playerInformation;

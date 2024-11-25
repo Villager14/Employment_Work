@@ -7,42 +7,18 @@
 
 #pragma once
 
-#include "../PlayScene/Player/Player.h"
-
 class TutorialInformation
 {
 public:
 
 	//		コンストラクタ
-	TutorialInformation()
-	:
-		m_player{nullptr}
-	{};
+	TutorialInformation(){};
 
 	//		デストラクタ
 	~TutorialInformation() {};
 
 	//		初期化処理
-	void Initialize(Player* player)
+	void Initialize()
 	{
-		m_player = player;
 	}
-
-public:
-
-
-private:
-
-	//		プレイヤー
-	Player* m_player;
-
-public:
-
-	/*
-	*	プレイヤーを受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	Player* GetPlayer() { return m_player; }
-
 };

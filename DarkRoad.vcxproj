@@ -190,6 +190,9 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRain.h" />
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRainParameter.h" />
+    <ClInclude Include="Effect\Effect\EffectManager.h" />
+    <ClInclude Include="Effect\Effect\WireUseEffect\WireUseEffect.h" />
+    <ClInclude Include="Effect\Model\GenerationWorld.h" />
     <ClInclude Include="Effect\PostEffect\IPostEffect.h" />
     <ClInclude Include="Effect\PostEffect\PostEffectCommonProcess.h" />
     <ClInclude Include="Effect\PostEffect\PostEffectFlag.h" />
@@ -248,9 +251,6 @@
     <ClInclude Include="Game\PlayScene\CollitionManager\BulletCollition.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionInformation.h" />
     <ClInclude Include="Game\PlayScene\CollitionManager\CollitionManager.h" />
-    <ClInclude Include="Game\PlayScene\Effect\Billboard\BillboardEffect.h" />
-    <ClInclude Include="Game\PlayScene\Effect\EffectManager.h" />
-    <ClInclude Include="Game\PlayScene\Effect\WireUseEffect\WireUseEffect.h" />
     <ClInclude Include="Game\PlayScene\Enemy\EnemyManager.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemy.h" />
     <ClInclude Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBullet.h" />
@@ -344,7 +344,6 @@
     <ClInclude Include="Library\Animation\State\Player\WireJumpAnimationState.h" />
     <ClInclude Include="Library\Bones\BonInformation.h" />
     <ClInclude Include="Library\Bones\ModelBones.h" />
-    <ClInclude Include="Library\Effect\Effect\DigitalRain\DegitalRainParameter.h" />
     <ClInclude Include="Library\Factory\Factory.h" />
     <ClInclude Include="Library\Factory\IFactory.h" />
     <ClInclude Include="Library\Instancing.h" />
@@ -383,6 +382,9 @@
     <ClCompile Include="Common\RenderTexture.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Effect\Effect\DigitalRain\DegitalRain.cpp" />
+    <ClCompile Include="Effect\Effect\EffectManager.cpp" />
+    <ClCompile Include="Effect\Effect\WireUseEffect\WireUseEffect.cpp" />
+    <ClCompile Include="Effect\Model\GenerationWorld.cpp" />
     <ClCompile Include="Effect\PostEffect\PostEffectCommonProcess.cpp" />
     <ClCompile Include="Effect\PostEffect\PostEffectManager.cpp" />
     <ClCompile Include="Effect\PostEffect\State\Bler\Bler.cpp" />
@@ -432,9 +434,6 @@
     <ClCompile Include="Game\PlayScene\CollitionManager\BulletCollition.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionInformation.cpp" />
     <ClCompile Include="Game\PlayScene\CollitionManager\CollitionManager.cpp" />
-    <ClCompile Include="Game\PlayScene\Effect\Billboard\BillboardEffect.cpp" />
-    <ClCompile Include="Game\PlayScene\Effect\EffectManager.cpp" />
-    <ClCompile Include="Game\PlayScene\Effect\WireUseEffect\WireUseEffect.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\EnemyManager.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemy.cpp" />
     <ClCompile Include="Game\PlayScene\Enemy\Enemy\CommonEnemy\CommonEnemyBullet.cpp" />
@@ -553,6 +552,7 @@
     <None Include="packages.config" />
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli" />
     <None Include="Resources\Shader\Effect\DegitalRain\DegitalRain.hlsli" />
+    <None Include="Resources\Shader\Model\GenerationWorld\GenerationWorld.hlsli" />
     <None Include="Resources\Shader\Model\Wall\Wall.hlsli" />
     <None Include="Resources\Shader\PostEffect\Bler\Expansion\Expansion.hlsli" />
     <None Include="Resources\Shader\PostEffect\Bler\SideBler\SideBler.hlsli" />
@@ -605,7 +605,6 @@
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal\Goal.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Grider\Grinder.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -770,6 +769,18 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Model/BillShader\%(Filename).cso</ObjectFileOutput>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\GenerationWorld\GenerationWorldPS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Model/GenerationWorld\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Model/GenerationWorld\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Model\GenerationWorld\GenerationWorldVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Model/GenerationWorld\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Model/GenerationWorld\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Model\Wall\WallPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

@@ -50,7 +50,7 @@ void FloorObject::Initialize(ObjectInformation information)
 	//		モデルの読み込み
 	m_floorModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
 		oss.str().c_str(), *m_effect);
-	
+
 	m_floorModel->UpdateEffects([&](DirectX::IEffect* effect)
 		{
 			auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
@@ -71,10 +71,12 @@ void FloorObject::Initialize(ObjectInformation information)
 	//		初期化処理
 	m_objectMesh->Initialize(oss2.str().c_str());
 
-	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(information.rotation.y));
+	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY
+	(DirectX::XMConvertToRadians(information.rotation.y));
 
 	//		静的オブジェクトにする
-	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(information.rotation.y)), information.position);
+	m_objectMesh->StaticProcess(DirectX::SimpleMath::Matrix::CreateRotationY
+	(DirectX::XMConvertToRadians(information.rotation.y)), information.position);
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(information.position);
 
@@ -92,38 +94,29 @@ void FloorObject::Initialize(ObjectInformation information)
 
 	if (information.effectFlag)
 	{
-		//		アルファの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
-
 		//		ブルームを掛けるようにする
 		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
 
-		//		通常描画時にも描画するようにするを
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
-
 		//		ブルームの深度描画は描画しない
 		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::BloomDepth);
-
-		//		フォグの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
 	}
 	else
 	{
-		//		通常描画をするようにする
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
-
 		//		ブルームを掛けるようにする
 		m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
 
 		//		ブルームの深度描画は描画しない
 		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
-
-		//		フォグの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
-
-		//		アルファの処理の場合描画する
-		m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
 	}
+
+	//		通常描画をするようにする
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
+
+	//		フォグの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+
+	//		アルファの処理の場合描画する
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 void FloorObject::Update()
@@ -147,22 +140,22 @@ void FloorObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* post
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
 			//		ポストエフェクト時
-			if (flag & PostEffectFlag::Flag::Alpha)
+			if (flag & PostEffectFlag::Flag::AlphaDepth)
 			{
 				// ポストエフェクト時のシェーダー設定
 				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
 			}
-
 			//		ポストエフェクト時
-			if (flag & PostEffectFlag::Flag::Bloom)
+			else if (flag & PostEffectFlag::Flag::Bloom)
 			{
 				// ポストエフェクト時のシェーダー設定
 				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
 			}
+			else
+			{
+				m_objectManager->GetGenerationWorld()->Shader(context);
+			}
 		});
-
-	//		メッシュの描画
-	//drawMesh->StaticRender(m_objectMesh.get());
 }
 
 void FloorObject::Finalize()

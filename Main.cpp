@@ -79,9 +79,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
         AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-        HWND hwnd = CreateWindowExW(0, L"DarkRoadWindowClass", g_szAppName, WS_OVERLAPPEDWINDOW,
+        HWND hwnd = CreateWindowExW(0, L"DarkRoadWindowClass", g_szAppName, WS_THICKFRAME | WS_SYSMENU | WS_CAPTION | WS_OVERLAPPED,
             CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance,
             nullptr);
+        //HWND hwnd = CreateWindowExW(0, L"DarkRoadWindowClass", g_szAppName, WS_OVERLAPPEDWINDOW,
+        //    CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, nullptr, nullptr, hInstance,
+        //    nullptr);
+
         // TODO: Change to CreateWindowExW(WS_EX_TOPMOST, L"DarkRoadWindowClass", g_szAppName, WS_POPUP,
         // to default to fullscreen.
 
@@ -162,6 +166,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
 
+    //case WM_SIZE:
+    //    //      画面サイズ変更をできないようにする
+    //    break;
     case WM_SIZE:
         if (wParam == SIZE_MINIMIZED)
         {
@@ -185,7 +192,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             game->OnWindowSizeChanged(LOWORD(lParam), HIWORD(lParam));
         }
         break;
-
     case WM_ENTERSIZEMOVE:
         s_in_sizemove = true;
         break;

@@ -42,6 +42,51 @@ void TitleCommonProcess::MoveProcess(TitleInformation::MoveDirection moveDirecti
 	}
 }
 
+void TitleCommonProcess::InputKey()
+{
+	//		キーボードの取得
+	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
+
+	//		WボタンORマウスホイール上で上に移動
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::S) ||
+		m_information->GetScrollWheel() > DirectX::Mouse::Get().GetState().scrollWheelValue)
+	{
+		//		もし移動処理をしている場合は処理をしない
+		if (!m_information->GetKeyInput())
+		{
+			//		キーを押している
+			m_information->SetKeyInput(true);
+			//		移動する向き（上）
+			m_information->SetDirection(true);
+
+			//		選択効果音
+			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Select);
+		}
+
+		m_information->SetScrollWheel(DirectX::Mouse::Get().GetState().scrollWheelValue);
+	}
+
+	//		SボタンORマウスホイールしたで下に移動
+	if (keyboard.IsKeyPressed(DirectX::Keyboard::W) ||
+		m_information->GetScrollWheel() < DirectX::Mouse::Get().GetState().scrollWheelValue)
+	{
+		//		もし移動処理をしている場合は処理をしない
+		if (!m_information->GetKeyInput())
+		{
+			//		キーを押している
+			m_information->SetKeyInput(true);
+			//		移動する向き（下）
+			m_information->SetDirection(false);
+
+			//		選択効果音
+			MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Select);
+		}
+
+		//		ホイールの値を更新する
+		m_information->SetScrollWheel(DirectX::Mouse::Get().GetState().scrollWheelValue);
+	}
+}
+
 void TitleCommonProcess::CentreUP(bool direction, float time, TitleInformation::TitleUIType type)
 {
 	//		描画順を最後にする

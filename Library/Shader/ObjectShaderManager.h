@@ -104,6 +104,8 @@ public:
 	*	@return シェーダーのポインタを受け取る
 	*/
 	Microsoft::WRL::ComPtr<ID3D11GeometryShader>* GetGeometryShader() { return &m_geometryShader; }
+
+	
 };
 
 template<typename UIType>

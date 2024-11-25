@@ -9,7 +9,7 @@
 
 #include "DegitalRain.h"
 
-#include "Game/PlayScene/Effect/EffectManager.h"
+#include "../EffectManager.h"
 
 #include <WICTextureLoader.h>
 
@@ -121,11 +121,50 @@ void DegitalRain::Render(PostEffectFlag::Flag flag)
 
 	m_constBuffer = m_effectShaderManager->GetConstBuffer();
 
+	if ((PostEffectFlag::Alpha & flag) != 0)
+	{
+		//半透明描画指定
+		ID3D11BlendState* blendstate = LibrarySingleton::GetInstance()->GetCommonState()->Additive();
+
+		// 透明判定処理
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);
+
+		// 深度バッファに書き込み参照する
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetDepthStencilState
+			(LibrarySingleton::GetInstance()->GetCommonState()->DepthNone(), 0);
+	}
+
+	if ((PostEffectFlag::AlphaDepth & flag) != 0)
+	{
+		//半透明描画指定(不透明)
+		ID3D11BlendState* blendstate = 
+			LibrarySingleton::GetInstance()->GetCommonState()->Opaque();
+
+		// 透明判定処理
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetBlendState(blendstate, nullptr, 0xFFFFFFFF);
+
+		// 深度バッファに書き込み参照する
+		LibrarySingleton::GetInstance()->GetDeviceResources()->
+			GetD3DDeviceContext()->OMSetDepthStencilState
+			(LibrarySingleton::GetInstance()->GetCommonState()->DepthDefault(), 0);
+
+		//		近くても透明化させない
+		m_constBuffer.length = 40.0f;
+	}
+
 	for (int i = 0; i < m_parameta.size(); ++i)
 	{
 		m_constBuffer.matWorld = m_parameta[i].billbord.Transpose();
 
 		m_constBuffer.number = m_parameta[i].number;
+
+		if ((PostEffectFlag::Alpha & flag) != 0)
+		{
+			m_constBuffer.length = m_parameta[i].length;
+		}
 
 		m_effectShaderManager->SetPosition(m_parameta[i].position);
 

@@ -79,15 +79,6 @@ void GoalObject::Initialize(ObjectInformation information)
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
-	// ピクセルシェーダーの作成
-	std::vector<uint8_t> ps_torus =
-		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
-	DX::ThrowIfFailed(
-		LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
-		->CreatePixelShader(ps_torus.data(), ps_torus.size(),
-			nullptr, m_pixelShader.ReleaseAndGetAddressOf())
-	);
-
 	//		通常描画をするようにする
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
 
@@ -101,7 +92,7 @@ void GoalObject::Initialize(ObjectInformation information)
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
 
 	//		アルファの処理の場合描画する
-	//m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 void GoalObject::Update()
@@ -127,14 +118,22 @@ void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 		auto state = LibrarySingleton::GetInstance()->GetCommonState();
 
-
 		m_goalModel->Draw(context,
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			m_world,
 			LibrarySingleton::GetInstance()->GetView(),
 			LibrarySingleton::GetInstance()->GetProj(), false, [&]()
 			{
-				context->PSSetShader(m_pixelShader.Get(), nullptr, 0);
+				//		ポストエフェクト時
+				if (flag & PostEffectFlag::Flag::AlphaDepth)
+				{
+					// ポストエフェクト時のシェーダー設定
+					context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+				}
+				else
+				{
+					m_objectManager->GetGenerationWorld()->Shader(context);
+				}
 			}
 		);
 	}

@@ -248,7 +248,7 @@ void PlayScene::Render()
 		m_sceneManager->GetInformation()->
 			GetPostEffectManager()->Render(PostEffectFlag::Flag(i));
 
-				//オブジェクトマネージャーの描画処理
+		//オブジェクトマネージャーの描画処理
 		m_objectManager->Render(m_player->GetCameraInformation(),
 			m_player->GetInformation()->GetPlayerHeight(),
 			PostEffectFlag::Flag(i), m_sceneManager->GetInformation()->

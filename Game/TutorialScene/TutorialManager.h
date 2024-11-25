@@ -13,16 +13,6 @@
 
 #include "TutorialInformation.h"
 
-#include "../PlayScene/Player/Player.h"
-
-#include "../PlayScene/GameManager/GameManager.h"
-
-#include "../Camera/PlaySceneCamera/PlayerCameraManager.h"
-
-#include "../PlayScene/ObjectManager/ObjectManager.h"
-
-#include "Game/PlayScene/CollitionManager/CollitionManager.h"
-
 class SceneManager;
 
 class TutorialManager
@@ -75,19 +65,4 @@ private:
 
 	//		シーンマネージャー
 	SceneManager* m_sceneManager;
-
-	//		プレイヤー
-	std::unique_ptr<Player> m_player;
-
-	//		ゲームマネージャー
-	std::unique_ptr<GameManager> m_gameManager;
-
-	//		カメラマネージャー
-	std::unique_ptr<PlayerCameraManager> m_cameraManager;
-
-	//		オブジェクトマネージャー
-	std::unique_ptr<ObjectManager> m_objectManager;
-
-	//		当たり判定オブジェクト
-	std::unique_ptr<CollitionManager> m_collitionManager;
 };

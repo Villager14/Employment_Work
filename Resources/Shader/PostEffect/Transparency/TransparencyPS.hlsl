@@ -19,20 +19,10 @@ float4 main(PS_INPUT input) : SV_TARGET
 {
 	float4 output3 = tex3.Sample(samLinear, input.tex);
 
-	//		テクスチャ
-	float4 output = tex.Sample(samLinear, input.tex);
-
-	//		真っ黒なオブジェクトを描画しない
-	output = lerp(float4(0.0f, 0.0f, 0.0f, 0.0f), output, ceil(clamp(output.r + output.g + output.b, 0.0f, 1.0f)));
-
-	
-	if (output3.r < 0.3f)
+	if (output3.r + output3.g + output3.b >= 3.0f)
 	{
-		output.rgb = lerp(tex2.Sample(samLinear, input.tex).rgb, output.rgb, clamp((output3.r * 3.0f) - 0.3f, 0.0f, 1.0f));
+		return tex2.Sample(samLinear, input.tex);
 	}
 
-	//		アルファが一以上の場合エフェクトを描画
-	output = lerp(tex2.Sample(samLinear, input.tex), output, ceil(output.a));
-
-	return output;
+	return tex.Sample(samLinear, input.tex);
 }

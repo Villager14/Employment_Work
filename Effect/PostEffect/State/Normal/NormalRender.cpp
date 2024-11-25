@@ -38,13 +38,13 @@ void NormalRender::ObjectRender()
 	m_postEffectManager->SetBackRenderColor(DirectX::Colors::Black);
 
 	//		レンダーターゲットの変更(オブジェクトの描画)
-	m_alphaEffectTexture = m_postEffectManager->ChangeRenderTarget(m_renderTexture.get(),
+	m_texture = m_postEffectManager->ChangeRenderTarget(m_renderTexture.get(),
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetDepthStencilView());
 }
 
 void NormalRender::PostEffectRender()
 {
-	m_postEffectManager->SetShaderTexture(m_alphaEffectTexture);
+	m_postEffectManager->SetShaderTexture(m_texture);
 }
 
 void NormalRender::Filanize()

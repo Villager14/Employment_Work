@@ -106,7 +106,7 @@ void MoveObject::Initialize(ObjectInformation information)
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
 
 	//		アルファの処理の場合描画する
-	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 void MoveObject::Update()
@@ -144,8 +144,20 @@ void MoveObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 			//		ポストエフェクト時
 			if (flag & PostEffectFlag::Flag::Bloom)
 			{
-				// ポストエフェクト時のシェーダー設定
-				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
+				//		ポストエフェクト時
+				if (flag & PostEffectFlag::Flag::AlphaDepth)
+				{
+					// ポストエフェクト時のシェーダー設定
+					context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+				}
+				else
+				{
+					context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
+				}
+			}
+			else
+			{
+				m_objectManager->GetGenerationWorld()->Shader(context);
 			}
 		});
 }

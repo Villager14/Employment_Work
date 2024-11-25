@@ -116,6 +116,16 @@ public:
 
 private:
 
+	const wchar_t* BODY_PATH = L"Resources/Models/Player/Body.cmo";
+
+	const wchar_t* BODY_UNDER_PATH = L"Resources/Models/Player/BodyUnder.cmo";
+
+	const wchar_t* L_ARM_ABOVE_PATH = L"Resources/Models/Player/LArmAbove.cmo";
+
+	const wchar_t* L_ARM_UNDER_PATH = L"Resources/Models/Player/LArmUnder.cmo";
+
+private:
+
 	//		É{Å[Éì
 	std::unique_ptr<ModelBones> m_bons;
 

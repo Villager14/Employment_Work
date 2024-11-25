@@ -30,6 +30,9 @@ public:
 	void MoveProcess(TitleInformation::MoveDirection moveDirection,
 		bool direction, float time, TitleInformation::TitleUIType type);
 
+	//		ÉLÅ[ì¸óÕ
+	void InputKey();
+
 private:
 
 	/*

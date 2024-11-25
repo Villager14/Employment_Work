@@ -41,7 +41,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 	//		ˆë‚ÌˆÊ
 	output = lerp(SelectTexture(uv, (number % 10)), output, clamp(ceil(uv.y + 1.0f), 0.0f, 1.0f));
 
-
+	output.a = lerp(0.0f, 1.0f, clamp((length - 10.0f) / 30.0f, 0.0f, 1.0f));
 
 	return output;
 }

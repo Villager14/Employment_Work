@@ -1,5 +1,4 @@
 /*
-
 * @file		EffectManager.cpp
 * @brief	エフェクトマネージャー
 * @author	Morita
@@ -39,7 +38,6 @@ void EffectManager::Initialize()
 void EffectManager::Update()
 {
 	//		ワイヤー使用時のエフェクトの更新処理
-
 	m_wireUseEffect->BillbordUpdate(m_cameraInformation);
 
 	for (int i = 0, max = static_cast<int>((*m_wireInformation).size()); i < max; ++i)
@@ -72,7 +70,6 @@ void EffectManager::Render(PostEffectFlag::Flag flag)
 
 	//		デジタル雨の描画
 	m_degitalRain->Render(flag);
-
 }
 
 void EffectManager::Finalize()

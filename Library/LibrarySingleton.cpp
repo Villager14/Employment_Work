@@ -9,7 +9,6 @@
 
 #include "LibrarySingleton.h"
 
-
 std::unique_ptr<LibrarySingleton> LibrarySingleton::m_library = nullptr;
 
 LibrarySingleton::LibrarySingleton()

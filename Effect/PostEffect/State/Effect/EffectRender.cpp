@@ -69,6 +69,13 @@ void EffectRender::ObjectRender()
 	//		レンダーターゲットの変更(オブジェクトの描画)
 	m_alphaEffectTexture = m_postEffectManager->ChangeRenderTarget(m_renderTexture.get(),
 		LibrarySingleton::GetInstance()->GetDeviceResources()->GetDepthStencilView());
+
+	m_postEffectManager->GetStandardShader()->ChangeTexture(PostEffectManager::RastTexture,
+		m_postEffectManager->GetShaderTexture(), DirectX::SimpleMath::Vector2
+		(LibrarySingleton::GetInstance()->GetScreenSize().x,
+			LibrarySingleton::GetInstance()->GetScreenSize().y));
+
+	m_postEffectManager->GetStandardShader()->Render(PostEffectManager::RastTexture);
 }
 
 void EffectRender::PostEffectRender()
