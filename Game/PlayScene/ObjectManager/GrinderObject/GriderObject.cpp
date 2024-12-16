@@ -105,7 +105,7 @@ void GriderObject::Initialize(ObjectInformation information)
 void GriderObject::Update()
 {
 	
-	m_rog -= 10.0f * m_objectManager->GetGameManager()->GetGameSpeed() * LibrarySingleton::GetInstance()->GetElpsedTime();
+	m_rog -= 10.0f * LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	m_rotation = DirectX::SimpleMath::Quaternion
 		::CreateFromYawPitchRoll(0.0f, 0.0f, m_rog);
@@ -176,7 +176,7 @@ void GriderObject::Finalize()
 void GriderObject::CreateObjectMesh()
 {
 	//		‰Šú‰»ˆ—
-	m_objectMesh[0]->Initialize(L"Resources/ModelMesh/Grider.obj");
+	m_objectMesh[0]->Initialize(L"Resources/ModelMesh/Grider.obj", false);
 
 	m_world = DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0));
 
@@ -189,7 +189,7 @@ void GriderObject::CreateObjectMesh()
 	m_objectMesh[0]->SetObuectType(ObjectMesh::ObjectType::Floor);
 
 	//		‰Šú‰»ˆ—
-	m_objectMesh[1]->Initialize(L"Resources/ModelMesh/GriderRotation.obj");
+	m_objectMesh[1]->Initialize(L"Resources/ModelMesh/GriderRotation.obj", false);
 
 	m_world = DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(0));
 

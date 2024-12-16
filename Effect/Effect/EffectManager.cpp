@@ -20,6 +20,9 @@ EffectManager::EffectManager(PlayerInformation* playerInformation,
 
 	//		デジタル雨の生成
 	m_degitalRain = std::make_unique<DegitalRain>(this);
+
+	//		煙エフェクトの生成
+	//m_smokeEffect = std::make_unique<SmokeEffect>(this);
 }
 
 EffectManager::~EffectManager()
@@ -33,6 +36,9 @@ void EffectManager::Initialize()
 
 	//		デジタル雨の初期化処理
 	m_degitalRain->Initialzie();
+
+	//		煙エフェクトの初期化
+	//m_smokeEffect->Initialzie();
 }
 
 void EffectManager::Update()
@@ -55,6 +61,9 @@ void EffectManager::Update()
 
 	//		デジタル雨の更新処理
 	m_degitalRain->Update();
+
+	//		煙エフェクトの更新処理
+	//m_smokeEffect->Update();
 }
 
 void EffectManager::Render(PostEffectFlag::Flag flag)
@@ -70,6 +79,9 @@ void EffectManager::Render(PostEffectFlag::Flag flag)
 
 	//		デジタル雨の描画
 	m_degitalRain->Render(flag);
+
+	//		煙エフェクトの描画
+	//m_smokeEffect->Render(flag);
 }
 
 void EffectManager::Finalize()
@@ -79,4 +91,6 @@ void EffectManager::Finalize()
 	m_wireInformation->clear();
 
 	m_degitalRain->Finalize();
+
+	//m_smokeEffect->Finalize();
 }

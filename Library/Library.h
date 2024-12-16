@@ -11,6 +11,8 @@
 
 #include <codecvt>
 
+#include <cmath>
+
 namespace Library
 {
 	/*
@@ -112,5 +114,25 @@ namespace Library
 		oss << converter.from_bytes(str);
 
 		return converter.from_bytes(str);
+	}
+
+	/*
+	*	Œo‰ßŽžŠÔ‚Ì’l‚ð‚O‚©‚ç‚P‚ÌŠÔ‚ðŒJ‚è•Ô‚·‚æ‚¤‚É‚·‚é
+	* 
+	*	@param	(time)	ŽžŠÔ
+	*	@return 0`‚P‚Ì’l
+	*/
+	inline float CycleZeroToOne(float time)
+	{
+		float val = std::fmod(time, 2.0f);
+
+		if (val <= 1.0f)
+		{
+			return val;
+		}
+		else
+		{
+			return 2.0f - val;
+		}
 	}
 }

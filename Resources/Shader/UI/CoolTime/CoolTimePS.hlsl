@@ -4,24 +4,23 @@ Texture2D tex : register(t0);
 Texture2D tex2 : register(t2);
 SamplerState samLinear : register(s0);
 
-float pi = 3.14159265359;
-
-float AnglePoint(float minAngle, float maxAngle)
+float3 Velocity(float angle)
 {
-	float angle = rotation.x;
+	float3 velocity = float3(0.0f, 0.0f, 0.0f);
 
-	//		0～360度の間とする
-	float maxval = min(angle - 1.0f - maxAngle, 0.0f);
+	float move = step(0.0f, angle) * (1.0f - step(90.0f, angle));
+	velocity += move * lerp(float3(0.5f, 0.0f, 0.0f), float3(1.0f, 0.5f, 0.0f), angle / 90.0f);
 
-	maxval = normalize(maxval);
+	float move2 = step(90.0f, angle) * (1.0f - step(180.0f, angle));
+	velocity += move2 * lerp(float3(1.0f, 0.5f, 0.0f), float3(0.5f, 1.0f, 0.0f), (angle - 90.0f) / 90.0f);
 
-	maxval = abs(maxval);
+	float move3 = step(180.0f, angle) * (1.0f - step(270.0f, angle));
+	velocity += move3 * lerp(float3(0.5f, 1.0f, 0.0f), float3(0.0f, 0.5f, 0.0f), (angle - 180.0f) / 90.0f);
 
-	float minval = max(angle + 1 - minAngle, 0.0f);
+	float move4 = step(270, angle);
+	velocity += move4 * lerp(float3(0.0f, 0.5f, 0.0f), float3(0.5f, 0.0f, 0.0f), (angle - 270.0f) / 90.0f);
 
-	normalize(minval);
-	
-	return  maxval * minval;
+	return velocity;
 }
 
 float4 main(PS_INPUT input) : SV_TARGET
@@ -30,59 +29,22 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 	float2 uv = input.tex;
 
+	//		回転量
 	float angle = rotation.x;
 
-	float3 vel = float3(0.0f,0.0f,0.0f);
+	//		テクスチャのアルファ
+	float textureAlpha = output.w;
 
-	float a = output.w;
+	//		中心になるようにずらす
+	float3 vv = cross(Velocity(angle) - float3(0.5f, 0.5f, 0.0f),
+				float3(uv.x, uv.y, 0.0f) - float3(0.5f, 0.5f, 0.0f));
 
-	//		90度事に計算する
-	if (angle <= 90.0f)
-	{
-		float move = angle / 90.0f;
+	output.w *= step(vv.z, 0.0f);
 
-		vel = lerp(float3(0.5f, 0.0f, 0.0f), float3(1.0f, 0.5f, 0.0f), move);
-	}
-	else if (angle <= 180.0f)
-	{
-		float move = (angle - 90.0f) / 90.0f;
-
-		vel = lerp(float3(1.0f, 0.5f, 0.0f), float3(0.5f, 1.0f, 0.0f), move);
-	}
-	else if (angle <= 270.0f)
-	{
-		float move = (angle - 180.0f) / 90.0f;
-
-		vel = lerp(float3(0.5f, 1.0f, 0.0f), float3(0.0f, 0.5f, 0.0f), move);
-	}
-	else if (angle <= 360)
-	{
-		float move = (angle - 270.0f) / 90.0f;
-
-		vel = lerp(float3(0.0f, 0.5f, 0.0f), float3(0.5f, 0.0f, 0.0f), move);
-	}
-
-	float3 vv = cross(vel - float3(0.5f, 0.5f, 0.0f), float3(uv.x, uv.y, 0.0f) - float3(0.5f, 0.5f, 0.0f));
-
-	if (vv.z >= 0.0f)
-	{
-		output.w = 0;
-	}
-
-	if (angle <= 180.0f)
-	{
-		if (uv.x < 0.5f)
-		{
-			output.w = 0;
-		}
-	}
-	else
-	{
-		if (uv.x > 0.5f)
-		{
-			output.w = a;
-		}
-	}	
+	//		X軸を基準にして右側が使われている場合は左側を消す！左側が使わている場合は右側を描画する
+	output.w = lerp(lerp(0.0f, output.w, step(0.5f, uv.x)),
+			   lerp(output.w , textureAlpha, step(0.5f, uv.x)),
+			   step(180.0f, angle));
 
 	return output;
 }

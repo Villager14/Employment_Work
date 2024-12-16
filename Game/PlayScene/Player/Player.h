@@ -19,6 +19,21 @@
 
 #include "Library/Animation/AnimationManager.h"
 
+#include "../ObjectManager/WireObject/WireObjectInformation.h"
+
+#include <unordered_map>
+
+#include "PlayerCommonProcessing.h"
+
+#include "Effect/PostEffect/PostEffectFlag.h"
+
+#include "Observer/SubjectPlayer.h"
+#include "Observer/SpeedObserver/SubjectPlayerSpeed.h"
+#include "Observer/PCameraObserver/SubjectPlayerCamera.h"
+#include "Observer/HeightObserver/SubjectPlayerHeight.h"
+
+#include "IPlayer.h"
+
 #include "State/PlayerStay.h"
 #include "State/PlayerWalk.h"
 #include "State/PlayerCrouching.h"
@@ -33,16 +48,6 @@
 #include "State/PlayerStart.h"
 #include "State/PlayerGoal.h"
 #include "State/PlayerFall.h"
-
-#include "State/PlayerAttack.h"
-
-#include "../ObjectManager/WireObject/WireObjectInformation.h"
-
-#include <unordered_map>
-
-#include "PlayerCommonProcessing.h"
-
-#include "Effect/PostEffect/PostEffectFlag.h"
 
 class Player
 {
@@ -133,9 +138,6 @@ private:
 	//		当たり判定用プレイヤーの情報
 	std::unique_ptr<PlayerInformationCollition> m_playerInformationCollition;
 
-	//		プレイヤーの攻撃
-	std::unique_ptr<PlayerAttack> m_playerAttack;
-
 	//		プレイヤーの情報
 	std::unique_ptr<PlayerInformation> m_information;
 
@@ -156,6 +158,12 @@ private:
 
 	//		ポストエフェクトフラグ
 	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
+
+	//		サブジェクト
+	std::unique_ptr<SubjectPlayer> m_subjectPlayer;
+	std::unique_ptr<SubjectPlayerSpeed> m_subjectSpeed;
+	std::unique_ptr<SubjectPlayerCamera> m_subjectCamera;
+	std::unique_ptr<SubjectPlayerHeight> m_subjectHeight;
 
 public:
 
@@ -251,4 +259,12 @@ public:
 	*	@param	(judgement) true : 使うことができる　false : 使うことができない
 	*/
 	void SetMenuUiseJudgement(bool judgement) { m_menuUseJudgement = judgement; }
+
+	SubjectPlayer* GetSubject() { return m_subjectPlayer.get(); }
+
+	SubjectPlayerSpeed* GetSubjectSpeed() { return m_subjectSpeed.get(); }
+
+	SubjectPlayerCamera* GetSubjectCamera() { return m_subjectCamera.get(); }
+
+	SubjectPlayerHeight* GetSubjectHeight() { return m_subjectHeight.get(); }
  }; 

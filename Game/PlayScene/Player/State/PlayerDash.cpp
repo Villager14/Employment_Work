@@ -43,9 +43,6 @@ void PlayerDash::Initialize()
 	//		初期の速度
 	m_firstSpeed = m_player->GetInformation()->GetAcceleration().Length();
 
-	//		カメラを停止させる
-	m_player->GetInformation()->SetCameraStop(true);
-
 	//		頭を揺らさない状態にする
 	m_player->GetInformation()->SetHeadShakingJudgement(false);
 
@@ -66,6 +63,9 @@ void PlayerDash::Update()
 
 	//		重力処理
 	m_player->GetCommonProcessing()->Gravity();
+
+	//		カメラを止める
+	m_player->GetSubjectCamera()->CameraStop();
 }
 
 void PlayerDash::Move()
@@ -121,9 +121,6 @@ void PlayerDash::Finalize()
 
 	//		加速度を設定する（速度を最初の速度にする）
 	m_player->GetInformation()->SetAcceleration(velocity * m_firstSpeed);
-
-	//		カメラを停止を終了する
-	m_player->GetInformation()->SetCameraStop(false);
 
 	//		ゲームマネージャーのダッシュフラグをOFFにする
 	m_player->GetGameManager()->FalseFlag(GameManager::DashJudgement);

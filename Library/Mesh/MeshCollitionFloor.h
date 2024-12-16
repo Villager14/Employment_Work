@@ -84,6 +84,8 @@ public:
 	//		I—¹ˆ—
 	void Finalize();
 
+	bool BodyRange(std::vector<DirectX::SimpleMath::Vector3> velocity);
+
 private:
 
 	MeshCollitionManager* m_meshCollitionManager;

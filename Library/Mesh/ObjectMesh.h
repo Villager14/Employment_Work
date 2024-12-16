@@ -29,7 +29,7 @@ public:
 	* 
 	*	@param	(filePath)	ファイルパス
 	*/
-	void Initialize(const wchar_t* filePath, bool staticJudgement = true);
+	void Initialize(const wchar_t* filePath, bool divisionJudgement, bool staticJudgement = true);
 
 	/*
 	*	静的な処理を行う(静的なオブジェクトの場合のみ呼ぶ)
@@ -60,6 +60,7 @@ public:
 		DamageObject,
 		SignboardObject,
 		MoveObject,
+		StaticObject,
 		Null
 	};
 

@@ -56,13 +56,13 @@ void DebugCamera::Update()
 	up = DirectX::SimpleMath::Vector3::Transform(up, rt.Invert());
 
 	//		ターゲットの座標を足す
-	eye += m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
+	eye += m_playerCameraManager->GetInformation()->GetPlayerHeight();
 
 	//		ターゲットの座標を設定する
 	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3
-				(m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight().x,
-				 m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight().y + 1.5f,
-				 m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight().z);
+				(m_playerCameraManager->GetInformation()->GetPlayerHeight().x,
+				 m_playerCameraManager->GetInformation()->GetPlayerHeight().y + 1.5f,
+				 m_playerCameraManager->GetInformation()->GetPlayerHeight().z);
 
 	//		ビュー行列を設定する
 	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::

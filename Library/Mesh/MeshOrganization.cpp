@@ -19,7 +19,8 @@ MeshOrganization::~MeshOrganization()
 
 std::vector<Triangle> MeshOrganization::Organization
 (const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-	const std::vector<int> vertexIndex)
+	const std::vector<int> vertexIndex,
+	bool divisionJudgement)
 {
 	//		三角形メッシュの作製
 	CreateTrinangle(vertex, vertexIndex);
@@ -28,7 +29,7 @@ std::vector<Triangle> MeshOrganization::Organization
 	CreateNormalize();
 
 	//		オブジェクトごとの情報にする
-	ObjectInformation();
+	ObjectInformation(divisionJudgement);
 
 	return m_triangle;
 }
@@ -82,12 +83,64 @@ void MeshOrganization::CreateNormalize()
 	}
 }
 
-void MeshOrganization::ObjectInformation()
+void MeshOrganization::ObjectInformation(bool divisionJudgement)
 {
+	if (!divisionJudgement)
+	{
+		m_copytriangle = m_triangle;
+
+		m_object.insert({ static_cast<int>(0), m_triangle });
+
+		//		オブジェクトの半径を作成する
+		CreateRadius();
+	}
+	else
+	{
+		m_copytriangle = m_triangle;
+
+		AddObject();
+
+
+		//		最初の要素を削除する
+		m_copytriangle.erase(m_copytriangle.begin());
+
+
+		for (;;)
+		{
+			for (int i = 0; i < m_copytriangle.size(); ++i)
+			{
+				if (Sort(i)) i--;
+			}
+
+			if (m_copytriangle.size() != 0)
+			{
+				codNumber.clear();
+
+				AddObject();
+
+				//		最初の要素を削除する
+				m_copytriangle.erase(m_copytriangle.begin());
+			}
+			else
+			{
+				//		頂点インデックスの情報を削除する
+				ClearVertexIndex();
+
+				//		オブジェクトの半径を作成する
+				CreateRadius();
+
+				break;
+			}
+		}
+
+	}
+
+	/*
 	m_copytriangle = m_triangle;
 
 	AddObject();
 
+	
 	//		最初の要素を削除する
 	m_copytriangle.erase(m_copytriangle.begin());
 
@@ -119,6 +172,7 @@ void MeshOrganization::ObjectInformation()
 			break;
 		}
 	}
+	//*/
 }
 
 bool MeshOrganization::Sort(int index)
@@ -267,4 +321,3 @@ void MeshOrganization::Objectlength
 
 	m_meshLength.push_back(length);
 }
-

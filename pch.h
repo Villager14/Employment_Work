@@ -98,3 +98,4 @@ namespace DX
 #include "Library/LibrarySingleton.h"
 #include "Library/Library.h"
 #include "Library/Music/MusicLibrary.h"
+#include "Common/EasingFunction.h"

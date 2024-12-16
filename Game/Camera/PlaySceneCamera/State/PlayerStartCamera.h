@@ -30,6 +30,23 @@ public:
 
 	void Finalize() override;
 
+	//		移動処理
+	void Move();
+
+	//		状態の遷移の確認
+	void ChangeStateConfirmation();
+
+private:
+
+	//		状態遷移時間
+	const float STATE_CHANGE_TIME = 1.0f;
+
+	//		角度を上げる速度
+	const float ANGLE_UP_SPEED = 0.5f;
+
+	//		顔を下げている角度
+	const float DOWN_ANGLE = -40.0f;
+		
 private:
 
 	//		カメラマネージャーのインスタンスのポインタ

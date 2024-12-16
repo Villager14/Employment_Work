@@ -20,8 +20,6 @@ float2 UP(float2 uv)
 	uv.y -= 1.0f;
 	uv.y += clamp(time.x, 0.0f, 1.0f);
 
-	//float4 output = tex.Sample(samLinear, uv);
-
 	return uv;
 }
 

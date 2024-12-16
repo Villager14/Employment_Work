@@ -69,7 +69,7 @@ void FloorObject::Initialize(ObjectInformation information)
 	oss2 << Library::StringToWString(information.collitionPath);
 
 	//		‰Šú‰»ˆ—
-	m_objectMesh->Initialize(oss2.str().c_str());
+	m_objectMesh->Initialize(oss2.str().c_str(), true);
 
 	m_world *= DirectX::SimpleMath::Matrix::CreateRotationY
 	(DirectX::XMConvertToRadians(information.rotation.y));

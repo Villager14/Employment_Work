@@ -27,6 +27,8 @@
 
 #include "Game/PlayScene/ObjectManager/MoveObject/MoveObject.h"
 
+#include "Game/PlayScene/ObjectManager/StaticObject/StaticObject.h"
+
 Factory::Factory(ObjectManager* objectManager)
 {
 	m_objectInformation[Object::Grider] = [objectManager] {return std::make_unique<GriderObject>(objectManager); };
@@ -36,6 +38,7 @@ Factory::Factory(ObjectManager* objectManager)
 	m_objectInformation[Object::Wire] = [objectManager] {return std::make_unique<WireObject>(objectManager); };
 	m_objectInformation[Object::Signboard] = [objectManager] {return std::make_unique<SignboardObject>(objectManager); };
 	m_objectInformation[Object::Move] = [objectManager] {return std::make_unique<MoveObject>(objectManager); };
+	m_objectInformation[Object::Static] = [objectManager] {return std::make_unique<StaticObject>(objectManager); };
 }
 
 Factory::~Factory()

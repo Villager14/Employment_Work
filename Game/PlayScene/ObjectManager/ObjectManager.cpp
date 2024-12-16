@@ -11,9 +11,7 @@
 
 #include "BackGroundObject/BackGroundObject.h"
 
-ObjectManager::ObjectManager(GameManager* gameManager)
-	:
-	m_gameManager(gameManager)
+ObjectManager::ObjectManager()
 {
 	//		メッシュの描画を生成する
 	m_drawMesh = std::make_unique<DrawMesh>();
@@ -35,12 +33,12 @@ ObjectManager::~ObjectManager()
 {
 }
 
-void ObjectManager::Initialize()
+void ObjectManager::Initialize(StageType type)
 {
 	m_generationWorld->Initialize();
 
 	//		ステージの読み込み
-	m_loadObjectInformation->Load(0);
+	m_loadObjectInformation->Load(type);
 
 	int wireNumber = 0;
 
@@ -68,8 +66,9 @@ void ObjectManager::Initialize()
 
 		//		壁のメッシュ 床メッシュ
 		if (m_factoryObject[i]->GetObjectType() == Factory::Wall ||
-			m_factoryObject[i]->GetObjectType() == Factory::Floor ||
-			m_factoryObject[i]->GetObjectType() == Factory::Move)
+			m_factoryObject[i]->GetObjectType() == Factory::Floor||
+			m_factoryObject[i]->GetObjectType() == Factory::Move ||
+			m_factoryObject[i]->GetObjectType() == Factory::Static)
 		{
 			m_objectMesh.push_back(m_factoryObject[i]->GetObjectMesh(0));
 		}
@@ -93,11 +92,11 @@ void ObjectManager::Update(const DirectX::SimpleMath::Vector3& playerPosition)
 	m_generationWorld->Update();
 }
 
-void ObjectManager::Render(PlayerCameraInformation* cameraInformation,
+void ObjectManager::Render(DirectX::SimpleMath::Vector3 viewDirection,
 	DirectX::SimpleMath::Vector3 cameraPosition,
 	PostEffectFlag::Flag flag, PostEffectObjectShader* objectShader)
 {
-	m_cameraInformation = cameraInformation;
+	m_viewDirection = viewDirection;
 	m_cameraPosition = cameraPosition;
 
 	m_backGroundObject->Render(flag, objectShader);
@@ -144,7 +143,7 @@ bool ObjectManager::Culling(DirectX::SimpleMath::Vector3 position, float length)
 	//		Y軸は気にしないようにする
 	objectVelocityUnder.y = 0.0f;
 
-	DirectX::SimpleMath::Vector3 cameraDirection = m_cameraInformation->GetViewVelocity();
+	DirectX::SimpleMath::Vector3 cameraDirection = m_viewDirection;
 
 	cameraDirection.y = 0.0f;
 

@@ -31,7 +31,7 @@ public:
 	*	
 	*	プレイヤーの情報を受けとる
 	*/
-	void Update(PlayerInformation* playerInformation);
+	void Update(float coolTime);
 
 	//		描画処理
 	void Render();
@@ -43,13 +43,6 @@ public:
 	void NumberView();
 
 private:
-
-	enum State
-	{
-		None,		//		何もない状態
-		Reduce,		//		減らす状態
-		Increase	//		増やす状態
-	};
 
 	//		コンストバッファ
 	struct ConstBuffer
@@ -86,10 +79,10 @@ private:
 	const float RATO = 100.0f;
 
 	//		ダッシュの速度
-	const float DASH_SPEED = 3.0f;
+	const float DASH_SPEED = 2.0f;
 
 	//		クールタイムの速度
-	const float COOL_TIME_SPEED = 0.6f;
+	const float COOL_TIME_SPEED = 0.67f;
 
 	//		クールタイムテクスチャパス
 	const wchar_t* COOL_TIME_TEXTURE_PATH = L"Resources/Texture/UI/CoolTime/CoolTime.png";
@@ -128,12 +121,6 @@ private:
 
 	//		パーセント
 	float m_ratio;
-
-	//		クールタイムに入ったかどうか判断する
-	bool m_coolTimeJudgement;
-
-	//		状態
-	State m_state;
 
 	//		シェーダー
 	std::unique_ptr<UIRenderManager> m_coolTimeNumberShader;

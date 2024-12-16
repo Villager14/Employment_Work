@@ -17,7 +17,7 @@ MeshCommonProcessing::~MeshCommonProcessing()
 {
 }
 
-bool MeshCommonProcessing::CollitionCC(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
+bool MeshCommonProcessing::CircleHitDetermination(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
 	const DirectX::SimpleMath::Vector3& playerPos, const float& playerLength)
 {
 	//		ƒƒbƒVƒ…‚ÌÅ‘å‚Ì•Ó‚Ì’·‚³‚ğ‹‚ß‚é

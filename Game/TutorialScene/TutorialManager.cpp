@@ -11,6 +11,8 @@
 
 #include "Scene/SceneManager.h"
 
+#include "Test/ObjectMoveR.h"
+
 TutorialManager::TutorialManager(SceneManager* sceneManager)
 	:
 	m_sceneManager(sceneManager)
@@ -36,11 +38,25 @@ void TutorialManager::Initialize()
 
 	//		‰Šú‰»ˆ—
 	m_state->Initialize();
+
+	//		ƒŒƒ“ƒ_ƒ‰[‚Ì¶¬
+	m_renderer = std::make_unique<Renderer>();
+
+	m_objectMove.push_back(std::unique_ptr<ObjectMoveR>());
+
+	m_object = std::make_unique<RendererObject>(1);
+	m_object2 = std::make_unique<RendererObject>(22222);
+
+	m_object->Initialize();
+	m_object2->Initialize();
+
+	m_renderer->SetRenderer(m_object.get());
+	m_renderer->SetRenderer(m_object2.get());
 }
 
 void TutorialManager::Update()
 {
-
+	m_renderer->AllRender();
 }
 
 void TutorialManager::Render()

@@ -41,6 +41,11 @@ public:
 	*/
 	void RadianConversion(float* cameraangle, float* velocityRadian);
 
+	//		状態の遷移の確認
+	void ChangeStateConfirmation();
+
+	//		カメラの角度移動処理
+	void Move();
 
 private:
 

@@ -18,7 +18,7 @@ public:
 	void Initialize();
 
 	//		更新処理
-	void Update();
+	void Update(float speed);
 
 	//		描画処理
 	void Render();
@@ -104,4 +104,7 @@ private:
 
 	//		背景の速度
 	float m_backTime;
+
+	//		プレイヤーの速度
+	float m_playerSpeed;
 };

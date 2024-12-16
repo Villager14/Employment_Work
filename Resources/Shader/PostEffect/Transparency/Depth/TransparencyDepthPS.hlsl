@@ -19,12 +19,7 @@ float DepthView(float2 uv)
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-	//		テクスチャ
-	//float4 output = tex2.Sample(samLinear, input.tex);
-
 	float depth = DepthView(input.tex);
-
-	//depth = tex.Sample(samLinear, input.tex).r;
 
 	return depth;
 }

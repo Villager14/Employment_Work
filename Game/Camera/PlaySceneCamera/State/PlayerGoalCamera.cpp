@@ -37,36 +37,9 @@ void PlayerGoalCamera::Update()
 {
 	CameraMove();
 
-	//		デグリーからラジアンへ行列にする
-	DirectX::SimpleMath::Matrix matrixY = DirectX::SimpleMath::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().x));
-	DirectX::SimpleMath::Matrix matrixX = DirectX::SimpleMath::Matrix::CreateRotationX(DirectX::XMConvertToRadians(m_playerCameraManager->GetInformation()->GetAngle().y));
-
-	//		向いている角度にする
-	DirectX::SimpleMath::Matrix rotation = matrixY * matrixX;
-
-	//		カメラ座標
-	DirectX::SimpleMath::Vector3 position = m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
-
-	//		視点方向
-	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3::Transform(
-		DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f), rotation.Invert());
-
-	//		ターゲットにプレイヤーの座標を足す
-	target += m_playerCameraManager->GetPlayerInformationCamera()->GetPlayerHeight();
-
-	//		アップベクトル
-	DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3::UnitY;
-
-	//		ビュー行列を設定する
-	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
-	(position, target, up));
-
-	m_playerCameraManager->GetInformation()->SetEye(position);
-	m_playerCameraManager->GetInformation()->SetTarget(target);
-	m_playerCameraManager->GetInformation()->SetUp(up);
-
-	//		視線ベクトルを設定する
-	m_playerCameraManager->GetInformation()->SetViewVelocity(target - position);
+	//		eyeの作製
+	m_playerCameraManager->CreateEye(m_playerCameraManager->GetInformation()->
+		GetPlayerHeight(), m_playerCameraManager->GetInformation()->GetAngle());
 }
 
 void PlayerGoalCamera::Finalize()
@@ -78,12 +51,10 @@ void PlayerGoalCamera::Finalize()
 
 void PlayerGoalCamera::CameraMove()
 {
-	if (m_elapsedTime < 2.0f)
+	if (m_elapsedTime < PARALLEL_MAXIMUM_TIME)
 	{
-
 		//		経過時間
-		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
-
+		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * PARALLEL_MAXIMUM_SPEED;
 
 		if (m_elapsedTime <= 1.0f)
 		{
@@ -98,6 +69,6 @@ void PlayerGoalCamera::CameraMove()
 		m_downElapsedTime = Library::Clamp(m_downElapsedTime, 0.0f, 1.0f);
 
 		//		下を向く
-		m_playerCameraManager->GetInformation()->SetAngle({ m_angle.x ,Library::Lerp(0.0f, -50.0f, m_downElapsedTime) });
+		m_playerCameraManager->GetInformation()->SetAngle({ m_angle.x ,Library::Lerp(0.0f, DOWN_VIEW_ANGLE, m_downElapsedTime) });
 	}
 }

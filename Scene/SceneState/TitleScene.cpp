@@ -13,9 +13,34 @@ TitleScene::TitleScene(SceneManager* sceneManager)
 	:
 	m_sceneManager(sceneManager)
 {
-	//		タイトル選択マネージャーの生成
-	m_titleSelectManager = std::make_unique<TitleSelectManager>(
-		sceneManager->GetInformation()->GetPostEffectManager());
+	//		タイトルのUIクラスの生成
+	m_titleUI = std::make_unique<TitleUI>();
+
+	//		タイトルの流れマネージャーの生成
+	m_titleFlowManager = std::make_unique<TitleFlowManager>();
+
+	//		タイトルポストエフェクトマネージャー
+	m_titlePostEffectManager = std::make_unique<TitlePostEffectManager>
+				(sceneManager->GetInformation()->GetPostEffectManager());
+
+	//		タイトルシーン切り替えの処理
+	m_titleSceneChange = std::make_unique<TitleSceneChange>(sceneManager);
+
+	//		メニューマネジメントの生成
+	m_menuManagement = std::make_unique<TitleMenuManagement>
+		(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation());
+
+	//		オブジェクトマネージャーの生成
+	m_objectManager = std::make_unique<ObjectManager>();
+
+	//		タイトルのプレイヤーの生成
+	m_player = std::make_unique<TitlePlayer>();
+
+	//		タイトルエフェクトマネージャーの生成
+	m_titleEffectManager = std::make_unique<TitleEffectManager>();
+
+	//		タイトルカメラマネージャー
+	m_cameraManager = std::make_unique<TitleCameraManager>();
 }
 
 TitleScene::~TitleScene()
@@ -23,72 +48,151 @@ TitleScene::~TitleScene()
 }
 
 void TitleScene::Initialize()
-{	//		タイトル選択マネージャーの初期化
-	m_titleSelectManager->Initialize();
-
+{	
 	//		タイトルのBGMの再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::TitleScene);
 
-	//		メニューの情報を設定する
-	m_titleSelectManager->SetMenuInformation(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation());
+	//		タイトルのUIの初期化
+	m_titleUI->Initalize();
 
-	CreateView();
+	//		タイトルの流れマネージャーの初期化
+	m_titleFlowManager->Initialize();
 
-	CreateProj();
+	//		タイトルポストエフェクトマネージャー
+	m_titlePostEffectManager->Initialize();
+
+	//		オブジェクトマネージャーの初期化
+	m_objectManager->Initialize(ObjectManager::Title);
+
+	//		プレイヤーの初期化処理
+	m_player->Initialize();
+
+	//		タイトルエフェクトマネージャーの初期化処理
+	m_titleEffectManager->Initialize();
+
+	//		カメラマネージャの初期化
+	m_cameraManager->Initialize();
+
+	//		オブザーバーの追加
+	AddObserver();
 }
 
 void TitleScene::Update()
 {
-	//		メニューを使える状態にするかどうか？
-	m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_titleSelectManager->
-														GetInformation()->GetMenuUseJudgement());
+	//		メニューを使用している場合は処理をしない
+	if (m_menuManagement->MenuUseJudgement()) return;
 
-	//		タイトル選択マネージャーの更新処理
-	m_titleSelectManager->Update();
+	//		タイトルシーンのUIの更新処理
+	m_titleUI->Update();
 
-	//		シーンを終了するかどうか
-	if (m_titleSelectManager->GetInformation()->GetChangeScnenJudgemnet())
-	{
-		//		プレイシーンに切り替える
-		m_sceneManager->ChangeScene(SceneManager::SceneType::Play);
-	}
+	//		タイトルの流れマネージャーの更新
+	m_titleFlowManager->Update();
+
+	//		ポストエフェクトの更新
+	m_titlePostEffectManager->Update();
+
+	//		プレイヤーの更新
+	m_player->Update();
+
+	//		タイトルエフェクトマネージャの更新処理
+	m_titleEffectManager->Update();
+
+	//		カメラマネージャーの更新
+	m_cameraManager->Update();
 }
 
 void TitleScene::Render()
 {
-	//		タイトル選択マネージャーの描画処理
-	m_titleSelectManager->Render();
+	//		ポストエフェクトの更新
+	for (int i = 1; i <= PostEffectFlag::Fade;)
+	{
+		//		ポストエフェクトを使用するか?
+		if (!m_titlePostEffectManager->PostEffectUseJudgement(i))
+		{
+			i = i + i;
+
+			continue;
+		}
+
+		//		ポストエフェクトの更新
+		m_titlePostEffectManager->PostEffectUpdate(i);
+
+		//		プレイヤーの描画
+		m_player->Render(PostEffectFlag::Flag(i));
+
+		//		オブジェクトの描画
+		m_objectManager->Render({0.0f, 0.0f, 0.0f},
+			{0.0f, 0.0f, 0.0f},
+			PostEffectFlag::Flag(i),
+			m_sceneManager->GetInformation()->
+			GetPostEffectManager()->GetPostObjectShader());
+
+		//		タイトルエフェクトマネージャーの描画
+		m_titleEffectManager->Render(PostEffectFlag::Flag(i));
+
+		//		タイトルシーンのUIの描画処理
+		m_titleUI->Render(i);
+
+		//		ポストエフェクトの描画
+		m_titlePostEffectManager->PostEffectRender(i);
+
+		i = i + i;
+	}
+
+	//		ポストエフェクトのテクスチャ描画
+	m_titlePostEffectManager->PostEffectTextureRender();
 }
 
 void TitleScene::Finalize()
 {
-	m_titleSelectManager->Finalize();
+	//		タイトルUIの終了処理
+	m_titleUI->Finalize();
+
+	//		タイトル流れマネージャの終了処理
+	m_titleFlowManager->Finalize();
+
+	//		タイトルポストエフェクトの終了処理
+	m_titlePostEffectManager->Finalize();
+
+	//		オブジェクトマネージャーの終了処理
+	m_objectManager->Finalize();
+
+	//		プレイヤーの終了処理
+	m_player->Finalize();
+
+	//		タイトルエフェクトマネージャーの終了処理
+	m_titleEffectManager->Finalize();
+
+	//		カメラマネージャーの終了処理
+	m_cameraManager->Finalize();
 }
 
-void TitleScene::CreateView()
+void TitleScene::AddObserver()
 {
-	DirectX::SimpleMath::Matrix rotation;
+	//		タイトルポストエフェクトオブザーバーに登録する（タイトルの流れ）
+	m_titlePostEffectManager->AddTitlePostEffectObserver(m_titleFlowManager.get());
 
-	//		視点方向
-	DirectX::SimpleMath::Vector3 target = DirectX::SimpleMath::Vector3(0.0f, 0.0f, 1.0f);
+	//		タイトルポストエフェクトオブザーバーに登録する(シーン切り替え)
+	m_titlePostEffectManager->AddTitlePostEffectObserver(m_titleSceneChange.get());
 
-	//		アップベクトル
-	DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3::UnitY;
+	//		タイトルUIオブザーバーに登録する（タイトルUI）
+	m_titleFlowManager->AddITitleUIObserver(m_titleUI.get());
 
-	//		ビュー行列を設定する
-	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
-	({ 0.0f, 0.0f, 0.0f }, target, up));
-}
+	//		タイトルフェードオブザーバーに登録する（ポストエフェクト）
+	m_titleFlowManager->AddIFadeObserver(m_titlePostEffectManager.get());
 
-void TitleScene::CreateProj()
-{
-	//		ビュー行列を作成する
-	DirectX::SimpleMath::Matrix proj = DirectX::SimpleMath::Matrix::
-		CreatePerspectiveFieldOfView
-		(DirectX::XMConvertToRadians(60.0f), LibrarySingleton::GetInstance()->GetScreenSize().x /
-			LibrarySingleton::GetInstance()->GetScreenSize().y,
-			0.1f, 360.0f);
+	//		タイトルカメラのオブザーバーに登録する（ポストエフェクト）
+	m_cameraManager->AddFadeObserver(m_titlePostEffectManager.get());
 
-	//		プロジェクション行列を設定する
-	LibrarySingleton::GetInstance()->SetProj(proj);
+	//		タイトルカメラのオブザーバーに登録する(タイトルUI)
+	m_cameraManager->AddFadeObserver(m_titleUI.get());
+
+	//		タイトルゲーム終了オブザーバーに登録する（シーン切り替え）
+	m_titleFlowManager->AddGameExitObserver(m_titleSceneChange.get());
+
+	//		タイトルメニュー使用オブザーバーに登録する(メニューマネージャー)
+	m_titleFlowManager->AddMenUseObserver(m_menuManagement.get());
+
+	//		タイトルのアニメーションオブザーバーに登録する（プレイヤー）
+	m_titleFlowManager->AddAnimationObserver(m_player.get());
 }

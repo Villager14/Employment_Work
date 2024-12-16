@@ -34,6 +34,17 @@ public:
 
 private:
 
+	//		下を向いた時の角度
+	const float DOWN_VIEW_ANGLE = -50.0f;
+
+	//		平行角度最大時間
+	const float PARALLEL_MAXIMUM_TIME = 2.0f;
+
+	//		平行角度速度
+	const float PARALLEL_MAXIMUM_SPEED = 2.0f;
+
+private:
+
 	//		カメラマネージャーのインスタンスのポインタ
 	PlayerCameraManager* m_playerCameraManager;
 

@@ -7,11 +7,12 @@
 
 #pragma once
 
-#include "Game/PlayScene/Player/PlayerInformation.h"
-
 #include "Game/PlayScene/GameManager/GameManager.h"
 
 #include "Library/Shader/StandardShader.h"
+
+#include "Game/PlayScene/Player/Observer/IPObserver.h"
+#include "Game/PlayScene/Player/Observer/SpeedObserver/IPSpeedObserver.h"
 
 class ClockManager;
 class CoolTime;
@@ -21,11 +22,11 @@ class SpeedLine;
 class GameStart;
 class CountDown;
 
-class UIManager
+class UIManager : public IPObserver, public IPSpeedObserver
 {
 public:
 	//		コンストラクタ
-	UIManager(PlayerInformation* playerInformation, GameManager* gameManager);
+	UIManager(GameManager* gameManager);
 
 	//		デストラクタ
 	~UIManager();
@@ -48,6 +49,21 @@ public:
 
 	//		UIテクスチャの作製
 	void CreateStandardUITexture();
+
+	
+	/*
+	*	ダッシュクールタイム
+	* 
+	*	@param	(coolTime)	クールタイム
+	*/
+	void DashCoolTime(float coolTime) override;
+
+	/*
+	*	現在プレイヤーの速度
+	* 
+	*	@param	(speed)	速度
+	*/
+	void NowSpeed(float speed) override;
 
 public:
 
@@ -137,9 +153,6 @@ private:
 	//		ゲームスタート
 	std::unique_ptr<GameStart> m_gameStart;
 
-	//		プレイヤーの情報を受け取る
-	PlayerInformation* m_playerInformation;
-
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
 
@@ -164,11 +177,4 @@ public:
 	*	@return インスタンスのポインタ
 	*/
 	GameManager* GetGameManager() { return m_gameManager; }
-
-	/*
-	*	プレイヤーの情報を受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	PlayerInformation* GetPlayerInformation() { return  m_playerInformation; }
 };
