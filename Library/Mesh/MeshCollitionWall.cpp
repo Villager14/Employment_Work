@@ -66,15 +66,15 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 
 		DirectX::SimpleMath::Vector3 center = (vertex[0] + vertex[1] + vertex[2]) / 3.0f;
 
-		for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
 		{
-			DirectX::SimpleMath::Vector3 velocity = vertex[i] - center;
+			DirectX::SimpleMath::Vector3 velocity = vertex[j] - center;
 
 			velocity.Normalize();
 
 			velocity *= 0.05f;
 
-			vertex[i] += velocity;
+			vertex[j] += velocity;
 		}
 
 
@@ -82,7 +82,7 @@ void MeshCollitionWall::ObjectCollider(ObjectMesh* objectMesh, int index, float 
 		height += 0.5f;
 
 		//		‰~‚Ì“–‚½‚è”»’è
-		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, m_playerPosition, height)) continue;
+		if (!m_meshCollitionManager->GetCommon()->CircleHitDetermination(vertex, m_playerPosition, height)) continue;
 
 		//		•Ç‚Ì‚‚³‚Ì“–‚½‚è”»’è
 		if (!WallHeight(vertex, height)) continue;
@@ -280,7 +280,7 @@ void MeshCollitionWall::WallWalkCollider(ObjectMesh* objectMesh,
 		}
 
 		//		‰~‚Ì“–‚½‚è”»’è‚ª“–‚½‚Á‚Ä‚¢‚È‚¢ê‡‚±‚êˆÈãˆ—‚ð‚µ‚È‚¢
-		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, rayStart, 2.0f))continue;
+		if (!m_meshCollitionManager->GetCommon()->CircleHitDetermination(vertex, rayStart, 2.0f))continue;
 
 		//		“¯ˆê•½–Êã‚É‚¢‚é‚©‚Ç‚¤‚©
 		if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, rayStart, rayEnd,

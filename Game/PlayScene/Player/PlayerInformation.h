@@ -27,7 +27,6 @@ public:
 		m_jumpJudgement(true),
 		m_respownJudgement(false),
 		m_headWallMove(0.0f),
-		m_stopCamera(false),
 		m_wireUseJudgement(false),
 		m_playerHeadShakingJudgement(false)
 	{};
@@ -50,7 +49,6 @@ public:
 		m_jumpJudgement = true;
 		m_respownJudgement = false;
 		m_headWallMove = 0.0f;
-		m_stopCamera = false;
 		m_wireUseJudgement = false;
 		m_playerHeadShakingJudgement = false;
 		m_acceleration = { 0.0f, 0.0f, 0.0f };
@@ -80,7 +78,6 @@ public:
 		m_jumpJudgement = true;
 		m_respownJudgement = false;
 		m_headWallMove = 0.0f;
-		m_stopCamera = false;
 		m_wireUseJudgement = false;
 		m_playerHeadShakingJudgement = false;
 	}
@@ -261,9 +258,6 @@ private:
 
 	//		壁移動時の法線
 	DirectX::SimpleMath::Vector3 m_wallWalkNormalize;
-
-	//		カメラを停止させるか透過
-	bool m_stopCamera;
 
 	//		ワイヤーを使うことができるか
 	bool m_wireUseJudgement;
@@ -566,20 +560,6 @@ public:
 	*	@param	(time)	時間
 	*/
 	void SetDashCoolTime(float time) { m_dashCoolTime = time; }
-
-	/*
-	*	カメラを停止させるかどうか設定する
-	* 
-	*	@param	(judgement) true : 停止させる false : 停止を終了する
-	*/
-	void SetCameraStop(bool judgement) { m_stopCamera = judgement; }
-	
-	/*
-	*	カメラを停止させるかどうか受け取る
-	* 
-	*	@return true : 停止させる false : 停止を終了する
-	*/
-	bool GetCameraStop() { return m_stopCamera; }
 
 	/*
 	*	ワイヤーを使うことができるか設定する

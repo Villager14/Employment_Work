@@ -2,7 +2,7 @@ cbuffer ConstBuffer : register(b0)
 {
 	float4 windowSize;
 	float4x4 rotationMatrix;
-	float4 time;
+	float time;
 }
 
 struct VS_INPUT

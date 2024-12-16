@@ -6,8 +6,6 @@ SamplerState samLinear : register(s0);
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-	//float4 output = tex.Sample(samLinear, input.tex);
-
 	float2 uv = input.tex;
 
 	uv.x /= 10.0f;
@@ -16,7 +14,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 	float4 output = tex.Sample(samLinear, uv);
 
-	if (output.a > 0.0f) output.a = alpha;
+	output.a = lerp(output.a, alpha, ceil(output.a));
 
 	return output;
 }

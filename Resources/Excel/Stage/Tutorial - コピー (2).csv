@@ -1,0 +1,2 @@
+ObjectName,ModelFilePath,CollitionFilePath,PosX,PozY,PosZ,RotX,RotY,RotZ,EffectFlag,MovePosX,MovePosY,MovePosZ,SPEED
+0,Resources/Models/FloorFFF.cmo,Resources/ModelMesh/FloorFFF.obj,0,0,0,0,0,0,0,,,,

@@ -20,14 +20,14 @@ public:
 	~MeshCommonProcessing();
 
 	/*
-	*	円と円の当たり判定
+	*	円と円の当たり判定(メッシュの範囲内にプレイヤーがいるかどうか)
 	*
 	*	@param	(vertex)	メッシュの頂点
 	*	@param	(playerPos)	プレイヤーの座標
 	*	@param	(rayStart)	プレイヤーの長さ
 	*	@return 当たったかどうか true : 当たった false : 当たっていない
 	*/
-	bool CollitionCC(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
+	bool CircleHitDetermination(const std::vector<DirectX::SimpleMath::Vector3>& vertex,
 		const DirectX::SimpleMath::Vector3& playerPos,
 		const float& playerLength);
 

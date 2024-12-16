@@ -51,6 +51,9 @@ void PlayerWalk::Update()
 
 	//		ƒƒbƒVƒ…‚Æ“–‚½‚Á‚½Žž‚Ìˆ—
 	m_player->GetCommonProcessing()->Gravity();
+
+	//		“ª‚ð“®‚©‚·‚æ‚¤‚É‚·‚é
+	m_player->GetSubjectCamera()->ShakeHead();
 }
 
 void PlayerWalk::Move()

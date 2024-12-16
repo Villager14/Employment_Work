@@ -222,7 +222,7 @@ void ResultManager::AnimationSkip()
 		mouse.leftButton == DirectX::Mouse::ButtonStateTracker::PRESSED)
 	{
 		//		ó‘Ô‚ğØ‚è‘Ö‚¦‚é(‘Ò‹@ó‘Ô)
-		m_iState = m_stateInformation[State::Stay].get();
+		ChangeState(State::Stay);
 	}
 }
 

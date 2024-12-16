@@ -12,9 +12,7 @@ CoolTime::CoolTime(UIManager* uiManager)
 	:
 	m_angle(MAX_ANGLE),
 	m_time(0.0f),
-	m_coolTimeJudgement(false),
 	m_ratio(RATO),
-	m_state(),
 	m_uiManager(uiManager)
 {
 }
@@ -58,66 +56,23 @@ void CoolTime::Initialize()
 
 	//		回転量を設定する
 	buffer.rotationMatrix = m_coolTimeNumberShader->GetRotationMatrix();
-
-	//		何もない状態
-	m_state = State::None;
 }
 
-void CoolTime::Update(PlayerInformation* playerInformation)
+void CoolTime::Update(float coolTime)
 {
-	//		クールタイムが発生していない場合処理を行う
-	if (!m_coolTimeJudgement)
-	{
-		//		ダッシュクールタイムに入った時
-		if (playerInformation->GetDashCoolTime() > 0.0f)
-		{
-			//		クールタイム状態にする
-			m_coolTimeJudgement = true;
-
-			//		角度を最大にする
-			m_angle = MAX_ANGLE;
-
-			//		割合を最大にする
-			m_ratio = RATO;
-
-			//		減らす状態
-			m_state = State::Reduce;
-		}
-	}
-
-	//		状態が何もしない場合処理をしない
-	if (m_state == State::None) return;
-
 	//		減らす状態
-	if (m_state == State::Reduce)
+	if (coolTime <=  0.5f)
 	{
 		//		ダッシュ時間
 		m_time += LibrarySingleton::GetInstance()->GetElpsedTime() * DASH_SPEED;
-
-		if (m_time >= 1.0f)
-		{
-			//		増やす状態にする
-			m_state = State::Increase;
-
-			m_time = 1.0f;
-		}
 	}
-	//		増やす状態
-	else if (m_state == State::Increase)
+	else
 	{
 		//		クールタイム
 		m_time -= LibrarySingleton::GetInstance()->GetElpsedTime() * COOL_TIME_SPEED;
-
-		if (m_time <= 0.0f)
-		{
-			//		何もしない状態にする
-			m_state = State::None;
-
-			m_time = 0.0f;
-
-			m_coolTimeJudgement = false;
-		}
 	}
+
+	m_time = Library::Clamp(m_time, 0.0f, 1.0f);
 
 	//		角度を設定する
 	m_angle = Library::Lerp(MAX_ANGLE, 0.0f, m_time);
@@ -145,7 +100,6 @@ void CoolTime::Finalize()
 {
 	m_angle = MAX_ANGLE;
 	m_time = 0.0f;
-	m_coolTimeJudgement = false;
 	m_ratio = RATO;
 
 	m_coolTImeShader.reset();

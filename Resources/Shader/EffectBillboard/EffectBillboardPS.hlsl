@@ -6,7 +6,6 @@ SamplerState samLinear : register(s0);
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-	//ƒgƒ€‚Ì‰æ‘œ•\Ž¦
 	float4 output = tex.Sample(samLinear, input.Tex);
 
 	return output;

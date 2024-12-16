@@ -28,15 +28,9 @@ public:
 	void Update() override;
 
 	void Finalize() override;
-
-	//		‹“_‚Ì—h‚ê
-	void ShakingView();
-
-	//		‰¡—h‚ê
-	void HorizontalShaking();
-
-	//		c—h‚ê
-	void VerticalShaking();
+	
+	//		ó‘Ô‚Ì‘JˆÚ‚ÌŠm”F
+	void ChangeStateConfirmation();
 
 private:
 
@@ -45,13 +39,4 @@ private:
 
 	//		n“_‚ÌÀ•W
 	DirectX::SimpleMath::Vector3 m_position;
-
-	//		—h‚êŠÔ
-	float m_shakingTime;
-
-	//		“ª‚ğU‚éŠ„‡
-	float m_shakingRatio;
-
-	//		“ª‚ğ“®‚©‚·‘¬“x
-	float m_shakingSpeed;
 };

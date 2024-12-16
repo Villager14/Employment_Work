@@ -54,6 +54,9 @@ void PlayerWallWalk::Initialize()
 	//		移動方向
 	m_player->GetInformation()->SetDirection(moveVelocity);
 
+	//		方向
+	m_player->GetSubjectCamera()->Direction(moveVelocity);
+
 	//		アニメーション壁歩き
 	m_player->GetAnimation()->ChangeState(m_player->GetAnimation()->WallWalk);
 
@@ -221,9 +224,14 @@ void PlayerWallWalk::HeadMove()
 	//		頭の移動量を設定する
 	m_player->GetInformation()->SetHeadMove(move);
 
+	//		頭の移動量（サブジェクト）
+	m_player->GetSubjectCamera()->WallWalkMove(move);
+	//		壁の法線
+	m_player->GetSubjectCamera()->WallNormalize(m_player->GetPlayerInformationCollition()->GetWallWalkNormalize());
+	
 	//		頭の移動量を足す
-	height.x += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x * m_player->GetInformation()->GetHeadMove();;
-	height.z += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z * m_player->GetInformation()->GetHeadMove();;
+	height.x += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x * m_player->GetInformation()->GetHeadMove();
+	height.z += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z * m_player->GetInformation()->GetHeadMove();
 
 	//		プレイヤーの高さを更新
 	m_player->GetInformation()->SetPlayerHeight(height);

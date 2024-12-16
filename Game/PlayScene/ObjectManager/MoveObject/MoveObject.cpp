@@ -71,7 +71,7 @@ void MoveObject::Initialize(ObjectInformation information)
 	oss2 << Library::StringToWString(information.collitionPath);
 
 	//		初期化処理
-	m_objectMesh->Initialize(oss2.str().c_str(), false);
+	m_objectMesh->Initialize(oss2.str().c_str(), false, false);
 
 	m_firstPosition = information.position;
 	m_secondPosition = information.movePosition;
@@ -142,22 +142,14 @@ void MoveObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 		LibrarySingleton::GetInstance()->GetProj(), false, [&] {
 
 			//		ポストエフェクト時
-			if (flag & PostEffectFlag::Flag::Bloom)
+			if (flag & PostEffectFlag::Flag::AlphaDepth)
 			{
-				//		ポストエフェクト時
-				if (flag & PostEffectFlag::Flag::AlphaDepth)
-				{
-					// ポストエフェクト時のシェーダー設定
-					context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
-				}
-				else
-				{
-					context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
-				}
+				// ポストエフェクト時のシェーダー設定
+				context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
 			}
 			else
 			{
-				m_objectManager->GetGenerationWorld()->Shader(context);
+				context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
 			}
 		});
 }

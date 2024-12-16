@@ -37,14 +37,22 @@ class ObjectManager
 {
 public:
 
+	enum StageType
+	{
+		Title,
+		Play,
+	};
+
+public:
+
 	//		コンストラクタ
-	ObjectManager(GameManager* gameManager);
+	ObjectManager();
 
 	//		デストラクタ
 	~ObjectManager();
 
 	//		初期化処理
-	void Initialize();
+	void Initialize(StageType type);
 
 	/*
 	*	更新処理
@@ -58,7 +66,7 @@ public:
 	* 
 	*	@param	(cameraVelocity)	視線ベクトル
 	*/
-	void Render(PlayerCameraInformation* cameraInformation,
+	void Render(DirectX::SimpleMath::Vector3 viewDirection,
 				DirectX::SimpleMath::Vector3 cameraPosition,
 				PostEffectFlag::Flag flag, PostEffectObjectShader* objectShader);
 
@@ -82,6 +90,7 @@ public:
 	void CreateWireInformation(int index, int *wireNumber);
 
 private:
+
 	//		背景オブジェクト
 	std::unique_ptr<BackGroundObject> m_backGroundObject;
 
@@ -91,9 +100,6 @@ private:
 	//		メッシュを描画する
 	std::unique_ptr<DrawMesh> m_drawMesh;
 	 
-	//		カメラ視線ベクトル
-	PlayerCameraInformation* m_cameraInformation;
-
 	//		カメラの座標
 	DirectX::SimpleMath::Vector3 m_cameraPosition;
 
@@ -110,7 +116,7 @@ private:
 	std::vector<std::unique_ptr<IFactory>> m_factoryObject;
 
 	//		ゲームマネージャー
-	GameManager* m_gameManager;
+	//GameManager* m_gameManager;
 
 	//		オブジェクトの情報の読み込み
 	std::unique_ptr<LoadingObjectInformation> m_loadObjectInformation;
@@ -123,6 +129,9 @@ private:
 
 	//		世界の生成シェーダー
 	std::unique_ptr<GenerationWorld> m_generationWorld;
+
+	//		カメラの視点
+	DirectX::SimpleMath::Vector3 m_viewDirection;
 
 public:
 
@@ -147,14 +156,6 @@ public:
 	*	@return	ワイヤー情報
 	*/
 	std::vector<WireObjectInformation>* GetUseWireInformation() { return &m_wireInformation; }
-
-	/*
-	*	ゲームマネージャーを受け取る
-	* 
-	*/
-	GameManager* GetGameManager() { return m_gameManager; }
-
-	PlayerCameraInformation* GetCameraInformation() { return m_cameraInformation; }
 
 	GenerationWorld* GetGenerationWorld() { return m_generationWorld.get(); }
 };

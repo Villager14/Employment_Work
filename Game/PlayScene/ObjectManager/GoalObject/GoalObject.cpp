@@ -65,8 +65,8 @@ void GoalObject::Initialize(ObjectInformation information)
 	m_rotation = information.rotation;
 
 	//		‰Šú‰»ˆ—
-	m_objectMesh[0]->Initialize(L"Resources/ModelMesh/Goal.obj");
-	m_objectMesh[1]->Initialize(L"Resources/ModelMesh/GoalGate.obj");
+	m_objectMesh[0]->Initialize(L"Resources/ModelMesh/Goal.obj", false);
+	m_objectMesh[1]->Initialize(L"Resources/ModelMesh/GoalGate.obj", false);
 
 	m_world = DirectX::SimpleMath::Matrix::CreateScale(1.0f);
 
@@ -115,8 +115,6 @@ void GoalObject::Render(PostEffectFlag::Flag flag, PostEffectObjectShader* postE
 
 		auto context = LibrarySingleton::GetInstance()->GetDeviceResources()
 			->GetD3DDeviceContext();
-
-		auto state = LibrarySingleton::GetInstance()->GetCommonState();
 
 		m_goalModel->Draw(context,
 			*LibrarySingleton::GetInstance()->GetCommonState(),

@@ -23,7 +23,8 @@ public:
 
 	std::vector<Triangle> Organization(
 		const std::vector<DirectX::SimpleMath::Vector3>& vertex,
-		const std::vector<int> vertexIndex);
+		const std::vector<int> vertexIndex,
+		bool divisionJudgement);
 
 private:
 
@@ -34,7 +35,7 @@ private:
 	void CreateNormalize();
 
 
-	void ObjectInformation();
+	void ObjectInformation(bool divisionJudgement);
 
 	bool Sort(int index);
 

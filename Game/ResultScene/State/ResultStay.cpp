@@ -21,6 +21,9 @@ ResultStay::~ResultStay()
 
 void ResultStay::Initialize()
 {
+	//		•]‰¿‚ÌƒXƒP[ƒ‹
+	(*m_resultManager->GetInformation()->GetStandardShader()->GetUIInformation())
+		[ResultInformation::EvaluationUI].scale = { 1.0f, 1.0f };
 }
 
 void ResultStay::Update()
@@ -46,7 +49,6 @@ void ResultStay::Render()
 {
 	//		•]‰¿
 	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::EvaluationUI);
-
 	//		‘JˆÚ—U“±‰æ‘œ
 	m_resultManager->GetInformation()->GetStandardShader()->Render(ResultInformation::
 		Button);

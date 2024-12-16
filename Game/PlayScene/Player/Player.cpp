@@ -6,6 +6,7 @@
 */
 
 #include "pch.h"
+
 #include "Player.h"
 
 Player::Player(GameManager* gameManager)
@@ -93,6 +94,11 @@ void Player::Generation()
 	//		アルファの処理の場合描画する
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
 
+	//		観察者
+	m_subjectPlayer = std::make_unique<SubjectPlayer>();
+	m_subjectSpeed = std::make_unique<SubjectPlayerSpeed>();
+	m_subjectCamera = std::make_unique<SubjectPlayerCamera>();
+	m_subjectHeight = std::make_unique<SubjectPlayerHeight>();
 }
 
 void Player::Update(PlayerCameraInformation* cameraInformation)
@@ -101,6 +107,9 @@ void Player::Update(PlayerCameraInformation* cameraInformation)
 
 	//		更新処理
 	m_state->Update();
+
+	//		速度
+	m_subjectSpeed->PlayerSpeed(m_information->GetAcceleration().Length());
 
 	m_playerInformationCollition->SetPlayerPosition(m_information->GetPlanPosition());
 	m_playerInformationCollition->SetPlayerHeight(m_information->GetPlayerHeight());
@@ -121,6 +130,8 @@ void Player::MeshUpdate()
 {
 	//		移動処理
 	m_state->Move();
+
+	m_subjectHeight->PlayerHeight(m_information->GetPlayerHeight());
 }
 
 void Player::AnimationUpdate()
@@ -159,6 +170,11 @@ void Player::Finalize()
 	m_information->Finalize();
 
 	m_playerAnimation->Finalize();
+
+	m_subjectPlayer->Dalete();
+	m_subjectSpeed->Dalete();
+	m_subjectCamera->Dalete();
+	m_subjectHeight->Dalete();
 }
 
 void Player::DeathJudgement()

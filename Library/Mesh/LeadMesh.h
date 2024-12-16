@@ -27,9 +27,11 @@ public:
 	*	メッシュの読み込み
 	* 
 	*	@param	(fielPath)	ファイルパス
+	*	@param	(divisionJudgement)	オブジェクトを分割するかどうか true : 分割する false : 分割しない
 	*/
 	std::vector<Triangle>
-		Lead(const wchar_t* filePath);
+		Lead(const wchar_t* filePath,
+			bool divisionJudgement);
 
 	//		情報の削除
 	void Clear();

@@ -29,6 +29,9 @@ public:
 
 	void Finalize() override;
 
+	//		状態の遷移の確認
+	void ChangeStateConfirmation();
+
 private:
 
 	//		カメラマネージャーのインスタンスのポインタ

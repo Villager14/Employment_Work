@@ -11,12 +11,4 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 
 	return lerp(tex2.Sample(samLinear, input.tex), output, (floor(clamp(output.r + output.g + output.b - 3.0f, -0.1f, 0.0f)) * -1.0f));
-
-	//if (output.r + output.g + output.b >= 3.0f)
-	//{
-	//	return tex2.Sample(samLinear, input.tex);
-	//}
-
-
-	//return output;
 }

@@ -107,9 +107,6 @@
     <Filter Include="Game\TitleScene">
       <UniqueIdentifier>{ec183a49-b64a-49eb-aaa6-440f4019e3c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\TitleScene\State">
-      <UniqueIdentifier>{9c4105e1-bf06-4936-be4e-7f08fe01601b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\PlayScene\ObjectManager\GriderObject">
       <UniqueIdentifier>{cb77693b-47e0-4122-97ad-6d0ee1bb3d48}</UniqueIdentifier>
     </Filter>
@@ -380,6 +377,90 @@
     <Filter Include="Effect\Effect\WireUseEffect">
       <UniqueIdentifier>{9ebc6b3b-356c-4fbc-a95b-a46d42315fc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\TutorialScene\Test">
+      <UniqueIdentifier>{54ff0ad6-91f1-4ec7-b11f-071e31608e3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Effect\Smoke">
+      <UniqueIdentifier>{00733678-92ce-451c-9a42-cdf742ae6881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resorces\Shader\Effect\SmokeEffect">
+      <UniqueIdentifier>{826b55c6-284f-4f5b-a694-99e835079435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\Observer">
+      <UniqueIdentifier>{6bd5f598-0c0a-4fb8-8a78-52ccf193906b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\Observer\Speed">
+      <UniqueIdentifier>{bbff43f1-e563-4867-8ad0-4708c5c819fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\Observer\Camera">
+      <UniqueIdentifier>{d259f6e0-74e5-4c2f-986e-bd35bbda6469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\Player\Observer\Height">
+      <UniqueIdentifier>{90dbe422-58c4-4ed9-807d-31340a16882d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayScene\ObjectManager\StaticObject">
+      <UniqueIdentifier>{3885748a-f478-45d6-8bb3-b2eb7726cf44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\UI">
+      <UniqueIdentifier>{322c566e-9a89-4181-8ec0-0ccf6160c814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\PostEffect">
+      <UniqueIdentifier>{d16db733-1f8a-4852-856f-2d73ae157072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\TitleScene\SelectionBar">
+      <UniqueIdentifier>{d0f5bcfb-3551-4e34-84c3-bfdcdbaa0d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\TitleScene\KeyGuidance">
+      <UniqueIdentifier>{884103af-e43c-4356-a30e-c85f35424cd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Menu">
+      <UniqueIdentifier>{2c96b8a6-5409-473e-bdec-fd71a8149239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Player">
+      <UniqueIdentifier>{923e5f01-3f1f-43b8-a85e-373089f39fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Effect">
+      <UniqueIdentifier>{4029b9ba-2aad-456d-b7a8-aabc57068af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Camera">
+      <UniqueIdentifier>{d151f514-b999-4511-a3a1-1a4090bcb8fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Camera\State">
+      <UniqueIdentifier>{7b68d340-1447-4068-acd5-4b3a68c04324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\UI\TitleScene\Fade">
+      <UniqueIdentifier>{d9a50777-69a7-4839-bbb1-c70f91a09ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Flow">
+      <UniqueIdentifier>{64e3145f-dba4-44fd-804f-8e05ef6a6de7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Flow\State">
+      <UniqueIdentifier>{44c54055-37af-48cc-a67c-8b79b95f7b37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\SceneChange">
+      <UniqueIdentifier>{d939e876-9aab-4b8f-825c-a009397db764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer">
+      <UniqueIdentifier>{bea6dd4b-3fb1-4ae5-816b-265956a50a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer\FadeObserver">
+      <UniqueIdentifier>{d9572fd0-7839-4366-9403-fcbad68e631a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer\GameExitObserver">
+      <UniqueIdentifier>{ee4fe2ca-b4a1-407f-9d58-c3342bb0ddb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer\MenuUseObserver">
+      <UniqueIdentifier>{47995faa-9843-4845-adec-257eaebb6bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer\TitlePostEffectObserver">
+      <UniqueIdentifier>{48a81d27-d3c8-479f-9f7a-ec9ad1fc5dc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer\TitleUIObserver">
+      <UniqueIdentifier>{ce0437fa-2b97-49a3-90af-08d684f4f4ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver">
+      <UniqueIdentifier>{07c7f5b9-ff34-4988-8515-de5d2d8b8e36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -633,27 +714,6 @@
     <ClInclude Include="Library\Shader\ConstBufferManager.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Game\TitleScene\State\ChangeSceneState.h">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\State\SelectEndState.h">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\State\SelectPlayState.h">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\State\SelectSettingState.h">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\State\StartSceneState.h">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\ITitleSelect.h">
-      <Filter>Game\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\TitleSelectManager.h">
-      <Filter>Game\TitleScene</Filter>
-    </ClInclude>
     <ClInclude Include="Library\Shader\StandardShader.h">
       <Filter>Library\Shader</Filter>
     </ClInclude>
@@ -681,14 +741,8 @@
     <ClInclude Include="Library\Mesh\MeshCommonProcessing.h">
       <Filter>Library\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Game\TitleScene\TitleInformation.h">
-      <Filter>Game\TitleScene</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ResultScene\ResultInformation.h">
       <Filter>Game\ResultManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\TitleScene\TitleCommonProcess.h">
-      <Filter>Game\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="Game\Menu\MenuCommonProcess.h">
       <Filter>Game\Menu</Filter>
@@ -954,6 +1008,168 @@
     <ClInclude Include="Effect\Effect\WireUseEffect\WireUseEffect.h">
       <Filter>Effect\Effect\WireUseEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\Renderer.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\IRenderer.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\RendererObject.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\ModelMake.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\IModelMake.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\IObjectMove.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\ObjectMoveR.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TutorialScene\Test\OInformation.h">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\Effect\Smoke\SmokeEffect.h">
+      <Filter>Effect\Effect\Smoke</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\EasingFunction.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\IPObserver.h">
+      <Filter>Game\PlayScene\Player\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\SubjectPlayer.h">
+      <Filter>Game\PlayScene\Player\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\SpeedObserver\SubjectPlayerSpeed.h">
+      <Filter>Game\PlayScene\Player\Observer\Speed</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\SpeedObserver\IPSpeedObserver.h">
+      <Filter>Game\PlayScene\Player\Observer\Speed</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\PCameraObserver\IPCameraObserver.h">
+      <Filter>Game\PlayScene\Player\Observer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\PCameraObserver\SubjectPlayerCamera.h">
+      <Filter>Game\PlayScene\Player\Observer\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\HeightObserver\IPHeightObserver.h">
+      <Filter>Game\PlayScene\Player\Observer\Height</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\Player\Observer\HeightObserver\SubjectPlayerHeight.h">
+      <Filter>Game\PlayScene\Player\Observer\Height</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayScene\ObjectManager\StaticObject\StaticObject.h">
+      <Filter>Game\PlayScene\ObjectManager\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\UI\TitleUI.h">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\PostEffect\TitlePostEffectManager.h">
+      <Filter>Game\TitleScene\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\TitleScene\SelectionBar\SelectionBarMoveProcess.h">
+      <Filter>Effect\UI\TitleScene\SelectionBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\TitleScene\SelectionBar\SelectionBar.h">
+      <Filter>Effect\UI\TitleScene\SelectionBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\TitleScene\KeyGuidance\TitleKeyGuidance.h">
+      <Filter>Effect\UI\TitleScene\KeyGuidance</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Menu\TitleMenuManagement.h">
+      <Filter>Game\TitleScene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Player\TItlePlayer.h">
+      <Filter>Game\TitleScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Effect\TitleEffectManager.h">
+      <Filter>Game\TitleScene\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Camera\TitleCameraManager.h">
+      <Filter>Game\TitleScene\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Camera\ITitleCamera.h">
+      <Filter>Game\TitleScene\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraFrontCut.h">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraFrontAscendingCut.h">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraFrontOverHeadCut.h">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraBackCut.h">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect\UI\TitleScene\Fade\FadeUI.h">
+      <Filter>Effect\UI\TitleScene\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\SceneChange\TitleSceneChange.h">
+      <Filter>Game\TitleScene\SceneChange</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\FadeObserver\FadeObserver.h">
+      <Filter>Game\TitleScene\Observer\FadeObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\FadeObserver\IFadeObserver.h">
+      <Filter>Game\TitleScene\Observer\FadeObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\GameExitObserver\TitleGameExitObserver.h">
+      <Filter>Game\TitleScene\Observer\GameExitObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\GameExitObserver\ITitleGameExitObserver.h">
+      <Filter>Game\TitleScene\Observer\GameExitObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\MenuUseObserver\ITitleMenuUseObserver.h">
+      <Filter>Game\TitleScene\Observer\MenuUseObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\MenuUseObserver\TitleMenuUseObserver.h">
+      <Filter>Game\TitleScene\Observer\MenuUseObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\TitlePostEffectObserver\ITitlePostEffectObserver.h">
+      <Filter>Game\TitleScene\Observer\TitlePostEffectObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\TitlePostEffectObserver\TitlePostEffectObserver.h">
+      <Filter>Game\TitleScene\Observer\TitlePostEffectObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\TitleUIObserver\ITitleUIObserver.h">
+      <Filter>Game\TitleScene\Observer\TitleUIObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\TitleUIObserver\TitleUIObserver.h">
+      <Filter>Game\TitleScene\Observer\TitleUIObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\State\ChangeSceneState.h">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\State\SelectEndState.h">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\State\SelectPlayState.h">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\State\SelectSettingState.h">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\State\StartSceneState.h">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\ITitleSelect.h">
+      <Filter>Game\TitleScene\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Flow\TitleFlowManager.h">
+      <Filter>Game\TitleScene\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\ITitlePlayerAnimationObserver.h">
+      <Filter>Game\TitleScene\Observer\TitlePlayerAnimationObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\TitlePlayerAnimationObserver.h">
+      <Filter>Game\TitleScene\Observer\TitlePlayerAnimationObserver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -1163,24 +1379,6 @@
     <ClCompile Include="Library\Shader\ConstBufferManager.cpp">
       <Filter>Library\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Game\TitleScene\State\ChangeSceneState.cpp">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\State\SelectEndState.cpp">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\State\SelectPlayState.cpp">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\State\SelectSettingState.cpp">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\State\StartSceneState.cpp">
-      <Filter>Game\TitleScene\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\TitleSelectManager.cpp">
-      <Filter>Game\TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Menu\State\OptionSetting.cpp">
       <Filter>Game\Menu\State</Filter>
     </ClCompile>
@@ -1198,9 +1396,6 @@
     </ClCompile>
     <ClCompile Include="Library\Mesh\MeshCommonProcessing.cpp">
       <Filter>Library\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\TitleScene\TitleCommonProcess.cpp">
-      <Filter>Game\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="Game\Menu\MenuCommonProcess.cpp">
       <Filter>Game\Menu</Filter>
@@ -1421,6 +1616,117 @@
     <ClCompile Include="Effect\Effect\WireUseEffect\WireUseEffect.cpp">
       <Filter>Effect\Effect\WireUseEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Game\TutorialScene\Test\Renderer.cpp">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TutorialScene\Test\RendererObject.cpp">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TutorialScene\Test\ModelMake.cpp">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TutorialScene\Test\ObjectMoveR.cpp">
+      <Filter>Game\TutorialScene\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\Effect\Smoke\SmokeEffect.cpp">
+      <Filter>Effect\Effect\Smoke</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Observer\SubjectPlayer.cpp">
+      <Filter>Game\PlayScene\Player\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Observer\SpeedObserver\SubjectPlayerSpeed.cpp">
+      <Filter>Game\PlayScene\Player\Observer\Speed</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Observer\PCameraObserver\SubjectPlayerCamera.cpp">
+      <Filter>Game\PlayScene\Player\Observer\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\Player\Observer\HeightObserver\SubjectPlayerHeight.cpp">
+      <Filter>Game\PlayScene\Player\Observer\Height</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PlayScene\ObjectManager\StaticObject\StaticObject.cpp">
+      <Filter>Game\PlayScene\ObjectManager\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\UI\TitleUI.cpp">
+      <Filter>Game\TitleScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\PostEffect\TitlePostEffectManager.cpp">
+      <Filter>Game\TitleScene\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\TitleScene\SelectionBar\SelectionBar.cpp">
+      <Filter>Effect\UI\TitleScene\SelectionBar</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\TitleScene\SelectionBar\SelectionBarMoveProcess.cpp">
+      <Filter>Effect\UI\TitleScene\SelectionBar</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\TitleScene\KeyGuidance\TitleKeyGuidance.cpp">
+      <Filter>Effect\UI\TitleScene\KeyGuidance</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Menu\TitleMenuManagement.cpp">
+      <Filter>Game\TitleScene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Player\TItlePlayer.cpp">
+      <Filter>Game\TitleScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Effect\TitleEffectManager.cpp">
+      <Filter>Game\TitleScene\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Camera\TitleCameraManager.cpp">
+      <Filter>Game\TitleScene\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraFrontCut.cpp">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraFrontAscendingCut.cpp">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraFrontOverHeadCut.cpp">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraBackCut.cpp">
+      <Filter>Game\TitleScene\Camera\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\UI\TitleScene\Fade\FadeUI.cpp">
+      <Filter>Effect\UI\TitleScene\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\SceneChange\TitleSceneChange.cpp">
+      <Filter>Game\TitleScene\SceneChange</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Observer\FadeObserver\FadeObserver.cpp">
+      <Filter>Game\TitleScene\Observer\FadeObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Observer\GameExitObserver\TitleGameExitObserver.cpp">
+      <Filter>Game\TitleScene\Observer\GameExitObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Observer\MenuUseObserver\TitleMenuUseObserver.cpp">
+      <Filter>Game\TitleScene\Observer\MenuUseObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Observer\TitlePostEffectObserver\TitlePostEffectObserver.cpp">
+      <Filter>Game\TitleScene\Observer\TitlePostEffectObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Observer\TitleUIObserver\TitleUIObserver.cpp">
+      <Filter>Game\TitleScene\Observer\TitleUIObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Flow\State\ChangeSceneState.cpp">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Flow\State\SelectEndState.cpp">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Flow\State\SelectPlayState.cpp">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Flow\State\SelectSettingState.cpp">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Flow\State\StartSceneState.cpp">
+      <Filter>Game\TitleScene\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Flow\TitleFlowManager.cpp">
+      <Filter>Game\TitleScene\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\TitlePlayerAnimationObserver.cpp">
+      <Filter>Game\TitleScene\Observer\TitlePlayerAnimationObserver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -1530,6 +1836,9 @@
     <None Include="Resources\Shader\Model\GenerationWorld\GenerationWorld.hlsli">
       <Filter>Resorces\Shader\Model\GenerationWorld</Filter>
     </None>
+    <None Include="Resources\Shader\Effect\SmokeEffect\SmokeEffect.hlsli">
+      <Filter>Resorces\Shader\Effect\SmokeEffect</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="FBX\WireRange.fbx">
@@ -1617,6 +1926,15 @@
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal\Goal.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Floor\FloorFFF.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Wall\WallCarb.fbx">
+      <Filter>Resorces\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Floor\TitleObject.fbx">
       <Filter>Resorces\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -1899,6 +2217,15 @@
     </FxCompile>
     <FxCompile Include="Resources\Shader\Model\GenerationWorld\GenerationWorldVS.hlsl">
       <Filter>Resorces\Shader\Model\GenerationWorld</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\SmokeEffect\SmokeEffectPS.hlsl">
+      <Filter>Resorces\Shader\Effect\SmokeEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\SmokeEffect\SmokeEffectVS.hlsl">
+      <Filter>Resorces\Shader\Effect\SmokeEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\SmokeEffect\SmokeEffectGS.hlsl">
+      <Filter>Resorces\Shader\Effect\SmokeEffect</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

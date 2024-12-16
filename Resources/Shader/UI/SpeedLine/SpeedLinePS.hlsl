@@ -38,11 +38,5 @@ float4 main(PS_INPUT input) : SV_TARGET
 		lerp(Front(output.r) * Back(output.r),
 			max(HerfFront(output.r), HerfBack(output.r)), time.z));
 
-	/*
-	 output = lerp(float4(0.0f, 0.0f, 0.0f, 0.0f),
-				  float4(0.6f, 1.0f, 0.0f, 0.15f),
-		lerp(Front(output.r) * Back(output.r),
-			max(HerfFront(output.r), HerfBack(output.r)), time.z));
-	*/
 	return output;
 }

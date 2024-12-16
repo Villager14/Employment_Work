@@ -13,6 +13,14 @@
 
 #include "TutorialInformation.h"
 
+#include "Test/Renderer.h"
+
+#include "Test/RendererObject.h"
+
+#include "Test/ModelMake.h"
+
+#include "Test/IObjectMove.h"
+
 class SceneManager;
 
 class TutorialManager
@@ -60,6 +68,17 @@ private:
 
 	//		情報
 	std::unique_ptr<TutorialInformation> m_information;
+
+	//		描画
+	std::unique_ptr<Renderer> m_renderer;
+
+	//		オブジェクト
+	std::unique_ptr<RendererObject> m_object;
+	std::unique_ptr<RendererObject> m_object2;
+
+	std::unique_ptr<ModelMake> m_modelMake;
+
+	std::vector<std::unique_ptr<IObjectMove>> m_objectMove;
 
 private:
 

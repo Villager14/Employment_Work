@@ -9,32 +9,21 @@
 
 #include "IPlayerCamera.h"
 
-#include "State/DebugCamera.h"
-#include "State/PlayerCamera.h"
-#include "State/PlayerWallWalkCamera.h"
-#include "State/PlayerStartCamera.h"
-#include "State/PlayerDeathCamera.h"
-#include "State/PlayerCameraStop.h"
-#include "State/PlayerGoalCamera.h"
-
-#include "Game/PlayScene/Player/PlayerInformation.h"
-
 #include "PlayerCameraInformation.h"
 
 #include "Game/PlayScene/GameManager/GameManager.h"
 
+#include "Game/PlayScene/Player/Observer/HeightObserver/IPHeightObserver.h"
+
+#include "Game/PlayScene/Player/Observer/SpeedObserver/IPSpeedObserver.h"
+
+#include "Game/PlayScene/Player/Observer/PCameraObserver/IPCameraObserver.h"
+
 #include <unordered_map>
 
-class DebugCamera;
-class PlayerCamera;
-class PlayerWallWalkCamera;
-class PlayerStartCamera;
-class PlayerDeathCamera;
-class PlayerCameraStop;
-class PlayerGoalCamera;
-
-
-class PlayerCameraManager
+class PlayerCameraManager : public IPHeightObserver,
+							public IPSpeedObserver,
+							public IPCameraObserver
 {
 public:
 	//		コンストラクタ
@@ -44,7 +33,7 @@ public:
 	~PlayerCameraManager();
 
 	//		初期化処理
-	void Initialize(PlayerInformation* playerInformation);
+	void Initialize();
 
 	/*
 	*	更新処理
@@ -60,10 +49,42 @@ public:
 	void CameraMove();
 
 	//		視野角
-	void ViewingAngle();
+	void ViewingAngleUpdate();
 
-	//		視野角の更新
-	void ViewAngleUpdate(PlayerInformation* playerInformation);
+	/*
+	*	プロジェクトションの作製
+	* 
+	*	@param	(fov)			視野角
+	*	@param	(nearPlane)　	最短視野距離
+	*	@param	(farPlane)		最長視野距離
+	*/
+	void CreateProj(float fov, float nearPlane, float farPlane);
+
+	//		eyeの作製
+	void CreateEye(DirectX::SimpleMath::Vector3 position, DirectX::SimpleMath::Vector2 angle, DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3::UnitY);
+
+	//		視点の揺れ
+	void ShakingView();
+
+	//		横揺れ
+	void HorizontalShaking();
+
+	//		縦揺れ
+	void VerticalShaking();
+
+	void PlayerHeght(DirectX::SimpleMath::Vector3 height) override;
+
+	void NowSpeed(float speed) override;
+
+	void ShakeHead() override;
+
+	void CameraStop() override;
+
+	void WallWalkMove(float height) override;
+
+	void Direction(DirectX::SimpleMath::Vector3 direction) override;
+
+	void WallNormalize(DirectX::SimpleMath::Vector3 noramlize) override;
 
 public:
 
@@ -86,9 +107,6 @@ private:
 
 	//		カメラの情報
 	std::unique_ptr<PlayerCameraInformation> m_information;
-
-	//		カメラ用プレイヤーの情報
-	PlayerInformation* m_playerInformation;
 	
 	//		ゲームマネージャー
 	GameManager* m_gameManager;
@@ -99,11 +117,14 @@ private:
 	//		現在のカメラタイプ
 	CameraType m_cameraType;
 
-	//		現在の視野角
-	float m_nowViewAngle;
+	//		揺れ時間
+	float m_shakingTime;
 
-	//		開始時の方法
-	float m_startDirection;
+	//		頭を振る割合
+	float m_shakingRatio;
+
+	//		頭を動かす速度
+	float m_shakingSpeed;
 
 public:
 	/*
@@ -128,24 +149,4 @@ public:
 	*/
 	PlayerCameraInformation* GetInformation() { return m_information.get(); }
 	
-	/*
-	*	プレイヤーの情報を受け取る
-	* 
-	*	@return プレイヤーの情報
-	*/
-	PlayerInformation* GetPlayerInformationCamera() { return m_playerInformation; }
-
-	/*
-	*	開始時の方法を設定する
-	* 
-	*	@param	(direction)	角度
-	*/
-	void SetStartDirection(float direction) { m_startDirection = direction; }
-
-	/*
-	*	開始時の方向を受け取る
-	* 
-	*	@return 角度
-	*/
-	float GetStartDirection() { return m_startDirection; }
 };

@@ -90,7 +90,8 @@ void MeshCollitionFloor::ObjectCollider(ObjectMesh* objectMesh, int index)
 	//		頂点
 	std::vector<DirectX::SimpleMath::Vector3> vertex(3);
 
-	for (int i = 0; i < objectMesh->GetObjectMesh()[index].size(); ++i)
+	for (int i = 0; i < static_cast<int>
+			(objectMesh->GetObjectMesh()[index].size()); ++i)
 	{
 		//		頂点の座標を受け取る
 		vertex[0] = objectMesh->GetObjectMesh()[index][i].m_vertex[0];
@@ -98,7 +99,7 @@ void MeshCollitionFloor::ObjectCollider(ObjectMesh* objectMesh, int index)
 		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
 
 		//		円の当たり判定が当たっていない場合これ以上処理をしない
-		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, m_rayStart, 2.0f))continue;
+		if (!m_meshCollitionManager->GetCommon()->CircleHitDetermination(vertex, m_rayStart, 2.0f))continue;
 
 		//		同一平面上にいるかどうか
 		if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,
@@ -119,7 +120,7 @@ void MeshCollitionFloor::ObjectCollider(ObjectMesh* objectMesh, int index)
 				continue;
 			}
 		}
-
+		
 		//		メッシュの三角形の内側かどうか
 		if (m_meshCollitionManager->GetCommon()->InsideTriangle(vertex,
 			objectMesh->GetObjectMesh()[index][i].m_normalVector,
@@ -130,6 +131,19 @@ void MeshCollitionFloor::ObjectCollider(ObjectMesh* objectMesh, int index)
 			//		法線を追加
 			m_normalize.push_back(objectMesh->GetObjectMesh()[index][i].m_normalVector);
 		}
+		/*
+		else
+		{
+			if (BodyRange(vertex))
+			{
+				//		当たっている部分を追加する
+				m_hitMeshPoint.push_back(m_hitPoint);
+				//		法線を追加
+				m_normalize.push_back(objectMesh->GetObjectMesh()[index][i].m_normalVector);
+			}
+
+		}
+		*/
 	}
 }
 
@@ -302,4 +316,37 @@ void MeshCollitionFloor::Finalize()
 	m_hitMeshPoint.shrink_to_fit();
 	m_normalize.clear();
 	m_normalize.shrink_to_fit();
+}
+
+bool MeshCollitionFloor::BodyRange(std::vector<DirectX::SimpleMath::Vector3> velocity)
+{
+	DirectX::SimpleMath::Vector3 rayStart;
+	DirectX::SimpleMath::Vector3 rayEnd;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		int val = (i + 1) % 3;
+
+		rayStart = velocity[i];
+		rayEnd = velocity[val];
+
+		DirectX::SimpleMath::Vector3 rayVelocity = rayEnd - rayStart;
+
+		DirectX::SimpleMath::Vector3 pointVelocity = m_playerPosition - rayStart;
+
+		float length = rayVelocity.LengthSquared();
+
+		float t = pointVelocity.Dot(rayVelocity) / length;
+
+		DirectX::SimpleMath::Vector3 closestPoint = rayStart + rayVelocity * t;
+
+		float leng = (m_playerPosition - closestPoint).Length();
+
+		if (leng < 2.0f)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

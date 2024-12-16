@@ -57,5 +57,7 @@ void BackGroundMove::Render()
 
 void BackGroundMove::Finalize()
 {
+	m_time = 0.0f;
+
 	m_uiRenderManager.reset();
 }

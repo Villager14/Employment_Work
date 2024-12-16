@@ -185,12 +185,14 @@
     <ClInclude Include="Common\BinaryFile.h" />
     <ClInclude Include="Common\DebugDraw.h" />
     <ClInclude Include="Common\DepthStencil.h" />
+    <ClInclude Include="Common\EasingFunction.h" />
     <ClInclude Include="Common\ReaData.h" />
     <ClInclude Include="Common\RenderTexture.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRain.h" />
     <ClInclude Include="Effect\Effect\DigitalRain\DegitalRainParameter.h" />
     <ClInclude Include="Effect\Effect\EffectManager.h" />
+    <ClInclude Include="Effect\Effect\Smoke\SmokeEffect.h" />
     <ClInclude Include="Effect\Effect\WireUseEffect\WireUseEffect.h" />
     <ClInclude Include="Effect\Model\GenerationWorld.h" />
     <ClInclude Include="Effect\PostEffect\IPostEffect.h" />
@@ -227,6 +229,10 @@
     <ClInclude Include="Effect\UI\PlayScene\UIManager.h" />
     <ClInclude Include="Effect\UI\ResultScene\RiseNumberShader.h" />
     <ClInclude Include="Effect\UI\TitleScene\BackGroundMove.h" />
+    <ClInclude Include="Effect\UI\TitleScene\Fade\FadeUI.h" />
+    <ClInclude Include="Effect\UI\TitleScene\KeyGuidance\TitleKeyGuidance.h" />
+    <ClInclude Include="Effect\UI\TitleScene\SelectionBar\SelectionBar.h" />
+    <ClInclude Include="Effect\UI\TitleScene\SelectionBar\SelectionBarMoveProcess.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\IPlayerCamera.h" />
     <ClInclude Include="Game\Camera\PlaySceneCamera\PlayerCameraInformation.h" />
@@ -274,10 +280,19 @@
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\ObjectManager.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.h" />
+    <ClInclude Include="Game\PlayScene\ObjectManager\StaticObject\StaticObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WallObject\WallObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObject.h" />
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObjectInformation.h" />
     <ClInclude Include="Game\PlayScene\Player\IPlayer.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\HeightObserver\IPHeightObserver.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\HeightObserver\SubjectPlayerHeight.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\IPObserver.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\PCameraObserver\IPCameraObserver.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\PCameraObserver\SubjectPlayerCamera.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\SpeedObserver\IPSpeedObserver.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\SpeedObserver\SubjectPlayerSpeed.h" />
+    <ClInclude Include="Game\PlayScene\Player\Observer\SubjectPlayer.h" />
     <ClInclude Include="Game\PlayScene\Player\Player.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerCommonProcessing.h" />
     <ClInclude Include="Game\PlayScene\Player\PlayerInformation.h" />
@@ -308,17 +323,47 @@
     <ClInclude Include="Game\ResultScene\State\ResultNumberMove.h" />
     <ClInclude Include="Game\ResultScene\State\ResultStart.h" />
     <ClInclude Include="Game\ResultScene\State\ResultStay.h" />
-    <ClInclude Include="Game\TitleScene\ITitleSelect.h" />
-    <ClInclude Include="Game\TitleScene\State\ChangeSceneState.h" />
-    <ClInclude Include="Game\TitleScene\State\SelectEndState.h" />
-    <ClInclude Include="Game\TitleScene\State\SelectPlayState.h" />
-    <ClInclude Include="Game\TitleScene\State\SelectSettingState.h" />
-    <ClInclude Include="Game\TitleScene\State\StartSceneState.h" />
-    <ClInclude Include="Game\TitleScene\TitleCommonProcess.h" />
-    <ClInclude Include="Game\TitleScene\TitleInformation.h" />
-    <ClInclude Include="Game\TitleScene\TitleSelectManager.h" />
+    <ClInclude Include="Game\TitleScene\Camera\ITitleCamera.h" />
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraBackCut.h" />
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraFrontAscendingCut.h" />
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraFrontCut.h" />
+    <ClInclude Include="Game\TitleScene\Camera\State\TitleCameraFrontOverHeadCut.h" />
+    <ClInclude Include="Game\TitleScene\Camera\TitleCameraManager.h" />
+    <ClInclude Include="Game\TitleScene\Effect\TitleEffectManager.h" />
+    <ClInclude Include="Game\TitleScene\Flow\ITitleSelect.h" />
+    <ClInclude Include="Game\TitleScene\Flow\State\ChangeSceneState.h" />
+    <ClInclude Include="Game\TitleScene\Flow\State\SelectEndState.h" />
+    <ClInclude Include="Game\TitleScene\Flow\State\SelectPlayState.h" />
+    <ClInclude Include="Game\TitleScene\Flow\State\SelectSettingState.h" />
+    <ClInclude Include="Game\TitleScene\Flow\State\StartSceneState.h" />
+    <ClInclude Include="Game\TitleScene\Flow\TitleFlowManager.h" />
+    <ClInclude Include="Game\TitleScene\Menu\TitleMenuManagement.h" />
+    <ClInclude Include="Game\TitleScene\Observer\FadeObserver\FadeObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\FadeObserver\IFadeObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\GameExitObserver\ITitleGameExitObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\GameExitObserver\TitleGameExitObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\MenuUseObserver\ITitleMenuUseObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\MenuUseObserver\TitleMenuUseObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\ITitlePlayerAnimationObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\TitlePlayerAnimationObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\TitlePostEffectObserver\ITitlePostEffectObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\TitlePostEffectObserver\TitlePostEffectObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\TitleUIObserver\ITitleUIObserver.h" />
+    <ClInclude Include="Game\TitleScene\Observer\TitleUIObserver\TitleUIObserver.h" />
+    <ClInclude Include="Game\TitleScene\Player\TItlePlayer.h" />
+    <ClInclude Include="Game\TitleScene\PostEffect\TitlePostEffectManager.h" />
+    <ClInclude Include="Game\TitleScene\SceneChange\TitleSceneChange.h" />
+    <ClInclude Include="Game\TitleScene\UI\TitleUI.h" />
     <ClInclude Include="Game\TutorialScene\ITutorialManager.h" />
     <ClInclude Include="Game\TutorialScene\State\TutorialWalkState.h" />
+    <ClInclude Include="Game\TutorialScene\Test\IModelMake.h" />
+    <ClInclude Include="Game\TutorialScene\Test\IObjectMove.h" />
+    <ClInclude Include="Game\TutorialScene\Test\IRenderer.h" />
+    <ClInclude Include="Game\TutorialScene\Test\ModelMake.h" />
+    <ClInclude Include="Game\TutorialScene\Test\ObjectMoveR.h" />
+    <ClInclude Include="Game\TutorialScene\Test\OInformation.h" />
+    <ClInclude Include="Game\TutorialScene\Test\Renderer.h" />
+    <ClInclude Include="Game\TutorialScene\Test\RendererObject.h" />
     <ClInclude Include="Game\TutorialScene\TutorialInformation.h" />
     <ClInclude Include="Game\TutorialScene\TutorialManager.h" />
     <ClInclude Include="Library\Animation\AnimationCommonProcess.h" />
@@ -383,6 +428,7 @@
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Effect\Effect\DigitalRain\DegitalRain.cpp" />
     <ClCompile Include="Effect\Effect\EffectManager.cpp" />
+    <ClCompile Include="Effect\Effect\Smoke\SmokeEffect.cpp" />
     <ClCompile Include="Effect\Effect\WireUseEffect\WireUseEffect.cpp" />
     <ClCompile Include="Effect\Model\GenerationWorld.cpp" />
     <ClCompile Include="Effect\PostEffect\PostEffectCommonProcess.cpp" />
@@ -415,6 +461,10 @@
     <ClCompile Include="Effect\UI\PlayScene\UIManager.cpp" />
     <ClCompile Include="Effect\UI\ResultScene\RiseNumberShader.cpp" />
     <ClCompile Include="Effect\UI\TitleScene\BackGroundMove.cpp" />
+    <ClCompile Include="Effect\UI\TitleScene\Fade\FadeUI.cpp" />
+    <ClCompile Include="Effect\UI\TitleScene\KeyGuidance\TitleKeyGuidance.cpp" />
+    <ClCompile Include="Effect\UI\TitleScene\SelectionBar\SelectionBar.cpp" />
+    <ClCompile Include="Effect\UI\TitleScene\SelectionBar\SelectionBarMoveProcess.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\PlayerCameraManager.cpp" />
     <ClCompile Include="Game\Camera\PlaySceneCamera\State\DebugCamera.cpp" />
@@ -453,8 +503,13 @@
     <ClCompile Include="Game\PlayScene\ObjectManager\MoveObject\MoveObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\ObjectManager.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\SignboardObject\SignboardObject.cpp" />
+    <ClCompile Include="Game\PlayScene\ObjectManager\StaticObject\StaticObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WallObject\WallObject.cpp" />
     <ClCompile Include="Game\PlayScene\ObjectManager\WireObject\WireObject.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\Observer\HeightObserver\SubjectPlayerHeight.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\Observer\PCameraObserver\SubjectPlayerCamera.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\Observer\SpeedObserver\SubjectPlayerSpeed.cpp" />
+    <ClCompile Include="Game\PlayScene\Player\Observer\SubjectPlayer.cpp" />
     <ClCompile Include="Game\PlayScene\Player\Player.cpp" />
     <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp" />
     <ClCompile Include="Game\PlayScene\Player\State\PlayerAttack.cpp" />
@@ -480,14 +535,34 @@
     <ClCompile Include="Game\ResultScene\State\ResultNumberMove.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultStart.cpp" />
     <ClCompile Include="Game\ResultScene\State\ResultStay.cpp" />
-    <ClCompile Include="Game\TitleScene\State\ChangeSceneState.cpp" />
-    <ClCompile Include="Game\TitleScene\State\SelectEndState.cpp" />
-    <ClCompile Include="Game\TitleScene\State\SelectPlayState.cpp" />
-    <ClCompile Include="Game\TitleScene\State\SelectSettingState.cpp" />
-    <ClCompile Include="Game\TitleScene\State\StartSceneState.cpp" />
-    <ClCompile Include="Game\TitleScene\TitleCommonProcess.cpp" />
-    <ClCompile Include="Game\TitleScene\TitleSelectManager.cpp" />
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraBackCut.cpp" />
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraFrontAscendingCut.cpp" />
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraFrontCut.cpp" />
+    <ClCompile Include="Game\TitleScene\Camera\State\TitleCameraFrontOverHeadCut.cpp" />
+    <ClCompile Include="Game\TitleScene\Camera\TitleCameraManager.cpp" />
+    <ClCompile Include="Game\TitleScene\Effect\TitleEffectManager.cpp" />
+    <ClCompile Include="Game\TitleScene\Flow\State\ChangeSceneState.cpp" />
+    <ClCompile Include="Game\TitleScene\Flow\State\SelectEndState.cpp" />
+    <ClCompile Include="Game\TitleScene\Flow\State\SelectPlayState.cpp" />
+    <ClCompile Include="Game\TitleScene\Flow\State\SelectSettingState.cpp" />
+    <ClCompile Include="Game\TitleScene\Flow\State\StartSceneState.cpp" />
+    <ClCompile Include="Game\TitleScene\Flow\TitleFlowManager.cpp" />
+    <ClCompile Include="Game\TitleScene\Menu\TitleMenuManagement.cpp" />
+    <ClCompile Include="Game\TitleScene\Observer\FadeObserver\FadeObserver.cpp" />
+    <ClCompile Include="Game\TitleScene\Observer\GameExitObserver\TitleGameExitObserver.cpp" />
+    <ClCompile Include="Game\TitleScene\Observer\MenuUseObserver\TitleMenuUseObserver.cpp" />
+    <ClCompile Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\TitlePlayerAnimationObserver.cpp" />
+    <ClCompile Include="Game\TitleScene\Observer\TitlePostEffectObserver\TitlePostEffectObserver.cpp" />
+    <ClCompile Include="Game\TitleScene\Observer\TitleUIObserver\TitleUIObserver.cpp" />
+    <ClCompile Include="Game\TitleScene\Player\TItlePlayer.cpp" />
+    <ClCompile Include="Game\TitleScene\PostEffect\TitlePostEffectManager.cpp" />
+    <ClCompile Include="Game\TitleScene\SceneChange\TitleSceneChange.cpp" />
+    <ClCompile Include="Game\TitleScene\UI\TitleUI.cpp" />
     <ClCompile Include="Game\TutorialScene\State\TutorialWalkState.cpp" />
+    <ClCompile Include="Game\TutorialScene\Test\ModelMake.cpp" />
+    <ClCompile Include="Game\TutorialScene\Test\ObjectMoveR.cpp" />
+    <ClCompile Include="Game\TutorialScene\Test\Renderer.cpp" />
+    <ClCompile Include="Game\TutorialScene\Test\RendererObject.cpp" />
     <ClCompile Include="Game\TutorialScene\TutorialManager.cpp" />
     <ClCompile Include="Library\Animation\AnimationCommonProcess.cpp" />
     <ClCompile Include="Library\Animation\AnimationManager.cpp" />
@@ -552,6 +627,7 @@
     <None Include="packages.config" />
     <None Include="Resources\Shader\EffectBillboard\EffectBillboard.hlsli" />
     <None Include="Resources\Shader\Effect\DegitalRain\DegitalRain.hlsli" />
+    <None Include="Resources\Shader\Effect\SmokeEffect\SmokeEffect.hlsli" />
     <None Include="Resources\Shader\Model\GenerationWorld\GenerationWorld.hlsli" />
     <None Include="Resources\Shader\Model\Wall\Wall.hlsli" />
     <None Include="Resources\Shader\PostEffect\Bler\Expansion\Expansion.hlsli" />
@@ -600,7 +676,14 @@
     <MeshContentTask Include="FBX\Floor\Floor.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Floor\FloorFFF.fbx">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\Floor\Post.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="FBX\Floor\TitleObject.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
     <MeshContentTask Include="FBX\Goal\Goal.fbx">
@@ -714,6 +797,9 @@
     <MeshContentTask Include="FBX\Signboard\Signboard.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
+    <MeshContentTask Include="FBX\Wall\WallCarb.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="FBX\Wall\WallObject.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -763,6 +849,26 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Effect/DegitalRain\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Effect/DegitalRain\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\SmokeEffect\SmokeEffectGS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Effect/SmokeEffect\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Effect/SmokeEffect\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\SmokeEffect\SmokeEffectPS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Effect/SmokeEffect\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Effect/SmokeEffect\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Resources\Shader\Effect\SmokeEffect\SmokeEffectVS.hlsl">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Effect/SmokeEffect\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resources/Shader/Effect/SmokeEffect\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shader\Model\BillShader\BillShaderPS.hlsl">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resources/Shader/Model/BillShader\%(Filename).cso</ObjectFileOutput>

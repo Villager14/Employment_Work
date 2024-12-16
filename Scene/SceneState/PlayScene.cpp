@@ -32,7 +32,7 @@ void PlayScene::Initialize()
 	m_gameManager->SetLimitTime(90.0f);
 
 	//		プレイヤーカメラマネージャーの初期化処理
-	m_playerCameraManager->Initialize(m_player->GetInformation());
+	m_playerCameraManager->Initialize();
 
 	//		カメラの情報を受け取る
 	m_player->SetCameraInformation(m_playerCameraManager->GetInformation());
@@ -41,7 +41,7 @@ void PlayScene::Initialize()
 	m_player->Initialize();
 
 	//		オブジェクトマネージャーの初期化処理
-	m_objectManager->Initialize();
+	m_objectManager->Initialize(ObjectManager::Play);
 
 	//		UIマネージャーの初期化
 	m_uiManager->Initialize();
@@ -65,10 +65,17 @@ void PlayScene::Initialize()
 	m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
 
 	//		視野角の更新
-	m_playerCameraManager->ViewAngleUpdate(m_player->GetInformation());
+	m_playerCameraManager->ViewingAngleUpdate();
 
 	//		カメラの速度の更新
 	m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
+
+	//		サブジェクト
+	m_player->GetSubject()->AddObserver(m_uiManager.get());
+	m_player->GetSubjectSpeed()->AddObserver(m_uiManager.get());
+	m_player->GetSubjectHeight()->AddObserver(m_playerCameraManager.get());
+	m_player->GetSubjectSpeed()->AddObserver(m_playerCameraManager.get());
+	m_player->GetSubjectCamera()->AddObserver(m_playerCameraManager.get());
 }
 
 void PlayScene::Generation()
@@ -86,13 +93,13 @@ void PlayScene::Generation()
 	m_effectManager = std::make_unique<EffectManager>(m_player->GetInformation(), m_playerCameraManager->GetInformation());
 
 	//		UIマネージャーの生成
-	m_uiManager = std::make_unique<UIManager>(m_player->GetInformation(), m_gameManager.get());
+	m_uiManager = std::make_unique<UIManager>(m_gameManager.get());
 
 	//		当たり判定マネージャーの生成
 	m_collitionManager = std::make_unique<CollitionManager>(m_gameManager.get());
 
 	//		オブジェクトマネージャーの生成
-	m_objectManager = std::make_unique<ObjectManager>(m_gameManager.get());
+	m_objectManager = std::make_unique<ObjectManager>();
 
 	//		リスポーンマネージャー
 	m_respawnManager = std::make_unique<RespawnManager>(m_gameManager.get());
@@ -116,7 +123,7 @@ bool PlayScene::MenuInformation()
 		m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
 
 		//		視野角の更新
-		m_playerCameraManager->ViewAngleUpdate(m_player->GetInformation());
+		m_playerCameraManager->ViewingAngleUpdate();
 
 		//		カメラの速度の更新
 		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
@@ -221,7 +228,7 @@ void PlayScene::Update()
 	m_player->GetInformation()->SetRespawnPosition(m_respawnManager->GetRespownPosition());
 
 	//		リスポーン時の回転量を受け取る
-	m_playerCameraManager->SetStartDirection(m_respawnManager->GetRespownDirection());
+	m_playerCameraManager->GetInformation()->SetStartDirection(m_respawnManager->GetRespownDirection());
 
 	//		次のシーンに切り替えるかどうか
 	if (m_sceneManager->GetInformation()->GetPostEffectManager()->
@@ -249,7 +256,7 @@ void PlayScene::Render()
 			GetPostEffectManager()->Render(PostEffectFlag::Flag(i));
 
 		//オブジェクトマネージャーの描画処理
-		m_objectManager->Render(m_player->GetCameraInformation(),
+		m_objectManager->Render(m_player->GetCameraInformation()->GetViewVelocity(),
 			m_player->GetInformation()->GetPlayerHeight(),
 			PostEffectFlag::Flag(i), m_sceneManager->GetInformation()->
 			GetPostEffectManager()->GetPostObjectShader());

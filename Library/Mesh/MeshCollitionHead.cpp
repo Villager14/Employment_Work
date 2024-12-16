@@ -68,7 +68,7 @@ void MeshCollitionHead::ObjectCollider(ObjectMesh* objectMesh, int index)
 		vertex[2] = objectMesh->GetObjectMesh()[index][i].m_vertex[2];
 		
 		//		‰~‚Ì“–‚½‚è”»’è‚ª“–‚½‚Á‚Ä‚¢‚È‚¢ê‡‚±‚êˆÈãˆ—‚ð‚µ‚È‚¢
-		if (!m_meshCollitionManager->GetCommon()->CollitionCC(vertex, m_rayStart, 7.0f))continue;
+		if (!m_meshCollitionManager->GetCommon()->CircleHitDetermination(vertex, m_rayStart, 7.0f))continue;
 		
 		//		“¯ˆê•½–Êã‚É‚¢‚é‚©‚Ç‚¤‚©
 		if (!m_meshCollitionManager->GetCommon()->OnTheSamePlane(vertex, m_rayStart, m_rayEnd,

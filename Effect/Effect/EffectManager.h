@@ -19,6 +19,8 @@
 
 #include "Effect/PostEffect/PostEffectFlag.h"
 
+#include "Effect/Effect/Smoke/SmokeEffect.h"
+
 class EffectManager
 {
 public:
@@ -65,6 +67,9 @@ private:
 
 	//		カメラの情報
 	PlayerCameraInformation* m_cameraInformation;
+
+	//		煙エフェクト
+	//std::unique_ptr<SmokeEffect> m_smokeEffect;
 
 public:
 

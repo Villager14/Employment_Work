@@ -26,6 +26,9 @@ void LoadingObjectInformation::Load(int stageNumber)
 	switch (stageNumber)
 	{
 	case 0:
+		path = "Resources/Excel/Stage/Title.csv";
+		break;
+	case 1:
 		path = "Resources/Excel/Stage/Tutorial.csv";
 		break;
 	default:

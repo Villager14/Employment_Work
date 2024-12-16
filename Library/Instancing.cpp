@@ -246,7 +246,7 @@ void Instancing::ShaderRead(const wchar_t* psPath, const wchar_t* vsPath)
 void Instancing::MeshInformation(const wchar_t* path)
 {
 	//		OŠpƒƒbƒVƒ…î•ñ‚ğó‚¯æ‚é
-	std::vector<Triangle> triangle = m_learMesh->Lead(path);
+	std::vector<Triangle> triangle = m_learMesh->Lead(path, false);
 
 	m_vertexIndex = m_learMesh->GetVertexIndex();
 

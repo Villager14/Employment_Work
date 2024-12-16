@@ -11,7 +11,8 @@ SpeedLine::SpeedLine(UIManager* uiManager)
 	m_frontTime(1.0f),
 	frontFlag(false),
 	m_speed(0.0f),
-	m_backTime(0.0f)
+	m_backTime(0.0f),
+	m_playerSpeed(0.0f)
 {
 }
 
@@ -43,12 +44,14 @@ void SpeedLine::Initialize()
 	m_time = 1.0f + LINE_LENGTH;
 }
 
-void SpeedLine::Update()
+void SpeedLine::Update(float speed)
 {
+	m_playerSpeed = speed;
+
 	//		ダッシュをしているかどうか
 	if (!m_uiManager->GetGameManager()->
 		FlagJudgement(GameManager::DashJudgement)
-		&& m_uiManager->GetPlayerInformation()->GetAcceleration().Length() < MINIMUM_SPEED)
+		&& m_playerSpeed < MINIMUM_SPEED)
 	{
 		if (m_frontTime < 1.0f)
 		{
@@ -63,7 +66,7 @@ void SpeedLine::Update()
 	m_backTime += LibrarySingleton::GetInstance()->GetElpsedTime() * BACK_SPEED;
 
 	//		MINIMUM_SPEED以上MAXIMUM_SPEED以内にする
-	float val = Library::Clamp(m_uiManager->GetPlayerInformation()->GetAcceleration().Length(), MINIMUM_SPEED, MAXIMUM_SPEED);
+	float val = Library::Clamp(m_playerSpeed, MINIMUM_SPEED, MAXIMUM_SPEED);
 	
 	//		レイの速度を求める
 	m_speed = Library::Lerp(RAY_SPEED_MIN, RAY_SPEED_MAX, (val - MINIMUM_SPEED) / (MAXIMUM_SPEED - MINIMUM_SPEED));
@@ -105,7 +108,7 @@ void SpeedLine::Render()
 	//		ダッシュをしているかどうか
 	if (!m_uiManager->GetGameManager()->
 		FlagJudgement(GameManager::DashJudgement)
-		&& m_uiManager->GetPlayerInformation()->GetAcceleration().Length() < MINIMUM_SPEED)
+		&& m_playerSpeed < MINIMUM_SPEED)
 	{
 		return;
 	}

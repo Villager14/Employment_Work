@@ -26,10 +26,10 @@ ObjectMesh::~ObjectMesh()
 {
 }
 
-void ObjectMesh::Initialize(const wchar_t* filePath, bool staticJudgement)
+void ObjectMesh::Initialize(const wchar_t* filePath, bool divisionJudgement, bool staticJudgement)
 {
 	//		“Ç‚Ýž‚Þ
-	m_leadMesh->Lead(filePath);
+	m_leadMesh->Lead(filePath, divisionJudgement);
 
 	if (!staticJudgement)
 	{

@@ -15,10 +15,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 
 	output.w *= ceil(uv.y);
 
-	if (uv.x > slideVal.x)
-	{
-		output.w *= 0.0f;
-	}
+	output *= 1.0f - step(slideVal.x, uv.x);
 
 	return output;
 }

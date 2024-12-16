@@ -28,7 +28,7 @@ LeadMesh::~LeadMesh()
 }
 
 std::vector<Triangle> LeadMesh::Lead
-							(const wchar_t* filePath)
+	(const wchar_t* filePath, bool divisionJudgement)
 {
 	//		配列をリセット
 	m_triangle.clear();
@@ -81,7 +81,7 @@ std::vector<Triangle> LeadMesh::Lead
 	//		ファイルを閉じる
 	ifs.close();
 
-	m_triangle = m_origanization->Organization(m_vertex, vertexIndex);
+	m_triangle = m_origanization->Organization(m_vertex, vertexIndex, divisionJudgement);
 
 	return std::move(m_triangle);
 }

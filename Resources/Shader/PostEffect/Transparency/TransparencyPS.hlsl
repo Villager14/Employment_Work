@@ -19,10 +19,7 @@ float4 main(PS_INPUT input) : SV_TARGET
 {
 	float4 output3 = tex3.Sample(samLinear, input.tex);
 
-	if (output3.r + output3.g + output3.b >= 3.0f)
-	{
-		return tex2.Sample(samLinear, input.tex);
-	}
-
-	return tex.Sample(samLinear, input.tex);
+	return lerp(tex2.Sample(samLinear, input.tex),
+		        tex.Sample(samLinear, input.tex),
+					floor(clamp(output3.r + output3.g + output3.b - 3.0f, -0.1f, 0.0f)) * -1.0f);
 }

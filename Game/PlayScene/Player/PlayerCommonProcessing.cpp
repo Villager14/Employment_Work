@@ -140,7 +140,6 @@ void PlayerCommonProcessing::PlayerHeightTransition(const float& firstHeight, co
 
 	if (m_player->GetInformation()->GetHeadMove() > 0.0f)
 	{
-
 		float headMove = m_player->GetInformation()->GetHeadMove();
 
 		//		移動速度
@@ -149,18 +148,16 @@ void PlayerCommonProcessing::PlayerHeightTransition(const float& firstHeight, co
 		//		移動量の制限
 		headMove = Library::Clamp(headMove, 0.0f, m_player->GetInformation()->GetHeadMoveMAX());
 
-		
-
 		//		頭の移動量を足す
 		headPosition.x += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().x * headMove;
 		headPosition.z += m_player->GetPlayerInformationCollition()->GetWallWalkNormalize().z * headMove;
 
 		m_player->GetInformation()->SetHeadMove(headMove);
+		m_player->GetSubjectCamera()->WallWalkMove(headMove);
 	}
 
 	//		高さを設定する
 	m_player->GetInformation()->SetPlayerHeight(headPosition);
-
 }
 
 void PlayerCommonProcessing::SpeedUpperLimit()
@@ -331,6 +328,11 @@ void PlayerCommonProcessing::DashCoolTime()
 
 		//		経過時間
 		coolTime += LibrarySingleton::GetInstance()->GetElpsedTime();
+
+		coolTime = Library::Clamp(coolTime, 0.0f, 2.0f);
+
+		//		クールタイム
+		m_player->GetSubject()->DashCoolTime(coolTime);
 
 		//		一定時間たったら
 		if (coolTime >= 2.0f)

@@ -17,10 +17,8 @@
 #include "Effect/UI/PlayScene/GameStart/GameStart.h"
 #include "Effect/UI/PlayScene/CountDown/CountDown.h"
 
-UIManager::UIManager(PlayerInformation* playerInformation,
-					 GameManager* gameManager)
+UIManager::UIManager(GameManager* gameManager)
 	:
-	m_playerInformation(playerInformation),
 	m_gameManager(gameManager)
 {
 	Generation();
@@ -89,14 +87,8 @@ void UIManager::Generation()
 
 void UIManager::Update()
 {
-	//		速度の更新処理
-	m_speedLine->Update();
-
 	//		時間の更新
 	m_clockManager->Update(m_gameManager);
-
-	//		ダッシュクールタイムの更新
-	m_coolTime->Update(m_playerInformation);
 
 	//		ゲームオーバーの更新
 	m_gameOver->Update();
@@ -174,4 +166,14 @@ void UIManager::CreateStandardUITexture()
 	m_standardShader->CreateUIInformation(MESSAGE_BACK_FILE_PATH, { 0.0f, 0.0f }, { 1.0f, 0.0f }, UIType::GameClearBackGround);
 	m_standardShader->CreateUIInformation(TIME_LIMIT_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeLimit);
 	m_standardShader->CreateUIInformation(TEN_TEXTURE_PATH, { 0.0f, 0.0f }, { 1.0f, 1.0f }, UIType::GameStartTimeTen);
+}
+
+void UIManager::DashCoolTime(float coolTime)
+{
+	m_coolTime->Update(coolTime);
+}
+
+void UIManager::NowSpeed(float speed)
+{
+	m_speedLine->Update(speed);
 }
