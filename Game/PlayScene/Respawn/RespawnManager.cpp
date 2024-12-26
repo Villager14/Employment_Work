@@ -23,10 +23,10 @@ RespawnManager::RespawnManager(GameManager* gameManager)
 		::GetInstance()->GetEffectFactory();
 
 	//		画像の読み込み
-	m_effect->SetDirectory(L"Resources/Models");
+	//m_effect->SetDirectory(L"Resources/Models");
 
-	m_respownRengeModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
-		L"Resources/Models/WireRange.cmo", *m_effect);
+	//m_respownRengeModel = DirectX::Model::CreateFromCMO(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice(),
+	//	L"Resources/Models/WireRange.cmo", *m_effect);
 }
 
 RespawnManager::~RespawnManager()
@@ -78,6 +78,7 @@ void RespawnManager::CollitionProcess(DirectX::SimpleMath::Vector3 playerPositio
 
 void RespawnManager::DebugRender()
 {
+	return;
 	//		デバック表示かどうか
 	if (LibrarySingleton::GetInstance()->GetDebugJudgement())
 	{

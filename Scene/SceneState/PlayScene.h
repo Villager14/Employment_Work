@@ -18,13 +18,23 @@
 #include "Effect/PostEffect/PostEffectFlag.h"
 #include "Effect/Effect/EffectManager.h"
 
+#include "Game/Observer/Menu/MenuOpenJudgementObserver/IMenuOpenJudgementObserver.h"
+
+#include "Game/Observer/Menu/MenuCameraSpeed/IMenuCameraSpeed.h"
+
+#include "Game/Observer/Menu/MenuUsedObserver/MenuUsedObserver.h"
+#include "Game/Observer/Menu/MenuCameraViewAngle/IMenuCameraViewAngle.h"
+
 #include "../SceneManager.h"
 
 #include "Scene/IScene.h"
 
 class SceneManager;
 
-class PlayScene : public IScene
+class PlayScene : public IScene,
+				  public IMenuOpenJudgementObserver,
+				  public IMenuCameraSpeed,
+				  public IMenuCameraViewAngle
 {
 public:
 	/*
@@ -53,6 +63,18 @@ public:
 
 	//		メニューの情報
 	bool MenuInformation();
+
+	//		メニューを開いている
+	void MenuOpen() override;
+
+	//		メニューを閉じている
+	void MenuClose() override;
+
+	//		メニューのカメラの速度
+	void GetMenuCameraSpeed(float speed) override;
+
+	//		メニューのカメラの視野角
+	void GetMenuCameraViewAngle(float angle) override;
 
 private:
 	//		シーンマネージャー
@@ -85,5 +107,21 @@ private:
 	//		ポストエフェクトフラグ
 	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 
+	//		メニューを使うか判断するオブザーバー
+	std::unique_ptr<MenuUsedObserver> m_menuUsedObserver;
+
 	bool m_menuCloseJugement;
+
+	//		メニューを開いているかどうか
+	bool m_menuOpenJudgement;
+
+public:
+
+	/*
+	*	メニューを使用できるか判断するオブザーバー
+	*
+	*	@return インスタンスのポインタ
+	*/
+	MenuUsedObserver* GetMenuUsedObserver() { return m_menuUsedObserver.get(); }
+
 };

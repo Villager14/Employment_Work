@@ -23,6 +23,7 @@ public:
 
 	//		初期化処理
 	void Initialize();
+
 public:
 
 	//		コンストバッファ
@@ -47,7 +48,7 @@ public:
 		bool boxhitJudgement = false;								//		ボックスの中にいるか		
 	};
 
-public:
+private:
 
 	//		MenuFrameworkUIの座標
 	const DirectX::SimpleMath::Vector2 MENU_FRAME_WORK_POSITION = { 200.0f, -100.0f };
@@ -88,12 +89,14 @@ private:
 
 public:
 
+	void Update(FrameType type);
+
 	/*
 	*	描画処理
 	*
 	*	@param	(type)	描画するUIの種類
 	*/
-	void Render(float time, FrameType type);
+	void Render(float moveTime, FrameType type);
 
 	//		時間のリセット
 	void TimeReset() { m_time = 0.0f; };

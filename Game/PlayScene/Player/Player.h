@@ -32,6 +32,8 @@
 #include "Observer/PCameraObserver/SubjectPlayerCamera.h"
 #include "Observer/HeightObserver/SubjectPlayerHeight.h"
 
+#include "Effect/PostEffect/PostEffectObjectShader.h"
+
 #include "IPlayer.h"
 
 #include "State/PlayerStay.h"
@@ -75,7 +77,8 @@ public:
 	void AnimationUpdate();
 
 	//		モデルの描画
-	void ModelRender(PostEffectFlag::Flag flag);
+	void ModelRender(PostEffectFlag::Flag flag,
+		PostEffectObjectShader* postEffectObjectShader);
 
 	//		デバック描画
 	void DebugRender();

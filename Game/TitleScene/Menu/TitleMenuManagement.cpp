@@ -4,9 +4,11 @@
 
 #include "TitleMenuManagement.h"
 
-TitleMenuManagement::TitleMenuManagement(MenuInformation* information)
+TitleMenuManagement::TitleMenuManagement(MenuUsedObserver* observer,
+										 MenuOpenObserver* menuOpenObserver)
 	:
-	m_menuInformation(information)
+	m_menuUseJudgement(false),
+	m_menuUsedObserver(observer)
 {
 }
 
@@ -17,7 +19,7 @@ TitleMenuManagement::~TitleMenuManagement()
 bool TitleMenuManagement::MenuUseJudgement()
 {
 	//		メニューを開いている場合
-	if (m_menuInformation->GetMenuJudgement()) return true;
+	if (m_menuUseJudgement) return true;
 
 	return false;
 }
@@ -25,17 +27,17 @@ bool TitleMenuManagement::MenuUseJudgement()
 void TitleMenuManagement::OpenMenu()
 {
 	//		メニューを使用する
-	m_menuInformation->SetMenuJudgement(true);
+	m_menuOpenObserver->MenuOpen();
 }
 
 void TitleMenuManagement::EnableMenu()
 {
 	//		メニューを使用できるようにする
-	m_menuInformation->SetMenuUseJudgement(true);
+	m_menuUsedObserver->MenuUseJudgement(true);
 }
 
 void TitleMenuManagement::DisableMenu()
 {
 	//		メニューを使用できないようにする
-	m_menuInformation->SetMenuUseJudgement(false);
+	m_menuUsedObserver->MenuUseJudgement(false);
 }

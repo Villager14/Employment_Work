@@ -26,9 +26,14 @@ TitleScene::TitleScene(SceneManager* sceneManager)
 	//		タイトルシーン切り替えの処理
 	m_titleSceneChange = std::make_unique<TitleSceneChange>(sceneManager);
 
+	//		メニューを使用できるか判断するオブザーバーを生成する
+	m_menuUsedObserver = std::make_unique<MenuUsedObserver>();
+
+	//		メニューを開くオブザーバーを生成
+	m_menuOpenObserver = std::make_unique<MenuOpenObserver>();
+
 	//		メニューマネジメントの生成
-	m_menuManagement = std::make_unique<TitleMenuManagement>
-		(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation());
+	m_menuManagement = std::make_unique<TitleMenuManagement>(m_menuUsedObserver.get(), m_menuOpenObserver.get());
 
 	//		オブジェクトマネージャーの生成
 	m_objectManager = std::make_unique<ObjectManager>();
@@ -79,6 +84,9 @@ void TitleScene::Initialize()
 
 void TitleScene::Update()
 {
+	//		ポストエフェクトの更新
+	m_titlePostEffectManager->Update();
+
 	//		メニューを使用している場合は処理をしない
 	if (m_menuManagement->MenuUseJudgement()) return;
 
@@ -87,9 +95,6 @@ void TitleScene::Update()
 
 	//		タイトルの流れマネージャーの更新
 	m_titleFlowManager->Update();
-
-	//		ポストエフェクトの更新
-	m_titlePostEffectManager->Update();
 
 	//		プレイヤーの更新
 	m_player->Update();
@@ -118,7 +123,8 @@ void TitleScene::Render()
 		m_titlePostEffectManager->PostEffectUpdate(i);
 
 		//		プレイヤーの描画
-		m_player->Render(PostEffectFlag::Flag(i));
+		m_player->Render(PostEffectFlag::Flag(i), m_sceneManager->GetInformation()->
+			GetPostEffectManager()->GetPostObjectShader());
 
 		//		オブジェクトの描画
 		m_objectManager->Render({0.0f, 0.0f, 0.0f},
@@ -195,4 +201,19 @@ void TitleScene::AddObserver()
 
 	//		タイトルのアニメーションオブザーバーに登録する（プレイヤー）
 	m_titleFlowManager->AddAnimationObserver(m_player.get());
+
+	//		カメラベクトルオブザーバーに登録する（エフェクト）
+	m_cameraManager->AddCameraViewVelocity(m_titleEffectManager.get());
+}
+
+void TitleScene::MenuOpen()
+{
+	//		メニューを開いている
+	m_menuManagement->SetMenuUseJudgement(true);
+}
+
+void TitleScene::MenuClose()
+{
+	//		メニューを閉じている
+	m_menuManagement->SetMenuUseJudgement(false);
 }

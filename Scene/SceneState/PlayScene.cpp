@@ -14,7 +14,8 @@
 PlayScene::PlayScene(SceneManager* sceneManager)
 	:
 	m_sceneManager{sceneManager},
-	m_menuCloseJugement(false)
+	m_menuCloseJugement(false),
+	m_menuOpenJudgement(false)
 {
 	Generation();
 }
@@ -25,6 +26,9 @@ PlayScene::~PlayScene()
 
 void PlayScene::Initialize()
 {
+	//		カメラオブザーバーの追加（エフェクト）
+	m_playerCameraManager->AddCameraObserver(m_effectManager.get());
+
 	//		ゲームマネージャーの初期化処理
 	m_gameManager->Initialize();
 
@@ -61,14 +65,8 @@ void PlayScene::Initialize()
 	//		プレイシーン時のBGMを再生
 	MusicLibrary::GetInstance()->PlayBGM(MusicLibrary::BGMType::PlayScene);
 
-	//		視野角の情報を受け取る
-	m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
-
 	//		視野角の更新
 	m_playerCameraManager->ViewingAngleUpdate();
-
-	//		カメラの速度の更新
-	m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
 
 	//		サブジェクト
 	m_player->GetSubject()->AddObserver(m_uiManager.get());
@@ -76,6 +74,8 @@ void PlayScene::Initialize()
 	m_player->GetSubjectHeight()->AddObserver(m_playerCameraManager.get());
 	m_player->GetSubjectSpeed()->AddObserver(m_playerCameraManager.get());
 	m_player->GetSubjectCamera()->AddObserver(m_playerCameraManager.get());
+
+	m_menuUsedObserver->MenuUseJudgement(true);
 }
 
 void PlayScene::Generation()
@@ -104,6 +104,9 @@ void PlayScene::Generation()
 	//		リスポーンマネージャー
 	m_respawnManager = std::make_unique<RespawnManager>(m_gameManager.get());
 
+	//		メニューを使用できるか判断するオブザーバーを生成する
+	m_menuUsedObserver = std::make_unique<MenuUsedObserver>();
+
 	//		ポストエフェクトフラグの生成
 	m_postEffectFlag = std::make_unique<PostEffectFlag>(true);
 
@@ -114,19 +117,13 @@ void PlayScene::Generation()
 bool PlayScene::MenuInformation()
 {
 	//		メニューを開いている場合の処理
-	if (m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetMenuJudgement())
+	if (m_menuOpenJudgement)
 	{
 		//		メニューを開いている
 		m_menuCloseJugement = true;
 
-		//		視野角の情報を受け取る
-		m_playerCameraManager->GetInformation()->SetViewAngle(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetViewAngle());
-
 		//		視野角の更新
 		m_playerCameraManager->ViewingAngleUpdate();
-
-		//		カメラの速度の更新
-		m_playerCameraManager->GetInformation()->SetCameraSpeed(m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetCameraSpeed());
 
 		//		グレイ
 		m_sceneManager->GetInformation()->GetPostEffectManager()->Update(PostEffectFlag::Flag::Color);
@@ -135,6 +132,26 @@ bool PlayScene::MenuInformation()
 	}
 
 	return false;
+}
+
+void PlayScene::MenuOpen()
+{
+	m_menuOpenJudgement = true;
+}
+
+void PlayScene::MenuClose()
+{
+	m_menuOpenJudgement = false;
+}
+
+void PlayScene::GetMenuCameraSpeed(float speed)
+{
+	m_playerCameraManager->GetInformation()->SetCameraSpeed(speed);
+}
+
+void PlayScene::GetMenuCameraViewAngle(float angle)
+{
+	m_playerCameraManager->GetInformation()->SetViewAngle(angle);
 }
 
 void PlayScene::Update()
@@ -151,7 +168,7 @@ void PlayScene::Update()
 	if (MenuInformation()) return;
 
 	//		メニューが使えるかどうか？
-	m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
+	//m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_player->GetMenuUseJugement());
 
 	//		オブジェクトマネージャーの更新処理
 	m_objectManager->Update(m_player->GetInformation()->GetPosition());
@@ -262,7 +279,9 @@ void PlayScene::Render()
 			GetPostEffectManager()->GetPostObjectShader());
 
 		//		プレイヤーのモデル描画
-		m_player->ModelRender(PostEffectFlag::Flag(i));
+		m_player->ModelRender(PostEffectFlag::Flag(i), 
+			m_sceneManager->GetInformation()->
+			GetPostEffectManager()->GetPostObjectShader());
 
 		//		エフェクトマネージャーの描画
 		m_effectManager->Render(PostEffectFlag::Flag(i));

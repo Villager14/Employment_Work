@@ -156,7 +156,8 @@ void ResultManager::Render()
 		if (i == PostEffectFlag::Flag::PlayerView)
 		{
 			//		プレイヤーの描画(ワイヤー)
-			m_information->GetAnimation()->Render();
+			m_information->GetAnimation()->Render(PostEffectFlag::Flag(i), 
+				m_postEffectManager->GetPostObjectShader());
 		}
 
 		if (i == PostEffectFlag::Flag::UIBack)

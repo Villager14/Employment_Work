@@ -24,9 +24,9 @@
 #include "State/GlitchNoise/GlitchNoise.h"
 #include "State/ScreenObjectView/ScreenObjectView.h"
 
-PostEffectManager::PostEffectManager(MenuInformation* menuInformation)
+PostEffectManager::PostEffectManager()
 	:
-	m_menuInformation(menuInformation)
+	m_openMenuJudgement(false)
 {
 	//		ポストエフェクト共通処理
 	m_commonProcess = std::make_unique<PostEffectCommonProcess>(this);
@@ -235,4 +235,16 @@ void PostEffectManager::RenderTextureView()
 								LibrarySingleton::GetInstance()->GetScreenSize());
 
 	m_standardShader->Render(UIType::RastTexture);
+}
+
+void PostEffectManager::MenuOpen()
+{
+	//		メニューが開いている
+	m_openMenuJudgement = true;
+}
+
+void PostEffectManager::MenuClose()
+{
+	//		メニューが閉じている
+	m_openMenuJudgement = false;
 }

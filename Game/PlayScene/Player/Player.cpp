@@ -139,7 +139,8 @@ void Player::AnimationUpdate()
 	m_state->Animation();
 }
 
-void Player::ModelRender(PostEffectFlag::Flag flag)
+void Player::ModelRender(PostEffectFlag::Flag flag,
+						 PostEffectObjectShader* postEffectObjectShader)
 {
 	//		フラグがfalseの場合処理をしない	
 	if ((flag & m_postEffectFlag->GetFlag()) == 0)
@@ -148,7 +149,7 @@ void Player::ModelRender(PostEffectFlag::Flag flag)
 	}
 
 	//		ボーンの描画
-	m_playerAnimation->Render();
+	m_playerAnimation->Render(flag, postEffectObjectShader);
 }
 
 void Player::DebugRender()

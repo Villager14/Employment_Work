@@ -13,9 +13,14 @@
 
 #include "Game/ResultScene/ResultManager.h"
 
+#include "Game/Observer/Menu/MenuOpenJudgementObserver/IMenuOpenJudgementObserver.h"
+
+#include "Game/Observer/Menu/MenuUsedObserver/MenuUsedObserver.h"
+
 class SceneManager;
 
-class ResultScene : public IScene
+class ResultScene : public IScene,
+					public IMenuOpenJudgementObserver
 {
 public:
 
@@ -47,6 +52,12 @@ public:
 	//		ビュー行列の作製
 	void CreateView();
 
+	//		メニューを開いている
+	void MenuOpen() override;
+
+	//		メニューを閉じている
+	void MenuClose() override;
+
 private:
 	//		シーンマネージャーのインスタンスのポインタ
 	SceneManager* m_sceneManager;
@@ -56,4 +67,18 @@ private:
 
 	float m_score;
 
+	//		メニューが開いているか
+	bool m_menuOpenJugement;
+
+	//		メニューを使うか判断するオブザーバー
+	std::unique_ptr<MenuUsedObserver> m_menuUsedObserver;
+
+public:
+
+	/*
+	*	メニューを使用できるか判断するオブザーバー
+	*
+	*	@return インスタンスのポインタ
+	*/
+	MenuUsedObserver* GetMenuUsedObserver() { return m_menuUsedObserver.get(); }
 };

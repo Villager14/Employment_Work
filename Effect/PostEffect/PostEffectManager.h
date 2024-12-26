@@ -19,18 +19,18 @@
 
 #include "IPostEffect.h"
 
-#include "Game/Menu/MenuInformation.h"
-
 #include "PostEffectInformation.h"
+
+#include "Game/Observer/Menu/MenuOpenJudgementObserver/IMenuOpenJudgementObserver.h"
 
 class Bler;
 
-class PostEffectManager
+class PostEffectManager : public IMenuOpenJudgementObserver
 {
 public:
 
 	//		コンストラクタ
-	PostEffectManager(MenuInformation* menuInformation);
+	PostEffectManager();
 
 	//		デストラクタ
 	~PostEffectManager();
@@ -66,6 +66,12 @@ public:
 	//		レンダーテクスチャの描画
 	void RenderTextureView();
 
+	//		メニューを開いている
+	void MenuOpen() override;
+
+	//		メニューを閉じている
+	void MenuClose() override;
+
 public:
 
 	enum UIType
@@ -84,9 +90,6 @@ private:
 
 	//		サンプラー(一部を取り出す物)
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_sampler;
-
-	//		メニューの情報
-	MenuInformation* m_menuInformation;
 
 	ID3D11ShaderResourceView* m_shaderResourceView;
 
@@ -107,6 +110,10 @@ private:
 
 	//		ポストエフェクトの情報
 	std::unique_ptr<PostEffectInformation> m_information;
+
+	//		メニューが開いているか判断する
+	bool m_openMenuJudgement;
+
 public:
 
 	/*
@@ -173,11 +180,11 @@ public:
 	ID3D11ShaderResourceView* GetShaderTexture() { return m_shaderResourceView; }
 
 	/*
-	*	メニューの情報を受け取る
-	*	
-	*	@return インスタンスのポインタ
+	*	メニューが開いているか判断する
+	* 
+	*	@return true : 開いている　false : 開いていない
 	*/
-	MenuInformation* GetMenuInformation() { return m_menuInformation; }
+	bool GetMenuOpenJudgement() { return m_openMenuJudgement; }
 
 	void SetShaderTexture(ID3D11ShaderResourceView* texture) { m_shaderResourceView = texture; }
 

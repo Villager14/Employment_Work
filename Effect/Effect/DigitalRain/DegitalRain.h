@@ -13,13 +13,11 @@
 
 #include "Effect/PostEffect/PostEffectFlag.h"
 
-class EffectManager;
-
 class DegitalRain
 {
 public:
 
-	DegitalRain(EffectManager* effectManager);
+	DegitalRain();
 
 	~DegitalRain();
 
@@ -95,8 +93,20 @@ private:
 
 	ConstBuffer m_constBuffer;
 
+	//		座標
+	DirectX::SimpleMath::Vector3 m_position;
+
+	//		カメラの視点ベクトル
+	DirectX::SimpleMath::Vector3 m_cameraViewVelocity;
+
+	//		カメラのEye
+	DirectX::SimpleMath::Vector3 m_cameraEye;
+
+	//		カメラのアップ
+	DirectX::SimpleMath::Vector3 m_cameraUp;
+
 	//		エフェクトマネージャー
-	EffectManager* m_effectManager;
+	//EffectManager* m_effectManager;
 
 	//		エフェクトシェーダーマネージャー
 	std::unique_ptr<EffectShaderManager<ConstBuffer>> m_effectShaderManager;
@@ -108,4 +118,27 @@ private:
 	std::unique_ptr<PostEffectFlag> m_postEffectFlag;
 
 	float m_time;
+
+public:
+
+	/*
+	*	カメラのビューベクトルを設定する
+	* 
+	*	@param	(velocity)	ベクトル
+	*/
+	void SetCameraViewVelocity(DirectX::SimpleMath::Vector3 velocity) { m_cameraViewVelocity = velocity; }
+
+	/*
+	*	カメラのEyeを設定する
+	* 
+	*	@param	(eye)	Eye
+	*/
+	void SetCameraEye(DirectX::SimpleMath::Vector3 eye) { m_cameraEye = eye; }
+
+	/*
+	*	カメラのUpを設定する
+	* 
+	*	@param	(up)	Up
+	*/
+	void SetCameraUp(DirectX::SimpleMath::Vector3 up) { m_cameraUp = up; }
 };

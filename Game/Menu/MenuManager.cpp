@@ -11,31 +11,40 @@
 
 #include <Windows.h>
 
-#include "Effect/UI/Menu/AboveUI/AboveUI.h"
-#include "Effect/UI/Menu/Slider/Slider.h"
-#include "Effect/UI/Menu/MenuSelect/MenuSelect.h"
-#include "Effect/UI/Menu/FrameWalkUI/FrameWalkUI.h"
-
 #include "Scene/SceneManager.h"
+
+#include "Library/Mouse/MouseList.h"
 
 MenuManager::MenuManager(SceneManager* sceneManager)
 	:
-	m_state(),
-	m_type{},
 	m_firstAudioMenuJudgement(true),
-	m_sceneManager(sceneManager)
-{
-	//		状態の生成
-	m_menuStateInformation.insert({ MenuInformation::Start, std::make_unique<MenuStart>(this) });
-	m_menuStateInformation.insert({ MenuInformation::Audio, std::make_unique<AudioSetting>(this) });
-	m_menuStateInformation.insert({ MenuInformation::Option, std::make_unique<OptionSetting>(this) });
-	m_menuStateInformation.insert({ MenuInformation::GamePlay, std::make_unique<EndSetting>(this) });
-	m_menuStateInformation.insert({ MenuInformation::Close, std::make_unique<MenuClose>(this) });
+	m_sceneManager(sceneManager),
+	m_menuUseJudgement(false),
+	m_menuOpenJudgement(false)
+{	
+	//		メニューのUIの生成
+	m_menuUI = std::make_unique<MenuUI>();
 
-	//		UIを作成する
-	CreateUI();
+	//		メニューの流れの生成
+	m_menuFlow = std::make_unique<MenuFlow>();
 
-	m_commonProcess = std::make_unique<MenuCommonProcess>(m_information.get());
+	//		メニューの流れの初期化
+	m_menuFlow->Initialize();
+
+	//		マウスの処理の生成
+	m_mousePorcess = std::make_unique<MenuMouseProcess>();
+
+	//		UIのマウスの当たり判定の生成
+	m_collider = std::make_unique<UIMouseCollider>();
+
+	//		ゲームの設定の生成
+	m_gameSetting = std::make_unique<GameSetting>();
+
+	//		メニューが開いているか判断するオブザーバの生成
+	m_menuOpenObserver = std::make_unique<MenuOpenJudgementObserver>();
+
+	//		オブザーバーを追加する
+	AddObserver();
 }
 
 MenuManager::~MenuManager()
@@ -44,289 +53,202 @@ MenuManager::~MenuManager()
 
 void MenuManager::Initialize()
 {
+	//		メニューUIの初期化処理
+	m_menuUI->Initialize();
 
-	m_type = MenuInformation::Start;
+	//		マウスの処理の初期化
+	m_mousePorcess->Initialize();
 
-	//		初期の状態
-	m_state = m_menuStateInformation[m_type].get();
-
-	//		初期化処理
-	m_state->Initialize();
-
-		//		マウスを相対位置にする
-	DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_ABSOLUTE);
+	AddMouseObserver();
 }
 
 void MenuManager::Update()
 {
 	//		メニューを使用することができるかどうか
-	if (!m_information->GetMenuUseJudgement()) return;
+	if (!m_menuUseJudgement) return;
 
-	//		キーボードの取得
-	DirectX::Keyboard::KeyboardStateTracker keyboard = *LibrarySingleton::GetInstance()->GetKeyboardStateTracker();
-
-	if (keyboard.IsKeyPressed(DirectX::Keyboard::Tab))
+	if (m_menuFlow->GetMenuStartJudgement())
 	{
-		ShowCursor(FALSE);
+		//		メニューのオープン処理
+		m_menuOpenObserver->MenuOpen();
 
-		m_information->SetMenuJudgement(true);
-	}
+		m_menuFlow->SetMenuStartJudgement(false);
 
-	//		メニューを使用するかどうか
-	if (!m_information->GetMenuJudgement()) return;
-
-	//		初期化処理を行うかどうか
-	if (m_information->GetInitializeJudgement())
-	{
+		//		初期化処理
 		Initialize();
 
-		m_information->SetInitializeJudgement(false);
+		//		メニューを使用するかどうか
+		m_menuOpenJudgement = true;
 	}
 
-	//		更新処理
-	m_state->Update();
+	//		メニューの流れの更新
+	m_menuFlow->Update();
 
-	//		メニューモードを終了したとき
-	if (!m_information->GetMenuJudgement())
+	//		メニューを使用するかどうか
+	if (!m_menuOpenJudgement)
 	{
-		//		マウス相対モード
-		DirectX::Mouse::Get().SetMode(DirectX::Mouse::MODE_RELATIVE);
+		return;
+	}
 
+	//		マウスの処理の更新
+	m_mousePorcess->Update();
+
+	//		メニューUIの更新処理
+	m_menuUI->Update();
+
+	//		当たり判定
+	m_collider->CollitionProcess(m_menuUI->GetColliderInformation());
+
+	//		メニューモードを終了するか
+	if (m_menuFlow->GetMenuEndJugement())
+	{
+		//		終了処理
 		Finalize();
+
+		//		メニューを閉じる処理
+		m_menuOpenObserver->MenuClose();
 	}
 }
 
 void MenuManager::Render()
 {
 	//		メニューを使用しているかどうか
-	if (!m_information->GetMenuJudgement()) return;
+	if (!m_menuOpenJudgement) return;
 
-	//		描画処理
-	m_state->Render();
+	m_menuUI->Render();
 
 	//		デバックフォント
 	LibrarySingleton::GetInstance()->DebugFont(L"MousePositionX",
 		static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().x), 0, 0);
 	LibrarySingleton::GetInstance()->DebugFont(L"MousePositionY",
 		static_cast<float>(LibrarySingleton::GetInstance()->GetButtonStateTracker()->GetLastState().y), 0, 30);
-	LibrarySingleton::GetInstance()->DebugFont(L"HitJudgement",
-		m_commonProcess->BoxCollider(m_information->GAMEPLAY_TITLE_POSITION_MIN, m_information->GAMEPLAY_TITLE_POSITION_MAX), 0, 60);
 }
 
 void MenuManager::Finalize()
 {
-	m_information->SetInitializeJudgement(true);
+	//		メニューの流れの終了処理
+	m_menuFlow->Finalize();
+
+	//		メニューのUIの終了処理
+	m_menuUI->Finalize();
+
+	//		マウスの処理の終了処理
+	m_mousePorcess->Finalize();
+
+	m_menuOpenJudgement = false;
+
+	//		マウスキーの削除
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeletePressedObserver(KeyInputMouse::MouseList::MenuAudio);
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeletePressedObserver(KeyInputMouse::MouseList::TabAudio);
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeletePressedObserver(KeyInputMouse::MouseList::TabOption);
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeletePressedObserver(KeyInputMouse::MouseList::TabGamePlay);
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeletePressedObserver(KeyInputMouse::MouseList::ExitButton);
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeletePressedObserver(KeyInputMouse::MouseList::MenuCloseButton);
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->DeleteKeepPushingObserver(KeyInputMouse::MouseList::Knob);
 }
 
-void MenuManager::MenuBackRneder()
+void MenuManager::KeyboardAddObserver()
 {
-	//		背景の描画
-	m_information->GetStandardShader()->Render(MenuInformation::UIType::BackGround);
-
-	//		バー１の描画
-	m_information->GetStandardShader()->Render(MenuInformation::UIType::Bar1);
-
-	//		バー２の描画
-	m_information->GetStandardShader()->Render(MenuInformation::UIType::Bar2);
+	//		キーボードオブザーバーに追加する
+	AddKeyboardObserver();
 }
 
-void MenuManager::CreateUI()
+void MenuManager::AddObserver()
 {
-	//		スタンダードシェーダーの生成
-	m_standardShader = std::make_unique<StandardShader<MenuInformation::UIType>>();
+	//		メニュー背景オブザーバーに追加する（メニューUI）
+	m_menuFlow->GetMenuBackGroundUIObserver()->AddObserver(m_menuUI.get());
+	//		メニューTabオブザーバーに追加する（メニューUI）
+	m_menuFlow->GetMenuTabUIObserver()->AddObserver(m_menuUI.get());
+	//		マウスオブザーバーに追加する（メニュー）
+	m_mousePorcess->AddMenuMouseObserver(m_menuUI.get());
+	//		マウスオブザーバーに追加する（流れ）
+	m_mousePorcess->AddMenuMouseObserver(m_menuFlow.get());
+	//		メニュー選択オブザーバーに追加する(メニューUI)
+	m_menuFlow->GetSelectTypeObserver()->AddObserver(m_menuUI.get());
+	//		メニュータイトルオブザーバーに追加する(メニューUI)
+	m_menuFlow->GetTitleUIUObserver()->AddObserver(m_menuUI.get());
+	//		メニューアイコンUIオブザーバーに追加する（メニューUI）
+	m_menuFlow->AddMenuIconUIObserver(m_menuUI.get());
+	//		マウスオブザーバーに追加する（マウス当たり判定）
+	m_mousePorcess->AddMenuMouseObserver(m_collider.get());
 
-	//		スタンダードシェーダーの初期化処理
-	m_standardShader->Initialize();
+	//		当たり判定オブザーバーに追加する（メニューの流れ）
+	m_collider->AddColliderObserver(m_menuFlow.get());
+	//		当たり判定オブザーバーに追加する（メニューUI）
+	m_collider->AddColliderObserver(m_menuUI.get());
 
-	m_standardShader->CreateUIInformation(MESSAGE_BAR_FILE_PATH,
-		MESSAGE_BAR1_FIRST_POSITION, { 0.0f, 1.0f }, MenuInformation::UIType::Bar1);
-	m_standardShader->CreateUIInformation(MESSAGE_BAR_FILE_PATH,
-		MESSAGE_BAR2_FIRST_POSITION, { 0.0f, 1.0f }, MenuInformation::UIType::Bar2);
-	m_standardShader->CreateUIInformation(MESSAGE_BACK_FILE_PATH,
-		{ 0.0f, 0.0f }, { 0.0f, 1.0f }, MenuInformation::UIType::BackGround);
-	m_standardShader->CreateUIInformation(MOUSE_POINTA_FILE_PATH,
-		{ 0.0f, 0.0f }, { 1.0f, 1.0f }, MenuInformation::UIType::MousePointa);
-
-	//		上昇UIの生成
-	m_aboveUI = std::make_unique<AboveUI>();
-
-	//		上昇UIの初期化
-	m_aboveUI->Initialize();
-
-	//		スライダーUIの生成
-	m_slider = std::make_unique<Slider>();
-
-	//		スライダーUIの初期化
-	m_slider->Initialize();
-
-	//		メニュー選択UIの生成
-	m_menuSelect = std::make_unique<MenuSelect>();
-
-	//		メニュー選択UIの初期化
-	m_menuSelect->Initialize();
-
-	//		フレームワークを生成する
-	m_frameWalkUI = std::make_unique<FrameWalkUI>();
-
-	//		フレームワークを生成する
-	m_frameWalkUI->Initialize();
-
-	//		メニューの情報を生成する
-	m_information = std::make_unique<MenuInformation>();
-
-	//		メニューの情報を初期化する
-	m_information->Initialzie(m_standardShader.get(),
-		m_aboveUI.get(), m_slider.get(), m_menuSelect.get(), m_frameWalkUI.get());
+	//		スライダーの値を設定に送るオブザーバーを追加する（設定）
+	m_menuUI->AddSliderSettingValObserver(m_gameSetting.get());
 }
 
-void MenuManager::RoughMenuViwe(float transitionTime)
+void MenuManager::AddMouseObserver()
 {
-	//		Opetionの描画
-	m_information->GetAboveUI()->Render(AboveUI::UIType::OptionSelect, transitionTime);
+	//		マウス入力処理（メニューAudio）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddPressedObserver(m_menuFlow.get(),
+			KeyInputMouse::MouseState::leftButton,
+			KeyInputMouse::MouseList::MenuAudio);
 
-	//		GamePlayの描画
-	m_information->GetAboveUI()->Render(AboveUI::UIType::GamePlaySelect, transitionTime);
+	//		マウス入力処理（メニューTabAudio）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddPressedObserver(m_menuFlow.get(),
+			KeyInputMouse::MouseState::leftButton,
+			KeyInputMouse::MouseList::TabAudio);
+	//		マウス入力処理（メニューTabOption）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddPressedObserver(m_menuFlow.get(),
+			KeyInputMouse::MouseState::leftButton,
+			KeyInputMouse::MouseList::TabOption);
+	//		マウス入力処理（メニューTabGamePlay）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddPressedObserver(m_menuFlow.get(),
+			KeyInputMouse::MouseState::leftButton,
+			KeyInputMouse::MouseList::TabGamePlay);
 
-	//		Audioのタイトル描画
-	m_information->GetAboveUI()->Render(AboveUI::UIType::AudioSelect, transitionTime);
+	//		マウス入力処理（メニューButtonExit）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddPressedObserver(m_menuFlow.get(),
+			KeyInputMouse::MouseState::leftButton,
+			KeyInputMouse::MouseList::ExitButton);
+	//		マウス入力処理（メニューButtonMenuClose）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddPressedObserver(m_menuFlow.get(),
+			KeyInputMouse::MouseState::leftButton,
+			KeyInputMouse::MouseList::MenuCloseButton);
+
+	//		マウス入力処理（メニューKnob）
+	m_sceneManager->GetInformation()->GetMouseKeyInput()
+		->GetMouseKeyInputObserver()->AddKeepPushingObserver(m_menuUI.get(),
+			KeyInputMouse::MouseState::keepLeftButton,
+			KeyInputMouse::MouseList::Knob);
 }
 
-void MenuManager::MenuSelectView()
+void MenuManager::AddKeyboardObserver()
 {
-	//		選択していない場合描画処理をしない
-	if (m_information->GetRangeUI() != AboveUI::UIType::Empty)
-		m_information->GetMenuSelect()->Render((*m_information->GetAboveUI()->GetInformation())[m_information->GetRangeUI()].position);
+	//		キーボードの処理の追加
+	m_sceneManager->GetInformation()->GetKeyboardManager()->
+		AddKeyboard(m_menuFlow.get(), DirectX::Keyboard::Keys::Tab,
+		KeyboardList::MenuOpen, KeyboardManager::Pressed);
+
+	m_sceneManager->GetInformation()->GetKeyboardManager()->
+		AddKeyboard(m_menuFlow.get(), DirectX::Keyboard::Keys::Tab,
+			KeyboardList::MenuClose, KeyboardManager::Pressed);
 }
 
-void MenuManager::ChangState(MenuInformation::MenuType type)
+void MenuManager::MenuUseJudgement(bool judgement)
 {
-	//		同じタイプの場合処理をしない
-	if (m_type == type) return;
-
-	//		終了処理
-	m_state->Finalize();
-
-	//		タイプの更新
-	m_type = type;
-
-	//		状態の更新
-	m_state = m_menuStateInformation[type].get();
-
-	//		初期化処理
-	m_state->Initialize();
+	m_menuUseJudgement = judgement;
 }
 
-bool MenuManager::Transition(float* transitionTime1, float* transitionTime2, float* transitionTime3,
-							bool* startJudgement, bool endJudgement, bool moveJudgement)
+void MenuManager::MenuOpen()
 {
-	if (*startJudgement)
-	{
-		//		メニュー開始時のUIの動き
-		TransitionStart(transitionTime1, transitionTime2, transitionTime3, startJudgement, moveJudgement);
-
-		return true;
-	}
-
-	if (endJudgement)
-	{
-		//		メニュー終了時のUIの動き
-		TransitionEnd(transitionTime1, transitionTime2, transitionTime3, moveJudgement);
-
-		return true;
-	}
-
-
-	return false;
-}
-
-void MenuManager::TransitionStart(float* transitionTime1, float* transitionTime2, float* transitionTime3,
-								  bool* startJudgement, bool moveJudgement)
-{
-	//		開始状態の場合
-	if (*startJudgement)
-	{
-		//		時間1の更新
-		*transitionTime1 += LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-
-		//		時間1が一定時間以上になったら他の時間も更新する
-		if (*transitionTime1 > 0.3f)
-		{
-			//		時間2の更新
-			*transitionTime2 += LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-
-			//		時間2が一定時間以上3遷移フラグがオンの場合時間3の更新をする
-			if (*transitionTime2 > 0.3f && moveJudgement)
-			{
-				//		時間3の更新
-				*transitionTime3 += LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-			}
-		}
-
-		//		1以上にならないようにする
-		*transitionTime1 = Library::Clamp(*transitionTime1, 0.0f, 1.0f);
-		*transitionTime2 = Library::Clamp(*transitionTime2, 0.0f, 1.0f);
-		*transitionTime3 = Library::Clamp(*transitionTime3, 0.0f, 1.0f);
-
-		//		3の更新をする場合
-		if (moveJudgement)
-		{
-			//		3の更新が終わったら
-			if (*transitionTime3 >= 1.0f)
-			{
-				//		開始状態を終了する
-				*startJudgement = false;
-			}
-		}
-		else
-		{
-			//		2の更新が終わったら
-			if (*transitionTime2 >= 1.0f)
-			{
-				//		開始状態を終了する
-				*startJudgement = false;
-			}
-		}
-	}
-}
-
-void MenuManager::TransitionEnd(float* transitionTime1, float* transitionTime2, float* transitionTime3, bool moveJudgement)
-{
-	//		時間1の更新
-	*transitionTime1 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-
-	//		時間1が一定時間以下になったら他の時間も更新する
-	if (*transitionTime1 < 0.7f)
-	{
-		//		時間2の更新
-		*transitionTime2 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-
-		//		時間2が一定時間以下3遷移フラグがオンの場合時間3の更新をする
-		if (*transitionTime2 < 0.7f && moveJudgement)
-		{
-			//		時間3の更新
-			*transitionTime3 -= LibrarySingleton::GetInstance()->GetElpsedTime() * m_information->TRANSITION_SPEED;
-		}
-	}
-
-	//		0以下にならないようにする
-	*transitionTime1 = Library::Clamp(*transitionTime1, 0.0f, 1.0f);
-	*transitionTime2 = Library::Clamp(*transitionTime2, 0.0f, 1.0f);
-	*transitionTime3 = Library::Clamp(*transitionTime3, 0.0f, 1.0f);
-
-	if (moveJudgement)
-	{
-		if (*transitionTime3 <= 0.0f)
-		{
-			//		シーンを切り替える
-			ChangState(MenuInformation::MenuType::Close);
-		}
-	}
-	else
-	{
-		if (*transitionTime2 <= 0.0f)
-		{
-			//		シーンを切り替える
-			ChangState(m_information->GetSelectUI());
-		}
-	}
+	//		メニューを開く
+	m_menuOpenJudgement = true;
 }

@@ -72,7 +72,7 @@ void PlayerStartCamera::ChangeStateConfirmation()
 {
 	if (m_time >= STATE_CHANGE_TIME)
 	{
-		//*
+		/*
 		//		‰Šúó‘Ô‚Ìê‡
 		if (m_firstViewJudgement)
 		{

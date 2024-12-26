@@ -13,7 +13,8 @@
 
 #include "../Observer/GameExitObserver/ITitleGameExitObserver.h"
 
-class TitleSceneChange : public ITitlePostEffectObserver, public ITitleGameExitObserver
+class TitleSceneChange : public ITitlePostEffectObserver,
+						 public ITitleGameExitObserver
 {
 public:
 

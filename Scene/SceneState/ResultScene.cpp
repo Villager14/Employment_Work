@@ -12,11 +12,15 @@
 ResultScene::ResultScene(SceneManager* sceneManager)
 	:
 	m_sceneManager(sceneManager),
-	m_score(0.0f)
+	m_score(0.0f),
+	m_menuOpenJugement(false)
 {
 	//		リザルトマネージャーの生成
 	m_resultManager = std::make_unique<ResultManager>
 		(sceneManager->GetInformation()->GetPostEffectManager());
+
+	//		メニューを使用できるか判断するオブザーバーを生成する
+	m_menuUsedObserver = std::make_unique<MenuUsedObserver>();
 }
 
 ResultScene::~ResultScene()
@@ -69,10 +73,10 @@ void ResultScene::Update()
 	m_resultManager->BackGroundUpdate();
 
 	//		メニューを開いている場合処理をしない
-	if (m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->GetMenuJudgement()) return;
+	if (m_menuOpenJugement)return;
 
 	//		メニューを使えるかどうか
-	m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
+	//m_sceneManager->GetInformation()->GetMenuManager()->GetInformation()->SetMenuUseJudgement(m_resultManager->GetMenuUseJugement());
 
 	//		リザルトマネージャーの更新処理
 	m_resultManager->Update();
@@ -122,4 +126,16 @@ void ResultScene::CreateView()
 	//		ビュー行列を設定する
 	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
 	({0.0f, 0.0f, 0.0f}, target, up));
+}
+
+void ResultScene::MenuOpen()
+{
+	//		メニューを開くかどうか
+	m_menuOpenJugement = true;
+}
+
+void ResultScene::MenuClose()
+{
+	//		メニューを開いていない
+	m_menuOpenJugement = false;
 }

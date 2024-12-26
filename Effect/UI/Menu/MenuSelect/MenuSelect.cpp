@@ -39,14 +39,17 @@ void MenuSelect::Initialize()
 		static_cast<float>(LibrarySingleton::GetInstance()->GetScreenSize().y), 1, 1);
 }
 
-void MenuSelect::Render(DirectX::SimpleMath::Vector2 position)
+void MenuSelect::Update()
 {
 	//		経過時間
 	m_time += LibrarySingleton::GetInstance()->GetElpsedTime();
 
 	//		コンストバッファの更新
 	m_constBuffer.time = { m_time, 0.0f, 0.0f, 0.0f };
+}
 
+void MenuSelect::Render(DirectX::SimpleMath::Vector2 position)
+{
 	//		座補を設定する
 	m_shader->SetPosition(position);
 

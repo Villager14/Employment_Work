@@ -33,7 +33,7 @@ public:
 		m_menuTransitionJudgement(false),
 		m_rangeUI(AboveUI::UIType::Empty),
 		m_slideUIType(AboveUI::UIType::Empty),
-		m_selectUI(MenuInformation::MenuType::Empty),
+		//m_selectUI(MenuInformation::MenuType::Empty),
 		m_initializeProcessJudgement(true)
 	{}
 
@@ -45,26 +45,12 @@ public:
 
 	enum UIType
 	{
-		Bar1,
-		Bar2,
-		BackGround,
 		AudioSelect,
 		OptionSelect,
 		GamePlaySelect,
 		Slide,
 		AudioTitle,
 		MousePointa,
-	};
-
-	enum MenuType
-	{
-		Start,
-		Audio,
-		Option,
-		GamePlay,
-		Close,
-
-		Empty,
 	};
 
 public:
@@ -93,17 +79,6 @@ public:
 
 
 public:
-	//		音楽タイトルの座標
-	const DirectX::SimpleMath::Vector2 AUDIO_TITLE_POSITION_MIN = { 119.0f, 106.0f };
-	const DirectX::SimpleMath::Vector2 AUDIO_TITLE_POSITION_MAX = { 400.0f, 210.0f };
-
-	//		オプションタイトルの座標
-	const DirectX::SimpleMath::Vector2 OPTION_TITLE_POSITION_MIN = { 119.0f, 227.0f };
-	const DirectX::SimpleMath::Vector2 OPTION_TITLE_POSITION_MAX = { 400.0f, 329.0f };
-
-	//		終了タイトルの座標
-	const DirectX::SimpleMath::Vector2 GAMEPLAY_TITLE_POSITION_MIN = { 119.0f, 347.0f };
-	const DirectX::SimpleMath::Vector2 GAMEPLAY_TITLE_POSITION_MAX = { 400.0f, 452.0f };
 
 	//		遷移速度
 	const float TRANSITION_SPEED = 3.0f;
@@ -147,7 +122,7 @@ private:
 	AboveUI::UIType m_rangeUI;
 
 	//		次の状態を設定する
-	MenuInformation::MenuType m_selectUI;
+	//MenuInformation::MenuType m_selectUI;
 
 	//		スライダーを使っているUIの種類
 	AboveUI::UIType m_slideUIType;
@@ -305,19 +280,19 @@ public:
 	*/
 	void SetRangeUI(AboveUI::UIType type) { m_rangeUI = type; };
 
-	/*
-	*	次の状態を受け取る
-	*
-	*	@return 状態
-	*/
-	MenuInformation::MenuType GetSelectUI() { return m_selectUI; }
+	///*
+	//*	次の状態を受け取る
+	//*
+	//*	@return 状態
+	//*/
+	//MenuInformation::MenuType GetSelectUI() { return m_selectUI; }
 
-	/*
-	*	次の状態を設定する
-	*
-	*	@param	(type)	状態
-	*/
-	void SetSelectUI(MenuInformation::MenuType type) { m_selectUI = type; };
+	///*
+	//*	次の状態を設定する
+	//*
+	//*	@param	(type)	状態
+	//*/
+	//void SetSelectUI(MenuInformation::MenuType type) { m_selectUI = type; };
 
 	/*
 	*	スライダー選択UIを受け取る

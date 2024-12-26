@@ -11,6 +11,10 @@
 
 #include "Effect/PostEffect/PostEffectManager.h"
 
+#include "Library/Mouse/MouseKeyInput.h"
+
+#include "Library/Keyboard/KeyboardManager.h"
+
 #include "Game/Menu/MenuManager.h"
 
 class SceneManagerInformation
@@ -24,8 +28,9 @@ public:
 		m_deathCount(0),
 		m_maxTime(0),
 		m_endJudgement(false),
-		m_postEffectManager{nullptr},
-		m_menuManager{nullptr}
+		m_postEffectManager{ nullptr },
+		m_menuManager{ nullptr },
+		m_mouseKeyInput{ nullptr }
 	{}
 
 	//		デストラクタ
@@ -33,19 +38,31 @@ public:
 
 	/*
 	*	初期化処理
-	* 
+	*
 	*	@param	(postEffectManager)	ポストエフェクトマネージャのポインタ
+	*	@param	(m_mouseKeyInput)	マウスのキー入力処理のポインタ
 	*/
-	void Initialize(PostEffectManager* postEffectManager, MenuManager* menuManager)
+	void Initialize(PostEffectManager* postEffectManager,
+		MenuManager* menuManager,
+		MouseKeyInput* mouseKeyInput,
+		KeyboardManager* keyboardManager)
 	{
 		m_postEffectManager = postEffectManager;
 		m_menuManager = menuManager;
+		m_mouseKeyInput = mouseKeyInput;
+		m_keyboardManager = keyboardManager;
 	}
 
 private:
 
 	//		ポストエフェクトマネージャーのポインタ
 	PostEffectManager* m_postEffectManager;
+
+	//		マウスのキー入力処理のポインタ
+	MouseKeyInput* m_mouseKeyInput;
+
+	//		キーボードのキー入力処理のポインタ
+	KeyboardManager* m_keyboardManager;
 
 	//		メニューマネージャーのポインタ
 	MenuManager* m_menuManager;
@@ -66,10 +83,24 @@ public:
 
 	/*
 	*	ポストエフェクトを受け取る
-	* 
+	*
 	*	@return インスタンスのポインタ
 	*/
 	PostEffectManager* GetPostEffectManager() { return m_postEffectManager; }
+
+	/*
+	*	マウスキー入力を受け取る
+	*
+	*	@return マウスのキー入力のポインタ
+	*/
+	MouseKeyInput* GetMouseKeyInput() { return m_mouseKeyInput; }
+
+	/*
+	*	キーボード入力を受け取る
+	* 
+	*	@return キーボードのキー入力のポインタ
+	*/
+	KeyboardManager* GetKeyboardManager() { return m_keyboardManager; }
 
 	/*
 	*	メニューマネージャーを受け取る

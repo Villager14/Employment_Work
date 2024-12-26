@@ -21,6 +21,8 @@ TitleCameraManager::TitleCameraManager()
 	m_fadeOutUseJudgement(false)
 {
 	m_fadeObserver = std::make_unique<FadeObserver>();
+
+	m_cameraViewVelocityObserver = std::make_unique<CameraViewVelocityObserver>();
 }
 
 TitleCameraManager::~TitleCameraManager()
@@ -44,6 +46,8 @@ void TitleCameraManager::Initialize()
 
 	m_state->Initialize();
 
+	m_state->Update();
+
 	CreateProj();
 }
 
@@ -66,6 +70,10 @@ void TitleCameraManager::CreateView(DirectX::SimpleMath::Vector3 position,
 	//		ƒrƒ…[s—ñ‚ðÝ’è‚·‚é
 	LibrarySingleton::GetInstance()->SetView(DirectX::SimpleMath::Matrix::CreateLookAt
 	(position, target, up));
+
+	m_cameraViewVelocityObserver->CameraViewVelocity(target - position);
+	m_cameraViewVelocityObserver->CameraUp(up);
+	m_cameraViewVelocityObserver->CameraView(position);
 }
 
 void TitleCameraManager::CreateProj()

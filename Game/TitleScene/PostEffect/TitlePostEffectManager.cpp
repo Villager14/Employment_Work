@@ -32,9 +32,10 @@ void TitlePostEffectManager::Initialize()
 	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Bloom);
 	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
 	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
-
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Alpha);
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
+	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Color);
 	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::UI);
-	//m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::PlayerView);
 	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::UIBack);
 	m_posteffectFlag->TrueFlag(PostEffectFlag::Flag::Fade);
 

@@ -9,26 +9,25 @@
 
 #include <unordered_map>
 
-#include "IMenu.h"
+#include "UI/MenuUI.h"
 
-#include "State/AudioSetting.h"
-#include "State/MenuStart.h"
-#include "State/OptionSetting.h"
-#include "State/EndSetting.h"
-#include "State/MenuClose.h"
+#include "Flow/MenuFlow.h"
 
-#include "MenuInformation.h"
+#include "Mouse/MenuMouseProcess.h"
 
-#include "MenuCommonProcess.h"
+#include "Collider/UIMouseCollider.h"
+
+#include "Setting/GameSetting.h"
+
+#include "Game/Observer/Menu/MenuOpenJudgementObserver/MenuOpenJudgementObserver.h"
+
+#include "Game/Observer/Menu/MenuUsedObserver/IMenuUsedObserver.h"
+#include "Game/Observer/Menu/MenuOpenObserver/IMenuOpenObserver.h"
 
 class SceneManager;
 
-class AboveUI;
-class Slider;
-class MenuSelect;
-class FrameWalkUI;
-
-class MenuManager
+class MenuManager : public IMenuUsedObserver,
+					public IMenuOpenObserver
 {
 public:
 	//		コンストラクタ
@@ -48,150 +47,60 @@ public:
 
 	//		終了処理
 	void Finalize();
+
+	//		キーボードオブザーバーに登録する
+	void KeyboardAddObserver();
 	
-	//		メニューの背景の描画
-	void MenuBackRneder();
+	//		メニューを使うことができるか判断する
+	void MenuUseJudgement(bool judgement) override;
 
-	//		UIの作製
-	void CreateUI();
-
-private:
-	//		メッセージバーのファイルパス
-	const wchar_t* MESSAGE_BAR_FILE_PATH = L"Resources/Texture/UI/GameClear/messegeBer.png";
-
-	//		メッセージ背景のファイルパス
-	const wchar_t* MESSAGE_BACK_FILE_PATH = L"Resources/Texture/UI/GameClear/messegeBack.png";
-
-	//		メッセージ背景のファイルパス
-	const wchar_t* MOUSE_POINTA_FILE_PATH = L"Resources/Texture/Menu/Title/mousePointa.png";
-
-	//		メッセージバー１の初期座標
-	const DirectX::SimpleMath::Vector2 MESSAGE_BAR1_FIRST_POSITION = { 0.0f, 13.0f };
-
-	//		メッセージバー２の初期座標
-	const DirectX::SimpleMath::Vector2 MESSAGE_BAR2_FIRST_POSITION = { 0.0f, -13.0f };
+	//		メニューを開いている
+	void MenuOpen() override;
 
 private:
 
-	//		現在のタイプ
-	MenuInformation::MenuType m_type;
+	//		オブザーバーの追加
+	void AddObserver();
 
-	//		現在の状態
-	IMenu* m_state;
+	//		マウス入力のオブザーバーの追加
+	void AddMouseObserver();
 
-	//		メニューの状態の情報
-	std::unordered_map<MenuInformation::MenuType, std::unique_ptr<IMenu>> m_menuStateInformation;
+	//		キーボード入力のオブザーバーの追加
+	void AddKeyboardObserver();
+
+private:
+
+	//		シーンマネージャ
+	SceneManager* m_sceneManager;
+
+	//		メニューUI
+	std::unique_ptr<MenuUI> m_menuUI;
+
+	//		メニューの流れ
+	std::unique_ptr<MenuFlow> m_menuFlow;
+
+	//		マウスの処理
+	std::unique_ptr<MenuMouseProcess> m_mousePorcess;
+
+	//		当たり判定
+	std::unique_ptr<UIMouseCollider> m_collider;
+
+	//		メニューオープンオブザーバー
+	std::unique_ptr<MenuOpenJudgementObserver> m_menuOpenObserver;
+
+	//		ゲームの設定
+	std::unique_ptr<GameSetting> m_gameSetting;
+
+	//		メニューを使用できるか
+	bool m_menuUseJudgement;
 
 	//		初めて音楽メニューを開いているかどうか
 	bool m_firstAudioMenuJudgement;
 
-	//		メニューの情報
-	std::unique_ptr<MenuInformation> m_information;
+	//		メニューを開くかどうか
+	bool m_menuOpenJudgement;
 
-	//		スタンダードシェーダー
-	std::unique_ptr<StandardShader<MenuInformation::UIType>> m_standardShader;
-
-	//		上昇UI
-	std::unique_ptr<AboveUI> m_aboveUI;
-
-	//		スライダーUI
-	std::unique_ptr<Slider> m_slider;
-
-	//		メニューの選択
-	std::unique_ptr<MenuSelect> m_menuSelect;
-
-	//		フレームワークUI
-	std::unique_ptr<FrameWalkUI> m_frameWalkUI;
-
-	//		共通処理
-	std::unique_ptr<MenuCommonProcess> m_commonProcess;
-
-	//		シーンマネージャ
-	SceneManager* m_sceneManager;
 public:
-
-	/*
-	*	メニューの情報を受け取る
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	MenuInformation* GetInformation() { return m_information.get(); }
-
-	/*
-	*	大まかなメニューの描画
-	* 
-	*	@param	(transitionTime)	遷移時間
-	*/
-	void RoughMenuViwe(float transitionTime);
-
-	//		選択したメニューの描画
-	void MenuSelectView();
-
-	/*
-	*	状態の切り替え
-	* 
-	*	@param	(type)	状態
-	*/
-	void ChangState(MenuInformation::MenuType type);
-
-	/*
-	*	UIの遷移処理
-	*
-	*	@param	(transitionTime1)	遷移時間１
-	*	@param	(transitionTime2)	遷移時間２
-	*	@param	(transitionTime3)	遷移時間３
-	*	@param	(startJudgement)	スタートしているかどうか判断する
-	*	@param	(endJudgement)		終わらせるかどうか判断する
-	*	@param	(moveJudgement)		遷移時間３を動かすか判断する
-	*/
-	bool Transition(float* transitionTime1, float* transitionTime2, float* transitionTime3,
-					bool* startJudgement, bool endJudgement, bool moveJudgement);
-
-
-	/*
-	*	UIの遷移処理（開始）
-	* 
-	*	@param	(transitionTime1)	遷移時間１
-	*	@param	(transitionTime2)	遷移時間２
-	*	@param	(transitionTime3)	遷移時間３
-	*	@param	(startJudgement)	スタートしているかどうか判断する
-	*	@param	(moveJudgement)		遷移時間３を動かすか判断する
-	*/
-	void TransitionStart(float* transitionTime1, float* transitionTime2, float* transitionTime3,
-		bool* startJudgement, bool moveJudgement);
-
-	/*
-	*	UIの遷移処理（終了）
-	*
-	*	@param	(transitionTime1)	遷移時間１
-	*	@param	(transitionTime2)	遷移時間２
-	*	@param	(transitionTime3)	遷移時間３
-	*	@param	(moveJudgement)		遷移時間３を動かすか判断する
-	*/
-	void TransitionEnd(float* transitionTime1, float* transitionTime2, float* transitionTime3, bool moveJudgement);
-
-	/*
-	*	イージング関数通常UI用
-	* 
-	*	@param	(time)	時間
-	*/
-	float EasingIcon(float time) { return 1.0f - pow(1.0f - time, 3.0f); }
-
-	/*
-	*	イージング関数背景用
-	* 
-	*	@param	(time) 時間
-	*/
-	float EasingBackUI(float time) {
-		if (time == 1.0f)
-		{
-			return 1.0f;
-		}
-		else
-		{
-			return 1.0f - pow(2.0f, -10.0f * time);
-		}
-	}
 
 	/*
 	*	Audioメニューをメニューを開いた時一度だけ行う処理を受け取る
@@ -208,17 +117,30 @@ public:
 	void SetFirstAudioMenuJudgement(bool judgement) { m_firstAudioMenuJudgement = judgement; }
 
 	/*
-	*	メニューの共通処理
-	* 
-	*	@return インスタンスのポインタ
-	*/
-	MenuCommonProcess* GetCommonProcess() { return m_commonProcess.get(); }
-
-	/*
 	*	シーンマネージャーを受け取る
 	* 
 	*	@return インスタンスのポインタ
 	*/
 	SceneManager* GetSceneManager() { return m_sceneManager; }
 
+	/*
+	*	メニューオープンオブザーバーを追加する
+	* 
+	*	@param	(observer)	オブザーバーのインスタンスのポインタ
+	*/
+	void AddMenuOpenObserver(IMenuOpenJudgementObserver* observer) { m_menuOpenObserver->AddObserver(observer); }
+
+	/*
+	*	カメラの視野角のオブザーバーを追加する
+	*
+	*	@param	(observer)	オブザーバーのインスタンスのポインタ
+	*/
+	void AddCameraViewAngle(IMenuCameraViewAngle* observer) { m_gameSetting->AddCameraViewAngle(observer); }
+
+	/*
+	*	カメラの速度のオブザーバーを追加する
+	*
+	*	@param	(observer)	オブザーバーのインスタンスのポインタ
+	*/
+	void AddCameraSpeed(IMenuCameraSpeed* observer) { m_gameSetting->AddCameraSpeed(observer); }
 };

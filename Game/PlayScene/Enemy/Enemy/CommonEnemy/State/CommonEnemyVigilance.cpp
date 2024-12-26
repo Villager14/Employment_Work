@@ -48,7 +48,7 @@ void CommonEnemyVigilance::Update()
 
 void CommonEnemyVigilance::Render()
 {
-	m_commonEnemy->GetPlayerAnimation()->Render();
+	//m_commonEnemy->GetPlayerAnimation()->Render();
 }
 
 void CommonEnemyVigilance::Finalize()

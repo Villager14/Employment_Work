@@ -31,11 +31,13 @@ void TitlePlayer::Initialize()
 	//		’Êí•`‰æ‚ð‚·‚é‚æ‚¤‚É‚·‚é
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Normal);
 	//		ƒuƒ‹[ƒ€‚ðŠ|‚¯‚é‚æ‚¤‚É‚·‚é
-	m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
+	//m_postEffectFlag->FalseFlag(PostEffectFlag::Flag::Bloom);
 	//		ƒuƒ‹[ƒ€‚Ì[“x•`‰æ‚Í•`‰æ‚µ‚È‚¢
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::BloomDepth);
 	//		ƒtƒHƒO‚Ìˆ—‚Ìê‡•`‰æ‚·‚é
 	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::Fog);
+	//		ƒAƒ‹ƒtƒ@‚Ìˆ—‚Ìê‡•`‰æ‚·‚é
+	m_postEffectFlag->TrueFlag(PostEffectFlag::Flag::AlphaDepth);
 }
 
 void TitlePlayer::Update()
@@ -45,12 +47,13 @@ void TitlePlayer::Update()
 		{ 180.0f, 0.0f }, 2.5f);
 }
 
-void TitlePlayer::Render(PostEffectFlag::Flag flag)
+void TitlePlayer::Render(PostEffectFlag::Flag flag,
+	PostEffectObjectShader* postEffectObjectShader)
 {
 	//		ƒtƒ‰ƒO‚ªƒIƒt‚Ìê‡ˆ—‚ð‚µ‚È‚¢
 	if (!m_postEffectFlag->FlagJudgement(flag)) return;
 
-	m_playerAnimation->Render();
+	m_playerAnimation->Render(flag, postEffectObjectShader);
 }
 
 void TitlePlayer::Finalize()

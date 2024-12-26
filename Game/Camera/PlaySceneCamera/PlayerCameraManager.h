@@ -19,6 +19,8 @@
 
 #include "Game/PlayScene/Player/Observer/PCameraObserver/IPCameraObserver.h"
 
+#include "Game/Observer/CameraViewVelocity/CameraViewVelocityObserver.h"
+
 #include <unordered_map>
 
 class PlayerCameraManager : public IPHeightObserver,
@@ -114,6 +116,9 @@ private:
 	//		派生クラスの格納
 	std::unordered_map<CameraType, std::unique_ptr<IPlayerCamera>> m_stateInformation;
 
+	//		カメラのビューVelocityオブザーバー
+	std::unique_ptr<CameraViewVelocityObserver> m_cameraViewVelocityObserver;
+
 	//		現在のカメラタイプ
 	CameraType m_cameraType;
 
@@ -149,4 +154,10 @@ public:
 	*/
 	PlayerCameraInformation* GetInformation() { return m_information.get(); }
 	
+	/*
+	*	オブザーバーの追加
+	* 
+	*	@param	(observer)	オブザーバーのポインタのインスタンス
+	*/
+	void AddCameraObserver(ICameraViewVelocityObserver* observer) { m_cameraViewVelocityObserver->AddObserver(observer); }
 };

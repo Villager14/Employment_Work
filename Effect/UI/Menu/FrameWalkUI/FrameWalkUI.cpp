@@ -41,7 +41,7 @@ void FrameWalkUI::Initialize()
 	CreateFrameInformtion(FrameType::EXIT, EXIT_POSITION);
 }
 
-void FrameWalkUI::Render(float time, FrameType type)
+void FrameWalkUI::Update(FrameType type)
 {
 	//		ボックスに当たっているか
 	if (m_frameInformation[type].boxhitJudgement)
@@ -60,12 +60,15 @@ void FrameWalkUI::Render(float time, FrameType type)
 
 	//		イージング関数
 	m_frameInformation[type].time = 1.0f - pow(1.0f - m_frameInformation[type].move, 4.0f);
+}
 
-	//		コンストバッファに時間の値を渡す
-	m_constBuffer.time = { time, m_frameInformation[type].time, 0.0f, 0.0f};
-	
+void FrameWalkUI::Render(float moveTime, FrameType type)
+{
 	//		シェーダーの座標を設定する
 	m_shader->SetPosition(m_frameInformation[type].position);
+
+	//		コンストバッファに時間の値を渡す
+	m_constBuffer.time = { moveTime, m_frameInformation[type].time, 0.0f, 0.0f };
 
 	//		描画
 	m_shader->Render(m_constBuffer);
