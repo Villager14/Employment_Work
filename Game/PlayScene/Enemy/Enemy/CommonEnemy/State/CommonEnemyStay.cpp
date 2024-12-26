@@ -43,7 +43,7 @@ void CommonEnemyStay::Update()
 
 void CommonEnemyStay::Render()
 {
-	m_commonEnemy->GetPlayerAnimation()->Render();
+	//m_commonEnemy->GetPlayerAnimation()->Render();
 }
 
 void CommonEnemyStay::Finalize()

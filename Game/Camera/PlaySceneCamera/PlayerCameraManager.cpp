@@ -29,6 +29,9 @@ PlayerCameraManager::PlayerCameraManager(GameManager* gameManager)
 	//		カメラの情報を
 	m_information = std::make_unique<PlayerCameraInformation>();
 
+	//		カメラのビューベクトルオブザーバー
+	m_cameraViewVelocityObserver = std::make_unique<CameraViewVelocityObserver>();
+
 	//		カメラの派生クラスの生成
 	m_stateInformation.insert({ CameraType::Standard, std::make_unique<PlayerCamera>(this) });
 	m_stateInformation.insert({ CameraType::Debug, std::make_unique<DebugCamera>(this) });
@@ -178,6 +181,10 @@ void PlayerCameraManager::CreateEye(DirectX::SimpleMath::Vector3 position,
 
 	//		視線ベクトルを設定する
 	m_information->SetViewVelocity(target - position);
+
+	m_cameraViewVelocityObserver->CameraViewVelocity(m_information->GetViewVelocity());
+	m_cameraViewVelocityObserver->CameraView(m_information->GetEye());
+	m_cameraViewVelocityObserver->CameraUp(m_information->GetUP());
 }
 
 void PlayerCameraManager::PlayerHeght(DirectX::SimpleMath::Vector3 height)

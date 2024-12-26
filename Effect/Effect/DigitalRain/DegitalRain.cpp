@@ -9,15 +9,12 @@
 
 #include "DegitalRain.h"
 
-#include "../EffectManager.h"
-
 #include <WICTextureLoader.h>
 
 #include "Common/BinaryFile.h"
 
-DegitalRain::DegitalRain(EffectManager* effectManager)
+DegitalRain::DegitalRain()
 	:
-	m_effectManager(effectManager),
 	m_time(0.0f)
 {
 	m_effectShaderManager = std::make_unique<EffectShaderManager<ConstBuffer>>();
@@ -64,17 +61,19 @@ void DegitalRain::Initialzie()
 
 void DegitalRain::Update()
 {
+	m_position = m_cameraEye;
+
 	for (int i = 0; i < m_parameta.size(); ++i)
 	{
 		m_parameta[i].position.y -= m_parameta[i].speed * LibrarySingleton::GetInstance()->GetElpsedTime();
 
-		DirectX::SimpleMath::Vector3 cameraDirection = m_effectManager->GetCameraInformation()->GetViewVelocity();
+		DirectX::SimpleMath::Vector3 cameraDirection = m_cameraViewVelocity;
 
 		cameraDirection.y = 0.0f;
 
 		cameraDirection.Normalize();
 
-	  	DirectX::SimpleMath::Vector3 objectPos = m_parameta[i].position - m_effectManager->GetPlayerInformation()->GetPosition();
+	  	DirectX::SimpleMath::Vector3 objectPos = m_parameta[i].position - m_position;
 
 		if (objectPos.Length() > MAX_LENGTH + 5.0f ||
 			objectPos.Length() < 0.0f)
@@ -96,8 +95,7 @@ void DegitalRain::Update()
 	
 	for (int i = 0; i < m_parameta.size(); ++i)
 	{
-		Billbord(m_effectManager->GetCameraInformation()->GetEye(),
-			m_effectManager->GetCameraInformation()->GetUP(), i);
+		Billbord(m_cameraEye, m_cameraUp, i);
 	}
 
 	//		ソート処理
@@ -209,8 +207,10 @@ int DegitalRain::BinaryDigits(int number)
 
 void DegitalRain::Sort()
 {
+	m_position = m_cameraEye;
+
 	//		プレイヤーの座標
-	DirectX::SimpleMath::Vector3 playerPosition = m_effectManager->GetPlayerInformation()->GetPosition();
+	DirectX::SimpleMath::Vector3 playerPosition = m_position;
 
 	//		プレイヤーからの距離を計算する
 	for (int i = 0; i < m_parameta.size(); ++i)
@@ -259,7 +259,7 @@ void DegitalRain::CoolTime()
 
 void DegitalRain::GenerationPosition(int index)
 {
-	DirectX::SimpleMath::Vector3 cameraDirection = m_effectManager->GetCameraInformation()->GetViewVelocity();
+	DirectX::SimpleMath::Vector3 cameraDirection = m_cameraViewVelocity;
 
 	cameraDirection.Normalize();
 
@@ -272,7 +272,9 @@ void DegitalRain::GenerationPosition(int index)
 
 	float length = LibrarySingleton::GetInstance()->Random(MIN_LENGTH, MAX_LENGTH);
 
-	DirectX::SimpleMath::Vector3 position = m_effectManager->GetPlayerInformation()->GetPlayerHeight();
+	DirectX::SimpleMath::Vector3 position = m_position;
+	position.y += 5.0f;
+	//DirectX::SimpleMath::Vector3 position = m_effectManager->GetPlayerInformation()->GetPlayerHeight();
 
 	position.y += LibrarySingleton::GetInstance()->Random(-5.0f, 40.0f);
 
@@ -286,7 +288,7 @@ void DegitalRain::GenerationPosition(int index)
 
 	m_parameta[index].position = position;
 
-	m_parameta[index].resetHeight = m_effectManager->GetPlayerInformation()->GetPosition().y - 20.0f;
+	m_parameta[index].resetHeight = m_position.y - 20.0f;
 }
 
 void DegitalRain::Billbord(DirectX::SimpleMath::Vector3 eye, DirectX::SimpleMath::Vector3 up, int index)

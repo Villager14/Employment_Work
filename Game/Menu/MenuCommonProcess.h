@@ -22,7 +22,6 @@ public:
 	//		メニューのESCボタンで閉じる処理
 	bool MenuEscCloseProcess();
 
-
 	/*
 	*	四角の当たり判定
 	* 
@@ -37,7 +36,7 @@ public:
 	*
 	*	@param	(type)	選択しないメニューの種類
 	*/
-	bool ButtonCollider(MenuInformation::MenuType type);
+	//bool ButtonCollider(MenuInformation::MenuType type);
 
 	/*
 	*	スライダーの処理

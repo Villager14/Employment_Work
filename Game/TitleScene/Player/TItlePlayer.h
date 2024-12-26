@@ -13,6 +13,8 @@
 
 #include "../Observer/TitlePlayerAnimationObserver/ITitlePlayerAnimationObserver.h"
 
+#include "Effect/PostEffect/PostEffectObjectShader.h"
+
 class TitlePlayer : public ITitlePlayerAnimationObserver
 {
 public:
@@ -34,7 +36,8 @@ public:
 	* 
 	*	@param	(flag)	ポストエフェクトフラグ
 	*/
-	void Render(PostEffectFlag::Flag flag);
+	void Render(PostEffectFlag::Flag flag, 
+				PostEffectObjectShader* postEffectObjectShader);
 
 	//		終了処理
 	void Finalize();

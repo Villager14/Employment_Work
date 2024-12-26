@@ -17,6 +17,13 @@
 
 #include "Game/Menu/MenuManager.h"
 
+#include "Library/Mouse/MouseKeyInput.h"
+#include "Library/Keyboard/KeyboardManager.h"
+
+class PlayScene;
+class TitleScene;
+class ResultScene;
+
 class SceneManager
 {
 public:
@@ -38,6 +45,9 @@ public:
 	//		終了処理
 	void Finalize();
 
+	//		オブザーバーの追加
+	void AddObserver();
+
 public:
 
 	enum SceneType
@@ -57,16 +67,31 @@ private:
 	std::unique_ptr<MenuManager> m_menuManager;
 
 	//		シーンの情報
-	std::unordered_map<SceneType, std::unique_ptr<IScene>> m_sceneInformation;
+	std::unordered_map<SceneType, IScene*> m_sceneInformation;
 
 	//		シーンタイプ
 	SceneType m_sceneType;
 
 	//		ポストエフェクトマネージャー
 	std::unique_ptr<PostEffectManager> m_postEffectManager;
+
+	//		マウスキー入力
+	std::unique_ptr<MouseKeyInput> m_mouseKeyInput;
+
+	//		キーボード入力
+	std::unique_ptr<KeyboardManager> m_keyboardInput;
 	
 	//		シーンマネージャーの情報
 	std::unique_ptr<SceneManagerInformation> m_information;
+
+	//		プレイシーン
+	std::unique_ptr<PlayScene> m_playScene;
+
+	//		タイトルシーン
+	std::unique_ptr<TitleScene> m_titleScene;
+
+	//		リザルトシーン
+	std::unique_ptr<ResultScene> m_resultScene;
 
 public:
 

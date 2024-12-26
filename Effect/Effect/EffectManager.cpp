@@ -19,7 +19,7 @@ EffectManager::EffectManager(PlayerInformation* playerInformation,
 	m_wireUseEffect = std::make_unique<WireUseEffect>(m_playerInformation);
 
 	//		デジタル雨の生成
-	m_degitalRain = std::make_unique<DegitalRain>(this);
+	m_degitalRain = std::make_unique<DegitalRain>();
 
 	//		煙エフェクトの生成
 	//m_smokeEffect = std::make_unique<SmokeEffect>(this);
@@ -93,4 +93,19 @@ void EffectManager::Finalize()
 	m_degitalRain->Finalize();
 
 	//m_smokeEffect->Finalize();
+}
+
+void EffectManager::CameraViewVelocity(DirectX::SimpleMath::Vector3 velocity)
+{
+	m_degitalRain->SetCameraViewVelocity(velocity);
+}
+
+void EffectManager::CameraView(DirectX::SimpleMath::Vector3 view)
+{
+	m_degitalRain->SetCameraEye(view);
+}
+
+void EffectManager::CameraUp(DirectX::SimpleMath::Vector3 up)
+{
+	m_degitalRain->SetCameraUp(up);
 }

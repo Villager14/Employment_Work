@@ -50,8 +50,10 @@ bool MenuCommonProcess::BoxCollider(DirectX::SimpleMath::Vector2 min, DirectX::S
 	return false;
 }
 
+/*
 bool MenuCommonProcess::ButtonCollider(MenuInformation::MenuType type)
 {
+
 	MenuInformation::MenuType hitType = MenuInformation::MenuType::Empty;
 
 	//		”ÍˆÍ“à‚É‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
@@ -126,6 +128,7 @@ bool MenuCommonProcess::ButtonCollider(MenuInformation::MenuType type)
 
 	return false;
 }
+*/
 
 void MenuCommonProcess::SlideProcess(AboveUI::UIType type)
 {
@@ -167,7 +170,6 @@ void MenuCommonProcess::SlideProcess(AboveUI::UIType type)
 				MusicLibrary::GetInstance()->PlaySoundEffect(MusicLibrary::SoundEffectType::Decision);
 
 			m_information->SetSliderSelectUI(AboveUI::UIType::Empty);
-
 		}
 	}
 

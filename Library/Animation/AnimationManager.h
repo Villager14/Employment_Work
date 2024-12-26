@@ -18,6 +18,9 @@
 
 #include "AnimationCommonProcess.h"
 
+#include "Effect/PostEffect/PostEffectObjectShader.h"
+
+#include "Effect/PostEffect/PostEffectFlag.h"
 
 #include "State/Player/AttackAnimationState.h"
 #include "State/Player/CrouchingStayAnimationState.h"
@@ -84,7 +87,8 @@ public:
 	void Initialize();
 
 	//		描画処理
-	void Render();
+	void Render(PostEffectFlag::Flag flag, 
+				PostEffectObjectShader* postEffectObjectShader);
 
 	//		更新処理
 	void Execute(float speed, DirectX::SimpleMath::Vector3 position,
@@ -149,6 +153,9 @@ private:
 
 	//		アニメーションの情報
 	std::unordered_map<AnimationState, std::unique_ptr<IAnimation>> m_animaInformation;
+
+	//		ピクセルシェーダー
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixselShader;
 
 	//		頭モデルを作成するかどうか
 	bool m_createHead;

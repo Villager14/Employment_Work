@@ -49,7 +49,7 @@ public:
 		Empty,
 	};
 
-private:
+public:
 
 	//		MastarVolumUIÇÃç¿ïW
 	const DirectX::SimpleMath::Vector2 MASTER_VOLUM_POSITION = { 200.0f, -100.0f };

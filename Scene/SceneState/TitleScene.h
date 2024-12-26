@@ -29,9 +29,16 @@
 
 #include "Game/TitleScene/Camera/TitleCameraManager.h"
 
+#include "Game/Observer/Menu/MenuOpenJudgementObserver/IMenuOpenJudgementObserver.h"
+
+#include "Game/Observer/Menu/MenuUsedObserver/MenuUsedObserver.h"
+
+#include "Game/Observer/Menu/MenuOpenObserver/MenuOpenObserver.h"
+
 class SceneManager;
 
-class TitleScene : public IScene
+class TitleScene : public IScene,
+				   public IMenuOpenJudgementObserver
 {
 public:
 
@@ -55,6 +62,12 @@ public:
 
 	//		オブザーバーの追加
 	void AddObserver();
+
+	//		メニューを開いている
+	void MenuOpen() override;
+
+	//		メニューを閉じている
+	void MenuClose() override;
 
 private:
 	//		シーンマネージャーのインスタンスのポインタ
@@ -86,5 +99,27 @@ private:
 
 	//		カメラマネージャー
 	std::unique_ptr<TitleCameraManager> m_cameraManager;
+
+	//		メニューを使うか判断するオブザーバー
+	std::unique_ptr<MenuUsedObserver> m_menuUsedObserver;
+
+	//		メニューを開くオブザーバー
+	std::unique_ptr<MenuOpenObserver> m_menuOpenObserver;
+
+public:
+
+	/*
+	*	メニューを使用できるか判断するオブザーバー
+	* 
+	*	@return インスタンスのポインタ
+	*/
+	MenuUsedObserver* GetMenuUsedObserver() { return m_menuUsedObserver.get(); }
+
+	/*
+	*	メニューを開くオブザーバーを受け取る
+	* 
+	*	@param	(observer)	インスタンスのポインタ
+	*/
+	void AddMenuOpenObserver(IMenuOpenObserver* observer) { m_menuOpenObserver->AddObserver(observer); }
 };
  

@@ -9,6 +9,8 @@
 
 #include "AnimationManager.h"
 
+#include "Common/ReaData.h"
+
 AnimationManager::AnimationManager(CharactorType type)
 	:
 	m_charaType(type),
@@ -77,6 +79,14 @@ AnimationManager::~AnimationManager()
 
 void AnimationManager::Initialize()
 {
+	// ピクセルシェーダーの作成
+	std::vector<uint8_t> ps_torus =
+		DX::ReadData(L"Resources/Shader/Model/BillShader/BillShaderPS.cso");
+	DX::ThrowIfFailed(
+		LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDevice()
+		->CreatePixelShader(ps_torus.data(), ps_torus.size(),
+			nullptr, m_pixselShader.ReleaseAndGetAddressOf()));
+
 	//		モデルの作製
 	CreateModel(m_createHead);
 
@@ -109,15 +119,30 @@ void AnimationManager::Initialize()
 	}
 }
 
-void AnimationManager::Render()
+void AnimationManager::Render(PostEffectFlag::Flag flag,
+							  PostEffectObjectShader* postEffectObjectShader)
 {
+	auto context = LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext();
+
 	for (int i = 0, max = static_cast<int>(m_model.size());
 		 i < max; ++i)
 	{
-		m_model[i]->Draw(LibrarySingleton::GetInstance()->GetDeviceResources()->GetD3DDeviceContext(),
+		m_model[i]->Draw(context,
 			*LibrarySingleton::GetInstance()->GetCommonState(),
 			*m_information->GetWorld(i), LibrarySingleton::GetInstance()->GetView(),
-			LibrarySingleton::GetInstance()->GetProj(), m_information->GetWireJudgement());
+			LibrarySingleton::GetInstance()->GetProj(), m_information->GetWireJudgement(), [&]{
+			
+				//		ポストエフェクト時
+				if (flag & PostEffectFlag::Flag::AlphaDepth)
+				{
+					// ポストエフェクト時のシェーダー設定
+					context->PSSetShader(postEffectObjectShader->GetPixselShader(), nullptr, 0);
+				}
+				else
+				{
+					context->PSSetShader(m_pixselShader.Get(), nullptr, 0);
+				}
+			});
 	}
 }
 
@@ -163,6 +188,22 @@ void AnimationManager::CreateModel(bool createHead)
 
 	if (createHead) LoadModel(L"Resources/Models/Player/Head.cmo", m_effect);
 	if (m_information->GetGunModelJudgement()) LoadModel(L"Resources/Models/Player/HandGun.cmo", m_effect);
+
+	for (std::unique_ptr<DirectX::Model>& e : m_model)
+	{
+		e->UpdateEffects([&](DirectX::IEffect* effect)
+			{
+				auto basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
+
+				if (basicEffect)
+				{
+					basicEffect->SetLightingEnabled(true);
+					basicEffect->SetPerPixelLighting(true);
+					basicEffect->SetTextureEnabled(true);
+					basicEffect->SetVertexColorEnabled(false);
+				}
+			});
+	}
 }
 
 void AnimationManager::LoadModel(const wchar_t* path, DirectX::EffectFactory* effect)

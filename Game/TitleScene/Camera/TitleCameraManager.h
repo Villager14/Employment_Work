@@ -11,6 +11,8 @@
 
 #include "../Observer/FadeObserver/FadeObserver.h"
 
+#include "Game/Observer/CameraViewVelocity/CameraViewVelocityObserver.h"
+
 class TitleCameraManager
 {
 public:
@@ -94,6 +96,9 @@ private:
 	//		フェードオブザーバー
 	std::unique_ptr<FadeObserver> m_fadeObserver;
 
+	//		カメラビューオブザーバー
+	std::unique_ptr<CameraViewVelocityObserver> m_cameraViewVelocityObserver;
+
 	//		フェードアウトを行ったかどうか
 	bool m_fadeOutUseJudgement;
 
@@ -105,4 +110,11 @@ public:
 	*	@param	(observer)	オブザーバーのポインタ
 	*/
 	void AddFadeObserver(IFadeObserver* observer) { m_fadeObserver->AddObserver(observer); };
+
+	/*
+	*	カメラビューベクトルオブザーバを追加する
+	* 
+	*	@param	(observer)	オブザーバーのポインタ
+	*/
+	void AddCameraViewVelocity(ICameraViewVelocityObserver* observer) { m_cameraViewVelocityObserver->AddObserver(observer); }
 };

@@ -92,9 +92,6 @@
     <Filter Include="Game\Menu">
       <UniqueIdentifier>{4adf085f-bc71-4667-887b-b2cd70bdfa98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Menu\State">
-      <UniqueIdentifier>{3b837777-bd01-4574-b8a1-b44e4307fe1f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Library\Shader">
       <UniqueIdentifier>{2de7bf5e-06bc-405f-b05a-f1a4a4be0bc4}</UniqueIdentifier>
     </Filter>
@@ -461,6 +458,120 @@
     <Filter Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver">
       <UniqueIdentifier>{07c7f5b9-ff34-4988-8515-de5d2d8b8e36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Observer">
+      <UniqueIdentifier>{1cdaccda-c7b0-4ef1-b57c-4a5afaec9a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\CameraViewVelocity">
+      <UniqueIdentifier>{ca0f97de-2066-4487-b475-e42e95c30535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI">
+      <UniqueIdentifier>{cd6fabe2-1098-4d28-b856-56ee0f66dcc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\Tab">
+      <UniqueIdentifier>{bef27df3-8dc1-478f-acec-154d97d60f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Flow">
+      <UniqueIdentifier>{e3909351-29f4-453c-952b-1fb3cc86db8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Flow\State">
+      <UniqueIdentifier>{3b837777-bd01-4574-b8a1-b44e4307fe1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\BackGround">
+      <UniqueIdentifier>{9a4df96a-7ecc-442e-bbce-fe97cdd7ac15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer">
+      <UniqueIdentifier>{d529848a-3e7f-4ddb-8adb-e2eb8cae0fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\BackGroundUI">
+      <UniqueIdentifier>{55173d84-7628-4344-aedc-787294e9e075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\TabUI">
+      <UniqueIdentifier>{d37213b8-6312-4353-9922-74c35a1c919e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Mouse">
+      <UniqueIdentifier>{59d294f5-ce06-4636-9586-254ac122e8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\Mouse">
+      <UniqueIdentifier>{5797e40c-d7c3-4cec-bd58-7791ea8ba2ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\MousePointer">
+      <UniqueIdentifier>{4444674a-cbf4-4089-b287-96d97516da04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\Title">
+      <UniqueIdentifier>{93f6a455-dd0b-4cc9-ad7b-c7e4eb73f97c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\SelectType">
+      <UniqueIdentifier>{c95573d1-1306-4c7c-935b-982d608d2479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\Title">
+      <UniqueIdentifier>{930cd5b4-40d1-4c4a-b44d-be80492339f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\Slider">
+      <UniqueIdentifier>{8df041ad-bd11-494b-ad08-8174179ffbff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\Icon">
+      <UniqueIdentifier>{905a3dfe-d974-4bab-a3b1-15a171fc2a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Collider">
+      <UniqueIdentifier>{1c814c31-e61e-44aa-8e8f-a79714e9ad49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mouse">
+      <UniqueIdentifier>{a0fad380-a26b-48f1-8d5f-ab3006581f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mouse\Observer">
+      <UniqueIdentifier>{074c5998-dfeb-41b0-a85a-947e575caa23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\Collider">
+      <UniqueIdentifier>{971ff39b-b00c-4ac8-9148-e28e1d318729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\GamePlay">
+      <UniqueIdentifier>{da669e27-0770-4ece-a115-6a4d3488c968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\SummarizeColliderInformation">
+      <UniqueIdentifier>{f9248567-f6f7-4b48-bc1f-b04227c449f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\Menu">
+      <UniqueIdentifier>{3d4c0e3a-18ad-40be-912a-9251fcfd82df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\Menu\MenuUsedObserver">
+      <UniqueIdentifier>{5988a7e9-31b5-4460-b2da-1781ac6d4ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\Menu\MenuOpenJudgementObserver">
+      <UniqueIdentifier>{33ea3fe3-e856-45d6-a2a9-28d437b2d947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\Menu\MenuOpenObserver">
+      <UniqueIdentifier>{f486d8b0-516a-41b4-a6e0-6186c85c808b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\Menu\MenuCameraSpeed">
+      <UniqueIdentifier>{2211625f-ef60-466b-aff7-302d0c440dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Observer\Menu\MenuCameraViewAngle">
+      <UniqueIdentifier>{a4e849fa-631b-4080-baef-4561f022e430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Mouse\Observer\Process">
+      <UniqueIdentifier>{3878314b-ab9a-48bd-bd0a-1dc613999f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Keyboard">
+      <UniqueIdentifier>{ca65d264-0c6c-441d-a252-acfd6dee6991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\Keyboard\Observer">
+      <UniqueIdentifier>{d089ec2b-561d-44a1-b670-560bfc932fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\Process">
+      <UniqueIdentifier>{c225343e-e62d-4cd7-972b-a5d72b40e47b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\Audio">
+      <UniqueIdentifier>{0477c6b4-c88c-4460-9af3-a35426718b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\UI\Option">
+      <UniqueIdentifier>{19c93690-c6d7-474b-b486-12f7c72ec7c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Setting">
+      <UniqueIdentifier>{c7c83a93-e56e-4c13-a423-ebbfc4e537ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\Observer\SliderSettingObserver">
+      <UniqueIdentifier>{81c33049-8668-4a5a-aacb-51145d33ec8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -696,17 +807,8 @@
     <ClInclude Include="Game\PlayScene\ObjectManager\WireObject\WireObjectInformation.h">
       <Filter>Game\PlayScene\ObjectManager\WireObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Menu\IMenu.h">
-      <Filter>Game\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Menu\MenuManager.h">
       <Filter>Game\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\State\AudioSetting.h">
-      <Filter>Game\Menu\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\State\MenuStart.h">
-      <Filter>Game\Menu\State</Filter>
     </ClInclude>
     <ClInclude Include="Library\Shader\UIRenderManager.h">
       <Filter>Library\Shader</Filter>
@@ -716,15 +818,6 @@
     </ClInclude>
     <ClInclude Include="Library\Shader\StandardShader.h">
       <Filter>Library\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\State\OptionSetting.h">
-      <Filter>Game\Menu\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\State\EndSetting.h">
-      <Filter>Game\Menu\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Menu\State\MenuClose.h">
-      <Filter>Game\Menu\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Menu\MenuInformation.h">
       <Filter>Game\Menu</Filter>
@@ -1170,6 +1263,192 @@
     <ClInclude Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\TitlePlayerAnimationObserver.h">
       <Filter>Game\TitleScene\Observer\TitlePlayerAnimationObserver</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Observer\CameraViewVelocity\CameraViewVelocityObserver.h">
+      <Filter>Game\Observer\CameraViewVelocity</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\CameraViewVelocity\ICameraViewVelocityObserver.h">
+      <Filter>Game\Observer\CameraViewVelocity</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\MenuUI.h">
+      <Filter>Game\Menu\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Tab\MenuTabUI.h">
+      <Filter>Game\Menu\UI\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\MenuFlow.h">
+      <Filter>Game\Menu\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\IMenu.h">
+      <Filter>Game\Menu\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\State\OptionSetting.h">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\State\AudioSetting.h">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\State\EndSetting.h">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\State\MenuClose.h">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\State\MenuStart.h">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\BackGround\MenuBackGround.h">
+      <Filter>Game\Menu\UI\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\BackGroundUI\MenuBackGroundUIObserver.h">
+      <Filter>Game\Menu\Observer\BackGroundUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\BackGroundUI\IMenuBackGroundUIObserver.h">
+      <Filter>Game\Menu\Observer\BackGroundUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\TabUI\IMenuTabUIObserver.h">
+      <Filter>Game\Menu\Observer\TabUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\TabUI\MenuTabUIObserver.h">
+      <Filter>Game\Menu\Observer\TabUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Mouse\MenuMouseProcess.h">
+      <Filter>Game\Menu\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Mouse\IMenuMouseObserver.h">
+      <Filter>Game\Menu\Observer\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Mouse\MenuMouseObserver.h">
+      <Filter>Game\Menu\Observer\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\MousePointer\MenuMousePointerUI.h">
+      <Filter>Game\Menu\UI\MousePointer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\MenuFlowCommonProcess.h">
+      <Filter>Game\Menu\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Title\MenuTitle.h">
+      <Filter>Game\Menu\UI\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\MenuUITabEnums.h">
+      <Filter>Game\Menu\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\SelectType\IMenuSelectTypeObserver.h">
+      <Filter>Game\Menu\Observer\SelectType</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\SelectType\MenuSelectTypeObserver.h">
+      <Filter>Game\Menu\Observer\SelectType</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Title\IMenuTitleUIObserver.h">
+      <Filter>Game\Menu\Observer\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Title\MenuTitleUIObserver.h">
+      <Filter>Game\Menu\Observer\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Slider\MenuSliderUI.h">
+      <Filter>Game\Menu\UI\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Icon\IMenuIconUIObserver.h">
+      <Filter>Game\Menu\Observer\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Icon\MenuIconUIObserver.h">
+      <Filter>Game\Menu\Observer\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Collider\UIMouseCollider.h">
+      <Filter>Game\Menu\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Collider\MenuColliderInformation.h">
+      <Filter>Game\Menu\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mouse\MouseList.h">
+      <Filter>Library\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mouse\MouseKeyInput.h">
+      <Filter>Library\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mouse\Observer\IMouseKeyInputObserver.h">
+      <Filter>Library\Mouse\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mouse\Observer\MouseKeyInputObserver.h">
+      <Filter>Library\Mouse\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Collider\IMenuColliderObserver.h">
+      <Filter>Game\Menu\Observer\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\Collider\MenuColliderObserver.h">
+      <Filter>Game\Menu\Observer\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\GamePlay\MenuGamePlayUI.h">
+      <Filter>Game\Menu\UI\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\SummarizeColliderInformation\MenuSummarizeColliderInformation.h">
+      <Filter>Game\Menu\UI\SummarizeColliderInformation</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuUsedObserver\IMenuUsedObserver.h">
+      <Filter>Game\Observer\Menu\MenuUsedObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuUsedObserver\MenuUsedObserver.h">
+      <Filter>Game\Observer\Menu\MenuUsedObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuOpenJudgementObserver\IMenuOpenJudgementObserver.h">
+      <Filter>Game\Observer\Menu\MenuOpenJudgementObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuOpenJudgementObserver\MenuOpenJudgementObserver.h">
+      <Filter>Game\Observer\Menu\MenuOpenJudgementObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuOpenObserver\IMenuOpenObserver.h">
+      <Filter>Game\Observer\Menu\MenuOpenObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuOpenObserver\MenuOpenObserver.h">
+      <Filter>Game\Observer\Menu\MenuOpenObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuCameraSpeed\IMenuCameraSpeed.h">
+      <Filter>Game\Observer\Menu\MenuCameraSpeed</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuCameraSpeed\MenuCameraSpeed.h">
+      <Filter>Game\Observer\Menu\MenuCameraSpeed</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuCameraViewAngle\IMenuCameraViewAngle.h">
+      <Filter>Game\Observer\Menu\MenuCameraViewAngle</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Observer\Menu\MenuCameraViewAngle\MenuCameraViewAngle.h">
+      <Filter>Game\Observer\Menu\MenuCameraViewAngle</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Flow\State\MenuStandby.h">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Mouse\Observer\Process\MouseKeyInputProcess.h">
+      <Filter>Library\Mouse\Observer\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Keyboard\KeyboardList.h">
+      <Filter>Library\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Keyboard\KeyboardManager.h">
+      <Filter>Library\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Keyboard\Observer\IKeyboardObserver.h">
+      <Filter>Library\Keyboard\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\Keyboard\Observer\KeyboardObserver.h">
+      <Filter>Library\Keyboard\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Process\MenuSliderProcess.h">
+      <Filter>Game\Menu\UI\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Audio\MenuAudioUI.h">
+      <Filter>Game\Menu\UI\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\UI\Option\MenuOption.h">
+      <Filter>Game\Menu\UI\Option</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Setting\GameSetting.h">
+      <Filter>Game\Menu\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\SliderSettingObserver\ISetSliderSettingValObserver.h">
+      <Filter>Game\Menu\Observer\SliderSettingObserver</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Menu\Observer\SliderSettingObserver\SetSliderSettingValObserver.h">
+      <Filter>Game\Menu\Observer\SliderSettingObserver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -1367,26 +1646,11 @@
     <ClCompile Include="Game\Menu\MenuManager.cpp">
       <Filter>Game\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Menu\State\AudioSetting.cpp">
-      <Filter>Game\Menu\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\State\MenuStart.cpp">
-      <Filter>Game\Menu\State</Filter>
-    </ClCompile>
     <ClCompile Include="Library\Shader\UIRenderManager.cpp">
       <Filter>Library\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Library\Shader\ConstBufferManager.cpp">
       <Filter>Library\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\State\OptionSetting.cpp">
-      <Filter>Game\Menu\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\State\EndSetting.cpp">
-      <Filter>Game\Menu\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Menu\State\MenuClose.cpp">
-      <Filter>Game\Menu\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayScene\Player\PlayerCommonProcessing.cpp">
       <Filter>Game\PlayScene\Player</Filter>
@@ -1726,6 +1990,129 @@
     </ClCompile>
     <ClCompile Include="Game\TitleScene\Observer\TitlePlayerAnimationObserver\TitlePlayerAnimationObserver.cpp">
       <Filter>Game\TitleScene\Observer\TitlePlayerAnimationObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Observer\CameraViewVelocity\CameraViewVelocityObserver.cpp">
+      <Filter>Game\Observer\CameraViewVelocity</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\MenuUI.cpp">
+      <Filter>Game\Menu\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Tab\MenuTabUI.cpp">
+      <Filter>Game\Menu\UI\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\MenuFlow.cpp">
+      <Filter>Game\Menu\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\State\OptionSetting.cpp">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\State\AudioSetting.cpp">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\State\EndSetting.cpp">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\State\MenuClose.cpp">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\State\MenuStart.cpp">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\BackGround\MenuBackGround.cpp">
+      <Filter>Game\Menu\UI\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\BackGroundUI\MenuBackGroundUIObserver.cpp">
+      <Filter>Game\Menu\Observer\BackGroundUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\TabUI\MenuTabUIObserver.cpp">
+      <Filter>Game\Menu\Observer\TabUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Mouse\MenuMouseProcess.cpp">
+      <Filter>Game\Menu\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\Mouse\MenuMouseObserver.cpp">
+      <Filter>Game\Menu\Observer\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\MousePointer\MenuMousePointerUI.cpp">
+      <Filter>Game\Menu\UI\MousePointer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\MenuFlowCommonProcess.cpp">
+      <Filter>Game\Menu\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Title\MenuTitle.cpp">
+      <Filter>Game\Menu\UI\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\SelectType\MenuSelectTypeObserver.cpp">
+      <Filter>Game\Menu\Observer\SelectType</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\Title\MenuTitleUIObserver.cpp">
+      <Filter>Game\Menu\Observer\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Slider\MenuSliderUI.cpp">
+      <Filter>Game\Menu\UI\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\Icon\MenuIconUIObserver.cpp">
+      <Filter>Game\Menu\Observer\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Collider\UIMouseCollider.cpp">
+      <Filter>Game\Menu\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mouse\MouseKeyInput.cpp">
+      <Filter>Library\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mouse\Observer\MouseKeyInputObserver.cpp">
+      <Filter>Library\Mouse\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\Collider\MenuColliderObserver.cpp">
+      <Filter>Game\Menu\Observer\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\GamePlay\MenuGamePlayUI.cpp">
+      <Filter>Game\Menu\UI\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\SummarizeColliderInformation\MenuSummarizeColliderInformation.cpp">
+      <Filter>Game\Menu\UI\SummarizeColliderInformation</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Observer\Menu\MenuUsedObserver\MenuUsedObserver.cpp">
+      <Filter>Game\Observer\Menu\MenuUsedObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Observer\Menu\MenuOpenJudgementObserver\MenuOpenJudgementObserver.cpp">
+      <Filter>Game\Observer\Menu\MenuOpenJudgementObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Observer\Menu\MenuOpenObserver\MenuOpenObserver.cpp">
+      <Filter>Game\Observer\Menu\MenuOpenObserver</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Observer\Menu\MenuCameraSpeed\MenuCameraSpeed.cpp">
+      <Filter>Game\Observer\Menu\MenuCameraSpeed</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Observer\Menu\MenuCameraViewAngle\MenuCameraViewAngle.cpp">
+      <Filter>Game\Observer\Menu\MenuCameraViewAngle</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Flow\State\MenuStandby.cpp">
+      <Filter>Game\Menu\Flow\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Mouse\Observer\Process\MouseKeyInputProcess.cpp">
+      <Filter>Library\Mouse\Observer\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Keyboard\KeyboardManager.cpp">
+      <Filter>Library\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\Keyboard\Observer\KeyboardObserver.cpp">
+      <Filter>Library\Keyboard\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Process\MenuSliderProcess.cpp">
+      <Filter>Game\Menu\UI\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Audio\MenuAudioUI.cpp">
+      <Filter>Game\Menu\UI\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\UI\Option\MenuOption.cpp">
+      <Filter>Game\Menu\UI\Option</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Setting\GameSetting.cpp">
+      <Filter>Game\Menu\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Menu\Observer\SliderSettingObserver\SetSliderSettingValObserver.cpp">
+      <Filter>Game\Menu\Observer\SliderSettingObserver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

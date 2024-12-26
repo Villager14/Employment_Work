@@ -120,7 +120,7 @@ bool ScreenColor::RedScreen()
 bool ScreenColor::GrayScreen()
 {
 	//		メニューが開いた時
-	if (m_postEffectManager->GetMenuInformation()->GetMenuTransrationJudgement() && !m_menuOpenJudgement)
+	if (m_postEffectManager->GetMenuOpenJudgement() && !m_menuOpenJudgement)
 	{
 		m_elapsedTime += LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
 
@@ -139,7 +139,7 @@ bool ScreenColor::GrayScreen()
 	}
 
 	//		メニューを開いている時
-	if (m_menuOpenJudgement && !m_postEffectManager->GetMenuInformation()->GetMenuTransrationJudgement())
+	if (m_menuOpenJudgement && !m_postEffectManager->GetMenuOpenJudgement())
 	{
 		m_elapsedTime -= LibrarySingleton::GetInstance()->GetElpsedTime() * 2.0f;
 

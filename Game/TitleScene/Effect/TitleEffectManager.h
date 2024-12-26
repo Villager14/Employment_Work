@@ -9,7 +9,9 @@
 
 #include "Effect/Effect/DigitalRain/DegitalRain.h"
 
-class TitleEffectManager
+#include "Game/Observer/CameraViewVelocity/ICameraViewVelocityObserver.h"
+
+class TitleEffectManager : public ICameraViewVelocityObserver
 {
 public:
 
@@ -31,9 +33,18 @@ public:
 	//		終了処理
 	void Finalize();
 
+	//		カメラのビューベクトル
+	void CameraViewVelocity(DirectX::SimpleMath::Vector3 velocity) override;
+
+	//		カメラのビュー
+	void CameraView(DirectX::SimpleMath::Vector3 view) override;
+
+	//		カメラのアップ
+	void CameraUp(DirectX::SimpleMath::Vector3 up) override;
+
 private:
 
 	//		デジタル雨
-	std::unique_ptr<DegitalRain> m_degitalRanin;
+	std::unique_ptr<DegitalRain> m_degitalRain;
 
 };

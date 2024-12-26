@@ -68,7 +68,7 @@ void CommonEnemyCharge::Render()
 	//	world, LibrarySingleton::GetInstance()->GetView(),
 	//LibrarySingleton::GetInstance()->GetProj());
 
-	m_commonEnemy->GetPlayerAnimation()->Render();
+	//m_commonEnemy->GetPlayerAnimation()->Render();
 }
 
 void CommonEnemyCharge::Finalize()
